@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{AABFABC2-118B-4A6A-A399-9220971B6988}"
 	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{4AD1135D-7205-4AF5-8CD1-5B616F300931}|BusinessLogic.dll;{F3AA2566-CB18-40FF-8CB1-DBA13D508BF1}|Common.dll;{5AB1E7FD-9FDE-46C5-866B-A1588BD525DB}|Common.Web.UI.dll;{1DB68056-24DA-4F94-A681-937F5897A240}|DataEntity.dll;{0CB8C6D8-793F-4F96-ACFF-9A7527D5AA4C}|DataAccess.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Web"
@@ -38,6 +42,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{AABFABC2-11
 		VWDPort = "53295"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
+	ProjectSection(SvnOrigin) = preProject
+		@Keys = Enlist,Svn.Uri
+		Enlist = Required
+		Svn.Uri = Web/
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common\Common.csproj", "{F3AA2566-CB18-40FF-8CB1-DBA13D508BF1}"
 EndProject
@@ -48,6 +57,10 @@ EndProject
 Project("{C8D11400-126E-41CD-887F-60BD40844F9E}") = "DB", "DataBase\DB\DB.dbproj", "{67CBC824-A49E-4E9B-A947-360F3DFE65C3}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

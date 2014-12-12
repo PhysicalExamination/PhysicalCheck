@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Admin" assembly="DataEntity">
+    <class name="RoleMemberEntity" table="rolemember" >
+        <composite-id>
+            <key-property name="RoleNo" column="RoleNo" type="String" length="60" /> 
+            <key-property name="UserNo" column="UserNo" type="String" length="60" /> 
+        </composite-id>
+    </class>
+</hibernate-mapping>
+

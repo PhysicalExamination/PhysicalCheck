@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="IndustryEntity" table="industry" >
+        <id name="IndustryID" column="IndustryID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="IndustryName" column="industryName" type="String" not-null="true" length="600" /> 
+        <property name="Validity" column="Validity" type="Int32" not-null="true" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1DB68056-24DA-4F94-A681-937F5897A240}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataEntity</RootNamespace>
+    <AssemblyName>DataEntity</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\DepartmentEntity.cs" />
+    <Compile Include="Admin\ModuleEntity.cs" />
+    <Compile Include="Admin\RoleEntity.cs" />
+    <Compile Include="Admin\RoleMemberEntity.cs" />
+    <Compile Include="Admin\RolePermissionEntity.cs" />
+    <Compile Include="Admin\SysUserEntity.cs" />
+    <Compile Include="Admin\SysUserViewEntity.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Examination\CheckPersonEntity.cs" />
+    <Compile Include="Examination\CheckPersonViewEntity.cs" />
+    <Compile Include="Examination\DepartmentGroupEntity.cs" />
+    <Compile Include="Examination\DepartmentGroupViewEntity.cs" />
+    <Compile Include="Examination\DepartmentPackageEntity.cs" />
+    <Compile Include="Examination\DepartmentPackageViewEntity.cs" />
+    <Compile Include="Examination\GroupResultEntity.cs" />
+    <Compile Include="Examination\GroupResultViewEntity.cs" />
+    <Compile Include="Examination\ItemResultEntity.cs" />
+    <Compile Include="Examination\ItemResultViewEntity.cs" />
+    <Compile Include="Examination\PhysicalDepartmentEntity.cs" />
+    <Compile Include="Examination\RegistrationEntity.cs" />
+    <Compile Include="Examination\RegistrationViewEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysConfig\CheckedItemEntity.cs" />
+    <Compile Include="SysConfig\CommonCodeEntity.cs" />
+    <Compile Include="SysConfig\CommonResultEntity.cs" />
+    <Compile Include="SysConfig\HospitalEntity.cs" />
+    <Compile Include="SysConfig\IndustryEntity.cs" />
+    <Compile Include="SysConfig\ItemGroupDetailEntity.cs" />
+    <Compile Include="SysConfig\ItemGroupDetailViewEntity.cs" />
+    <Compile Include="SysConfig\ItemGroupEntity.cs" />
+    <Compile Include="SysConfig\ItemGroupViewEntity.cs" />
+    <Compile Include="SysConfig\PackageEntity.cs" />
+    <Compile Include="SysConfig\PackageGroupEntity.cs" />
+    <Compile Include="SysConfig\PackageGroupViewEntity.cs" />
+    <Compile Include="SysConfig\SuggestionEntity.cs" />
+    <Compile Include="SysConfig\SuggestionViewEntity.cs" />
+    <Compile Include="SysConfig\SysParameterEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Sysuser.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Checkeditem.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Checkperson.hbm.xml" />
+    <EmbeddedResource Include="Mapping\CommonCode.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Commonresult.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Department.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Departmentgroup.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Departmentpackage.hbm.xml" />
+    <EmbeddedResource Include="Mapping\GroupResult.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Industry.hbm.xml" />
+    <EmbeddedResource Include="Mapping\ItemGroup.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Itemgroupdetail.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Itemresult.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Module.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Package.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Packagegroup.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Role.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Rolemember.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Rolepermission.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\SysUserView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Suggestion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\SuggestionView.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\PackageGroupView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\ItemGroupView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\ItemGroupDetailView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Physicaldepartment.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\DepartmentGroupView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\DepartmentPackageView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\CheckPersonView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Registration.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\GroupResultView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\ItemResultView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\RegistrationView.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

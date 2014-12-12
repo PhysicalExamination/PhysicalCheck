@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Examination" assembly="DataEntity">
+    <class name="DepartmentGroupEntity" table="departmentgroup" >
+        <composite-id name="ID" class="DepartmentGroupPK">
+            <key-property name="GroupID" column="GroupID" type="Int32" /> 
+            <key-property name="DeptID" column="DeptID" type="Int32" /> 
+        </composite-id>
+        <property name="GroupName" column="GroupName" type="String" not-null="true" length="900" /> 
+        <property name="Sex" column="Sex" type="String" not-null="true" length="9" />
+        <property name="PackageID" column="PackageID" type="Int32" not-null="false"/>
+        <property name="IsChildren" column="IsChildren" type="Boolean" not-null="false" /> 
+        <property name="Duty" column="Duty" type="String" not-null="false" length="60" /> 
+        <property name="Position" column="Position" type="String" not-null="false" length="60" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

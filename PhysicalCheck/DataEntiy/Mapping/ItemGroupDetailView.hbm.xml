@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="ItemGroupDetailViewEntity" table="ItemGroupDetailView" mutable="false" >
+        <composite-id name="ID" class="ItemGroupDetailPK">
+            <key-property name="GroupID" column="GroupID" type="Int32" />
+            <key-property name="ItemID" column="ItemID" type="Int32" />
+        </composite-id>
+        <property name="GroupName" column="GroupName" type="String" not-null="false" length="300" />
+        <property name="ItemName" column="ItemName" type="String" not-null="false" length="200" />
+        <property name="MeasureUnit" column="MeasureUnit" type="String" not-null="false" length="20" />
+        <property name="LowerLimit" column="LowerLimit" type="String" not-null="false" length="10" />
+        <property name="UpperLimit" column="UpperLimit" type="String" not-null="false" length="10" />
+        <property name="NormalTips" column="NormalTips" type="String" not-null="false" length="100" />
+    </class>
+</hibernate-mapping>
+

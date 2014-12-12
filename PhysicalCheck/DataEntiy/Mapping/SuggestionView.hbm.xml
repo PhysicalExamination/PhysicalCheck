@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="SuggestionViewEntity" table="SuggestionView"  mutable="false" >
+        <id name="SNo" column="SNo" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="Name" column="Name" type="String" not-null="true" length="300" />
+        <property name="KeyWord" column="KeyWord" type="String" not-null="true" length="300" />
+        <property name="DeptID" column="DeptID" type="Int32" not-null="false" />
+        <property name="DeptName" column="DeptName" type="String" not-null="false" length="50"/>
+        <property name="Suggestion" column="Suggestion" type="String" not-null="true" length="65535" />
+        <property name="Explain" column="Explain" type="String" not-null="false" length="65535" />
+        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />        
+    </class>
+</hibernate-mapping>
+

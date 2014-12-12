@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CB8C6D8-793F-4F96-ACFF-9A7527D5AA4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\DepartmentDataAccess.cs" />
+    <Compile Include="Admin\ModuleDataAccess.cs" />
+    <Compile Include="Admin\RoleDataAccess.cs" />
+    <Compile Include="Admin\RoleMemberDataAccess.cs" />
+    <Compile Include="Admin\RolePermissionDataAccess.cs" />
+    <Compile Include="Admin\SysUserDataAccess.cs" />
+    <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="Examination\CheckPersonDataAccess.cs" />
+    <Compile Include="Examination\DepartmentGroupDataAccess.cs" />
+    <Compile Include="Examination\DepartmentPackageDataAccess.cs" />
+    <Compile Include="Examination\GroupResultDataAccess.cs" />
+    <Compile Include="Examination\ItemResultDataAccess.cs" />
+    <Compile Include="Examination\PhysicalDepartmentDataAccess.cs" />
+    <Compile Include="Examination\RegistrationDataAccess.cs" />
+    <Compile Include="NHibernateHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysConfig\CheckedItemDataAccess.cs" />
+    <Compile Include="SysConfig\CommonCodeDataAccess.cs" />
+    <Compile Include="SysConfig\CommonResultDataAccess.cs" />
+    <Compile Include="SysConfig\HospitalDataAccess.cs" />
+    <Compile Include="SysConfig\IndustryDataAccess.cs" />
+    <Compile Include="SysConfig\ItemGroupDataAccess.cs" />
+    <Compile Include="SysConfig\ItemGroupDetailDataAccess.cs" />
+    <Compile Include="SysConfig\PackageDataAccess.cs" />
+    <Compile Include="SysConfig\PackageGroupDataAccess.cs" />
+    <Compile Include="SysConfig\SuggestionDataAccess.cs" />
+    <Compile Include="SysConfig\SysParameterDataAccess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataEntiy\DataEntity.csproj">
+      <Project>{1DB68056-24DA-4F94-A681-937F5897A240}</Project>
+      <Name>DataEntity %28DataEntity\DataEntity%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

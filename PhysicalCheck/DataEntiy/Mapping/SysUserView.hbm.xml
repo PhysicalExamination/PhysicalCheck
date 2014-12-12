@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Admin" assembly="DataEntity">
+  <class name="SysUserViewEntity" table="[dbo].[SysUserView]"  mutable="false">
+    <id name="UserNo" column="[UserNo]" type="AnsiString" length="20" >
+      <generator class="assigned" />
+    </id>
+    <property name="DeptNo" column="[DeptNo]" type="AnsiString" not-null="false" length="20" />
+    <property name="DeptName" column="[DeptName]" type="AnsiString" not-null="false" length="50" />
+    <property name="UserName" column="[UserName]" type="AnsiString" not-null="false" length="30" />
+    <property name="Position" column="[Position]" type="AnsiString" not-null="false" length="50" />
+    <property name="LinkTel" column="[LinkTel]" type="AnsiString" not-null="false" length="20" />
+    <property name="Mobile" column="[Mobile]" type="AnsiString" not-null="false" length="20" />    
+    <property name="UserCategory" column="[UserCategory]" type="AnsiString" not-null="false" length="1" />
+    <property name="LoginIP" column="[LoginIP]" type="AnsiString" not-null="false" length="40" />
+    <property name="IsBindLogin" column="[IsBindLogin]" type="Boolean" not-null="false" />
+    <property name="PassWord" column="[PassWord]" type="AnsiString" not-null="false" length="150" />
+    <property name="OrderNo" column="[OrderNo]" type="Int32" not-null="false" />
+    <property name="UserAccount" column="[UserAccount]" type="AnsiString" not-null="true" length="50" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Examination" assembly="DataEntity">
+    <class name="DepartmentPackageViewEntity" table="DepartmentPackageView" mutable="false" >
+        <composite-id name="ID" class="DepartmentPackagePK">
+            <key-property name="DeptID" column="DeptID" type="Int32" />
+            <key-property name="DeptGorupID" column="DeptGorupID" type="Int32" />
+            <key-property name="ItemID" column="ItemID" type="Int32" />
+        </composite-id>
+        <property name="Category" column="Category" type="String" not-null="true" length="3" />
+        <property name="Enabled" column="Enabled" type="Byte" not-null="false" />
+        <property name="DeptName" column="DeptName" type="String" not-null="false" length="100" />
+        <property name="GroupName" column="GroupName" type="String" not-null="false" length="100" />
+        <property name="ItemName" column="ItemName" type="String" not-null="false" length="200" />
+    </class>
+</hibernate-mapping>

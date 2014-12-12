@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Examination" assembly="DataEntity">
+    <class name="ItemResultEntity" table="itemresult" >
+        <composite-id name="ID" class="ItemResultPK">
+            <key-property name="RegisterNo" column="RegisterNo" type="String" length="60" /> 
+            <key-property name="GroupID" column="GroupID" type="Int32" /> 
+            <key-property name="ItemID" column="ItemID" type="Int32" /> 
+        </composite-id>
+        <property name="CheckedResult" column="CheckedResult" type="String" not-null="false" length="1500" /> 
+        <property name="DeptID" column="DeptID" type="Int32" not-null="false" /> 
+        <property name="CheckDoctor" column="CheckDoctor" type="String" not-null="false" length="60" /> 
+        <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

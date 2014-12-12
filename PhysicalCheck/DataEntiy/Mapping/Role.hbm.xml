@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Admin" assembly="DataEntity">
+    <class name="RoleEntity" table="role" >
+        <id name="RoleNo" column="RoleNo" type="String" length="60" >
+            <generator class="assigned" />
+        </id>
+        <property name="RoleName" column="RoleName" type="String" not-null="false" length="90" /> 
+        <property name="Description" column="Description" type="String" not-null="false" length="600" /> 
+        <property name="OrderNo" column="OrderNo" type="Int32" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

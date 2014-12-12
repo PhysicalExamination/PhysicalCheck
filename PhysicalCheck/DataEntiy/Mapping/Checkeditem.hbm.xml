@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="CheckedItemEntity" table="checkeditem" >
+        <id name="ItemID" column="ItemID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="ItemName" column="ItemName" type="String" not-null="true" length="600" /> 
+        <property name="DeptID" column="DeptID" type="Int32" not-null="true" /> 
+        <property name="MeasureUnit" column="MeasureUnit" type="String" not-null="false" length="60" /> 
+        <property name="LowerLimit" column="LowerLimit" type="String" not-null="false" length="30" /> 
+        <property name="UpperLimit" column="UpperLimit" type="String" not-null="false" length="30" /> 
+        <property name="NormalTips" column="NormalTips" type="String" not-null="false" length="300" /> 
+        <property name="LowerTips" column="LowerTips" type="String" not-null="false" length="300" /> 
+        <property name="UpperTips" column="UpperTips" type="String" not-null="false" length="300" /> 
+        <property name="Sex" column="Sex" type="String" not-null="true" length="9" /> 
+        <property name="MaxValue" column="MaxValue" type="Decimal" not-null="false" /> 
+        <property name="MinValue" column="MinValue" type="Decimal" not-null="false" /> 
+        <property name="IsSummary" column="IsSummary" type="Boolean" not-null="false" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
+        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+    </class>
+</hibernate-mapping>
+

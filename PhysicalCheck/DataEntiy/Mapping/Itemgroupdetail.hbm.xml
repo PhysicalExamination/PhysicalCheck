@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="ItemGroupDetailEntity" table="itemgroupdetail" >
+        <composite-id name="ID" class="ItemGroupDetailPK">
+            <key-property name="GroupID" column="GroupID" type="Int32" /> 
+            <key-property name="ItemID" column="ItemID" type="Int32" /> 
+        </composite-id>
+        <property name="GroupName" column="GroupName" type="String" not-null="false" length="300" /> 
+        <property name="ItemName" column="ItemName" type="String" not-null="false" length="600" /> 
+    </class>
+</hibernate-mapping>
+

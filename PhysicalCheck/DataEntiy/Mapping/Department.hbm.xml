@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Admin" assembly="DataEntity">
+    <class name="DepartmentEntity" table="department" >
+        <id name="DeptID" column="DeptID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="DeptName" column="DeptName" type="String" not-null="true" length="150" /> 
+        <property name="DeptKind" column="DeptKind" type="String" not-null="true" length="9" /> 
+        <property name="DepLlocation" column="DepLlocation" type="String" not-null="false" length="600" /> 
+        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

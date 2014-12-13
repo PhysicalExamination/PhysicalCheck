@@ -5,17 +5,20 @@
     <script type="text/javascript">
 
         function SaveReturn() {
-            var sReturnValues = "";
+            var sReturnValues = "";           
             var $parent;
-            $(":checked").each(function (index, item) {
-                console.log(index);
-                console.log(item);
+            $(":checked").each(function (index, item) {              
                 $parent = $(item).parent().parent();
-                sReturnValues += $parent.children().eq(1).text();
-                sReturnValues += $parent.children().eq(2).text();
+                sReturnValues += "\n" + trim($parent.children().eq(1).text()) + "\n";                
+                sReturnValues += trim($parent.children().eq(2).text());
             });
             window.returnValue = sReturnValues;
-            window.close();            
+            window.close();
+        }
+
+        function trim(sValue) {
+            if (sValue == null) return "";
+            return sValue.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
         }
 
     </script>

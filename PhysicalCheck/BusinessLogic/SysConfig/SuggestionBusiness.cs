@@ -6,8 +6,8 @@ using DataAccess.SysConfig;
 using DataEntity.SysConfig;
 
 namespace BusinessLogic.SysConfig {
-    
-    public class SuggestionBusiness:BaseBusinessLogic<SuggestionDataAccess> {
+
+    public class SuggestionBusiness : BaseBusinessLogic<SuggestionDataAccess> {
 
         /// <summary>
         ///分页获取所有数据
@@ -15,8 +15,13 @@ namespace BusinessLogic.SysConfig {
         ///<param name="pageSize">页面大小</param>
         ///<param name="RecordCount">总记录数据</param>
         /// </summary>
-        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
+        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
             return DataAccess.GetSuggestions(pageIndex, pageSize, out RecordCount);
+        }
+
+        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, int DeptID,
+            out int RecordCount) {
+            return DataAccess.GetSuggestions(pageIndex, pageSize, DeptID, out RecordCount);
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ using DataEntity.Examination;
 
 namespace BusinessLogic.Examination {
 
-    public class RegistrationBusiness:BaseBusinessLogic<RegistrationDataAccess> {
+    public class RegistrationBusiness : BaseBusinessLogic<RegistrationDataAccess> {
 
         #region 构造器
 
@@ -23,8 +23,8 @@ namespace BusinessLogic.Examination {
         /// </summary>
         public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-                return DataAccess.GetRegistrations(pageIndex, pageSize, CheckDate, DeptName, 
-                    RegisterNo, out RecordCount);
+            return DataAccess.GetRegistrations(pageIndex, pageSize, CheckDate, DeptName,
+                RegisterNo, out RecordCount);
         }
 
         /// <summary>
@@ -42,6 +42,38 @@ namespace BusinessLogic.Examination {
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
         public void SaveRegistration(RegistrationViewEntity Registration) {
+            CheckPersonEntity PersonInfo = new CheckPersonEntity {
+                PersonID = Registration.PersonID,
+                Age = Registration.Age,
+                Address = Registration.Address,
+                Birthday = Registration.Birthday,
+                IDNumber = Registration.IDNumber,
+                Sex = Registration.Sex,
+                Education = Registration.Education,
+                LinkTel = Registration.LinkTel,
+                EMail = Registration.EMail,
+                Job = Registration.Job,
+                Nation = Registration.Nation,
+                Marriage = Registration.Marriage,
+                Name = Registration.Name,
+                DeptID = Registration.DeptID,
+                Mobile = Registration.Mobile,
+                Enabled = true
+            };
+            using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
+                CheckPerson.SaveCheckPerson(PersonInfo);
+            }
+
+            RegistrationEntity RegEntity = new RegistrationEntity {
+                RegisterNo = Registration.RegisterNo,
+                CheckDate = Registration.CheckDate,
+                RegisterDate = Registration.RegisterDate,
+                IsCheckOver = false,
+                PersonID = PersonInfo.PersonID,
+                PackageID = Registration.PackageID,
+                Enabled = true
+            };
+            DataAccess.SaveRegistration(RegEntity);            
             //DataAccess.SaveRegistration(Registration);
         }
 
@@ -52,6 +84,7 @@ namespace BusinessLogic.Examination {
         public void DeleteRegistration(RegistrationViewEntity Registration) {
             //DataAccess.DeleteRegistration(Registration);
         }
+
         #endregion
     }
 }

@@ -46,6 +46,8 @@
     <Compile Include="Admin\SysUserBusiness.cs" />
     <Compile Include="BaseBusiness.cs" />
     <Compile Include="Examination\DepartmentGroupBusiness.cs" />
+    <Compile Include="Examination\GroupResultBusiness.cs" />
+    <Compile Include="Examination\ItemResultBusiness.cs" />
     <Compile Include="Examination\PhysicalDepartmentBusiness.cs" />
     <Compile Include="Examination\RegistrationBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -58,7 +58,7 @@ namespace DataAccess.Examination {
             if (CheckDate != null) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", CheckDate));
             }
-            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();    
             CloseSession();
             return Result;
         }

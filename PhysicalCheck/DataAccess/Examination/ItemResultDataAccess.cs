@@ -28,11 +28,33 @@ namespace DataAccess.Examination {
         /// <summary>
         ///获取所有体检项目结论数据
         /// </summary>
-        public List<ItemResultEntity> GetItemResults(string RegisterNo, int GroupID) {
-            var q = from p in Session.Query<ItemResultEntity>()
-                    where p.ID.RegisterNo == RegisterNo && p.ID.GroupID==GroupID
+        public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
+            var q = from p in Session.Query<ItemResultViewEntity>()
+                    where p.ID.RegisterNo == RegisterNo && p.ID.GroupID == GroupID
                     select p;
-            List<ItemResultEntity> Result = q.ToList<ItemResultEntity>();
+            List<ItemResultViewEntity> Result = q.ToList<ItemResultViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        ///获取体检科室所有体检项目结论数据
+        /// </summary>
+        public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
+            string RegisterNo, int DeptID, out int RecordCount) {
+            String hql = @"select count(ItemID) from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
+            IQuery query = Session.CreateQuery(hql)
+                .SetString(0,RegisterNo)
+                .SetInt32(1, DeptID);
+            object obj = query.UniqueResult();
+            int.TryParse(obj.ToString(), out RecordCount);
+            hql = @" from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
+            IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
+                                                .SetString(0,RegisterNo)
+                                                .SetInt32(1, DeptID)
+                                                .SetFirstResult((pageIndex - 1) * pageSize)
+                                                .SetMaxResults(pageSize)
+                                                .List<ItemResultViewEntity>();
             CloseSession();
             return Result;
         }
@@ -44,9 +66,9 @@ namespace DataAccess.Examination {
         /// <param name="GroupID"></param> 
         /// <param name="ItemID"></param> 
         /// <returns>体检项目结论实体</returns>
-        public ItemResultEntity GetItemResult(string RegisterNo, int GroupID, int ItemID) {
+        public ItemResultViewEntity GetItemResult(string RegisterNo, int GroupID, int ItemID) {
             ItemResultPK ID = new ItemResultPK { RegisterNo = RegisterNo, GroupID = GroupID, ItemID = ItemID };
-            ItemResultEntity Result = Session.Get<ItemResultEntity>(ID);
+            ItemResultViewEntity Result = Session.Get<ItemResultViewEntity>(ID);
             CloseSession();
             return Result;
         }

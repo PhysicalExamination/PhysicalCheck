@@ -31,16 +31,32 @@ namespace DataAccess.SysConfig {
         ///<param name="pageSize">页面大小</param>
         ///<param name="RecordCount">总记录数据</param>
         /// </summary>
-        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
+        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
             String hql = @"select count(SNO) from SuggestionViewEntity order by DisplayOrder";
             IQuery query = Session.CreateQuery(hql);
             object obj = query.UniqueResult();
             int.TryParse(obj.ToString(), out RecordCount);
             hql = @" from SuggestionViewEntity order by DisplayOrder";
-            List<SuggestionViewEntity> Result = Session.CreateQuery(hql)
+            IList<SuggestionViewEntity> Result = Session.CreateQuery(hql)
                                                 .SetFirstResult((pageIndex - 1) * pageSize)
                                                 .SetMaxResults(pageSize)
-                                                .List<SuggestionViewEntity>().ToList<SuggestionViewEntity>();
+                                                .List<SuggestionViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize,int DeptID,
+            out int RecordCount) {
+                String hql = @"select count(SNO) from SuggestionViewEntity where DeptID=? order by DisplayOrder";
+            IQuery query = Session.CreateQuery(hql).SetInt32(0,DeptID);
+            object obj = query.UniqueResult();
+            int.TryParse(obj.ToString(), out RecordCount);
+            hql = @" from SuggestionViewEntity where DeptID=? order by DisplayOrder";
+            IList<SuggestionViewEntity> Result = Session.CreateQuery(hql)
+                                                .SetInt32(0,DeptID)
+                                                .SetFirstResult((pageIndex - 1) * pageSize)
+                                                .SetMaxResults(pageSize)
+                                                .List<SuggestionViewEntity>();
             CloseSession();
             return Result;
         }

@@ -67,6 +67,7 @@ namespace DataAccess.Examination {
         /// <param name="CheckPerson">体检人员实体</param>
         public void SaveCheckPerson(CheckPersonEntity CheckPerson) {
             if (CheckPerson.PersonID == int.MinValue) CheckPerson.PersonID = GetLineID("CheckPerson");
+            if (CheckPerson.PersonID == null) CheckPerson.PersonID = GetLineID("CheckPerson");
             Session.SaveOrUpdate(CheckPerson);
             Session.Flush();
             CloseSession();

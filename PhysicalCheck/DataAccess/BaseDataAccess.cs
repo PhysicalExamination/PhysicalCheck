@@ -71,12 +71,13 @@ namespace DataAccess {
 		protected string GetBillNo(string tableName) {
 			string Result = String.Empty;
 			using (IDbCommand Command = Session.Connection.CreateCommand()) {
-				Command.CommandText = "Proc_GetBillNo";
-				Command.CommandType = CommandType.StoredProcedure;
+                Command.CommandText = "call Proc_GetBillNo(?)";
+				//Command.CommandType = CommandType.StoredProcedure;
 				IDbDataParameter parameter = Command.CreateParameter();
 				parameter.ParameterName = "aTable_nam";
 				parameter.DbType = DbType.String;
 				parameter.Value = tableName;
+                parameter.Direction = ParameterDirection.Input;
 				Command.Parameters.Add(parameter);
 				IDataReader Reader = Command.ExecuteReader();
 				try {

@@ -10,7 +10,29 @@
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
         }
-        
+
+        function selectDept() {
+            var sRegNo = $("#<%=txtRegisterNo.ClientID %>").val();
+            if ((sRegNo != null) || (sRegNo != "")) return;
+            var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?rand=" + Math.random();
+            var sFeatures = "center:yes;help:no;status:no;rsizable:yes";
+            var vArguments = "";
+            var urlValue = window.showModalDialog(sURL, vArguments, sFeatures);            
+            
+            if (urlValue != null || urlValue != undefined) {
+                $("#<%=hDeptID.ClientID %>").val(urlValue[0]);
+                $("#<%=txtDeptName.ClientID %>").val(urlValue[1]);
+            }
+            console.log(urlValue[0]);
+        }
+
+        function btnDataImport() {
+            var sURL = " RegImportDialog.aspx?rand=" + Math.random();
+            var vArguments = "";
+            var sFeatures = "dialogHeight=600px;dialogWidth=800px;center:yes;help:no;status:no;rsizable:yes";
+            window.showModalDialog(sURL, vArguments, sFeatures);
+        }
+       
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -69,10 +91,10 @@
                                     <%# EnvShowFormater.GetNumberString(Eval("Age")) %>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("RegisterDate")%>
+                                    <%# EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("CheckDate")%>
+                                    <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
@@ -95,10 +117,10 @@
                                     <%# EnvShowFormater.GetNumberString(Eval("Age")) %>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("RegisterDate")%>
+                                    <%#EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("CheckDate")%>
+                                    <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail1" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
@@ -143,6 +165,26 @@
                         </tr>
                         <tr>
                             <td class="VLine">
+                                体检单位
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择体检单位"
+                                    onclick="selectDept();" align="middle" border="0" />
+                                <asp:HiddenField ID="hDeptID" runat="server" />
+                            </td>
+                            <td class="VLine">
+                                套 餐
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox ID="txtPackageName" runat="server" CssClass="textbox31" />
+                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
+                                    onclick="selectPackage();" align="middle" border="0" />
+                                     <asp:HiddenField ID="hPackageID" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="VLine">
                                 体检日期
                             </td>
                             <td class="VLine">
@@ -161,9 +203,9 @@
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpSex" runat="server">
-                                    <asp:ListItem Value="1">男</asp:ListItem>
-                                    <asp:ListItem Value="0">女</asp:ListItem>
-                                    <asp:ListItem Value="%">儿童</asp:ListItem>
+                                    <asp:ListItem Value="男">男</asp:ListItem>
+                                    <asp:ListItem Value="女">女</asp:ListItem>
+                                    <asp:ListItem Value="儿童">儿童</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td class="VLine">
@@ -262,7 +304,7 @@
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" class="buttonCss" value="批量导入" />
+                                <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
                             </td>
                         </tr>
                     </table>

@@ -124,6 +124,10 @@ public partial class Examination_RegistrationPage : BasePage {
         if (Result == null) return;
         PersonID = Result.PersonID.Value;
         DeptID = Result.DeptID.Value;
+        txtRegisterNo.Text = Result.RegisterNo;
+        txtRegisterDate.Text = EnvShowFormater.GetShortDate(Result.RegisterDate);
+        txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
+        txtDeptName.Text = Result.DeptName;
         txtName.Text = Result.Name;
         drpSex.SelectedValue = Result.Sex;
         txtIDNumber.Text = Result.IDNumber;
@@ -150,7 +154,7 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.Name = txtName.Text;
         Result.Sex = drpSex.SelectedValue;
         Result.IDNumber = txtIDNumber.Text;
-        Result.Age = EnvConverter.ToDecimal(txtAge.Text);
+        Result.Age = EnvConverter.ToInt32(txtAge.Text);
         Result.DeptID = DeptID;
         Result.Marriage = drpMarriage.SelectedValue;
         Result.Job = txtJob.Text;
@@ -201,7 +205,11 @@ public partial class Examination_RegistrationPage : BasePage {
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             btnSave.Enabled = true;
+            txtRegisterDate.Enabled = false;
+            txtDeptName.Enabled = false;
+            txtPackageName.Enabled = false;
         }
+        txtRegisterNo.Enabled = false;
     }
 
     #endregion
@@ -262,4 +270,5 @@ public partial class Examination_RegistrationPage : BasePage {
 
     #endregion
 
+    
 }

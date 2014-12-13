@@ -80,6 +80,37 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 计量单位
+        /// </summary>		
+        public virtual string MeasureUnit {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 参考下限
+        /// </summary>		
+        public virtual string LowerLimit {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 参考上限
+        /// </summary>		
+        public virtual string UpperLimit {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 正常提示
+        /// </summary>		
+        public virtual string NormalTips {
+            get;
+            set;
+        }
         #endregion
     }
 }

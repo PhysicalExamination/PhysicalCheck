@@ -8,7 +8,7 @@
         <property name="Sex" column="Sex" type="String" not-null="false" length="18" /> 
         <property name="IDNumber" column="IDNumber" type="String" not-null="false" length="60" /> 
         <property name="Birthday" column="Birthday" type="DateTime" not-null="false" /> 
-        <property name="Age" column="Age" type="Decimal" not-null="false" /> 
+        <property name="Age" column="Age" type="Int32" not-null="false" /> 
         <property name="DeptID" column="DeptID" type="Int32" not-null="false" /> 
         <property name="Marriage" column="Marriage" type="String" not-null="false" length="30" /> 
         <property name="Job" column="Job" type="String" not-null="false" length="90" /> 

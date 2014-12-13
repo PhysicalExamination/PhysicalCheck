@@ -62,7 +62,7 @@ namespace DataEntity.Examination {
         /// <summary>
         /// 年龄
         /// </summary>		
-        public virtual decimal? Age {
+        public virtual int? Age {
             get;
             set;
         }

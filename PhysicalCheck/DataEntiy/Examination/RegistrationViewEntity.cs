@@ -9,7 +9,7 @@ namespace DataEntity.Examination {
     /// 实体类:RegistrationViewEntity
     /// 文件名:RegistrationViewEntity.cs
     /// 说  明:体检登记
-    public class RegistrationViewEntity:BaseEntity<RegistrationViewEntity> {
+    public class RegistrationViewEntity : BaseEntity<RegistrationViewEntity> {
 
         #region 构造方法
 
@@ -143,8 +143,7 @@ namespace DataEntity.Examination {
         #endregion
 
         #region 个人信息
-
-
+        
         /// <summary>
         /// 姓名
         /// </summary>		
@@ -180,7 +179,7 @@ namespace DataEntity.Examination {
         /// <summary>
         /// 年龄
         /// </summary>		
-        public virtual decimal? Age {
+        public virtual int? Age {
             get;
             set;
         }

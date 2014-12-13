@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Examination" assembly="DataEntity">
-    <class name="RegistrationViewEntity" table="RegistrationView" >
+    <class name="RegistrationViewEntity" table="RegistrationView" mutable="false" >
         <id name="RegisterNo" column="RegisterNo" type="String" length="60" >
             <generator class="assigned" />
-        </id>        
+        </id>
+        <property name="PersonID" column="PersonID" type="Int32" not-null="true" />
         <property name="RegisterDate" column="RegisterDate" type="DateTime" not-null="true" />
         <property name="PackageID" column="PackageID" type="Int32" not-null="true" />
         <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" />
@@ -14,16 +15,15 @@
         <property name="Conclusion" column="Conclusion" type="String" not-null="false" length="65535" />
         <property name="HealthCondition" column="HealthCondition" type="String" not-null="false" length="90" />
         <property name="EvaluateResult" column="EvaluateResult" type="String" not-null="false" length="90" />
-        <property name="IsCheckOver" column="IsCheckOver" type="Byte" not-null="false" />
+        <property name="IsCheckOver" column="IsCheckOver" type="Boolean" not-null="false" />
         <property name="PrintDate" column="PrintDate" type="DateTime" not-null="false" />
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
-        <!--个人信息部分-->
-        <property name="PersonID" column="PersonID" type="Int32" />
+        <!--个人信息部分-->       
         <property name="Name" column="Name" type="String" not-null="true" length="120" />
         <property name="Sex" column="Sex" type="String" not-null="false" length="18" />
         <property name="IDNumber" column="IDNumber" type="String" not-null="false" length="60" />
         <property name="Birthday" column="Birthday" type="DateTime" not-null="false" />
-        <property name="Age" column="Age" type="Decimal" not-null="false" />
+        <property name="Age" column="Age" type="Int32" not-null="false" />
         <property name="DeptID" column="DeptID" type="Int32" not-null="false" />
         <property name="DeptName" column="DeptName" type="String" not-null="false" length="300" />
         <property name="Marriage" column="Marriage" type="String" not-null="false" length="30" />
@@ -33,7 +33,7 @@
         <property name="LinkTel" column="LinkTel" type="String" not-null="false" length="60" />
         <property name="Address" column="Address" type="String" not-null="false" length="900" />
         <property name="Mobile" column="Mobile" type="String" not-null="false" length="60" />
-        <property name="EMail" column="EMail" type="String" not-null="false" length="300" />      
+        <property name="EMail" column="EMail" type="String" not-null="false" length="300" />   
     </class>
 </hibernate-mapping>
 

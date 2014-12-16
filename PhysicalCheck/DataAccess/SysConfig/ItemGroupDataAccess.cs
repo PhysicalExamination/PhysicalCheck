@@ -25,6 +25,15 @@ namespace DataAccess.SysConfig {
 
         #region 公共方法
 
+        public IList<ItemGroupViewEntity> GetItemGroups(int DeptID) {
+            String hql = @" from ItemGroupViewEntity where Enabled=1 and DeptID=? order by DisplayOrder";
+            IList<ItemGroupViewEntity> Result = Session.CreateQuery(hql)
+                                               .SetInt32(0,DeptID)
+                                                .List<ItemGroupViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
         /// <summary>
         ///获取科室组合项目所有数据
         /// </summary>

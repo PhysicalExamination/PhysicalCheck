@@ -12,8 +12,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
-    登记号：<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" AutoPostBack="True"
-        OnTextChanged="txtsRegisterNo_TextChanged" />
+    登记号：<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
     组合项：<asp:DropDownList ID="drpGroups" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <asp:UpdatePanel ID="UP1" runat="Server">
@@ -43,7 +42,7 @@
                     <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                         <td class="VLine" align="center">
                             <%-- <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("GroupID") %>' Visible="false" />--%>
-                            <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ItemID") %>' Visible="false" />
+                            <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ID.ItemID") %>' Visible="false" />
                             <%# Eval("ItemName")%>
                         </td>
                         <td class="VLine" align="center">
@@ -64,7 +63,7 @@
                     <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                         <td class="VLine" align="center">
                             <%-- <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("GroupID") %>' Visible="false" />--%>
-                            <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ItemID") %>' Visible="false" />
+                            <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ID.ItemID") %>' Visible="false" />
                             <%# Eval("ItemName")%>
                         </td>
                         <td class="VLine" align="center">
@@ -94,8 +93,7 @@
             </asp:AspNetPager>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnSearch" />
-            <asp:AsyncPostBackTrigger ControlID="txtsRegisterNo" />
+            <asp:AsyncPostBackTrigger ControlID="btnSearch" />           
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="UP2" runat="Server">
@@ -112,7 +110,7 @@
                 </tr>
                 <tr>
                     <td class="VLine" colspan="2" align="center">
-                        <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" />
+                        <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
                         <input type="button" class="buttonCss" value="导入小结"  onclick="onSetSummary();"/>
                     </td>
                 </tr>

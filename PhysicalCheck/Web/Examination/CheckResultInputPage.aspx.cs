@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic.Examination;
 using Common.FormatProvider;
 using DataEntity.Examination;
+using BusinessLogic.SysConfig;
 
 public partial class Examination_CheckResultInputPage : BasePage {
 
@@ -17,13 +18,14 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private int? PackageID {
         get {
-            if (ViewState["PackageID"] == null) return null;
+            if (ViewState["PackageID"] == null) {
+                using (RegistrationBusiness Registration = new RegistrationBusiness()) {
+                    String RegisterNo = txtsRegisterNo.Text.Trim();
+                    ViewState["PackageID"] = Registration.GetRegistration(RegisterNo).PackageID;
+                }
+            }
             return (int?)ViewState["PackageID"];
         }
-        set {
-            ViewState["PackageID"] = value;
-        }
-
     }
 
     #endregion
@@ -33,6 +35,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            ClientInitial();
             DataBind();
         }
     }
@@ -69,18 +72,20 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected void btnSave_Click(object Source, EventArgs e) {
         Literal lblItemID;
+        TextBox txtCheckResult;
         int? GroupID = Convert.ToInt32(drpGroups.SelectedValue), ItemID;
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
             lblItemID = (Literal)Item.FindControl("lblItemID");
+            txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             ItemID = EnvConverter.ToInt32(lblItemID.Text);
             ItemResult = new ItemResultEntity {
-                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID },
+                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo=txtsRegisterNo.Text },                
                 DeptID = DepartNo,
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
-                CheckedResult = ""
+                CheckedResult = txtCheckResult.Text
             };
             m_ItemResult.SaveItemResult(ItemResult);
         }
@@ -92,10 +97,10 @@ public partial class Examination_CheckResultInputPage : BasePage {
             CheckDoctor = UserName,
             IsOver = true,
             Summary = txtSummary.Text,
-            PackageID = null
+            PackageID = PackageID
         };
         m_GroupResut.SaveGroupResult(Group);
-
+        ShowMessage("数据保存成功！");
     }
 
     protected void btnSearch_Click(object sender, EventArgs e) {
@@ -104,19 +109,20 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
-    }
+    } 
+    #endregion
 
-    protected void txtsRegisterNo_TextChanged(object sender, EventArgs e) {
-        String RegisterNo = txtsRegisterNo.Text.Trim();
-        List<GroupResultViewEntity> List = m_GroupResut.GetGroupResults(RegisterNo);
-        if (List.Count > 0) {
-            PackageID = List[0].PackageID;
-            drpGroups.DataSource = List.Where(p => p.DeptID == DepartNo).ToList();
+    #region 私有方法
+
+    private void ClientInitial() {
+        using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
+            drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
+            drpGroups.DataValueField = "GroupID";
             drpGroups.DataTextField = "GroupName";
-            drpGroups.DataValueField = "ID.GroupID";
             drpGroups.DataBind();
         }
     }
+
     #endregion
 
 

@@ -19,7 +19,7 @@
         <property name="Address" column="Address" type="String" not-null="false" length="900" />
         <property name="Mobile" column="Mobile" type="String" not-null="false" length="60" />
         <property name="EMail" column="EMail" type="String" not-null="false" length="300" />
-        <property name="Enabled" column="Enabled" type="Byte" not-null="false" />
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
     </class>
 </hibernate-mapping>
 

@@ -73,7 +73,6 @@ namespace DataAccess.Examination {
             RegistrationViewEntity Result = Session.Get<RegistrationViewEntity>(RegisterNo);
             CloseSession();
             return Result;
-
         }
 
         /// <summary>

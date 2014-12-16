@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using DataAccess.Examination;
 using DataEntity.Examination;
+using BusinessLogic.SysConfig;
+using DataEntity.SysConfig;
 
 namespace BusinessLogic.Examination {
 
@@ -73,8 +75,8 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID,
                 Enabled = true
             };
-            DataAccess.SaveRegistration(RegEntity);            
-            //DataAccess.SaveRegistration(Registration);
+            DataAccess.SaveRegistration(RegEntity);
+            SaveCheckGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value);
         }
 
         /// <summary>
@@ -83,6 +85,41 @@ namespace BusinessLogic.Examination {
         /// <param name="Registration">体检登记实体</param>
         public void DeleteRegistration(RegistrationViewEntity Registration) {
             //DataAccess.DeleteRegistration(Registration);
+        }
+
+        #endregion
+
+        #region 私有方法
+
+        private void SaveCheckGroups(String RegisterNo, int PackageID) {
+            GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess();
+            using (PackageBusiness Package = new PackageBusiness()) {
+                List<PackageGroupViewEntity> Groups = Package.GetPackageGroups(PackageID);
+                foreach (PackageGroupViewEntity Group in Groups) {
+                    GroupResultEntity GroupResult = new GroupResultEntity {
+                        ID = new GroupResultPK { GroupID = Group.ID.GroupID, RegisterNo = RegisterNo },
+                        DeptID = Group.DeptID,
+                        IsOver = false,
+                        PackageID = PackageID
+                    };
+                    GroupDataAccess.SaveGroupResult(GroupResult);
+                    SaveCheckItems(RegisterNo, Group.ID.GroupID.Value);
+                }
+            }
+        }
+
+        private void SaveCheckItems(String RegisterNo, int GroupID) {
+            ItemResultDataAccess ResultDataAccess = new ItemResultDataAccess();
+            using (ItemGroupBusiness ItemGroups = new ItemGroupBusiness()) {
+                List<ItemGroupDetailViewEntity> Items = ItemGroups.GetItemGroupDetails(GroupID);
+                foreach (ItemGroupDetailViewEntity Item in Items) {
+                    ItemResultEntity ItemResult = new ItemResultEntity {
+                        ID = new ItemResultPK { GroupID = GroupID, ItemID = Item.ID.ItemID, RegisterNo = RegisterNo },
+                        DeptID = Item.DeptID            
+                    };
+                    ResultDataAccess.SaveItemResult(ItemResult);
+                }
+            }
         }
 
         #endregion

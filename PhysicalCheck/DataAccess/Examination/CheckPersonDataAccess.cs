@@ -30,8 +30,8 @@ namespace DataAccess.Examination {
         ///获取所有体检人员数据
         /// </summary>
         public IList<CheckPersonViewEntity> GetCheckPersons(int pageIndex, int pageSize,
-            String DeptName, out int RecordCount){
-                ICriteria Criteria = Session.CreateCriteria<CheckPersonViewEntity>();
+            String DeptName, out int RecordCount) {
+            ICriteria Criteria = Session.CreateCriteria<CheckPersonViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
@@ -58,7 +58,14 @@ namespace DataAccess.Examination {
             CheckPersonViewEntity Result = Session.Get<CheckPersonViewEntity>(PersonID);
             CloseSession();
             return Result;
+        }
 
+        public CheckPersonViewEntity GetCheckPerson(String IDNumber) {
+            ICriteria Criteria = Session.CreateCriteria<CheckPersonViewEntity>();
+            Criteria.Add(Restrictions.Eq("IDNumber", IDNumber));
+            CheckPersonViewEntity Result = Criteria.UniqueResult<CheckPersonViewEntity>();         
+            CloseSession();
+            return Result;
         }
 
         /// <summary>
@@ -66,6 +73,11 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="CheckPerson">体检人员实体</param>
         public void SaveCheckPerson(CheckPersonEntity CheckPerson) {
+            var person = GetCheckPerson(CheckPerson.IDNumber);
+            if (person != null) {
+                CheckPerson.PersonID = person.PersonID;
+                return;
+            }
             if (CheckPerson.PersonID == int.MinValue) CheckPerson.PersonID = GetLineID("CheckPerson");
             if (CheckPerson.PersonID == null) CheckPerson.PersonID = GetLineID("CheckPerson");
             Session.SaveOrUpdate(CheckPerson);

@@ -67,6 +67,14 @@ namespace DataEntity.SysConfig {
             set;
         }
 
+        /// <summary>
+        /// 检查科室
+        /// </summary>
+        public virtual int? DeptID {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

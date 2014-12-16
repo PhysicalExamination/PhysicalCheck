@@ -29,6 +29,10 @@ namespace BusinessLogic.SysConfig {
 
         #region 公共方法
 
+        public IList<ItemGroupViewEntity> GetItemGroups(int DeptID) {
+            return DataAccess.GetItemGroups(DeptID);
+        }
+
         public List<ItemGroupViewEntity> GetItemGroups(int pageIndex, int pageSize, out int RecordCount) {
             return DataAccess.GetItemGroups(pageIndex, pageSize, out RecordCount);
         }

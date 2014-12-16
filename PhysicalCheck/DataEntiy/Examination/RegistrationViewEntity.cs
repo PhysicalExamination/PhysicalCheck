@@ -140,6 +140,11 @@ namespace DataEntity.Examination {
             set;
         }
 
+        public virtual String UncheckedItems {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 个人信息

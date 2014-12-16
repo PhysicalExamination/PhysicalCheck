@@ -37,6 +37,34 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
+        /// 返回体检人所有未检项目
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <returns></returns>
+        public List<String> GetUncheckedGroup(String RegisterNo) {
+            var q = from p in Session.Query<GroupResultViewEntity>()
+                    where p.ID.RegisterNo == RegisterNo && p.IsOver==false
+                    select p.GroupName;
+            List<String> Result = q.ToList<String>();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 返回体检人各检查项小结
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <returns></returns>
+        public List<String> GetGroupSummary(String RegisterNo) {
+            var q = from p in Session.Query<GroupResultViewEntity>()
+                    where p.ID.RegisterNo == RegisterNo && p.IsOver == true
+                    select p.Summary;
+            List<String> Result = q.ToList<String>();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
         /// 获取体检组合项目结论数据
         /// </summary>
         /// <param name="RegisterNo">登记号</param> 

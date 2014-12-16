@@ -30,6 +30,31 @@ namespace BusinessLogic.Examination {
         }
 
         /// <summary>
+        /// 返回所有通过体检但未总检的登记信息
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="CheckDate">体检日期</param>
+        /// <param name="DeptName">单位名称</param>
+        /// <param name="RegisterNo">登记号或身份证号</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public IList<RegistrationViewEntity> GetOveralls(int pageIndex, int pageSize,
+            DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
+                GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess();
+            IList<RegistrationViewEntity> List = DataAccess.GetOveralls(pageIndex, pageSize, CheckDate,
+                DeptName, RegisterNo, out RecordCount);
+            List<String> Items,Summary;
+            foreach (RegistrationViewEntity Register in List) {
+                Items = GroupDataAccess.GetUncheckedGroup(Register.RegisterNo);
+                Summary = GroupDataAccess.GetGroupSummary(Register.RegisterNo);
+                Register.UncheckedItems = String.Join(";",Items.ToArray());
+                Register.Summary = String.Join(";", Summary.ToArray());
+            }
+            return List;
+        }
+
+        /// <summary>
         /// 获取体检登记数据
         /// </summary>
         /// <param name="PersonID"></param> 
@@ -115,7 +140,7 @@ namespace BusinessLogic.Examination {
                 foreach (ItemGroupDetailViewEntity Item in Items) {
                     ItemResultEntity ItemResult = new ItemResultEntity {
                         ID = new ItemResultPK { GroupID = GroupID, ItemID = Item.ID.ItemID, RegisterNo = RegisterNo },
-                        DeptID = Item.DeptID            
+                        DeptID = Item.DeptID
                     };
                     ResultDataAccess.SaveItemResult(ItemResult);
                 }

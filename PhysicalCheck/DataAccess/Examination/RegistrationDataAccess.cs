@@ -30,6 +30,51 @@ namespace DataAccess.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
+            ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.SetProjection(Projections.RowCount());
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
+                    Restrictions.Eq("IDNumber", RegisterNo)));
+            }
+            if (RegisterDate != null) {
+                Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
+            }            
+            RecordCount = Convert.ToInt32(Criteria.UniqueResult());
+
+            Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
+                    .SetMaxResults(pageSize);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
+                    Restrictions.Eq("IDNumber", RegisterNo)));
+            }
+            if (RegisterDate != null) {
+                Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
+            }
+            
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();    
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 返回所有通过体检但未总检的登记信息
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="CheckDate">体检日期</param>
+        /// <param name="DeptName">单位名称</param>
+        /// <param name="RegisterNo">登记号或身份证号</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public IList<RegistrationViewEntity> GetOveralls(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
@@ -41,7 +86,10 @@ namespace DataAccess.Examination {
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("RegisterDate", CheckDate));
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Eq("IsCheckOver", false));
             }
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
@@ -56,9 +104,12 @@ namespace DataAccess.Examination {
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("RegisterDate", CheckDate));
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
             }
-            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();    
+            if (String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Eq("IsCheckOver", false));
+            }
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
         }

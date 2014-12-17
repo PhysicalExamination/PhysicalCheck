@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity" assembly="DataEntity">
+    <class name="Norecordor" table="norecordor" >
+        <id name="TableNam" column="Table_nam" type="String" length="150" >
+            <generator class="assigned" />
+        </id>
+        <property name="LastBillDate" column="LastBillDate" type="DateTime" not-null="false" /> 
+        <property name="BillNo" column="Bill_no" type="String" not-null="false" length="60" /> 
+        <property name="LastIdDate" column="LastIdDate" type="DateTime" not-null="false" /> 
+        <property name="LineId" column="Line_id" type="Int32" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

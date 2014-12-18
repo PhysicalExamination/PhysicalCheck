@@ -109,7 +109,15 @@ namespace BusinessLogic.Examination {
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
         public void DeleteRegistration(RegistrationViewEntity Registration) {
-            //DataAccess.DeleteRegistration(Registration);
+            RegistrationEntity RegEntity = new RegistrationEntity {
+                RegisterNo = Registration.RegisterNo,
+                CheckDate = Registration.CheckDate,
+                RegisterDate = Registration.RegisterDate,
+                IsCheckOver = false,
+                PersonID = Registration.PersonID,
+                PackageID = Registration.PackageID              
+            };
+            DataAccess.DeleteRegistration(RegEntity);
         }
 
         #endregion

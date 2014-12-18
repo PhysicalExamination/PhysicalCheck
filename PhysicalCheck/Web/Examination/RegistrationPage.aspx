@@ -47,6 +47,7 @@
             体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+            <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
@@ -304,7 +305,7 @@
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
+                                
                             </td>
                         </tr>
                     </table>

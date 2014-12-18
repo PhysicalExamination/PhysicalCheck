@@ -45,9 +45,17 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
-        /// 套餐
+        /// 套餐编码
         /// </summary>		
         public virtual int? PackageID {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 套餐名称
+        /// </summary>
+        public virtual String PackageName {
             get;
             set;
         }
@@ -128,6 +136,38 @@ namespace DataEntity.Examination {
         /// 体检报告打印日期
         /// </summary>		
         public virtual DateTime? PrintDate {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 复查日期
+        /// </summary>
+        public virtual DateTime? ReviewDate {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 复查概要
+        /// </summary>
+        public virtual String ReviewSummary {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 通知人
+        /// </summary>
+        public virtual String InformPerson {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 通知情况
+        /// </summary>
+        public virtual String InformResult {
             get;
             set;
         }

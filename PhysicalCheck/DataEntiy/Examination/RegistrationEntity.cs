@@ -131,6 +131,38 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 复查日期
+        /// </summary>
+        public virtual DateTime? ReviewDate {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 复查概要
+        /// </summary>
+        public virtual String ReviewSummary {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 通知人
+        /// </summary>
+        public virtual String InformPerson {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 通知情况
+        /// </summary>
+        public virtual String InformResult {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 是否启用
         /// </summary>		
         public virtual bool? Enabled {

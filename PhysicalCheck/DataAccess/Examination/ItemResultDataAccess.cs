@@ -44,13 +44,13 @@ namespace DataAccess.Examination {
             string RegisterNo, int DeptID, out int RecordCount) {
             String hql = @"select count(ItemID) from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
             IQuery query = Session.CreateQuery(hql)
-                .SetString(0,RegisterNo)
+                .SetString(0, RegisterNo)
                 .SetInt32(1, DeptID);
             object obj = query.UniqueResult();
             int.TryParse(obj.ToString(), out RecordCount);
             hql = @" from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
             IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
-                                                .SetString(0,RegisterNo)
+                                                .SetString(0, RegisterNo)
                                                 .SetInt32(1, DeptID)
                                                 .SetFirstResult((pageIndex - 1) * pageSize)
                                                 .SetMaxResults(pageSize)
@@ -91,6 +91,23 @@ namespace DataAccess.Examination {
             Session.Delete(ItemResult);
             Session.Flush();
             CloseSession();
+        }
+
+        public void DeleteItemResults(String RegisterNo) {
+            String hql = @"DELETE ItemResultEntity WHERE ID.RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(hql)
+                    .SetString(0, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
         }
 
         #endregion

@@ -38,17 +38,6 @@ public partial class Examination_RegistrationPage : BasePage {
         }
     }
 
-    private int DeptID {
-        get {
-            if (ViewState["DeptID"] == null) return int.MinValue;
-            return (int)ViewState["DeptID"];
-        }
-        set {
-            ViewState["DeptID"] = value;
-        }
-    }
-
-
     #endregion
 
     #region 重写方法
@@ -105,9 +94,9 @@ public partial class Examination_RegistrationPage : BasePage {
         txtIDNumber.Text = "";
         txtBirthday.Text = "";
         txtAge.Text = "";
-        drpMarriage.SelectedIndex=-1;//.Text = "";
+        drpMarriage.SelectedIndex = -1;//.Text = "";
         txtJob.Text = "";
-        drpEducation.SelectedIndex=-1;
+        drpEducation.SelectedIndex = -1;
         txtNation.Text = "汉族";
         txtLinkTel.Text = "";
         txtAddress.Text = "";
@@ -123,8 +112,10 @@ public partial class Examination_RegistrationPage : BasePage {
         RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
         if (Result == null) return;
         PersonID = Result.PersonID.Value;
-        DeptID = Result.DeptID.Value;
+        hDeptID.Value = Result.DeptID.Value+"";
+        hPackageID.Value = Result.PackageID + "";
         txtRegisterNo.Text = Result.RegisterNo;
+        txtPackageName.Text = Result.PackageName;
         txtRegisterDate.Text = EnvShowFormater.GetShortDate(Result.RegisterDate);
         txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
         txtDeptName.Text = Result.DeptName;
@@ -155,7 +146,8 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.Sex = drpSex.SelectedValue;
         Result.IDNumber = txtIDNumber.Text;
         Result.Age = EnvConverter.ToInt32(txtAge.Text);
-        Result.DeptID = DeptID;
+        Result.DeptID = EnvConverter.ToInt32(hDeptID.Value);
+        Result.PackageID = EnvConverter.ToInt32(hPackageID.Value);
         Result.Marriage = drpMarriage.SelectedValue;
         Result.Job = txtJob.Text;
         Result.Education = drpEducation.SelectedValue;
@@ -257,7 +249,7 @@ public partial class Examination_RegistrationPage : BasePage {
     protected void ItemCommand(object source, RepeaterCommandEventArgs e) {
         if (e.CommandName.ToLower() == "select") {
             Literal lblRegisterNo = (Literal)e.Item.FindControl("lblRegisterNo");
-            RegisterNo = lblRegisterNo.Text;            
+            RegisterNo = lblRegisterNo.Text;
             SetRegistrationUI();
             SetUIState("Default");
         }
@@ -270,5 +262,5 @@ public partial class Examination_RegistrationPage : BasePage {
 
     #endregion
 
-    
+
 }

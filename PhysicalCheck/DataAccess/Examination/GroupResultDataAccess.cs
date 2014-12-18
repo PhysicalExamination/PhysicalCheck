@@ -98,6 +98,23 @@ namespace DataAccess.Examination {
             CloseSession();
         }
 
+        public void DeleteGroupResults(String RegisterNo) {
+            String hql = @"DELETE GroupResultEntity WHERE ID.RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(hql)
+                    .SetString(0, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
         #endregion
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DataEntity.Examination;
 using NHibernate;
+using NHibernate.Transaction;
 using NHibernate.Linq;
 using NHibernate.Criterion;
 
@@ -33,6 +34,7 @@ namespace DataAccess.Examination {
             DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled", true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
             }
@@ -46,6 +48,7 @@ namespace DataAccess.Examination {
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
             Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.Add(Restrictions.Eq("Enabled", true));
             Criteria.SetFirstResult((pageIndex - 1) * pageSize)
                     .SetMaxResults(pageSize);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
@@ -78,6 +81,7 @@ namespace DataAccess.Examination {
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled",true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
             }
@@ -94,6 +98,7 @@ namespace DataAccess.Examination {
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
             Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.Add(Restrictions.Eq("Enabled", true));
             Criteria.SetFirstResult((pageIndex - 1) * pageSize)
                     .SetMaxResults(pageSize);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
@@ -142,9 +147,29 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
         public void DeleteRegistration(RegistrationEntity Registration) {
-            Session.Delete(Registration);
+            Registration.Enabled = false;
+            Registration.PackageID = 1;
+            Session.SaveOrUpdate(Registration);
             Session.Flush();
             CloseSession();
+        }
+
+        public void UpdateCheckDate(String RegisterNo ,DateTime CheckDate) {
+            String HQL = @"Update RegistrationEntity set CheckDate =? AND RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(HQL)
+                    .SetDateTime(0, CheckDate)
+                    .SetString(1, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
         }
 
         #endregion

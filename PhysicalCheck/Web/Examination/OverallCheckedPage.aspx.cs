@@ -27,6 +27,26 @@ public partial class Examination_OverallCheckedPage : BasePage {
         }
     }
 
+    private int PersonID {
+        get {
+            if (ViewState["PersonID"] == null) return int.MinValue;
+            return (int)ViewState["PersonID"];
+        }
+        set {
+            ViewState["PersonID"] = value;
+        }
+    }
+
+    private int PackageID {
+        get {
+            if (ViewState["PackageID"] == null) return int.MinValue;
+            return (int)ViewState["PackageID"];
+        }
+        set {
+            ViewState["PackageID"] = value;
+        }
+    }
+
 
     #endregion
 
@@ -60,7 +80,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         DateTime? RegisterDate = EnvConverter.ToDateTime(txtSRegisterDate.Text);
         String DeptName = txtsDeptName.Text.Trim();
         String RegisterNo = txtsRegisterNo.Text.Trim();
-        RegistrationRepeater.DataSource = m_Registration.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
+        RegistrationRepeater.DataSource = m_Registration.GetOveralls(Pager.CurrentPageIndex, Pager.PageSize,
             RegisterDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
@@ -77,7 +97,9 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// <summary>
     /// 重置界面
     /// </summary>
-    private void ClearcheckpersonUI() {
+    private void ClearUI() {
+        drpEvaluateResult.SelectedIndex = -1;
+        drpHealthCondition.SelectedIndex = -1;
         txtConclusion.Text = "";
         txtRecommend.Text = "";       
     }
@@ -87,15 +109,17 @@ public partial class Examination_OverallCheckedPage : BasePage {
     private void SetRegistrationUI() {
         RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
         if (Result == null) return;
+        PersonID = Result.PersonID.Value;
+        PackageID = Result.PackageID.Value;
         txtRegisterNo.Text = Result.RegisterNo;
         txtDeptName.Text = Result.DeptName;
-        //txtPackageName.Text = Result.PackageName;
+        txtPackageName.Text = Result.PackageName;
         txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
         txtName.Text = Result.Name;
         drpSex.SelectedValue = Result.Sex;
         txtSummary.Text= Result.Summary;
         txtConclusion.Text = Result.Conclusion;
-        txtRecommend.Text = Result.Recommend;
+        txtRecommend.Text = Result.Recommend;       
     }
 
     /// <summary>
@@ -103,10 +127,23 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// </summary>
     /// <returns></returns>
     private RegistrationEntity GetRegistrationUI() {
-        RegistrationEntity Result = new RegistrationEntity();
-        Result.RegisterNo = RegisterNo;
-        Result.Conclusion = txtConclusion.Text;
-        Result.Recommend = txtRecommend.Text;
+        RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegisterNo);
+        RegistrationEntity Result = new RegistrationEntity {
+            RegisterNo = RegInfo.RegisterNo,
+            RegisterDate = RegInfo.RegisterDate,
+            PersonID = RegInfo.PersonID,
+            PackageID=  RegInfo.PersonID,
+            IsCheckOver = true,
+            Conclusion = txtConclusion.Text,
+            Recommend = txtRecommend.Text,
+            OverallDate = DateTime.Now.Date,
+            OverallDoctor = UserName,
+            ReviewDate = EnvConverter.ToDateTime(txtReviewDate.Text),
+            ReviewSummary = txtReviewSummary.Text,
+            EvaluateResult = drpEvaluateResult.SelectedValue,
+            HealthCondition = drpHealthCondition.SelectedValue,
+        };      
+      
         return Result;
     }
 
@@ -166,7 +203,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
     }
 
     protected void btnNew_Click(object sender, EventArgs e) {
-        ClearcheckpersonUI();
+        ClearUI();
         btnSave.Enabled = CanEditData;
         SetUIState("New");
     }
@@ -176,6 +213,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
     }
 
     protected void btnCancel_Click(object sender, EventArgs e) {
+        ClearUI();
         SetUIState("Default");
     }
 

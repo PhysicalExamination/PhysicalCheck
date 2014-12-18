@@ -118,6 +118,12 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID              
             };
             DataAccess.DeleteRegistration(RegEntity);
+            /*using (GroupResultDataAccess GroupResult = new GroupResultDataAccess()) {
+                GroupResult.DeleteGroupResults(Registration.RegisterNo);
+            }
+            using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
+                ItemResult.DeleteItemResults(Registration.RegisterNo);
+            }*/
         }
 
         #endregion

@@ -7,6 +7,7 @@
         <property name="PersonID" column="PersonID" type="Int32" not-null="true" />
         <property name="RegisterDate" column="RegisterDate" type="DateTime" not-null="true" />
         <property name="PackageID" column="PackageID" type="Int32" not-null="true" />
+        <property name="PackageName" column="PackageName" type="String" not-null="false" length="200"/>
         <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" />
         <property name="Summary" column="Summary" type="String" not-null="false" length="65535" />
         <property name="Recommend" column="Recommend" type="String" not-null="false" length="65535" />
@@ -17,6 +18,10 @@
         <property name="EvaluateResult" column="EvaluateResult" type="String" not-null="false" length="90" />
         <property name="IsCheckOver" column="IsCheckOver" type="Boolean" not-null="false" />
         <property name="PrintDate" column="PrintDate" type="DateTime" not-null="false" />
+        <property name="ReviewDate" column="ReviewDate" type="DateTime" not-null="false" />
+        <property name="ReviewSummary" column="ReviewSummary" type="String" not-null="false" length="1500" />
+        <property name="InformPerson" column="InformPerson" type="String" not-null="false" length="600" />
+        <property name="InformResult" column="InformResult" type="String" not-null="false" length="9" />
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
         <!--个人信息部分-->       
         <property name="Name" column="Name" type="String" not-null="true" length="120" />

@@ -54,6 +54,7 @@
     <Compile Include="Admin\RolePermissionDataAccess.cs" />
     <Compile Include="Admin\SysUserDataAccess.cs" />
     <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="Examination\ChargeDataAccess.cs" />
     <Compile Include="Examination\CheckPersonDataAccess.cs" />
     <Compile Include="Examination\DepartmentGroupDataAccess.cs" />
     <Compile Include="Examination\DepartmentPackageDataAccess.cs" />

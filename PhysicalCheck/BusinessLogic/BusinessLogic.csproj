@@ -45,6 +45,7 @@
     <Compile Include="Admin\RoleBusiness.cs" />
     <Compile Include="Admin\SysUserBusiness.cs" />
     <Compile Include="BaseBusiness.cs" />
+    <Compile Include="Examination\ChargeBusiness.cs" />
     <Compile Include="Examination\DepartmentGroupBusiness.cs" />
     <Compile Include="Examination\GroupResultBusiness.cs" />
     <Compile Include="Examination\ItemResultBusiness.cs" />

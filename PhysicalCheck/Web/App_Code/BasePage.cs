@@ -46,16 +46,26 @@ public class BasePage : System.Web.UI.Page {
 		}
 	}
 
-	protected String UserNo {
+    protected String UserAccount {
 		get {
 			return User.Identity.Name;
 		}
 	}
 
+    protected String UserID {
+        get {
+            using (SysUserBusiness User = new SysUserBusiness()) {
+                SysUserEntity UserInfo = User.GetUserByAccount(UserAccount);
+                if (UserInfo != null) return UserInfo.UserNo;
+                return "";
+            }
+        }
+    }
+
 	protected String UserName {
 		get {
 			using (SysUserBusiness User = new SysUserBusiness()) {
-				SysUserEntity UserInfo = User.GetUserByAccount(UserNo);
+                SysUserEntity UserInfo = User.GetUserByAccount(UserAccount);
 				if (UserInfo != null) return UserInfo.UserName;
 				return "";
 			}
@@ -65,7 +75,7 @@ public class BasePage : System.Web.UI.Page {
 	protected bool IsAdmin {
 		get {
 			using (SysUserBusiness User = new SysUserBusiness()) {
-				SysUserEntity UserInfo = User.GetUserByAccount(UserNo);
+                SysUserEntity UserInfo = User.GetUserByAccount(UserAccount);
 				if (UserInfo != null) return UserInfo.UserCategory == "0";
 				return false;
 			}
@@ -76,7 +86,7 @@ public class BasePage : System.Web.UI.Page {
 	protected int DepartNo {
 		get {
 			using (SysUserBusiness User = new SysUserBusiness()) {
-				SysUserEntity UserInfo = User.GetUserByAccount(UserNo);
+                SysUserEntity UserInfo = User.GetUserByAccount(UserAccount);
 				if (UserInfo != null) return UserInfo.DeptNo.Value;
 				return int.MinValue;
 			}

@@ -119,6 +119,34 @@ namespace DataAccess.Examination {
             return Result;
         }
 
+
+        /// <summary>
+        /// 返回复检人员信息
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="StartDate">开始日期</param>
+        /// <param name="EndDate">截止日期</param>       
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public IList<RegistrationViewEntity> GetReviews(int pageIndex, int pageSize,
+            DateTime StartDate, DateTime EndDate,out int RecordCount) {
+            ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            Criteria.Add(Restrictions.Between("ReviewDate",StartDate,EndDate));            
+            RecordCount = Convert.ToInt32(Criteria.UniqueResult());
+
+            Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
+                    .SetMaxResults(pageSize);
+            Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate)); 
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
         /// <summary>
         /// 获取体检登记数据
         /// </summary>
@@ -161,6 +189,31 @@ namespace DataAccess.Examination {
                 Session.CreateQuery(HQL)
                     .SetDateTime(0, CheckDate)
                     .SetString(1, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
+        /// <summary>
+        /// 保存复查通知数据
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="InformResult">通知情况0-未留联系方式、1-未联系到、2-已通知</param>
+        /// <param name="InformPerson">通知人</param>
+        public void SaveReview(String RegisterNo, String InformResult, String InformPerson) {
+            String HQL = @"Update RegistrationEntity set InformResult =?,InformPerson=? AND RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(HQL)
+                    .SetString(0, InformResult)
+                    .SetString(1, InformPerson)
+                    .SetString(2, RegisterNo)
                     .ExecuteUpdate();
                 tx.Commit();
             }

@@ -19,13 +19,13 @@ public partial class Admin_UserChangePasswordPage : BasePage {
 	protected void btnSave_Click(object sender, EventArgs e) {
 		using (SysUserBusiness Business = new SysUserBusiness()) {
 			String pwd = FormsAuthentication.HashPasswordForStoringInConfigFile(txtOldPassword.Text, "MD5");
-			bool passed = Business.Authentication(UserNo, pwd);
+            bool passed = Business.Authentication(UserAccount, pwd);
 			if (!passed) {
 				ShowMessage("旧密码输入错误请重新输入！");
 			}
 			if (passed) {
 				pwd = FormsAuthentication.HashPasswordForStoringInConfigFile(txtConfirmPassword.Text, "MD5");
-				Business.ChangedPassword(UserNo, pwd);
+                Business.ChangedPassword(UserAccount, pwd);
 				ShowMessage("恭喜你，修改密码成功！");
 			}
 		}

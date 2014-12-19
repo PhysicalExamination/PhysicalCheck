@@ -7,7 +7,8 @@
     复检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
     至<asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-    <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click"/>
+   
+   <div class="blank5"></div>
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="ReviewRepeater" runat="server">
@@ -114,4 +115,6 @@
             <asp:AsyncPostBackTrigger ControlID="btnSave" />
         </Triggers>
     </asp:UpdatePanel>
+    <p align="center">
+     <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click"/></p>
 </asp:Content>

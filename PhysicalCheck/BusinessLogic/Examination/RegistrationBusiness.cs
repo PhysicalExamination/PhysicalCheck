@@ -55,6 +55,20 @@ namespace BusinessLogic.Examination {
         }
 
         /// <summary>
+        /// 返回复检人员信息
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="StartDate">开始日期</param>
+        /// <param name="EndDate">截止日期</param>       
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public IList<RegistrationViewEntity> GetReviews(int pageIndex, int pageSize,
+            DateTime StartDate, DateTime EndDate, out int RecordCount) {
+                return DataAccess.GetReviews(pageIndex, pageSize, StartDate, EndDate,out RecordCount);
+        }
+
+        /// <summary>
         /// 获取体检登记数据
         /// </summary>
         /// <param name="PersonID"></param> 
@@ -102,6 +116,16 @@ namespace BusinessLogic.Examination {
             };
             DataAccess.SaveRegistration(RegEntity);
             SaveCheckGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value);
+        }
+
+        /// <summary>
+        /// 保存复查通知数据
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="InformResult">通知情况0-未留联系方式、1-未联系到、2-已通知</param>
+        /// <param name="InformPerson">通知人</param>
+        public void SaveReview(String RegisterNo, String InformResult, String InformPerson) {
+            DataAccess.SaveReview(RegisterNo, InformResult, InformPerson);
         }
 
         /// <summary>

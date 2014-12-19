@@ -12,7 +12,7 @@
         <!--<property name="UserRegion" column="UserRegion" type="String" not-null="false" length="30" />--> 
         <property name="UserCategory" column="UserCategory" type="String" not-null="false" length="3" /> 
         <property name="LoginIP" column="LoginIP" type="String" not-null="false" length="120" /> 
-        <property name="IsBindLogin" column="IsBindLogin" type="Byte" not-null="false" /> 
+        <property name="IsBindLogin" column="IsBindLogin" type="Boolean" not-null="false" /> 
         <property name="PassWord" column="PassWord" type="String" not-null="false" length="450" /> 
         <property name="OrderNo" column="OrderNo" type="Int32" not-null="false" /> 
         <property name="UserAccount" column="UserAccount" type="String" not-null="true" length="150" /> 

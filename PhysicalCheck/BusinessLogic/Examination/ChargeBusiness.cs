@@ -4,48 +4,41 @@ using System.Collections.Generic;
 using DataEntity.Examination;
 using DataAccess.Examination;
 
-namespace BusinessLogic.Examination
-{
-    
-	/// <summary>
-	/// 业务逻辑类:ChargeBusiness
+namespace BusinessLogic.Examination {
+
+    /// <summary>
+    /// 业务逻辑类:ChargeBusiness
     /// 文  件  名:ChargeBusiness.cs
     /// 说      明:业务逻辑对象
     /// </summary>
-	public class ChargeBusiness:BaseBusinessLogic<ChargeDataAccess>
-	{    
-    
-		#region 构造器
+    public class ChargeBusiness : BaseBusinessLogic<ChargeDataAccess> {
 
-        public ChargeBusiness()
-        {
+        #region 构造器
+
+        public ChargeBusiness() {
 
         }
 
         #endregion
-		
-		#region 公共方法
 
-        public List<ChargeEntity> GetCharges()
-        {
+        #region 公共方法
+
+        public List<ChargeViewEntity> GetCharges() {
             return DataAccess.GetCharges();
         }
-        
-        public ChargeEntity GetCharge(string  BillNo)
-        {
+
+        public ChargeViewEntity GetCharge(string BillNo) {
             return DataAccess.GetCharge(BillNo);
-        }      
-		
-		public void SaveCharge(ChargeEntity Charge)
-        {
+        }
+
+        public void SaveCharge(ChargeEntity Charge) {
             DataAccess.SaveCharge(Charge);
         }
-        
-        public void DeleteCharge(ChargeEntity Charge)
-        {
+
+        public void DeleteCharge(ChargeEntity Charge) {
             DataAccess.DeleteCharge(Charge);
         }
 
         #endregion
-	}
+    }
 }

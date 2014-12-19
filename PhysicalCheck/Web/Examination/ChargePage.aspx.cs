@@ -99,6 +99,9 @@ public partial class Examination_ChargePage : BasePage
             btnDelete.Enabled = false;
             btnSave.Enabled = true;
         }
+        txtPackageName.Enabled = false;
+        txtCharge.Enabled = false;
+        txtChargePerson.Enabled = false;
     }
 
     #endregion
@@ -108,29 +111,33 @@ public partial class Examination_ChargePage : BasePage
     /// <summary>
     /// 重置缴费信息界面
     /// </summary>
-    private void ClearChargeUI() { 
+    private void ClearChargeUI() {
+        hDeptID.Value = "1";
+        hPackageID.Value = "";
         txtPayer.Text = "";
-        txtPackageID.Text = "";
-        txtCheckNum.Text = "";
+        txtPackageName.Text = "";
+        txtCheckNum.Text = "1";
         txtCharge.Text = "";
         txtActualCharge.Text = "";
-        txtPaymentMethod.Text = "";
-        txtPaymentDate.Text = "";
-        txtChargePerson.Text = "";        
+        drpPaymentMethod.SelectedIndex =-1;
+        txtPaymentDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        txtChargePerson.Text = UserName;        
+
     }
     /// <summary>
     /// 填充缴费信息界面
     /// </summary>
     private void SetChargeUI() {
-        ChargeEntity Result = m_Charge.GetCharge(BillNo);
+        ChargeViewEntity Result = m_Charge.GetCharge(BillNo);
         if (Result == null) return;
-        //txtChargeDeptID.Text = Result.ChargeDeptID + "";
+        hDeptID.Value = Result.ChargeDeptID + "";
         txtPayer.Text = Result.Payer;
-        txtPackageID.Text = Result.PackageID + "";
+        hPackageID.Value = Result.PackageID + "";
+        txtPackageName.Text = Result.PackageName;
         txtCheckNum.Text = Result.CheckNum + "";
         txtCharge.Text = EnvShowFormater.GetNumberString(Result.Charge);
         txtActualCharge.Text = EnvShowFormater.GetNumberString(Result.ActualCharge);
-        txtPaymentMethod.Text = Result.PaymentMethod;
+        drpPaymentMethod.SelectedValue = Result.PaymentMethod;
         txtPaymentDate.Text = EnvShowFormater.GetShortDate(Result.PaymentDate);
         txtChargePerson.Text = Result.ChargePerson;
     }
@@ -143,19 +150,17 @@ public partial class Examination_ChargePage : BasePage
     private ChargeEntity GetChargeUI() {
         ChargeEntity Result = new ChargeEntity();
         Result.BillNo = BillNo;
-        //Result.ChargeDeptID = EnvConverter.ToInt32(txtChargeDeptID.Text);
+        Result.ChargeDeptID = EnvConverter.ToInt32(hDeptID.Value);
         Result.Payer = txtPayer.Text;
-        Result.PackageID = EnvConverter.ToInt32(txtPackageID.Text);
+        Result.PackageID = EnvConverter.ToInt32(hPackageID.Value);
         Result.CheckNum = EnvConverter.ToInt32(txtCheckNum.Text);
         Result.Charge = EnvConverter.ToDecimal(txtCharge.Text);
         Result.ActualCharge = EnvConverter.ToDecimal(txtActualCharge.Text);
-        Result.PaymentMethod = txtPaymentMethod.Text;
+        Result.PaymentMethod = drpPaymentMethod.SelectedValue;
         Result.PaymentDate = EnvConverter.ToDateTime(txtPaymentDate.Text);
         Result.ChargePerson = txtChargePerson.Text;       
         return Result;
     }
-
-
 
     #endregion
 

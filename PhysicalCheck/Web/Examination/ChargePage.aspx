@@ -10,7 +10,41 @@
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
         }
-        
+
+        function selectDept() {            
+            var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?rand=" + Math.random();
+            var sFeatures = "center:yes;help:no;status:no;rsizable:yes";
+            var vArguments = "";
+            var urlValue = window.showModalDialog(sURL, vArguments, sFeatures);
+
+            if (urlValue != null || urlValue != undefined) {
+                $("#<%=hDeptID.ClientID %>").val(urlValue[0]);
+                $("#<%=txtPayer.ClientID %>").val(urlValue[1]);
+            }
+        }
+
+        function selectPackage() {
+            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random();
+            var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
+            //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
+            if (urlValue != null || urlValue != undefined) {
+                $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
+                $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
+                $("#hPackagePrice").val(urlValue[2]);
+                CalcCharge();
+            }            
+        }
+
+        function CalcCharge() {           
+            var price = parseFloat($("#hPackagePrice").val());
+            var count = parseInt($("#<%=txtCheckNum.ClientID %>").val());
+            console.log($("#<%=txtCheckNum.ClientID %>").val());
+            console.log("price=" + price + "Count=" + count);
+            var Charge = price * count;
+            $("#<%=txtCharge.ClientID %>").val(Charge);
+            $("#<%=txtActualCharge.ClientID %>").val(Charge);
+        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -33,10 +67,10 @@
                                         缴费人
                                     </th>
                                     <th>
-                                        应收费用
+                                        应收费用（元）
                                     </th>
                                     <th>
-                                        实收费用
+                                        实收费用（元）
                                     </th>
                                     <th>
                                         缴费时间
@@ -111,11 +145,14 @@
                 <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>                            
-                            <td class="VLine">
+                            <td class="HVLine">
                                 缴费人
                             </td>
-                            <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="inputCss" ID="txtPayer" runat="server" Width="99%" />
+                            <td class="HVLine" colspan="3">
+                                <asp:TextBox CssClass="textbox31" ID="txtPayer" runat="server" Width="90%" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择体检单位"
+                                    onclick="selectDept();" align="middle" border="0" />
+                                <asp:HiddenField ID="hDeptID" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -123,42 +160,52 @@
                                 体检套餐
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPackageID" runat="server" />
+                                <asp:TextBox CssClass="textbox31" ID="txtPackageName" runat="server" ReadOnly="true" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择检查科室"
+                                    onclick="selectPackage();" align="middle" border="0" align="middle" />
+                                <asp:HiddenField ID="hPackageID" runat="server" />
                             </td>
                             <td class="VLine">
                                 体检人数
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtCheckNum" runat="server" />
+                                <asp:TextBox CssClass="textbox31" ID="txtCheckNum" runat="server" onchange="javascript:CalcCharge();" />
                             </td>
                         </tr>
                         <tr>
                             <td class="VLine">
-                                应收费用
+                                应收费用（元）
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtCharge" runat="server" Enabled="false" />
+                                <asp:TextBox CssClass="textbox31" ID="txtCharge" runat="server" Enabled="false" />
                             </td>
                             <td class="VLine">
-                                实收费用
+                                实收费用（元）
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtActualCharge" runat="server" Enabled="false" />
+                                <asp:TextBox CssClass="textbox31" ID="txtActualCharge" runat="server" />
                             </td>
                         </tr>
                         <tr>
                             <td class="VLine">
                                 缴费方式
                             </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPaymentMethod" runat="server" />
+                            <td class="VLine">                               
+                                <asp:DropDownList ID="drpPaymentMethod" runat="server">
+                                    <asp:ListItem Value="1">现金</asp:ListItem>
+                                    <asp:ListItem Value="2">暂时不收</asp:ListItem>
+                                    <asp:ListItem Value="3">免费</asp:ListItem>
+                                    <asp:ListItem Value="4">转账</asp:ListItem>
+                                    <asp:ListItem Value="5">信汇</asp:ListItem>
+                                    <asp:ListItem Value="6">托收</asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                             <td class="VLine">
                                 缴费时间
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPaymentDate" runat="server" 
-                                    onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" Enabled="false" />
+                                <asp:TextBox CssClass="textbox31 Wdate" ID="txtPaymentDate" runat="server" 
+                                    onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"  ReadOnly="true" />
                             </td>
                         </tr>
                         <tr>
@@ -166,8 +213,14 @@
                                 收费人
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtChargePerson" runat="server"  Enabled="false"/>
-                            </td>                            
+                                <asp:TextBox CssClass="textbox31" ID="txtChargePerson" runat="server"  Enabled="false"/>
+                            </td>   
+                            <td class="VLine">
+                            
+                            </td>
+                            <td class="VLine">
+                              
+                            </td>                        
                         </tr>
                         <tr>
                             <td colspan="4" align="center" class="VLine">
@@ -179,9 +232,10 @@
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelCharge_Click" />
                             </td>
                         </tr>
-                    </table>
+                    </table>                   
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
     </div>
+    <input type="hidden" value="0" id="hPackagePrice" />
 </asp:Content>

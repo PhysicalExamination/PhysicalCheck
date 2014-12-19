@@ -70,11 +70,11 @@ public partial class Admin_SysUserPage : BasePage {
 	public override void DataBind() {
 		int recordCount = 0;
 		UserRepeater.DataSource = m_User.GetSysUsers(Pager.CurrentPageIndex, Pager.PageSize, out recordCount);
-        //using (DepartmentBusiness Dept = new DepartmentBusiness()) {
-        //    drpDeparts.DataSource = Dept.GetDepartments();
-        //    drpDeparts.DataTextField = "DeptName";
-        //    drpDeparts.DataValueField = "DeptNo";
-        //}
+        using (DepartmentBusiness Dept = new DepartmentBusiness()) {
+            drpDeparts.DataSource = Dept.GetDepartments();
+            drpDeparts.DataTextField = "DeptName";
+            drpDeparts.DataValueField = "DeptID";
+        }
         Pager.RecordCount = recordCount;
 		base.DataBind();
 	}

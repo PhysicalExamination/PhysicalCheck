@@ -4,15 +4,15 @@ using System.ComponentModel;
 namespace DataEntity.Examination {
 
     /// <summary>
-    /// 实体类:ChargeEntity
-    /// 文件名:ChargeEntity.cs
+    /// 实体类:ChargeViewEntity
+    /// 文件名:ChargeViewEntity.cs
     /// 说  明:
     /// </summary>
-    public class ChargeEntity {
+    public class ChargeViewEntity {
 
         #region 构造方法
 
-        public ChargeEntity() {
+        public ChargeViewEntity() {
         }
 
         #endregion
@@ -51,6 +51,15 @@ namespace DataEntity.Examination {
         /// </summary>
         [Description("PackageID")]
         public virtual int? PackageID {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 体检套餐
+        /// </summary>
+        [Description("PackageName")]
+        public virtual String PackageName {
             get;
             set;
         }

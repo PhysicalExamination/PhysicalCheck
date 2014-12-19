@@ -1,12 +1,12 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true"
     CodeFile="RolePage.aspx.cs" Inherits="Admin_RolePage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
-    <link type="text/css" rel="stylesheet" href="../css/jquery-easyui-1.2.3/tree.css" />
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.draggable.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.droppable.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.tree.js"></script>
-    <script language="javascript" type="text/javascript">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link type="text/css" rel="stylesheet" href="<%=ApplicationPath%>/Styles/jquery-easyui-1.2.3/tree.css" />
+    <script type="text/javascript" src="<%=ApplicationPath%>/scripts/jquery-easyui-1.2.3/jquery.draggable.js"></script>
+    <script type="text/javascript" src="<%=ApplicationPath%>/scripts/jquery-easyui-1.2.3/jquery.droppable.js"></script>
+    <script type="text/javascript" src="<%=ApplicationPath%>/scripts/jquery-easyui-1.2.3/jquery.tree.js"></script>
+    <script type="text/javascript">
         var RoleNo;
         $(function () {
             //此处是扩展tree的两个方法. 
@@ -87,7 +87,7 @@
        
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">角色列表</a></li>

@@ -30,9 +30,25 @@ namespace DataAccess.Admin {
 			return Result;
 		}
 
+        /// <summary>
+        /// 返回所有科室信息
+        /// </summary>
+        /// <returns></returns>
+        public List<DepartmentEntity> GetDepartments() {
+            var q = from p in Session.Query<DepartmentEntity>()
+                    where p.Enabled ==true
+                    select p;
+            List<DepartmentEntity> Result = q.ToList();
+            CloseSession();
+            return Result;
+        }
+
 		/// <summary>
-		/// 返回所有部门信息
+		/// 分页返回所有部门信息
 		/// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RecordCount">总记录数</param>
 		/// <returns></returns>
         public List<DepartmentEntity> GetDepartments(int pageIndex, int pageSize, out int RecordCount) {
             String hql = @"select count(DeptID) from DepartmentEntity  where Enabled=true order by DisplayOrder";

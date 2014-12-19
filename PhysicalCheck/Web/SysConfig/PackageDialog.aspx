@@ -4,10 +4,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
            
-        function onSelected(packageID,packageName) {          
-            var returnValues = Array(2);
+        function onSelected(packageID,packageName,price) {          
+            var returnValues = Array(3);
             returnValues[0] = packageID;
             returnValues[1] = packageName;
+            returnValues[2] = price;
             window.returnValue = returnValues;
             window.close();
         }
@@ -47,7 +48,8 @@
                             <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
                         </td>                       
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="选择"onclick="onSelected(<%# Eval("PackageID")%>, '<%# Eval("PackageName") %>')" />
+                            <input type="button" class="buttonCss" value="选择" 
+                                onclick="onSelected(<%# Eval("PackageID")%>, '<%# Eval("PackageName") %>',<%#Eval("Price")%>)" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -63,7 +65,8 @@
                             <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
                         </td> 
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="选择" onclick="onSelected(<%# Eval("PackageID")%>, '<%# Eval("PackageName") %>')" />
+                            <input type="button" class="buttonCss" value="选择" 
+                                onclick="onSelected(<%# Eval("PackageID")%>, '<%# Eval("PackageName") %>',<%#Eval("Price")%>)" />
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

@@ -1,11 +1,11 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true"
     CodeFile="ModulePage.aspx.cs" Inherits="Admin_ModulePage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
-    <link type="text/css" rel="stylesheet" href="../css/jquery-easyui-1.2.3/tree.css" />
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.draggable.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.droppable.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/jquery-easyui-1.2.3/jquery.tree.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link type="text/css" rel="stylesheet" href="<%=ApplicationPath%>/Styles/jquery-easyui-1.2.3/tree.css" />
+    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.draggable.js"></script>
+    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.droppable.js"></script>
+    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.tree.js"></script>
     <script type="text/javascript">
         $(function () {
             //Loading(true);
@@ -120,7 +120,7 @@
 
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div style="width: 30%; float: left">
         <ul id="ModuleTree">
         </ul>

@@ -27,11 +27,11 @@ namespace DataAccess.Examination {
         /// <summary>
         ///获取所有数据
         /// </summary>
-        public List<ChargeEntity> GetCharges() {
-            var q = from p in Session.Query<ChargeEntity>()
+        public List<ChargeViewEntity> GetCharges() {
+            var q = from p in Session.Query<ChargeViewEntity>()
                     where p.Enabled == true
                     select p;
-            List<ChargeEntity> Result = q.ToList<ChargeEntity>();
+            List<ChargeViewEntity> Result = q.ToList<ChargeViewEntity>();
             CloseSession();
             return Result;
         }
@@ -41,8 +41,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="BillNo"></param> 
         /// <returns>实体</returns>
-        public ChargeEntity GetCharge(string BillNo) {
-            ChargeEntity Result = Session.Get<ChargeEntity>(BillNo);
+        public ChargeViewEntity GetCharge(string BillNo) {
+            ChargeViewEntity Result = Session.Get<ChargeViewEntity>(BillNo);
             CloseSession();
             return Result;
 

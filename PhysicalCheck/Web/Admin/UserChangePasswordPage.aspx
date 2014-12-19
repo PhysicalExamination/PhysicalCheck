@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentDetailMasterPage.master"
     AutoEventWireup="true" CodeFile="UserChangePasswordPage.aspx.cs" Inherits="Admin_UserChangePasswordPage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script language="javascript" type="text/javascript">
 
         $(function () {
@@ -13,7 +13,7 @@
         }        
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="Server">
     <div align="right">
         <img src="<%=ApplicationPath %>/images/ClosePage.gif" alt="" width="90" height="39"
             onclick="window.close()" style="cursor: hand">

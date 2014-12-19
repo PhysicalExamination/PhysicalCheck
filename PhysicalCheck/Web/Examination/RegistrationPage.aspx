@@ -22,8 +22,7 @@
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hDeptID.ClientID %>").val(urlValue[0]);
                 $("#<%=txtDeptName.ClientID %>").val(urlValue[1]);
-            }
-            console.log(urlValue[0]);
+            }            
         }
 
         function btnDataImport() {

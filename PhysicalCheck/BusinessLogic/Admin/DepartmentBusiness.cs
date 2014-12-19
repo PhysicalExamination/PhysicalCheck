@@ -29,6 +29,13 @@ namespace BusinessLogic.Admin {
 			return DataAccess.GetDepartment(DeptNo);
 		}
 
+        /// <summary>
+        /// 返回所有科室信息
+        /// </summary>
+        /// <returns></returns>
+        public List<DepartmentEntity> GetDepartments() {
+            return DataAccess.GetDepartments();
+        }
 		/// <summary>
 		/// 返回所有部门信息
 		/// </summary>

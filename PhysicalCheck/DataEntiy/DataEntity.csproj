@@ -50,6 +50,7 @@
     <Compile Include="Admin\SysUserViewEntity.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Examination\ChargeEntity.cs" />
+    <Compile Include="Examination\ChargeViewEntity.cs" />
     <Compile Include="Examination\CheckPersonEntity.cs" />
     <Compile Include="Examination\CheckPersonViewEntity.cs" />
     <Compile Include="Examination\DepartmentGroupEntity.cs" />
@@ -157,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Charge.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\ChargeView.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

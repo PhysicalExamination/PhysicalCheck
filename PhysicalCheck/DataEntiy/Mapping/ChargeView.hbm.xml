@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Examination" assembly="DataEntity">
+    <class name="ChargeViewEntity" table="ChargeView" >
+        <id name="BillNo" column="BillNo" type="String" length="60" >
+            <generator class="assigned" />
+        </id>
+        <property name="ChargeDeptID" column="ChargeDeptID" type="Int32" not-null="false" />
+        <property name="Payer" column="Payer" type="String" not-null="false" length="300" />
+        <property name="PackageID" column="PackageID" type="Int32" not-null="true" />
+        <property name="PackageName" column="PackageName" type="String" not-null="false" length="200"/>
+        <property name="CheckNum" column="CheckNum" type="Int32" not-null="false" />
+        <property name="Charge" column="Charge" type="Decimal" not-null="true" />
+        <property name="ActualCharge" column="ActualCharge" type="Decimal" not-null="true" />
+        <property name="PaymentMethod" column="PaymentMethod" type="String" not-null="false" length="9" />
+        <property name="PaymentDate" column="PaymentDate" type="DateTime" not-null="false" />
+        <property name="ChargePerson" column="ChargePerson" type="String" not-null="false" length="60" />
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
+    </class>
+</hibernate-mapping>
+

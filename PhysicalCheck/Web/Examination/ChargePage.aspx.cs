@@ -112,6 +112,7 @@ public partial class Examination_ChargePage : BasePage
     /// 重置缴费信息界面
     /// </summary>
     private void ClearChargeUI() {
+        BillNo = "";
         hDeptID.Value = "1";
         hPackageID.Value = "";
         txtPayer.Text = "";

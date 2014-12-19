@@ -7,6 +7,7 @@ using NHibernate.Linq;
 using DataEntity.Examination;
 
 namespace DataAccess.Examination {
+
     /// <summary>
     /// 数据访问类:ChargeDataAccess
     /// 文  件  名:ChargeDataAccess.cs
@@ -54,6 +55,7 @@ namespace DataAccess.Examination {
         /// <param name="Charge">实体</param>
         public void SaveCharge(ChargeEntity Charge) {
             if (String.IsNullOrEmpty(Charge.BillNo)) Charge.BillNo = GetBillNo("Charge");
+            Charge.Enabled = true;
             Session.SaveOrUpdate(Charge);
             Session.Flush();
             CloseSession();
@@ -64,7 +66,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="Charge">实体</param>
         public void DeleteCharge(ChargeEntity Charge) {
-            Session.Delete(Charge);
+            Charge.Enabled = false;
+            Session.SaveOrUpdate(Charge);
             Session.Flush();
             CloseSession();
         }

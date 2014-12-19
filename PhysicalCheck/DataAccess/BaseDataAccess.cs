@@ -53,6 +53,7 @@ namespace DataAccess {
             }
             Norecordor.LineId += 1;
             Session.Save(Norecordor);
+            Session.Flush();
             CloseSession();
             return Norecordor.LineId;
             /*using (IDbCommand Command = Session.Connection.CreateCommand()) {
@@ -79,12 +80,12 @@ namespace DataAccess {
 
         protected string GetBillNo(string tableName) {
             int BillNo = 0;
-            String sBillNo = DateTime.Now.ToString("yyyyMMDD");
+            String sBillNo = DateTime.Now.ToString("yyyyMMdd");
             Norecordor Norecordor = Session.Get<Norecordor>(tableName);
             if (Norecordor == null) {
-                Norecordor = new Norecordor { TableNam = tableName, LastBillDate = DateTime.Now, BillNo = "1" };
+                Norecordor = new Norecordor { TableNam = tableName, LastBillDate = DateTime.Now.Date, BillNo = "1" };
             }
-            BillNo = Convert.ToInt32(Norecordor.BillNo);
+            BillNo = Convert.ToInt32(Norecordor.BillNo)+1;
             if ((BillNo > 0) && (BillNo < 10)) sBillNo +="00000"+BillNo;
             if ((BillNo >= 10) && (BillNo < 100)) sBillNo += "0000" + BillNo;
             if ((BillNo >= 100) && (BillNo < 1000)) sBillNo += "000" + BillNo;
@@ -92,6 +93,7 @@ namespace DataAccess {
             if ((BillNo >= 10000) && (BillNo < 100000)) sBillNo += "0" + BillNo;
             Norecordor.BillNo = BillNo + "";
             Session.Save(Norecordor);
+            Session.Flush();
             CloseSession();
             return sBillNo;
             /*string Result = String.Empty;

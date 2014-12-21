@@ -30,10 +30,10 @@ public partial class SysLogin : Page, ICallbackEventHandler
 	}
 
 	public void RaiseCallbackEvent(string eventArgument) {
-		/*String[] arguments = eventArgument.Split(',');
+		String[] arguments = eventArgument.Split(',');
 		String userAccount = arguments[0];
 		String password = FormsAuthentication.HashPasswordForStoringInConfigFile(arguments[1], "MD5");
-		using (UserBusiness user = new UserBusiness()) {
+        using (SysUserBusiness user = new SysUserBusiness()) {
 			bool passed = user.Authentication(userAccount, password);
 			if (passed) {
 				FormsAuthentication.SetAuthCookie(userAccount, true);
@@ -44,8 +44,8 @@ public partial class SysLogin : Page, ICallbackEventHandler
 				Response.Cookies.Add(authCookie);
 				callBackResult = FormsAuthentication.DefaultUrl;
 			}
-		}*/
-        FormsAuthentication.SetAuthCookie("Admin", true);
+		}
+        //FormsAuthentication.SetAuthCookie("Admin", true);
         //Server.Transfer(FormsAuthentication.DefaultUrl);
         callBackResult = FormsAuthentication.DefaultUrl;
 	}

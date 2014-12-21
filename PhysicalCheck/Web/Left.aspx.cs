@@ -73,6 +73,7 @@ public partial class Left : BasePage {
             ModuleList = m_User.GetUserModules(UserAccount, "Root");
         }
         sb.AppendLine("<div id=\"accordion\" style=\"margin: 0 auto; width: 240px;\">");
+        sb.AppendLine(BuildHome());
         foreach (ModuleEntity Module in ModuleList) {
             sb.AppendLine("<div>");
             sb.AppendLine("<h3>");
@@ -109,5 +110,20 @@ public partial class Left : BasePage {
     }
     #endregion
 
+    private String BuildHome() {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("<div>");
+        sb.AppendLine("<h3>");
+        sb.AppendLine("首页");
+        sb.AppendLine("</h3>");
+        sb.AppendLine("<div>");
+        sb.AppendLine("<p>");
+        sb.AppendLine("<img src=\"" + ApplicationPath + "/images/icons/home.png\" align=\"middle\" alt=\"\" />");
+        sb.Append("&nbsp;&nbsp;<span href=\"" + ApplicationPath + "/ContentPage.aspx\" target=\"mainFrame\">系统首页</span>");
+        sb.AppendLine("</p>");
+        sb.AppendLine("</div>");
+        sb.AppendLine("</div>");
+        return sb.ToString();
+    }
 
 }

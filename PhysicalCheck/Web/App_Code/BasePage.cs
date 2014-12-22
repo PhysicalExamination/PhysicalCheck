@@ -151,4 +151,16 @@ public class BasePage : System.Web.UI.Page {
 	}
 
 	#endregion
+
+    //信息类型
+    public enum messagesType
+    {
+        体检过通知 = 1,
+        复检通知 = 2,
+        单位体检通知 = 3,
+        定期通知 = 4,
+        其他 = 5
+    };
+
+
 }

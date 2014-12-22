@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Maticsoft.Common">
+      <HintPath>..\..\..\..\PhysicalExamination\Libs\Maticsoft.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +54,9 @@
     <Compile Include="Examination\ItemResultBusiness.cs" />
     <Compile Include="Examination\PhysicalDepartmentBusiness.cs" />
     <Compile Include="Examination\RegistrationBusiness.cs" />
+    <Compile Include="messages\messages.cs" />
+    <Compile Include="messages\messagesjoin.cs" />
+    <Compile Include="messages\messages_rate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemBusiness.cs" />
     <Compile Include="SysConfig\CommonCodeBusiness.cs" />
@@ -71,7 +77,9 @@
       <Name>DataEntity %28DataEntity\DataEntity%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

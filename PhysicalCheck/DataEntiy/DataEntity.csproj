@@ -64,6 +64,9 @@
     <Compile Include="Examination\PhysicalDepartmentEntity.cs" />
     <Compile Include="Examination\RegistrationEntity.cs" />
     <Compile Include="Examination\RegistrationViewEntity.cs" />
+    <Compile Include="messages\messages.cs" />
+    <Compile Include="messages\messagesjoin.cs" />
+    <Compile Include="messages\messages_rate.cs" />
     <Compile Include="Norecordor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemEntity.cs" />

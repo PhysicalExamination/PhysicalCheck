@@ -58,6 +58,11 @@
             line-height: 150%;
             width: 1001px;
         }
+        .btnLogin
+        {
+            background:url(images/login/login_Button.png);
+            background-repeat:no-repeat;
+        }
     </style>
     <script type="text/javascript">
 
@@ -129,12 +134,13 @@
             <strong class="labelCss">密&nbsp;&nbsp;码&nbsp;&nbsp;</strong>
             <input type="password" id="txtPassword" class="textBoxinputCss" />
             <br />
-            <br />
+            <br />           
+            <%--<asp:Button ID="Login" CssClass="btnLogin" Width="135" Height="38" runat="server" />--%>
             <img id="btnLogin" src="images/login/login_Button.png" style="cursor: hand;" alt="" onclick="btnLogin_onclick();" />
         </div>
     </div>
     <div id="Footer" align="center">
-        Copyright © 2013 解放军第四军医大学附属西京医院健康体检中心<br />
+        Copyright © 2013 武威市疾病预防控制中心<br />
         系统维护：西安北坤电子科技有限公司
     </div>
     <script type="text/javascript">

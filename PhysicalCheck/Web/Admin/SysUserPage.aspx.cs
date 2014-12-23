@@ -14,14 +14,14 @@ public partial class Admin_SysUserPage : BasePage {
 	#region 私有成员
 
 	private SysUserBusiness m_User;
-	private bool m_UserExists = false;
+	//private bool m_UserExists = false;
 	protected string ClientCallback;
 
 	#endregion
 
 	#region 属性
 
-	private string UserID {
+	private new string UserID {
 		get {
 			if (ViewState["UserID"] == null) return string.Empty;
 			return (string)ViewState["UserID"];

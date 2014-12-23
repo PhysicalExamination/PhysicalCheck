@@ -88,7 +88,7 @@ public class Services : IHttpHandler {
             msg.Succeed = true;
             msg.Message = "模块信息保存成功！";
         }
-        catch (Exception e) {
+        catch  {
             msg.Succeed = false;
             msg.Message = "模块信息保存失败！";
         }
@@ -109,7 +109,7 @@ public class Services : IHttpHandler {
             msg.Succeed = true;
             msg.Message = "模块信息删除成功！";
         }
-        catch (Exception e) {
+        catch {
             msg.Succeed = false;
             msg.Message = "模块信息删除失败！";
         }

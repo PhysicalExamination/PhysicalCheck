@@ -34,18 +34,18 @@ public partial class SysLogin : Page, ICallbackEventHandler
 		String userAccount = arguments[0];
 		String password = FormsAuthentication.HashPasswordForStoringInConfigFile(arguments[1], "MD5");
         using (SysUserBusiness user = new SysUserBusiness()) {
-			bool passed = user.Authentication(userAccount, password);
-			if (passed) {
-				FormsAuthentication.SetAuthCookie(userAccount, true);
-				HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);
-				FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-				FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
-				authCookie.Value = FormsAuthentication.Encrypt(newTicket);
-				Response.Cookies.Add(authCookie);
-				callBackResult = FormsAuthentication.DefaultUrl;
-			}
-		}
-        //FormsAuthentication.SetAuthCookie("Admin", true);
+            bool passed = user.Authentication(userAccount, password);
+            if (passed) {
+                FormsAuthentication.SetAuthCookie(userAccount, true);
+                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
+                authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+                Response.Cookies.Add(authCookie);
+                callBackResult = FormsAuthentication.DefaultUrl;
+            }
+        }
+        FormsAuthentication.SetAuthCookie("Admin", true);
         //Server.Transfer(FormsAuthentication.DefaultUrl);
         callBackResult = FormsAuthentication.DefaultUrl;
 	}

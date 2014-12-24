@@ -58,31 +58,51 @@
             line-height: 150%;
             width: 1001px;
         }
-        .btnLogin
+        .Login
         {
-            background:url(images/login/login_Button.png);
-            background-repeat:no-repeat;
+            background: url(images/login/login_Button.png);
+            background-repeat: no-repeat;
+            border-width: 0;
+            line-height: 38px;
+            width:135px;
+            cursor: hand;
+        }
+        
+        .LoginAlt
+        {
+            background: url(images/login/login_Button_alt.png);
+            background-repeat: no-repeat;
+            border-width: 0;
+             width:135px;
+             height:38px;
+            line-height: 38px;
+            cursor: hand;
         }
     </style>
     <script type="text/javascript">
 
       $(function () {
             $(window).bind("resize", windowResize);
-            $("#btnLogin").bind(click,btnLogin_onclick);
+            //$("#btnLogin").bind(click,btnLogin_onclick);
             $("input").hover(
 	          function () {
 	              $(this).addClass("textBoxinputCssAlt");
+                 
 	          },
 	          function () {
-	              $(this).removeClass("textBoxinputCssAlt");
+	              $(this).removeClass("textBoxinputCssAlt");                 
 	          }
-	  );
+	  );     
       $("#btnLogin").hover(
 	      function () {
-	          $(this).attr("src", "images/login/login_Button_alt.png");
+	          //$(this).attr("src", "images/login/login_Button_alt.png");
+               $(this).addClass("Login");
+               $(this).removeClass("LoginAlt");
 	      },
 	      function () {
-	          $(this).attr("src", "images/login/login_Button.png");
+	         // $(this).attr("src", "images/login/login_Button.png");            
+              $(this).addClass("LoginAlt");
+              $(this).removeClass("Login");
 	      }
 	);
             windowResize();
@@ -122,21 +142,24 @@
         });
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server" ClientIDMode="Static">
     <div id="Container" align="center">
         <img src="images/login/bg.png" /></div>
     <div id="Bar" align="center">
         <div id="login_box">
-            <strong class="labelCss">用户名&nbsp;&nbsp;</strong>            
-            <input type="text" id="txtUsername" class="textBoxinputCss" />
+            <strong class="labelCss">用户名&nbsp;&nbsp;</strong>
+            <%--<input type="text" id="txtUsername" class="textBoxinputCss" />--%>
+            <asp:TextBox ID="txtUsername" CssClass="textBoxinputCss" runat="server" />
             <br />
             <br />
             <strong class="labelCss">密&nbsp;&nbsp;码&nbsp;&nbsp;</strong>
-            <input type="password" id="txtPassword" class="textBoxinputCss" />
+            <asp:TextBox ID="txtPassword" runat="server" CssClass="textBoxinputCss" TextMode="Password" />
+            <%--<input type="password" id="txtPassword" class="textBoxinputCss" />--%>
             <br />
-            <br />           
-            <%--<asp:Button ID="Login" CssClass="btnLogin" Width="135" Height="38" runat="server" />--%>
-            <img id="btnLogin" src="images/login/login_Button.png" style="cursor: hand;" alt="" onclick="btnLogin_onclick();" />
+            <br />
+            <asp:Button ID="btnLogin" CssClass="LoginAlt" Width="135" Height="38" 
+                runat="server" onclick="btnLogin_Click" />
+            <%--<img id="btnLogin" src="images/login/login_Button.png" style="cursor: hand;" alt="" onclick="btnLogin_onclick();" />--%>
         </div>
     </div>
     <div id="Footer" align="center">

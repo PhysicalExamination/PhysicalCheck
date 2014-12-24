@@ -34,5 +34,16 @@
         // 或 SQLServer，则不会引发该事件。
 
     }
+    protected void Application_AuthenticateRequest(Object sender, EventArgs e) {
+        if (Request.IsAuthenticated) {
+            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, Context.User.Identity.Name,
+            //    DateTime.Now, DateTime.Now.AddHours(1), false, "", FormsAuthentication.FormsCookiePath);
+            //string encTicket = FormsAuthentication.Encrypt(ticket);
+            //Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+            //System.Threading.Thread.CurrentPrincipal = new JointSkyPrincipal(Context.User.Identity.Name);
+            //Context.User = new ASERPrincipal(Context.User.Identity.Name);
+            FormsAuthentication.GetAuthCookie(Context.User.Identity.Name, true);
+        }
+    }
        
 </script>

@@ -8,9 +8,8 @@ using System.Web.Security;
 
 public partial class _Default : System.Web.UI.Page {
 
-
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
-        Server.Transfer(FormsAuthentication.LoginUrl, false);
+        Server.Transfer(FormsAuthentication.LoginUrl);
     }
 }

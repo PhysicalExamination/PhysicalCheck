@@ -40,15 +40,10 @@ public class BasePage : System.Web.UI.Page {
 		}
 	}
 
-	protected virtual String ModuleID {
-		get {
-			return "";
-		}
-	}
 
     protected String UserAccount {
 		get {
-			return User.Identity.Name;
+			return "Admin";
 		}
 	}
 

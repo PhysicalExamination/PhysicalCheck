@@ -51,4 +51,23 @@ public partial class SysLogin : Page, ICallbackEventHandler
 	}
 
 	#endregion
+    protected void btnLogin_Click(object sender, EventArgs e) {
+        String userAccount = txtUsername.Text.Trim();
+        String password = txtPassword.Text.Trim();
+        password = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+        using (SysUserBusiness user = new SysUserBusiness()) {
+            bool passed = user.Authentication(userAccount, password);
+            if (passed) {
+                FormsAuthentication.SetAuthCookie(userAccount, true);
+                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
+                authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+                Response.Cookies.Add(authCookie);
+                callBackResult = FormsAuthentication.DefaultUrl;
+            }
+        }
+        FormsAuthentication.SetAuthCookie(userAccount, true);
+        Server.Transfer(FormsAuthentication.DefaultUrl);
+    }
 }

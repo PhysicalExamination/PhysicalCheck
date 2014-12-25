@@ -54,9 +54,11 @@
     <Compile Include="Examination\ItemResultBusiness.cs" />
     <Compile Include="Examination\PhysicalDepartmentBusiness.cs" />
     <Compile Include="Examination\RegistrationBusiness.cs" />
+    <Compile Include="messages\checkperson.cs" />
     <Compile Include="messages\messages.cs" />
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />
+    <Compile Include="messages\messagesSend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemBusiness.cs" />
     <Compile Include="SysConfig\CommonCodeBusiness.cs" />

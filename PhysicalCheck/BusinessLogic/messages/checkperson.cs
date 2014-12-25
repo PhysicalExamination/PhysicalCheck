@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* messagesjoin.cs
+* checkperson.cs
 *
 * 功 能： N/A
-* 类 名： messagesjoin
+* 类 名： checkperson
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2014-12-20 21:48:37   N/A    初版
+* V0.01  2014-12-24 16:46:52   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,12 +22,12 @@ using Maticsoft.Model.messages;
 namespace Maticsoft.BLL.messages
 {
 	/// <summary>
-	/// messagesjoin
+	/// checkperson
 	/// </summary>
-	public partial class messagesjoin
+	public partial class checkperson
 	{
-		private readonly Maticsoft.DAL.messages.messagesjoin dal=new Maticsoft.DAL.messages.messagesjoin();
-		public messagesjoin()
+		private readonly Maticsoft.DAL.messages.checkperson dal=new Maticsoft.DAL.messages.checkperson();
+		public checkperson()
 		{}
 		#region  BasicMethod
 
@@ -42,15 +42,15 @@ namespace Maticsoft.BLL.messages
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int id)
+		public bool Exists(int PersonID)
 		{
-			return dal.Exists(id);
+			return dal.Exists(PersonID);
 		}
 
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public bool Add(Maticsoft.Model.messages.messagesjoin model)
+		public bool Add(Maticsoft.Model.messages.checkperson model)
 		{
 			return dal.Add(model);
 		}
@@ -58,7 +58,7 @@ namespace Maticsoft.BLL.messages
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(Maticsoft.Model.messages.messagesjoin model)
+		public bool Update(Maticsoft.Model.messages.checkperson model)
 		{
 			return dal.Update(model);
 		}
@@ -66,41 +66,41 @@ namespace Maticsoft.BLL.messages
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int id)
+		public bool Delete(int PersonID)
 		{
 			
-			return dal.Delete(id);
+			return dal.Delete(PersonID);
 		}
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool DeleteList(string idlist )
+		public bool DeleteList(string PersonIDlist )
 		{
-			return dal.DeleteList(idlist );
+			return dal.DeleteList(PersonIDlist );
 		}
 
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public Maticsoft.Model.messages.messagesjoin GetModel(int id)
+		public Maticsoft.Model.messages.checkperson GetModel(int PersonID)
 		{
 			
-			return dal.GetModel(id);
+			return dal.GetModel(PersonID);
 		}
 
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public Maticsoft.Model.messages.messagesjoin GetModelByCache(int id)
+		public Maticsoft.Model.messages.checkperson GetModelByCache(int PersonID)
 		{
 			
-			string CacheKey = "messagesjoinModel-" + id;
+			string CacheKey = "checkpersonModel-" + PersonID;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
 				try
 				{
-					objModel = dal.GetModel(id);
+					objModel = dal.GetModel(PersonID);
 					if (objModel != null)
 					{
 						int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");
@@ -109,7 +109,7 @@ namespace Maticsoft.BLL.messages
 				}
 				catch{}
 			}
-			return (Maticsoft.Model.messages.messagesjoin)objModel;
+			return (Maticsoft.Model.messages.checkperson)objModel;
 		}
 
 		/// <summary>
@@ -122,7 +122,7 @@ namespace Maticsoft.BLL.messages
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.messages.messagesjoin> GetModelList(string strWhere)
+		public List<Maticsoft.Model.messages.checkperson> GetModelList(string strWhere)
 		{
 			DataSet ds = dal.GetList(strWhere);
 			return DataTableToList(ds.Tables[0]);
@@ -130,13 +130,13 @@ namespace Maticsoft.BLL.messages
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<Maticsoft.Model.messages.messagesjoin> DataTableToList(DataTable dt)
+		public List<Maticsoft.Model.messages.checkperson> DataTableToList(DataTable dt)
 		{
-			List<Maticsoft.Model.messages.messagesjoin> modelList = new List<Maticsoft.Model.messages.messagesjoin>();
+			List<Maticsoft.Model.messages.checkperson> modelList = new List<Maticsoft.Model.messages.checkperson>();
 			int rowsCount = dt.Rows.Count;
 			if (rowsCount > 0)
 			{
-				Maticsoft.Model.messages.messagesjoin model;
+				Maticsoft.Model.messages.checkperson model;
 				for (int n = 0; n < rowsCount; n++)
 				{
 					model = dal.DataRowToModel(dt.Rows[n]);
@@ -181,12 +181,6 @@ namespace Maticsoft.BLL.messages
 
 		#endregion  BasicMethod
 		#region  ExtensionMethod
-
-        public bool Exists(string tablename, string Code)
-        {
-
-            return dal.Exists(tablename, Code);
-        }
 
 		#endregion  ExtensionMethod
 	}

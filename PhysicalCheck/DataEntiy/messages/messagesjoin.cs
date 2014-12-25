@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2014-12-20 21:48:37   N/A    初版
+* V0.01  2014-12-24 18:25:29   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,7 +31,7 @@ namespace Maticsoft.Model.messages
 		private string _jointable;
 		private string _tablecode;
 		/// <summary>
-		/// 
+		/// auto_increment
 		/// </summary>
 		public int id
 		{

@@ -64,6 +64,7 @@
     <Compile Include="Examination\PhysicalDepartmentEntity.cs" />
     <Compile Include="Examination\RegistrationEntity.cs" />
     <Compile Include="Examination\RegistrationViewEntity.cs" />
+    <Compile Include="messages\checkperson.cs" />
     <Compile Include="messages\messages.cs" />
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />

@@ -72,9 +72,11 @@
     <Compile Include="Examination\ItemResultDataAccess.cs" />
     <Compile Include="Examination\PhysicalDepartmentDataAccess.cs" />
     <Compile Include="Examination\RegistrationDataAccess.cs" />
+    <Compile Include="messages\checkperson.cs" />
     <Compile Include="messages\messages.cs" />
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />
+    <Compile Include="messages\messagesSend.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemDataAccess.cs" />

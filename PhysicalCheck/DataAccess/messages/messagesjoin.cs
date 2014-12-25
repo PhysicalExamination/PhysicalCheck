@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2014-12-20 21:48:37   N/A    初版
+* V0.01  2014-12-24 18:25:29   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -45,9 +45,10 @@ namespace Maticsoft.DAL.messages
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from messagesjoin");
-			strSql.Append(" where id=@id ");
+			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
-					new MySqlParameter("@id", MySqlDbType.Int32,11)			};
+					new MySqlParameter("@id", MySqlDbType.Int32)
+			};
 			parameters[0].Value = id;
 
 			return DbHelperMySQL.Exists(strSql.ToString(),parameters);
@@ -61,18 +62,16 @@ namespace Maticsoft.DAL.messages
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into messagesjoin(");
-			strSql.Append("id,messagesid,jointable,tableCode)");
+			strSql.Append("messagesid,jointable,tableCode)");
 			strSql.Append(" values (");
-			strSql.Append("@id,@messagesid,@jointable,@tableCode)");
+			strSql.Append("@messagesid,@jointable,@tableCode)");
 			MySqlParameter[] parameters = {
-					new MySqlParameter("@id", MySqlDbType.Int32,11),
 					new MySqlParameter("@messagesid", MySqlDbType.Int32,11),
 					new MySqlParameter("@jointable", MySqlDbType.VarChar,100),
 					new MySqlParameter("@tableCode", MySqlDbType.VarChar,100)};
-			parameters[0].Value = model.id;
-			parameters[1].Value = model.messagesid;
-			parameters[2].Value = model.jointable;
-			parameters[3].Value = model.tableCode;
+			parameters[0].Value = model.messagesid;
+			parameters[1].Value = model.jointable;
+			parameters[2].Value = model.tableCode;
 
 			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -94,7 +93,7 @@ namespace Maticsoft.DAL.messages
 			strSql.Append("messagesid=@messagesid,");
 			strSql.Append("jointable=@jointable,");
 			strSql.Append("tableCode=@tableCode");
-			strSql.Append(" where id=@id ");
+			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
 					new MySqlParameter("@messagesid", MySqlDbType.Int32,11),
 					new MySqlParameter("@jointable", MySqlDbType.VarChar,100),
@@ -124,9 +123,10 @@ namespace Maticsoft.DAL.messages
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from messagesjoin ");
-			strSql.Append(" where id=@id ");
+			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
-					new MySqlParameter("@id", MySqlDbType.Int32,11)			};
+					new MySqlParameter("@id", MySqlDbType.Int32)
+			};
 			parameters[0].Value = id;
 
 			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
@@ -167,9 +167,10 @@ namespace Maticsoft.DAL.messages
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select id,messagesid,jointable,tableCode from messagesjoin ");
-			strSql.Append(" where id=@id ");
+			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
-					new MySqlParameter("@id", MySqlDbType.Int32,11)			};
+					new MySqlParameter("@id", MySqlDbType.Int32)
+			};
 			parameters[0].Value = id;
 
 			Maticsoft.Model.messages.messagesjoin model=new Maticsoft.Model.messages.messagesjoin();
@@ -302,6 +303,23 @@ namespace Maticsoft.DAL.messages
 
 		#endregion  BasicMethod
 		#region  ExtensionMethod
+
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(string tablename, string Code)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from messagesjoin");
+            strSql.Append(" where jointable=@tablename  And  tableCode=@tableCode");
+            MySqlParameter[] parameters = {
+					new MySqlParameter("@tablename", MySqlDbType.String),
+                    new MySqlParameter("@tableCode", MySqlDbType.String)
+			};
+            parameters[0].Value = tablename;
+            parameters[1].Value = Code;
+            return DbHelperMySQL.Exists(strSql.ToString(), parameters);
+        }
 
 		#endregion  ExtensionMethod
 	}

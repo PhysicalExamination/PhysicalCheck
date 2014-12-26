@@ -37,6 +37,20 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
+        ///分科室获取个人体检结果
+        ///<param name="RegisterNo">登记号</param>
+        ///<param name="DeptID">科室编码</param>
+        /// </summary>
+        public List<GroupResultViewEntity> GetGroupResults(string RegisterNo,int DeptID) {
+            var q = from p in Session.Query<GroupResultViewEntity>()
+                    where p.ID.RegisterNo == RegisterNo && p.DeptID == DeptID
+                    select p;
+            List<GroupResultViewEntity> Result = q.ToList<GroupResultViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
         /// 返回体检人所有未检项目
         /// </summary>
         /// <param name="RegisterNo">登记号</param>

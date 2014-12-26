@@ -152,6 +152,40 @@ namespace BusinessLogic.Examination {
 
         #endregion
 
+        #region 检查结果
+
+        public List<GroupResultViewEntity> GetGroupResults(string RegisterNo) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                return Group.GetGroupResults(RegisterNo);
+            }
+        }
+
+        public List<GroupResultViewEntity> GetGroupResults(string RegisterNo, int DeptID) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                return Group.GetGroupResults(RegisterNo, DeptID);
+            }
+        }
+
+        public GroupResultViewEntity GetGroupResult(string RegisterNo, int GroupID) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                return Group.GetGroupResult(RegisterNo, GroupID);
+            }
+        }
+
+        public void SaveGroupResult(GroupResultEntity GroupResult) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                Group.SaveGroupResult(GroupResult);
+            }
+        }
+
+        public void DeleteGroupResult(GroupResultEntity GroupResult) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                Group.DeleteGroupResult(GroupResult);
+            }
+        }
+
+        #endregion
+
         #region 私有方法
 
         private void SaveCheckGroups(String RegisterNo, int PackageID) {

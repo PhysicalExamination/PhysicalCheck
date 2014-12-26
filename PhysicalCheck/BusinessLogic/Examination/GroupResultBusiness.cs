@@ -27,6 +27,10 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetGroupResults(RegisterNo);
         }
 
+        public List<GroupResultViewEntity> GetGroupResults(string RegisterNo, int DeptID) {
+            return DataAccess.GetGroupResults(RegisterNo, DeptID);
+        }
+
         public GroupResultViewEntity GetGroupResult(string RegisterNo, int GroupID) {
             return DataAccess.GetGroupResult(RegisterNo, GroupID);
         }

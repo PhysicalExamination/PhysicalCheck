@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="12/26/2014 16:02:41" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="Name" DataType="System.String"/>
+      <Column Name="Sex" DataType="System.String"/>
+      <Column Name="Age" DataType="System.Int32"/>
+      <Column Name="DeptName" DataType="System.String"/>
+      <Column Name="RegisterDate" DataType="System.DateTime"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="ItemGroupResult" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="GroupID" DataType="System.Int32"/>
+      <Column Name="GroupName" DataType="System.String"/>
+      <Column Name="DeptName" DataType="System.String"/>
+      <Column Name="CheckDoctor" DataType="System.String"/>
+      <Column Name="CheckDate" DataType="System.DateTime"/>
+      <Column Name="Summary" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="ItemResult" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="GroupID" DataType="System.Int32"/>
+      <Column Name="ItemName" DataType="System.String"/>
+      <Column Name="CheckedResult" DataType="System.String"/>
+      <Column Name="MeasureUnit" DataType="System.String"/>
+      <Column Name="LowerLimit" DataType="System.String"/>
+      <Column Name="UpperLimit" DataType="System.String"/>
+      <Column Name="NormalTips" DataType="System.String"/>
+      <Column Name="CheckDoctor" DataType="System.String"/>
+      <Column Name="CheckDate" DataType="System.DateTime"/>
+    </BusinessObjectDataSource>
+    <Relation Name="ItemGroupResult_ItemResult" ParentDataSource="ItemGroupResult" ChildDataSource="ItemResult" ParentColumns="GroupID" ChildColumns="GroupID" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="160.65,567,510.3,687.8,170.1,264.6,321.3,529.2">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="103.95" Guides="37.8,85.05">
+      <TextObject Name="txtTitle" Left="160.65" Top="37.8" Width="406.35" Height="47.25" Text="健康/从业体检管理体检表" Font="宋体, 24pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="107.8" Width="718.2" Height="56.7" Guides="9.45,56.7">
+      <BarcodeObject Name="Barcode1" Left="510.3" Top="9.45" Width="177.5" Height="47.25" DataColumn="Registration.RegisterNo"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="168.34" Width="718.2" Height="406.35" DataSource="Registration" Guides="56.7,75.6,103.95,122.85,151.2,170.1,198.45,217.35,245.7,264.6,292.95,311.85">
+      <TextObject Name="Text2" Left="170.1" Top="56.7" Width="94.5" Height="18.9" Text="档 案 号" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text3" Left="170.1" Top="103.95" Width="94.5" Height="18.9" Text="姓 名" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text4" Left="170.1" Top="151.2" Width="94.5" Height="18.9" Text="性 别" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text5" Left="170.1" Top="198.45" Width="94.5" Height="18.9" Text="年 龄" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text6" Left="170.1" Top="245.7" Width="94.5" Height="18.9" Text="单 位" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text7" Left="170.1" Top="292.95" Width="94.5" Height="18.9" Text="登记日期" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text8" Left="321.3" Top="56.7" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.RegisterNo]" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text9" Left="321.3" Top="103.95" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.Name]" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text10" Left="321.3" Top="151.2" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.Sex]" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text11" Left="321.3" Top="198.45" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.Age]" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text12" Left="321.3" Top="245.7" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.DeptName]" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text13" Left="321.3" Top="292.95" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.RegisterDate]" Font="宋体, 16pt, style=Bold"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="578.54" Width="718.2" Height="75.6"/>
+  </ReportPage>
+  <ReportPage Name="Page2" Guides="0,718.2,122.85,236.25,472.5,567,349.65,463.05,576.45">
+    <PageHeaderBand Name="PageHeader2" Width="718.2" Height="37.8"/>
+    <DataBand Name="Data2" Top="41.65" Width="718.2" Height="56.7" Guides="0,28.35,56.7" DataSource="ItemGroupResult">
+      <TextObject Name="Text1" Width="718.2" Height="28.35" Dock="Top" Anchor="Left" Border.Lines="All" Fill.Color="Gainsboro" Text="[ItemGroupResult.DeptName]" VertAlign="Center" Font="宋体, 16pt, style=Bold"/>
+      <TextObject Name="Text16" Top="28.35" Width="122.85" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="[ItemGroupResult.GroupName]" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <TextObject Name="Text17" Left="122.85" Top="28.35" Width="113.4" Height="28.35" Border.Lines="All" Text="检查日期" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text18" Left="236.25" Top="28.35" Width="236.25" Height="28.35" Border.Lines="All" Fill.Color="Silver" Text="[ItemGroupResult.CheckDate]" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <TextObject Name="Text19" Left="472.5" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="检查医生" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text20" Left="567" Top="28.35" Width="151.2" Height="28.35" Border.Lines="All" Fill.Color="Silver" Text="[ItemGroupResult.CheckDoctor]" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <DataBand Name="Data3" Top="134.39" Width="718.2" Height="28.35" Guides="0,28.35" DataSource="ItemResult" EvenStyle="EvenRows" Fill.Color="WhiteSmoke">
+        <TextObject Name="Text21" Width="122.85" Height="28.35" Border.Lines="All" Text="[ItemResult.ItemName]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text24" Left="122.85" Width="113.4" Height="28.35" Border.Lines="All" Text="[ItemResult.CheckedResult]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text26" Left="236.25" Width="113.4" Height="28.35" Border.Lines="All" Text="[ItemResult.MeasureUnit]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text28" Left="349.65" Width="113.4" Height="28.35" Border.Lines="All" Text="[ItemResult.LowerLimit]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text30" Left="463.05" Width="113.4" Height="28.35" Border.Lines="All" Text="[ItemResult.UpperLimit]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text32" Left="576.45" Width="141.75" Height="28.35" Border.Lines="All" Text="[ItemResult.NormalTips]" VertAlign="Center" Font="宋体, 12pt"/>
+        <DataHeaderBand Name="DataHeader1" Top="102.19" Width="718.2" Height="28.35" Guides="0,28.35">
+          <TextObject Name="Text23" Width="122.85" Height="28.35" Border.Lines="All" Text="检查项目" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text25" Left="122.85" Width="113.4" Height="28.35" Border.Lines="All" Text="检查结果" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text27" Left="236.25" Width="113.4" Height="28.35" Border.Lines="All" Text="单位" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text29" Left="349.65" Width="113.4" Height="28.35" Border.Lines="All" Text="参考下限" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text31" Left="463.05" Width="113.4" Height="28.35" Border.Lines="All" Text="参考上限" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text33" Left="576.45" Width="141.75" Height="28.35" Border.Lines="All" Text="正常提示" VertAlign="Center" Font="宋体, 12pt"/>
+        </DataHeaderBand>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter2" Top="166.58" Width="718.2" Height="37.8"/>
+  </ReportPage>
+  <ReportPage Name="Page3" Guides="0,718.2,94.5,510.3,604.8,699.3">
+    <PageHeaderBand Name="PageHeader3" Width="718.2" Height="85.05"/>
+    <DataBand Name="Data4" Top="88.9" Width="718.2" Height="463.05" DataSource="Registration" Guides="0,37.8,47.25,75.6,85.05,245.7,247.7,285.5,283.5,387.45,396.9,415.8,434.7,453.6">
+      <TextObject Name="Text22" Width="718.2" Height="37.8" Dock="Top" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="总检结论" Padding="0, 0, 0, 0" Font="宋体, 24pt" FirstTabOffset="18.9"/>
+      <TextObject Name="Text34" Top="47.25" Width="94.5" Height="28.35" Text="综 述：" Font="宋体, 16pt"/>
+      <TextObject Name="Text35" Top="85.05" Width="718.2" Height="160.65" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="[Registration.RegisterNo]" Font="宋体, 16pt"/>
+      <TextObject Name="Text36" Top="247.7" Width="718.2" Height="37.8" Text="建议：" VertAlign="Center" Font="宋体, 16pt"/>
+      <TextObject Name="Text37" Top="283.5" Width="718.2" Height="103.95" Text="[Registration.RegisterNo]" Font="宋体, 16pt"/>
+      <TextObject Name="Text38" Left="510.3" Top="396.9" Width="94.5" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="总检医生：" Font="宋体, 12pt"/>
+      <TextObject Name="Text39" Left="510.3" Top="434.7" Width="94.5" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="总检日期：" Font="宋体, 12pt"/>
+      <TextObject Name="Text40" Left="604.8" Top="396.9" Width="94.5" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="[Registration.RegisterDate]" Font="宋体, 16pt"/>
+      <TextObject Name="Text41" Left="604.8" Top="434.7" Width="94.5" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="[Registration.RegisterDate]" Font="宋体, 16pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter3" Top="555.79" Width="718.2" Height="37.8"/>
+  </ReportPage>
+</Report>

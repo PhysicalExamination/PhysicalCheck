@@ -14,9 +14,9 @@ public partial class Reports_Default : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
-            WebReport1.ReportFile = Server.MapPath("BarCode.frx");
-            String RegisterNo = Request.Params["RegisterNo"];
-            WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");
+            //WebReport1.ReportFile = Server.MapPath("BarCode.frx");
+            //String RegisterNo = Request.Params["RegisterNo"];
+            //WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");
         }
     }
 

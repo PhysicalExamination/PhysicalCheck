@@ -77,6 +77,15 @@ public partial class Examination_CompanyPage : BasePage
                 sql = " messagesid is null  ";
         }
 
+        //int s = Pager.PageSize * (Pager.CurrentPageIndex - 1);
+        //int e = Pager.PageSize * Pager.CurrentPageIndex;
+
+        //DataTable dt = bll.GetListByPage(sqlWhere, " id ", s, e).Tables[0];
+        //Pager.RecordCount = bll.GetRecordCount(sqlWhere);
+        //CompanyRepeater.DataSource = dt;
+        //CompanyRepeater.DataBind();
+
+
         CompanyRepeater.DataSource = m_Company.GetList_PhysicalDepartment(sql).Tables[0];
         base.DataBind();
     }

@@ -45,7 +45,8 @@ public partial class Examination_CheckedRepeatPage : BasePage
         else if (isSend == "否")
             sqlw += " And messagesid is NULL ";
 
-        DataSet ds = bll.GetListByPage_Registration(sqlw, "", Pager.CurrentPageIndex, Pager.PageSize);
+
+        DataSet ds = bll.GetListByPage_Registration(sqlw, "", (Pager.CurrentPageIndex-1)*Pager.PageSize,(Pager.CurrentPageIndex)*Pager.PageSize );
 
         Pager.RecordCount = bll.GetRecordCount_Registration(sqlw);
         ReportRepeater.DataSource = ds.Tables[0];

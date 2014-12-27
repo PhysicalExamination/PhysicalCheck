@@ -66,12 +66,12 @@ public partial class Left : BasePage {
     private void BuildMenu() {
         StringBuilder sb = new StringBuilder();
         List<ModuleEntity> ModuleList;
-        if (IsAdmin) {
+        //if (IsAdmin) {
             ModuleList = m_Module.GetModules("Root");
-        }
-        else {
-            ModuleList = m_User.GetUserModules(UserAccount, "Root");
-        }
+        //}
+        //else {
+        //    ModuleList = m_User.GetUserModules(UserAccount, "Root");
+        //}
         sb.AppendLine("<div id=\"accordion\" style=\"margin: 0 auto; width: 240px;\">");
         sb.AppendLine(BuildHome());
         foreach (ModuleEntity Module in ModuleList) {
@@ -91,12 +91,12 @@ public partial class Left : BasePage {
     private String BuildSubMenu(String ParentModuleNo) {
         StringBuilder sb = new StringBuilder();
         List<ModuleEntity> ModuleList;
-        if (IsAdmin) {
+        //if (IsAdmin) {
             ModuleList = m_Module.GetModules(ParentModuleNo);
-        }
-        else {
-            ModuleList = m_User.GetUserModules(UserAccount, ParentModuleNo);
-        }
+        //}
+        //else {
+        //    ModuleList = m_User.GetUserModules(UserAccount, ParentModuleNo);
+        //}
         String URL, ModuleIcon, ModuleName;
         foreach (ModuleEntity Module in ModuleList) {
             sb.AppendLine("<p>");

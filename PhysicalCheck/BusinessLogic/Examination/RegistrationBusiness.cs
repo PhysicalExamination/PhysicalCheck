@@ -184,6 +184,12 @@ namespace BusinessLogic.Examination {
             }
         }
 
+        public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
+            using (ItemResultBusiness ItemResult = new ItemResultBusiness()) {
+                return ItemResult.GetItemResults(RegisterNo, GroupID);
+            }
+        }
+
         #endregion
 
         #region 私有方法

@@ -62,6 +62,14 @@ namespace DataEntity.SysConfig {
             set;
         }
 
+        /// <summary>
+        /// 提示信息
+        /// </summary>
+        public virtual String Notice {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

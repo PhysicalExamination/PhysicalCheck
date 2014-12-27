@@ -11,5 +11,6 @@
         <property name="Sex" column="Sex" type="String" not-null="false" length="6"/>
         <property name="Price" column="Price" type="Decimal" not-null="false" />
         <property name="Clinical" column="Clinical" type="String" not-null="false" length="300"/>
+        <property name="Notice" column="Notice" type="String" not-null="false" length="300"/>
     </class>
 </hibernate-mapping>

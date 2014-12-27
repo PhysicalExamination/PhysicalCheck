@@ -64,6 +64,7 @@
     <Compile Include="Admin\RolePermissionDataAccess.cs" />
     <Compile Include="Admin\SysUserDataAccess.cs" />
     <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="chart\chart.cs" />
     <Compile Include="Examination\ChargeDataAccess.cs" />
     <Compile Include="Examination\CheckPersonDataAccess.cs" />
     <Compile Include="Examination\DepartmentGroupDataAccess.cs" />
@@ -96,9 +97,6 @@
       <Project>{1DB68056-24DA-4F94-A681-937F5897A240}</Project>
       <Name>DataEntity %28DataEntity\DataEntity%29</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

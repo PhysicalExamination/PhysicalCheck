@@ -54,6 +54,12 @@ namespace BusinessLogic.Examination {
             return List;
         }
 
+        public IList<RegistrationViewEntity> GetCheckReports(int pageIndex, int pageSize,
+            DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
+                return DataAccess.GetCheckReports(pageIndex, pageSize, CheckDate, DeptName, 
+                    RegisterNo, out RecordCount);
+        }
+
         /// <summary>
         /// 返回复检人员信息
         /// </summary>

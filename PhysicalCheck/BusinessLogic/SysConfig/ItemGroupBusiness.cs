@@ -47,6 +47,7 @@ namespace BusinessLogic.SysConfig {
 
         public void DeleteItemGroup(ItemGroupEntity ItemGroup) {
             DataAccess.DeleteItemGroup(ItemGroup);
+            //GetItemGroupDetails(ItemGroup.GroupID.Value);
         }
 
         #endregion

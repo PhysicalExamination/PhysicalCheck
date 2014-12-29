@@ -54,6 +54,9 @@ namespace BusinessLogic.SysConfig {
             DataAccess.DeletePackage(Package);
         }
 
+        //public int GetPackageID() {
+        //    return DataAccess.GetPackageID();
+        //}
         #endregion
 
         #region 套餐组合项目

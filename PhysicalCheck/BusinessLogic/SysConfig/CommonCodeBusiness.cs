@@ -23,6 +23,10 @@ namespace BusinessLogic.SysConfig {
 
         #region 公共方法
 
+        public List<CommonCodeEntity> GetFactNatures() {
+            return DataAccess.GetCommonCodes("004");
+        }
+
         public List<CommonCodeEntity> GetCommonCodes(String Category) {
             return DataAccess.GetCommonCodes(Category);
         }

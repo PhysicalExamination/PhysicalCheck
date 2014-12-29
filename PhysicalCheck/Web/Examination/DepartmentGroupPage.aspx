@@ -160,7 +160,7 @@
                         <AlternatingItemTemplate>
                             <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                                 <td class="VLine" align="center">
-                                    <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("GroupID") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("ID.GroupID") %>' Visible="false" />
                                     <%# Eval("GroupName") %>
                                 </td>
                                 <td class="VLine" align="center">

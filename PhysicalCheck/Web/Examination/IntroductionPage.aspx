@@ -1,12 +1,15 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true"
-    CodeFile="BarCodePrintPage.aspx.cs" Inherits="Examination_BarCodePrintPage" %>
+    CodeFile="IntroductionPage.aspx.cs" Inherits="Examination_IntroductionPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
     <script type="text/javascript">
-        function PrintBarCode(RegisterNo) {
-            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=1";
+
+        function PrintIntroduction(RegisterNo) {
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=3";
             window.open(sURL, "_blank", "", true);
         }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -17,7 +20,7 @@
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
-            <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
+            <asp:Repeater ID="RegistrationRepeater" runat="server">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
@@ -25,7 +28,7 @@
                                 登记号
                             </th>
                             <th>
-                                体检单位
+                                工作单位
                             </th>
                             <th>
                                 姓名
@@ -37,6 +40,9 @@
                                 登记日期
                             </th>
                             <th>
+                                体检日期
+                            </th>
+                            <th>
                                 操作
                             </th>
                         </tr>
@@ -44,7 +50,7 @@
                 <ItemTemplate>
                     <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                         <td class="VLine" align="center">
-                            <asp:Literal runat="server" ID="lblRegisterNo" Text='<%# Eval("RegisterNo") %>' />
+                           <%# Eval("RegisterNo") %>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("DeptName") %>
@@ -59,14 +65,17 @@
                             <%# EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="打印" onclick="PrintBarCode('<%# Eval("RegisterNo")%>');" />
+                            <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                        </td>
+                        <td class="VLine" align="center">                           
+                            <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
                     <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                         <td class="VLine" align="center">
-                            <asp:Literal runat="server" ID="lblRegisterNo" Text='<%# Eval("RegisterNo") %>' />
+                            <%# Eval("RegisterNo") %>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("DeptName") %>
@@ -81,7 +90,10 @@
                             <%#EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="打印" onclick="PrintBarCode('<%# Eval("RegisterNo")%>');" />
+                            <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                        </td>
+                        <td class="VLine" align="center">                           
+                            <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>
                 </AlternatingItemTemplate>
@@ -90,10 +102,11 @@
                 </FooterTemplate>
             </asp:Repeater>
             <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"
-                ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center" DisabledButtonImageNameExtension="disable/"
-                HorizontalAlign="Center" ImagePath="~/images/" MoreButtonType="Text" NavigationButtonType="Image"
-                NumericButtonType="Text" PagingButtonType="Image" AlwaysShow="True" PagingButtonSpacing="8px"
-                NumericButtonCount="5" EnableTheming="True" PageSize="15">
+                OnPageChanged="Pager_PageChanged" ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center"
+                DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
+                MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
+                AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
+                PageSize="15">
             </asp:AspNetPager>
         </ContentTemplate>
         <Triggers>

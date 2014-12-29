@@ -180,7 +180,7 @@
                                 企业性质
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="textbox41" ID="txtNature" runat="server" />
+                                <asp:DropDownList ID="drpNature" runat="server" />
                             </td>
                         </tr>
                         <tr>

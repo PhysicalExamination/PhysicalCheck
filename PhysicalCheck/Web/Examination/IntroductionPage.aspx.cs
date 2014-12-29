@@ -7,7 +7,8 @@ using System.Web.UI.WebControls;
 using Common.FormatProvider;
 using BusinessLogic.Examination;
 
-public partial class Examination_BarCodePrintPage : BasePage {
+//体检指引单
+public partial class Examination_IntroductionPage : BasePage {
 
     #region 私有成员
 
@@ -15,19 +16,6 @@ public partial class Examination_BarCodePrintPage : BasePage {
 
     #endregion
 
-    #region 属性
-
-    private string RegisterNo {
-        get {
-            if (ViewState["RegisterNo"] == null) return string.Empty;
-            return (string)ViewState["RegisterNo"];
-        }
-        set {
-            ViewState["RegisterNo"] = value;
-        }
-    }
-
-    #endregion
 
     #region 重写方法
 
@@ -35,7 +23,7 @@ public partial class Examination_BarCodePrintPage : BasePage {
         base.OnLoad(e);
         if (!IsPostBack) {
             ClientInitial();
-            DataBind();           
+            DataBind();            
         }
     }
 
@@ -70,21 +58,22 @@ public partial class Examination_BarCodePrintPage : BasePage {
 
     private void ClientInitial() {
         txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
-    }   
+    }
 
     #endregion
 
     #region 事件
 
-    protected void btnSearch_Click(Object Sender, EventArgs e) {
+    protected void btnSearch_Click(object sender, EventArgs e) {
         DataBind();
     }
 
-    protected void ItemCommand(object source, RepeaterCommandEventArgs e) {
-        if (e.CommandName.ToLower() == "print") {          
-            RegisterNo = (String)e.CommandArgument;
-        }      
+
+    protected void Pager_PageChanged(object source, EventArgs e) {
+        DataBind();
     }
 
+
     #endregion
+    
 }

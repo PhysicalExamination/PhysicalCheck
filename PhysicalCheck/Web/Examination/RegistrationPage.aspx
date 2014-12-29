@@ -31,6 +31,11 @@
             var sFeatures = "dialogHeight=600px;dialogWidth=800px;center:yes;help:no;status:no;rsizable:yes";
             window.showModalDialog(sURL, vArguments, sFeatures);
         }
+        
+        function PrintIntroduction(RegisterNo) {
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo +"&ReportKind=3";
+            window.open(sURL, "_blank", "", true);
+        }
        
     </script>
 </asp:Content>
@@ -99,6 +104,8 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
+                                     <input type="button" class="buttonCss" value="打印"  
+                                            onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');"/>
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -125,6 +132,8 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail1" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
+                                      <input type="button" class="buttonCss" value="打印"  
+                                            onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');"/>
                                 </td>
                             </tr>
                         </AlternatingItemTemplate>

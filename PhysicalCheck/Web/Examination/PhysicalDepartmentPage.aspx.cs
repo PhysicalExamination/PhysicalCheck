@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
+using BusinessLogic.SysConfig;
 
 public partial class Examination_PhysicalDepartmentPage :BasePage {
 
@@ -35,6 +36,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            ClientInitial();
             DataBind();
             SetUIState("Default");
         }
@@ -66,6 +68,15 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
     #endregion
 
     #region 私有成员
+
+    private void ClientInitial() {
+        using (CommonCodeBusiness Business = new CommonCodeBusiness()) {
+            drpNature.DataSource = Business.GetFactNatures();
+            drpNature.DataValueField = "Code";
+            drpNature.DataTextField = "Name";
+            drpNature.DataBind();
+        }
+    }
 
     /// <summary>
     /// 设置界面控件显示状态
@@ -119,7 +130,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
         txtAddress.Text = "";
         txtBank.Text = "";
         txtBankAccount.Text = "";
-        txtNature.Text = "";
+        drpNature.SelectedIndex = -1;
         txtComment.Text = "";       
     }
     /// <summary>
@@ -136,7 +147,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
         txtAddress.Text = Result.Address;
         txtBank.Text = Result.Bank;
         txtBankAccount.Text = Result.BankAccount;
-        txtNature.Text = Result.Nature;
+        drpNature.SelectedValue = Result.Nature;
         txtComment.Text = Result.Comment;
     }
 
@@ -155,7 +166,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
         Result.Address = txtAddress.Text;
         Result.Bank = txtBank.Text;
         Result.BankAccount = txtBankAccount.Text;
-        Result.Nature = txtNature.Text;
+        Result.Nature = drpNature.SelectedValue;
         Result.Comment = txtComment.Text;
         return Result;
     }
@@ -169,7 +180,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
     protected void btnSavePhysicalDepartment_Click(object sender, EventArgs e) {
         PhysicalDepartmentEntity Result = GetPhysicalDepartmentUI();
         m_PhysicalDepartment.SavePhysicalDepartment(Result);
-        ShowMessage("数据保存成功!");
+        ShowMessage("体检单位数据保存成功!");
         DataBind();
         SetUIState("Default");
     }
@@ -181,8 +192,13 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
     }
 
     protected void btnDeletePhysicalDepartment_Click(object sender, EventArgs e) {
-        m_PhysicalDepartment.DeletePhysicalDepartment(GetPhysicalDepartmentUI());
-        ShowMessage("数据删除成功!");       
+        PhysicalDepartmentEntity PhysicalDepartment = GetPhysicalDepartmentUI();
+        if (PhysicalDepartment.DeptID == 1) {
+            ShowMessage("该体检单位为系统保留项不能删除！");
+            return;
+        }
+        m_PhysicalDepartment.DeletePhysicalDepartment(PhysicalDepartment);
+        ShowMessage("体检单位数据删除成功!");       
         DataBind();
         SetUIState("Default");
     }

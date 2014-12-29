@@ -19,7 +19,7 @@
             <li><a href="#tabs-2">编辑</a></li>
         </ul>
         <div id="tabs-1">
-            登记日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
+            体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
                 onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
             体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
+using Common.FormatProvider;
 
 public partial class Examination_DepartmentGroupPage : BasePage {
 
@@ -178,6 +179,7 @@ public partial class Examination_DepartmentGroupPage : BasePage {
         Result.IsChildren = chkIsChildren.Checked;
         Result.Duty = txtDuty.Text;
         Result.Position = txtPosition.Text;
+        Result.PackageID = EnvConverter.ToInt32(hPackageID.Value);
         return Result;
     }
 
@@ -192,11 +194,12 @@ public partial class Examination_DepartmentGroupPage : BasePage {
     protected void btnSaveGroup_Click(object sender, EventArgs e) {
         DepartmentGroupEntity Result = GetDepartmentGroupUI();
         m_DeptGroup.SaveDepartmentGroup(Result);
-        ShowMessage("数据保存成功!");
+        ShowMessage("单位分组数据保存成功!");
         //int Succeed = m_DeptGroup.SaveDepartmentGroup(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
-        DataBind();
+        //DataBind();
+        BindDepartmentGroup(DeptID);
         SetUIState("Default");
     }
 
@@ -208,11 +211,12 @@ public partial class Examination_DepartmentGroupPage : BasePage {
 
     protected void btnDeleteGroup_Click(object sender, EventArgs e) {
         m_DeptGroup.DeleteDepartmentGroup(GetDepartmentGroupUI());
-        ShowMessage("数据删除成功!");
+        ShowMessage("单位分组数据删除成功!");
+        BindDepartmentGroup(DeptID);
         //int Succeed = m_DeptGroup.DeleteDepartmentGroup(GetDepartmentGroupUI());
         //if (Succeed > 0) ShowMessage("数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");
-        DataBind();
+        //DataBind();
         SetUIState("Default");
     }
     protected void btnEditGroup_Click(object sender, EventArgs e) {

@@ -119,6 +119,58 @@ namespace DataAccess.Examination {
             return Result;
         }
 
+        /// <summary>
+        ///返回所有通过体检的登记信息
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="DeptName"></param>
+        /// <param name="RegisterNo"></param>
+        /// <param name="RecordCount"></param>
+        /// <returns></returns>
+        public IList<RegistrationViewEntity> GetCheckReports(int pageIndex, int pageSize,
+            DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
+            ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
+                    Restrictions.Eq("IDNumber", RegisterNo)));
+            }
+            if (CheckDate != null) {
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Eq("IsCheckOver", true));
+            }
+            RecordCount = Convert.ToInt32(Criteria.UniqueResult());
+
+            Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
+                    .SetMaxResults(pageSize);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
+                    Restrictions.Eq("IDNumber", RegisterNo)));
+            }
+            if (CheckDate != null) {
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo)) {
+                Criteria.Add(Restrictions.Eq("IsCheckOver", true));
+            }
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
 
         /// <summary>
         /// 返回复检人员信息

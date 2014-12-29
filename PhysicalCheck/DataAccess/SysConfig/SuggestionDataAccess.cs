@@ -79,6 +79,8 @@ namespace DataAccess.SysConfig {
         /// <param name="Suggestion">体检建议实体</param>
         public void SaveSuggestion(SuggestionEntity Suggestion) {
             if (Suggestion.SNo == int.MinValue) Suggestion.SNo = GetLineID("Suggestion");
+            Suggestion.DisplayOrder = Suggestion.SNo;
+            Suggestion.Enabled = true;
             Session.SaveOrUpdate(Suggestion);
             Session.Flush();
             CloseSession();
@@ -89,7 +91,8 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="Suggestion">体检建议实体</param>
         public void DeleteSuggestion(SuggestionEntity Suggestion) {
-            Session.Delete(Suggestion);
+            Suggestion.Enabled = false;
+            Session.SaveOrUpdate(Suggestion);
             Session.Flush();
             CloseSession();
         }

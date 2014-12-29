@@ -95,12 +95,14 @@ namespace DataAccess.Examination {
             try {
                 Session.Delete(HQL);
                 Session.Flush();
-                CloseSession();
                 tx.Commit();
             }
-            catch(Exception ex){
+            catch (Exception ex) {
                 if (tx != null) tx.Rollback();
                 throw ex;
+            }
+            finally {
+                CloseSession();
             }
         }
 

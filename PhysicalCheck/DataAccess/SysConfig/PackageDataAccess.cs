@@ -66,11 +66,21 @@ namespace DataAccess.SysConfig {
         }
 
         /// <summary>
+        /// 返回套餐编码
+        /// </summary>
+        /// <returns></returns>
+        //public int GetPackageID() {
+        //    return GetLineID("Package");
+        //}
+
+        /// <summary>
         /// 保存体检套餐数据
         /// </summary>
         /// <param name="Package">体检套餐实体</param> 
         public void SavePackage(PackageEntity Package) {
             if (Package.PackageID == int.MinValue) Package.PackageID = GetLineID("Package");
+            Package.DisplayOrder = Package.PackageID;
+            //Package.en
             Session.SaveOrUpdate(Package);
             Session.Flush();
             CloseSession();

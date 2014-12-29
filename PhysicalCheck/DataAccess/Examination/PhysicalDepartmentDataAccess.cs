@@ -33,17 +33,20 @@ namespace DataAccess.Examination {
             String DeptName, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<PhysicalDepartmentEntity>();
             Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled",true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
             }
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
             Criteria = Session.CreateCriteria<PhysicalDepartmentEntity>();
-            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
-                    .SetMaxResults(pageSize);
+            Criteria.Add(Restrictions.Eq("Enabled", true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
             }
+            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
+                    .SetMaxResults(pageSize);
+            Criteria.AddOrder(new Order("DeptID", true));
             IList<PhysicalDepartmentEntity> Result = Criteria.List<PhysicalDepartmentEntity>();
             /*String RecordCounthql = @"select count(DeptID) from PhysicalDepartmentEntity";
             String hql = @" from PhysicalDepartmentEntity";
@@ -96,6 +99,7 @@ namespace DataAccess.Examination {
         /// <param name="PhysicalDepartment">体检单位实体</param>
         public void SavePhysicalDepartment(PhysicalDepartmentEntity PhysicalDepartment) {
             if (PhysicalDepartment.DeptID == int.MinValue) PhysicalDepartment.DeptID = GetLineID("PhysicalDepartment");
+            PhysicalDepartment.Enabled = true;
             Session.SaveOrUpdate(PhysicalDepartment);
             Session.Flush();
             CloseSession();

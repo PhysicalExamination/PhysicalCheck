@@ -77,6 +77,8 @@ namespace DataAccess.SysConfig {
         /// <param name="CheckedItem">体检项目实体</param>   
         public void SaveCheckedItem(CheckedItemEntity CheckedItem) {
             if (CheckedItem.ItemID == int.MinValue) CheckedItem.ItemID = GetLineID("CheckedItem");
+            CheckedItem.DisplayOrder = CheckedItem.ItemID;
+            CheckedItem.Enabled = true;
             Session.SaveOrUpdate(CheckedItem);
             Session.Flush();
             CloseSession();
@@ -87,7 +89,8 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="CheckedItem">体检项目实体</param>   
         public void DeleteCheckedItem(CheckedItemEntity CheckedItem) {
-            Session.Delete(CheckedItem);
+            CheckedItem.Enabled = false;
+            Session.SaveOrUpdate(CheckedItem);
             Session.Flush();
             CloseSession();
         }

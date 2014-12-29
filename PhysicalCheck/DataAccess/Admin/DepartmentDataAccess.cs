@@ -70,7 +70,9 @@ namespace DataAccess.Admin {
 		/// <param name="Department">部门信息实体</param>
 		/// <returns></returns>
 		public int SaveDepartment(DepartmentEntity Department) {
-            if (Department.DeptID == null) Department.DeptID = GetLineID("Department");
+            if (Department.DeptID == int.MinValue) Department.DeptID = GetLineID("Department");
+            Department.DisplayOrder = Department.DeptID;
+            Department.Enabled = true;
 			Session.SaveOrUpdate(Department);
 			Session.Flush();
 			CloseSession();
@@ -83,7 +85,8 @@ namespace DataAccess.Admin {
 		/// <param name="Department">部门信息实体</param>
 		/// <returns></returns>
 		public int DeleteDepartment(DepartmentEntity Department) {
-			Session.Delete(Department);
+            Department.Enabled = false;
+			Session.SaveOrUpdate(Department);
 			Session.Flush();
 			CloseSession();
 			return 1;

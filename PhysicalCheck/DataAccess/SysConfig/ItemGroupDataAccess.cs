@@ -73,6 +73,8 @@ namespace DataAccess.SysConfig {
         /// <param name="ItemGroup">组合项目实体</param>
         public void SaveItemGroup(ItemGroupEntity ItemGroup) {
             if (ItemGroup.GroupID == int.MinValue) ItemGroup.GroupID = GetLineID("itemgroup");
+            ItemGroup.Enabled = true;
+            ItemGroup.DisplayOrder = ItemGroup.GroupID;
             Session.SaveOrUpdate(ItemGroup);
             Session.Flush();
             CloseSession();
@@ -83,7 +85,9 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="ItemGroup">组合项目实体</param>
         public void DeleteItemGroup(ItemGroupEntity ItemGroup) {
-            Session.Delete(ItemGroup);
+            ItemGroup.Enabled = false;
+            ItemGroup.DisplayOrder = ItemGroup.GroupID;
+            Session.SaveOrUpdate(ItemGroup);
             Session.Flush();
             CloseSession();
         }

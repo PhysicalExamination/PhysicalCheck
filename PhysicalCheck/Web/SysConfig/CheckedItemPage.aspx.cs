@@ -187,6 +187,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
     protected void btnSaveCheckedItem_Click(object sender, EventArgs e) {
         CheckedItemEntity Result = GetCheckedItemUI();
         m_CheckedItem.SaveCheckedItem(Result);
+        ShowMessage("数据保存成功!");
         //int Succeed = m_CheckedItem.SaveCheckedItem(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
@@ -202,6 +203,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
 
     protected void btnDeleteCheckedItem_Click(object sender, EventArgs e) {
         m_CheckedItem.DeleteCheckedItem(GetCheckedItemUI());
+        ShowMessage("数据删除成功!");
         //int Succeed = m_CheckedItem.DeleteCheckedItem(GetCheckedItemUI());
         //if (Succeed > 0) ShowMessage("数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");

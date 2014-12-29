@@ -109,38 +109,33 @@
                                 名称
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtName" runat="server" />
+                                <asp:TextBox CssClass="textbox31" ID="txtName" runat="server" />
                             </td>
                             <td class="HVLine">
                                 关键字
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtKeyWord" runat="server" />
+                                <asp:TextBox CssClass="textbox31" ID="txtKeyWord" runat="server" />
                             </td>
                         </tr>
                         <tr>
                             <td class="VLine">
                                 检查科室
                             </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtDeptName" runat="server" ReadOnly="true" />
+                            <td class="VLine" colspan="3">
+                                <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择检查科室"
                                     onclick="selectDept();" align="middle" border="0" />
                                 <asp:HiddenField ID="hDeptID" runat="server" />
                             </td>
-                            <td class="VLine">
-                                显示顺序
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtDisplayOrder" runat="server" />
-                            </td>
+                           
                         </tr>
                         <tr>
                             <td class="VLine">
                                 建议
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="inputCss" TextMode="MultiLine" Height="80px" Width="99%" ID="txtSuggestion"
+                                <asp:TextBox CssClass="textbox31" TextMode="MultiLine" Height="80px" Width="99%" ID="txtSuggestion"
                                     runat="server" />
                             </td>
                         </tr>
@@ -149,7 +144,7 @@
                                 说明
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="inputCss" ID="txtExplain" TextMode="MultiLine" Height="80px"
+                                <asp:TextBox CssClass="textbox31" ID="txtExplain" TextMode="MultiLine" Height="80px"
                                     Width="99%" runat="server" />
                             </td>
                         </tr>

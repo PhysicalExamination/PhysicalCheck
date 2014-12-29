@@ -19,10 +19,10 @@
             }
             var sURL = "ItemGroupDialog.aspx?PackageID=" + PackageID + "&rand=" + Math.random();
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
-            var sResult = window.showModalDialog(sURL, null, sFeatures);           
-            var price = parseFloat(sResult);          
+            var sResult = window.showModalDialog(sURL, null, sFeatures);          
+            var price = parseFloat(sResult);           
             if ((sResult != null || sResult != undefined) && (price > 0)) {               
-                $("#<%=txtPrice %>").val(price);
+                $("#<%=txtPrice.ClientID %>").val(price);
             }
         }
         
@@ -184,7 +184,7 @@
                                     <%# Eval("Price")%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("Sex")%>
+                                    <%# GetSex(Eval("Sex"))%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <%# Eval("Clinical")%>
@@ -200,7 +200,7 @@
                                     <%# Eval("Price")%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <%# Eval("Sex")%>
+                                    <%# GetSex(Eval("Sex"))%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <%# Eval("Clinical")%>

@@ -76,6 +76,14 @@ public partial class SysConfig_PackagePage : BasePage {
         return "";
     }
 
+
+    protected String GetSex(Object obj) {
+        String val = (String)obj;
+        if (val == "%") return "不限";
+        if (val == "0") return "女";
+        if (val == "1") return "男";
+        return "";
+    }
     #endregion
 
     #region 私有成员
@@ -158,7 +166,7 @@ public partial class SysConfig_PackagePage : BasePage {
     private PackageEntity GetPackageUI() {
         PackageEntity Result = new PackageEntity();
         Result.PackageName = txtPackageName.Text;
-        Result.Price = EnvConverter.ToDecimal(txtPrice.Text);
+        Result.Price =  String.IsNullOrEmpty(txtPrice.Text)?0: EnvConverter.ToDecimal(txtPrice.Text);
         Result.Category = drpCategorys.SelectedValue;
         Result.PackageID = PackageID;
         return Result;
@@ -173,7 +181,7 @@ public partial class SysConfig_PackagePage : BasePage {
         PackageEntity Result = GetPackageUI();
         m_Package.SavePackage(Result);
         PackageID = Result.PackageID.Value;
-        ShowMessage("数据保存成功!");
+        ShowMessage("套餐数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
         DataBind();
         SetUIState("Default");
@@ -187,7 +195,7 @@ public partial class SysConfig_PackagePage : BasePage {
 
     protected void btnDeletePackage_Click(object sender, EventArgs e) {
         m_Package.DeletePackage(GetPackageUI());
-        ShowMessage("数据删除成功!");
+        ShowMessage("套餐数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");
         DataBind();
         SetUIState("Default");

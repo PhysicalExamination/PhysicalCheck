@@ -115,7 +115,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
         hDeptID.Value = "";
         txtSuggestion.Text = "";
         txtExplain.Text = "";
-        txtDisplayOrder.Text = "";        
+        //txtDisplayOrder.Text = "";        
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
         txtDeptName.Text = Result.DeptName;
         txtSuggestion.Text = Result.Suggestion;
         txtExplain.Text = Result.Explain;
-        txtDisplayOrder.Text = Result.DisplayOrder + "";
+        //txtDisplayOrder.Text = Result.DisplayOrder + "";
     }
 
     /// <summary>
@@ -145,7 +145,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
         Result.DeptID = EnvConverter.ToInt32(hDeptID.Value);
         Result.Suggestion = txtSuggestion.Text;
         Result.Explain = txtExplain.Text;
-        Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
+        //Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
         return Result;
     }
 
@@ -158,6 +158,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
     protected void btnSaveSuggestion_Click(object sender, EventArgs e) {
         SuggestionEntity Result = GetSuggestionUI();
         m_Suggestion.SaveSuggestion(Result);
+        ShowMessage("数据保存成功!");
         //int Succeed = m_Suggestion.SaveSuggestion(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
@@ -173,6 +174,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
 
     protected void btnDeleteSuggestion_Click(object sender, EventArgs e) {
         m_Suggestion.DeleteSuggestion(GetSuggestionUI());
+        ShowMessage("数据删除成功!");
         //int Succeed = m_Suggestion.DeleteSuggestion(GetSuggestionUI());
         //if (Succeed > 0) ShowMessage("数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");

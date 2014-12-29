@@ -148,7 +148,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         chkHasSpecimen.Checked = false;
         drpSpecimen.SelectedIndex = -1;
         drpResultMode.SelectedIndex = -1;
-        txtDisplayOrder.Text = "";
+        //txtDisplayOrder.Text = "";
     }
     /// <summary>
     /// 填充界面
@@ -167,7 +167,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         txtNormalDesc.Text = Result.NormalDesc;
         drpSpecimen.SelectedValue = Result.Specimen;
         drpResultMode.SelectedValue = Result.ResultMode;
-        txtDisplayOrder.Text = Result.DisplayOrder + "";
+        //txtDisplayOrder.Text = Result.DisplayOrder + "";
     }
 
     /// <summary>
@@ -187,7 +187,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         Result.NormalDesc = txtNormalDesc.Text;
         Result.Specimen = drpSpecimen.SelectedValue;
         Result.ResultMode = drpResultMode.SelectedValue;
-        Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
+        //Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
         return Result;
     }
 
@@ -206,6 +206,8 @@ public partial class SysConfig_ItemGroupPage : BasePage {
     protected void btnSaveItemGroup_Click(object sender, EventArgs e) {
         ItemGroupEntity Result = GetItemGroupUI();
         m_ItemGroup.SaveItemGroup(Result);
+        GroupID = Result.GroupID.Value;
+        ShowMessage("组合项目数据保存成功!");
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
         DataBind();
@@ -220,7 +222,8 @@ public partial class SysConfig_ItemGroupPage : BasePage {
 
     protected void btnDeleteItemGroup_Click(object sender, EventArgs e) {
         m_ItemGroup.DeleteItemGroup(GetItemGroupUI());
-        //if (Succeed > 0) ShowMessage("数据删除成功!");
+        ShowMessage("组合项目数据删除成功!");
+        //if (Succeed > 0) ShowMessage("组合项目数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");
         DataBind();
         SetUIState("Default");

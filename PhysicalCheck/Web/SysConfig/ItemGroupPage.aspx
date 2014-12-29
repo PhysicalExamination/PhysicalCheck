@@ -224,18 +224,13 @@
                             <td class="VLine">
                                 结果获取方式
                             </td>
-                            <td class="VLine">
+                            <td class="VLine" colspan="3">
                                 <asp:DropDownList ID="drpResultMode" runat="server">
                                     <asp:ListItem Value="0">手动录入</asp:ListItem>
                                     <asp:ListItem Value="1">自动获取</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            <td class="VLine">
-                                显示顺序
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtDisplayOrder" runat="server" />
-                            </td>
+                            
                         </tr>
                         <tr>
                             <td colspan="4" align="center" class="VLine">

@@ -226,7 +226,7 @@ public partial class Examination_RegistrationPage : BasePage {
     }
 
     protected void btnDelete_Click(object sender, EventArgs e) {
-        m_Registration.DeleteRegistration(GetRegistrationUI());
+        m_Registration.DeleteRegistration(RegisterNo);
         ShowMessage("删除体检登记数据成功!");
         //int Succeed = m_Registration.DeleteRegistration(GetRegistrationUI());
         //if (Succeed > 0) ShowMessage("数据删除成功!");

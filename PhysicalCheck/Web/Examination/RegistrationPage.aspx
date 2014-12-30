@@ -13,7 +13,7 @@
 
         function selectDept() {
             var sRegNo = $("#<%=txtRegisterNo.ClientID %>").val();
-            if ((sRegNo != null) || (sRegNo != "")) return;
+            //if ((sRegNo != null) || (sRegNo != "")) return;
             var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?rand=" + Math.random();
             var sFeatures = "center:yes;help:no;status:no;rsizable:yes";
             var vArguments = "";
@@ -22,7 +22,17 @@
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hDeptID.ClientID %>").val(urlValue[0]);
                 $("#<%=txtDeptName.ClientID %>").val(urlValue[1]);
-            }            
+            }
+        }
+
+        function selectPackage() {
+            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random();
+            var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
+            //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
+            if (urlValue != null || urlValue != undefined) {
+                $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
+                $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
+            }
         }
 
         function btnDataImport() {
@@ -62,7 +72,7 @@
                                         登记号
                                     </th>
                                     <th>
-                                        单位
+                                        体检单位
                                     </th>
                                     <th>
                                         姓名

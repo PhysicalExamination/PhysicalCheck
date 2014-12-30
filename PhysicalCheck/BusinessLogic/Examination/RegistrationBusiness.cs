@@ -6,6 +6,7 @@ using DataAccess.Examination;
 using DataEntity.Examination;
 using BusinessLogic.SysConfig;
 using DataEntity.SysConfig;
+using System.Text.RegularExpressions;
 
 namespace BusinessLogic.Examination {
 
@@ -41,14 +42,14 @@ namespace BusinessLogic.Examination {
         /// <returns></returns>
         public IList<RegistrationViewEntity> GetOveralls(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-                GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess();
+            GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess();
             IList<RegistrationViewEntity> List = DataAccess.GetOveralls(pageIndex, pageSize, CheckDate,
                 DeptName, RegisterNo, out RecordCount);
-            List<String> Items,Summary;
+            List<String> Items, Summary;
             foreach (RegistrationViewEntity Register in List) {
                 Items = GroupDataAccess.GetUncheckedGroup(Register.RegisterNo);
                 Summary = GroupDataAccess.GetGroupSummary(Register.RegisterNo);
-                Register.UncheckedItems = String.Join(";",Items.ToArray());
+                Register.UncheckedItems = String.Join(";", Items.ToArray());
                 Register.Summary = String.Join(";", Summary.ToArray());
             }
             return List;
@@ -56,8 +57,8 @@ namespace BusinessLogic.Examination {
 
         public IList<RegistrationViewEntity> GetCheckReports(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-                return DataAccess.GetCheckReports(pageIndex, pageSize, CheckDate, DeptName, 
-                    RegisterNo, out RecordCount);
+            return DataAccess.GetCheckReports(pageIndex, pageSize, CheckDate, DeptName,
+                RegisterNo, out RecordCount);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace BusinessLogic.Examination {
         /// <returns></returns>
         public IList<RegistrationViewEntity> GetReviews(int pageIndex, int pageSize,
             DateTime StartDate, DateTime EndDate, out int RecordCount) {
-                return DataAccess.GetReviews(pageIndex, pageSize, StartDate, EndDate,out RecordCount);
+            return DataAccess.GetReviews(pageIndex, pageSize, StartDate, EndDate, out RecordCount);
         }
 
         /// <summary>
@@ -91,9 +92,9 @@ namespace BusinessLogic.Examination {
         public void SaveRegistration(RegistrationViewEntity Registration) {
             CheckPersonEntity PersonInfo = new CheckPersonEntity {
                 PersonID = Registration.PersonID,
-                Age = Registration.Age,
+                Age = Registration.Age.HasValue ? Registration.Age : GetAgeByIDNumber(Registration.IDNumber),
                 Address = Registration.Address,
-                Birthday = Registration.Birthday,
+                Birthday = Registration.Birthday.HasValue ? Registration.Birthday : GetBirthdayByIDNumber(Registration.IDNumber),
                 IDNumber = Registration.IDNumber,
                 Sex = Registration.Sex,
                 Education = Registration.Education,
@@ -104,8 +105,7 @@ namespace BusinessLogic.Examination {
                 Marriage = Registration.Marriage,
                 Name = Registration.Name,
                 DeptID = Registration.DeptID,
-                Mobile = Registration.Mobile,
-                Enabled = true
+                Mobile = Registration.Mobile
             };
             using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
                 CheckPerson.SaveCheckPerson(PersonInfo);
@@ -117,8 +117,7 @@ namespace BusinessLogic.Examination {
                 RegisterDate = Registration.RegisterDate,
                 IsCheckOver = false,
                 PersonID = PersonInfo.PersonID,
-                PackageID = Registration.PackageID,
-                Enabled = true
+                PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
             SaveCheckGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value);
@@ -134,20 +133,16 @@ namespace BusinessLogic.Examination {
             DataAccess.SaveReview(RegisterNo, InformResult, InformPerson);
         }
 
+        public void SaveOverallChecked(RegistrationEntity OverallChecked) {            
+            DataAccess.SaveRegistration(OverallChecked);
+        }
+
         /// <summary>
         /// 删除体检登记数据
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
-        public void DeleteRegistration(RegistrationViewEntity Registration) {
-            RegistrationEntity RegEntity = new RegistrationEntity {
-                RegisterNo = Registration.RegisterNo,
-                CheckDate = Registration.CheckDate,
-                RegisterDate = Registration.RegisterDate,
-                IsCheckOver = false,
-                PersonID = Registration.PersonID,
-                PackageID = Registration.PackageID              
-            };
-            DataAccess.DeleteRegistration(RegEntity);
+        public void DeleteRegistration(String RegisterNo) {
+            DataAccess.DeleteRegistration(RegisterNo);
             /*using (GroupResultDataAccess GroupResult = new GroupResultDataAccess()) {
                 GroupResult.DeleteGroupResults(Registration.RegisterNo);
             }
@@ -229,6 +224,35 @@ namespace BusinessLogic.Examination {
                     ResultDataAccess.SaveItemResult(ItemResult);
                 }
             }
+        }
+
+        /// <summary>
+        /// 根据身份证号计算年龄
+        /// </summary>
+        /// <param name="IDNumber"></param>
+        /// <returns></returns>
+        private int? GetAgeByIDNumber(String IDNumber) {
+            if (String.IsNullOrEmpty(IDNumber)) return null;
+            Regex regex = new Regex(@"/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/");
+            if (!regex.IsMatch(IDNumber)) return null;
+            int CurrentYear = DateTime.Now.Year;
+            int BirthYear = Convert.ToInt32(IDNumber.Substring(6, 4));
+            return CurrentYear - BirthYear;
+        }
+
+        /// <summary>
+        /// 根据身份证号计算出生日期
+        /// </summary>
+        /// <param name="IDNumber"></param>
+        /// <returns></returns>
+        private DateTime? GetBirthdayByIDNumber(String IDNumber) {
+            if (String.IsNullOrEmpty(IDNumber)) return null;
+            Regex regex = new Regex(@"/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/");
+            if (!regex.IsMatch(IDNumber)) return null;
+            int Year = Convert.ToInt32(IDNumber.Substring(6, 4));
+            int Month = Convert.ToInt32(IDNumber.Substring(10, 2));
+            int Day = Convert.ToInt32(IDNumber.Substring(12, 2));
+            return new DateTime(Year, Month, Day);
         }
 
         #endregion

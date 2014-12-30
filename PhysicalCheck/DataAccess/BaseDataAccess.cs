@@ -80,43 +80,32 @@ namespace DataAccess {
 
         protected string GetBillNo(string tableName) {
             int BillNo = 0;
+            DateTime CurrentDate = DateTime.Now.Date;
             String sBillNo = DateTime.Now.ToString("yyyyMMdd");
             Norecordor Norecordor = Session.Get<Norecordor>(tableName);
             if (Norecordor == null) {
-                Norecordor = new Norecordor { TableNam = tableName, LastBillDate = DateTime.Now.Date, BillNo = "1" };
+                Norecordor = new Norecordor { TableNam = tableName, LastBillDate = DateTime.Now.Date, BillNo = "0" };
             }
-            BillNo = Convert.ToInt32(Norecordor.BillNo)+1;
+            BillNo = Convert.ToInt32(Norecordor.BillNo);
+            if (CurrentDate>Norecordor.LastBillDate) {
+                Norecordor.BillNo = "1";
+                Norecordor.LastBillDate = CurrentDate;
+                BillNo = 1;                
+            }
+            if (CurrentDate == Norecordor.LastBillDate) {
+                BillNo = Convert.ToInt32(Norecordor.BillNo) + 1;               
+                Norecordor.BillNo = BillNo + "";
+            }
             if ((BillNo > 0) && (BillNo < 10)) sBillNo +="000"+BillNo;
             if ((BillNo >= 10) && (BillNo < 100)) sBillNo += "00" + BillNo;
             if ((BillNo >= 100) && (BillNo < 1000)) sBillNo += "0" + BillNo;
             //if ((BillNo >= 1000) && (BillNo < 10000)) sBillNo += "0" + BillNo;
             //if ((BillNo >= 10000) && (BillNo < 100000)) sBillNo += "0" + BillNo;
-            Norecordor.BillNo = BillNo + "";
+            //Norecordor.BillNo = BillNo + "";
             Session.Save(Norecordor);
             Session.Flush();
             CloseSession();
-            return sBillNo;
-            /*string Result = String.Empty;
-            using (IDbCommand Command = Session.Connection.CreateCommand()) {
-                Command.CommandText = "call Proc_GetBillNo(?)";
-                //Command.CommandType = CommandType.StoredProcedure;
-                IDbDataParameter parameter = Command.CreateParameter();
-                parameter.ParameterName = "aTable_nam";
-                parameter.DbType = DbType.String;
-                parameter.Value = tableName;
-                parameter.Direction = ParameterDirection.Input;
-                Command.Parameters.Add(parameter);
-                IDataReader Reader = Command.ExecuteReader();
-                try {
-                    if (Reader.Read()) {
-                        Result = Reader.GetString(0);
-                    }
-                }
-                finally {
-                    Reader.Dispose();
-                }
-            }
-            return Result;*/
+            return sBillNo;           
         }
 
         #endregion

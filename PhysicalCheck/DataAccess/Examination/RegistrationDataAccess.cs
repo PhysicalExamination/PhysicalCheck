@@ -142,7 +142,7 @@ namespace DataAccess.Examination {
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+                Criteria.Add(Restrictions.Eq("OverallDate", CheckDate));
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));
@@ -161,7 +161,7 @@ namespace DataAccess.Examination {
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+                Criteria.Add(Restrictions.Eq("OverallDate", CheckDate));
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));
@@ -217,6 +217,7 @@ namespace DataAccess.Examination {
         /// <param name="Registration">体检登记实体</param>
         public void SaveRegistration(RegistrationEntity Registration) {
             if (String.IsNullOrWhiteSpace(Registration.RegisterNo)) Registration.RegisterNo = GetBillNo("Registration");
+            Registration.Enabled = true;
             Session.SaveOrUpdate(Registration);
             Session.Flush();
             CloseSession();
@@ -226,30 +227,12 @@ namespace DataAccess.Examination {
         /// 删除体检登记数据
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
-        public void DeleteRegistration(RegistrationEntity Registration) {
-            Registration.Enabled = false;
-            Registration.PackageID = 1;
+        public void DeleteRegistration(String RegisterNo) {
+            RegistrationEntity  Registration = Session.Get<RegistrationEntity>(RegisterNo);
+            Registration.Enabled = false;           
             Session.SaveOrUpdate(Registration);
             Session.Flush();
             CloseSession();
-        }
-
-        public void UpdateCheckDate(String RegisterNo ,DateTime CheckDate) {
-            String HQL = @"Update RegistrationEntity set CheckDate =? AND RegisterNo=?";
-            ITransaction tx = Session.BeginTransaction();
-            try {
-                Session.CreateQuery(HQL)
-                    .SetDateTime(0, CheckDate)
-                    .SetString(1, RegisterNo)
-                    .ExecuteUpdate();
-                tx.Commit();
-            }
-            catch {
-                tx.Rollback();
-            }
-            finally {
-                CloseSession();
-            }
         }
 
         /// <summary>
@@ -259,7 +242,7 @@ namespace DataAccess.Examination {
         /// <param name="InformResult">通知情况0-未留联系方式、1-未联系到、2-已通知</param>
         /// <param name="InformPerson">通知人</param>
         public void SaveReview(String RegisterNo, String InformResult, String InformPerson) {
-            String HQL = @"Update RegistrationEntity set InformResult =?,InformPerson=? AND RegisterNo=?";
+            String HQL = @"Update RegistrationEntity set InformResult =?,InformPerson=? WHERE RegisterNo=?";
             ITransaction tx = Session.BeginTransaction();
             try {
                 Session.CreateQuery(HQL)

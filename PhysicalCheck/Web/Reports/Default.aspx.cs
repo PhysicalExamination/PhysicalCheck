@@ -32,11 +32,12 @@ public partial class Reports_Default : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
-            String RegisterNo = "20141214000043";// Request.Params["RegisterNo"];//"20141214000043"
-            //String ReportKind = Request.Params["ReportKind"];
-            //if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
-            //if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
-            BuildIntroduction(RegisterNo);
+            String RegisterNo = Request.Params["RegisterNo"];//"20141214000043"
+            String ReportKind = Request.Params["ReportKind"];
+            if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
+            if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
+            if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
+            //BuildIntroduction(RegisterNo);
         }
     }
 
@@ -67,7 +68,7 @@ public partial class Reports_Default : BasePage {
         WebReport1.Prepare();
     }
 
-    public void BuildIntroduction(String RegisterNo) {
+    public void BuildIntroductionReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("IntroductionReport.frx");
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();

@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <cc1:WebReport ID="WebReport1" runat="server" BackColor="White" Font-Bold="False"
-        Width="1024px" Height="1000px"  Padding="5, 5, 5, 5"
+        Width="100%" Height="100%"  Padding="5, 5, 5, 5"
         ToolbarColor="Lavender" PrintInPdf="True" PdfEmbeddingFonts="True" Layers="False"
         Zoom="1" ToolbarStyle="Large" ToolbarBackgroundStyle="Light" ToolbarIconsStyle="Blue"
         EnableViewState="True" />

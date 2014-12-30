@@ -14,6 +14,15 @@ public partial class Charts_Chart1 :BasePage {
     protected override void OnLoad(EventArgs e) {
         if (!IsPostBack) {
             base.OnLoad(e);
+           
+
+            drpYears.Items.Clear();
+
+            for (int i=0;i<10;i++)
+            {
+                drpYears.Items.Add(new ListItem( Convert.ToString( DateTime.Now.Year - i)+"年", (DateTime.Now.Year - i).ToString()));
+            }
+
             DataBind();
         }
     }
@@ -76,7 +85,7 @@ public partial class Charts_Chart1 :BasePage {
         }
     }
     protected void btnSearch_Click(object sender, EventArgs e) {
-        ClientInitial();
+        DataBind();
     }
 }
 

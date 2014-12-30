@@ -111,6 +111,48 @@ namespace Maticsoft.DAL.chart
 
         #endregion
 
+       #region "检查项目人数分布"
+
+
+       /// <summary>
+       /// 获得体检项目列表
+       /// </summary>
+       public DataSet GetList_checkeditem(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append("select * from checkeditem  ");
+
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+         
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+
+       /// <summary>
+       /// 获得体检项目人数分布列表
+       /// </summary>
+       public DataSet GetList_checkeditemNumber(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append(" SELECT LEFT(RegisterNo,4) as nian,itemID,SUM(1) as pointValue from itemresult  ");
+
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+           strSql.Append("  GROUP BY  LEFT(RegisterNo,4),itemID ");
+           strSql.Append("  ORDER BY LEFT(RegisterNo,4) ");
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+
+
+       #endregion
+
+
+
+
 
     }
 }

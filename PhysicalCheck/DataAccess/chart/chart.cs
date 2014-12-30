@@ -89,5 +89,28 @@ namespace Maticsoft.DAL.chart
 
         #endregion
 
+        #region " 体检人数同比分析"
+
+
+       /// <summary>
+       /// 获得数据列表
+       /// </summary>
+       public DataSet GetList_PersonNumber(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append("SELECT LEFT(RegisterNo,6) as dateM, SUM(1) as pointValue  from registration  ");
+          
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+           strSql.Append("  GROUP BY LEFT(RegisterNo,6) ");
+
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+
+        #endregion
+
+
     }
 }

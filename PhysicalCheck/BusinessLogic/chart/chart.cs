@@ -41,5 +41,18 @@ namespace Maticsoft.BLL.chart
        }
     #endregion
 
-    }
+        
+        #region " 体检人数同比分析"
+
+
+       /// <summary>
+       /// 获得数据列表
+       /// </summary>
+       public DataSet GetList_PersonNumber(string strWhere)
+       {
+
+           return dal.GetList_PersonNumber(strWhere);
+       }
+        #endregion
+   }
 }

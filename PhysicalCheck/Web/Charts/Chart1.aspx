@@ -25,12 +25,12 @@
                     <asp:Title Name="Default" Font="宋体, 12pt" Text="" />
                 </Titles>
                 <Series>
-                    <asp:Series Name="Series1" Color="SteelBlue" ShadowOffset="0" YValueType="Double"
+                    <asp:Series Name="Series1" Color="SteelBlue" ShadowOffset="0" YValueType="Int32" 
                         XValueType="DateTime" ChartArea="OutputChartArea" LegendText="去年">
                         <EmptyPointStyle BorderWidth="0" />
                     </asp:Series>
                     <asp:Series Name="Series2" ChartArea="OutputChartArea" Color="#66B948" ShadowOffset="0"
-                        YValueType="Double" XValueType="DateTime" LegendText="当年">
+                        YValueType="Int32" XValueType="DateTime" LegendText="当年">
                     </asp:Series>
                 </Series>
                 <ChartAreas>
@@ -55,7 +55,7 @@
             </asp:Chart>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnSearch" />
+            <asp:AsyncPostBackTrigger ControlID="btnSearch"  />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

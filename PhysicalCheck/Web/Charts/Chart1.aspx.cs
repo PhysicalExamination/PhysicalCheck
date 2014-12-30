@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
-
+using System.Data;
 /// <summary>
 /// 体检人数同比分析
 /// </summary>
@@ -35,20 +35,48 @@ public partial class Charts_Chart1 :BasePage {
         Series Series2 = Chart1.Series[1];
         Series1.Points.Clear();
         Series2.Points.Clear();
-        DateTime startDateTime = new DateTime(2013,1,1), endDateTime = new DateTime(2013,12,31);
-        DateTime DateTime = new DateTime(2013,1,1);        
-        Random rand = new Random();
-        double pointValue;
+
+        Series1.IsValueShownAsLabel = true;
+        Series2.IsValueShownAsLabel = true;
+        Series1.LegendText = Convert.ToString( Convert.ToInt32(drpYears.SelectedValue) - 1);
+        Series2.LegendText = drpYears.SelectedValue; 
+
+        string strSql = "";
+
+        strSql = string.Format("   LEFT(RegisterNo,4)>='{0}' And LEFT(RegisterNo,4)<='{1}' ", Convert.ToInt32(drpYears.SelectedValue)-1, drpYears.SelectedValue);
+
+        DataTable dt = new Maticsoft.BLL.chart.chart().GetList_PersonNumber(strSql).Tables[0];
+
+        DateTime startDateTime = new DateTime(Convert.ToInt32(drpYears.SelectedValue)-1, 1, 1), endDateTime = new DateTime(Convert.ToInt32(drpYears.SelectedValue)-1, 12, 31);
+        DateTime DateTime = new DateTime(Convert.ToInt32(drpYears.SelectedValue)-1, 1, 1);  
+
+        int pointValue;
         while (DateTime <= endDateTime) {
-            pointValue = rand.NextDouble()*1000;
+
+            DataRow[] rows1 = dt.Select("dateM='"+DateTime.ToString("yyyyMM")+"'");
+
+            if (rows1.Length > 0)
+                pointValue = Convert.ToInt32(rows1[0]["pointValue"].ToString());
+            else
+                pointValue = 0;
             Series1.Points.AddXY(DateTime, pointValue);
-            pointValue = rand.NextDouble() * 1000;
+
+
+            DataRow[] rows2 = dt.Select("dateM='" + DateTime.AddYears(1).ToString("yyyyMM") + "'");
+
+            if (rows2.Length > 0)
+                pointValue = Convert.ToInt32(rows2[0]["pointValue"].ToString());
+            else
+                pointValue = 0;
+
             Series2.Points.AddXY(DateTime, pointValue);
             DateTime = DateTime.AddMonths(1);
+
+
         }
     }
     protected void btnSearch_Click(object sender, EventArgs e) {
-        DataBind();
+        ClientInitial();
     }
 }
 

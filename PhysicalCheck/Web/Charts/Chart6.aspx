@@ -50,8 +50,8 @@
                             <MajorGrid LineColor="LightGray" LineDashStyle="DashDot"></MajorGrid>
                         </AxisY>
                         <AxisX>
-                            <LabelStyle Format="yyyy年"></LabelStyle>
-                            <MajorGrid LineColor="LightGray" Interval="1" IntervalType="Years" LineDashStyle="DashDot">
+                            <LabelStyle Format=""></LabelStyle>
+                            <MajorGrid LineColor="LightGray"   LineDashStyle="DashDot">
                             </MajorGrid>
                         </AxisX>
                     </asp:ChartArea>

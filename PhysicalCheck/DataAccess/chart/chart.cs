@@ -115,12 +115,12 @@ namespace Maticsoft.DAL.chart
 
 
        /// <summary>
-       /// 获得体检项目列表
+       /// 获得体检组合项目列表
        /// </summary>
-       public DataSet GetList_checkeditem(string strWhere)
+       public DataSet GetList_itemgroup(string strWhere)
        {
            StringBuilder strSql = new StringBuilder();
-           strSql.Append("select * from checkeditem  ");
+           strSql.Append("select * from itemgroup  ");
 
            if (strWhere.Trim() != "")
            {
@@ -131,26 +131,63 @@ namespace Maticsoft.DAL.chart
        }
 
        /// <summary>
-       /// 获得体检项目人数分布列表
+       /// 获得体检组合项目人数分布列表
        /// </summary>
-       public DataSet GetList_checkeditemNumber(string strWhere)
+       public DataSet GetList_itemgroupNumber(string strWhere)
        {
            StringBuilder strSql = new StringBuilder();
-           strSql.Append(" SELECT LEFT(RegisterNo,4) as nian,itemID,SUM(1) as pointValue from itemresult  ");
+           strSql.Append(" SELECT LEFT(RegisterNo,4) as nian,groupid,SUM(1) as pointValue from groupresult ");
 
            if (strWhere.Trim() != "")
            {
                strSql.Append(" where " + strWhere);
            }
-           strSql.Append("  GROUP BY  LEFT(RegisterNo,4),itemID ");
+           strSql.Append("  GROUP BY  LEFT(RegisterNo,4),groupid ");
            strSql.Append("  ORDER BY LEFT(RegisterNo,4) ");
            return DbHelperMySQL.Query(strSql.ToString());
        }
 
 
+
+
        #endregion
 
+       #region "检查可是按年人数分布"
 
+
+       /// <summary>
+       /// 获得科室列表
+       /// </summary>
+       public DataSet GetList_department(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append("select * from department  ");
+
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+
+       /// <summary>
+       /// 获得体检组合项目人数分布列表
+       /// </summary>
+       public DataSet GetList_itemDepartmentNumberPercent(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append(" SELECT LEFT(RegisterNo,4) as nian,DeptID,SUM(1) as pointValue from groupresult ");
+
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+           strSql.Append("  GROUP BY  LEFT(RegisterNo,4),DeptID ")          ;
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+
+       #endregion
 
 
 

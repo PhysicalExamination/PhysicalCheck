@@ -23,12 +23,12 @@ public partial class Charts_Chart5 : BasePage {
 
     private void InitData()
     {
-        DataTable dt = bll.GetList_checkeditem("").Tables[0];
+        DataTable dt = bll.GetList_itemgroup("").Tables[0];
 
         drpItems.Items.Clear();
 
-        drpItems.DataTextField = "ItemName";
-        drpItems.DataValueField = "ItemID";
+        drpItems.DataTextField = "GroupName";
+        drpItems.DataValueField = "GroupID";
 
         drpItems.DataSource = dt;
         drpItems.DataBind();
@@ -46,9 +46,9 @@ public partial class Charts_Chart5 : BasePage {
         chartaera.AxisY.LabelStyle.Font = new Font("宋体", 9.75f);
         Series S1 = Chart1.Series[0];     
         string sql = "";
-        sql = string.Format(" itemID='{0}' ",drpItems.SelectedValue);
+        sql = string.Format(" GroupID='{0}' ", drpItems.SelectedValue);
 
-        DataTable dt = bll.GetList_checkeditemNumber(sql).Tables[0];
+        DataTable dt = bll.GetList_itemgroupNumber(sql).Tables[0];
 
         
     

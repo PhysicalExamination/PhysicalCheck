@@ -61,17 +61,37 @@ namespace Maticsoft.BLL.chart
         /// <summary>
         /// 获得体检项目列表
         /// </summary>
-        public DataSet GetList_checkeditem(string strWhere)
+        public DataSet GetList_itemgroup(string strWhere)
         {
-            return dal.GetList_checkeditem(strWhere);
+            return dal.GetList_itemgroup(strWhere);
         }
           /// <summary>
        /// 获得体检项目人数分布列表
        /// </summary>
-        public DataSet GetList_checkeditemNumber(string strWhere)
+        public DataSet GetList_itemgroupNumber(string strWhere)
         {
-            return dal.GetList_checkeditemNumber(strWhere);
+            return dal.GetList_itemgroupNumber(strWhere);
         }
         #endregion
+
+        #region "按照科室年人数分布"
+
+
+        /// <summary>
+        /// 获得科室列表
+        /// </summary>
+        public DataSet GetList_department(string strWhere)
+        {
+            return dal.GetList_department(strWhere);
+        }
+        /// <summary>
+        /// 按照科室获得体检项目人数分布比例
+        /// </summary>
+        public DataSet GetList_itemDepartmentNumberPercent(string strWhere)
+        {
+            return dal.GetList_itemDepartmentNumberPercent(strWhere);
+        }
+        #endregion
+
     }
 }

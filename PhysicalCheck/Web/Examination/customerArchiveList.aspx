@@ -19,10 +19,12 @@
     <div>
         <div class="l-navigationbars">
             <div class="l-navigationbars-l">
-                <a href="#" style="left: 100px; text-decoration: none;">客户档案查询</a></div>
+                <a href="#" style="left: 100px; text-decoration: none;">综合查询</a></div>
         </div>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
+                登记号：
+                <asp:TextBox ID="txtRegisterNo" runat="server"></asp:TextBox>
                 单位：
                 <asp:TextBox ID="txtDeptName" runat="server"></asp:TextBox>
                 名称：
@@ -30,7 +32,10 @@
                 身份证：
                 <asp:TextBox ID="txtIdNumber" runat="server"></asp:TextBox>
                 <br />
-                日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                总检：
+                <asp:TextBox ID="txtOverallDoctor" runat="server"></asp:TextBox>
+
+                登记日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
                 <asp:Repeater ID="ReportRepeater" runat="server">
@@ -38,7 +43,7 @@
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th>
-                                    体检编号
+                                    登记号
                                 </th>
                                 <th>
                                     套餐

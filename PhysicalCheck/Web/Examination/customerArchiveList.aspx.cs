@@ -56,11 +56,22 @@ public partial class Examination_customerArchive : BasePage
 
         string sqlw = " 1=1 ";
 
+        if (txtRegisterNo.Text != "")
+            sqlw += string.Format("  And RegisterNo like '%{0}%' ", txtRegisterNo.Text);
+
         if (txtDeptName.Text != "")
-            sqlw += string.Format("  And DeptName like '%{0}%' ", Convert.ToDateTime(txtDeptName.Text));
+            sqlw += string.Format("  And DeptName like '%{0}%' ", txtDeptName.Text);
+
+        if (txtName.Text != "")
+            sqlw += string.Format("  And Name like '%{0}%' ", txtName.Text);
+
 
         if (txtIdNumber.Text != "")
-            sqlw += string.Format("  And DeptName like '{0}%' ", Convert.ToDateTime(txtIdNumber.Text));
+            sqlw += string.Format("  And IdNumber like '{0}%' ", txtIdNumber.Text);
+
+        if (txtOverallDoctor.Text != "")
+            sqlw += string.Format("  And OverallDoctor like '{0}%' ", txtOverallDoctor.Text);
+
 
         if (txtStartDate.Text != "")
             sqlw += string.Format(" And  RegisterDate>'{0}' ", Convert.ToDateTime(txtStartDate.Text));
@@ -68,9 +79,11 @@ public partial class Examination_customerArchive : BasePage
         if (txtEndDate.Text != "")
             sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text));
 
-     
 
-        DataSet ds = bll.GetListByPage_Registration(sqlw, "", Pager.CurrentPageIndex, Pager.PageSize);
+
+
+
+        DataSet ds = bll.GetListByPage_Registration(sqlw, "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
 
         Pager.RecordCount = bll.GetRecordCount_Registration(sqlw);
         ReportRepeater.DataSource = ds.Tables[0];

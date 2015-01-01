@@ -57,7 +57,11 @@ public partial class Charts_Chart6 : BasePage {
 
         object sumObject = dt.Compute("sum(pointValue)", "TRUE");
 
-        int count = Convert.ToInt32(sumObject);
+        int count =0;
+        if (sumObject is DBNull)
+        { }
+        else
+            count = Convert.ToInt32(sumObject);
 
         decimal bl = 0;
         for (int i=0; i < checkitem.Rows.Count; i++)

@@ -29,6 +29,9 @@ public partial class Examination_customerArchive : BasePage
         base.OnLoad(e);
         if (!IsPostBack)
         {
+            txtStartDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+            txtEndDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+
             DataBind();
           
         }
@@ -77,7 +80,7 @@ public partial class Examination_customerArchive : BasePage
             sqlw += string.Format(" And  RegisterDate>'{0}' ", Convert.ToDateTime(txtStartDate.Text));
 
         if (txtEndDate.Text != "")
-            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text));
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
 
 

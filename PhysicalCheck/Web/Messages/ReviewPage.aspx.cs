@@ -18,7 +18,8 @@ public partial class Examination_CheckedRepeatPage : BasePage
     {
         if (!IsPostBack)
         {
-
+            txtStartDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+            txtEndDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
             DataBind();
         }
         base.OnLoad(e);
@@ -36,7 +37,7 @@ public partial class Examination_CheckedRepeatPage : BasePage
             sqlw += string.Format(" And  RegisterDate>'{0}' ", Convert.ToDateTime(txtStartDate.Text));
 
         if (txtEndDate.Text != "")
-            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text));
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
         if (isSend == "是")
         {

@@ -93,6 +93,14 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public virtual decimal? Price {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

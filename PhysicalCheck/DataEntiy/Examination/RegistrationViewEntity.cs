@@ -185,6 +185,14 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 自定义套餐组合项集合
+        /// </summary>
+        public virtual List<int> Groups {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 个人信息

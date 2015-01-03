@@ -14,6 +14,7 @@
         <property name="PackageID" column="PackageID" type="Int32" not-null="false"/>
         <property name="DeptName" column="DeptName" type="String" not-null="false" length="100" />
         <property name="PackageName" column="PackageName" type="String" not-null="false" length="200" />
+        <property name="Price" column="Price" type="Decimal" not-null="false" />
     </class>
 </hibernate-mapping>
 

@@ -7,7 +7,8 @@
         <property name="PackageName" column="PackageName" type="String" not-null="true" length="600" /> 
         <property name="Price" column="Price" type="Decimal" not-null="true" /> 
         <property name="Category" column="Category" type="String" not-null="false" length="9" /> 
-        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" /> 
+        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false"/>
     </class>
 </hibernate-mapping>
 

@@ -59,6 +59,11 @@ namespace DataEntity.SysConfig {
             set;
         }
 
+        public virtual bool Enabled {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

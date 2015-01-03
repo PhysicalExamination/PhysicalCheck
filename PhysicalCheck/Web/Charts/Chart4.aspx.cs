@@ -16,7 +16,8 @@ public partial class Charts_PhysicalDepartmentCharge : BasePage
     {
         if (!IsPostBack)
         {
-
+            txtStartDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+            txtEndDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
             DataBind();
         }
         base.OnLoad(e);
@@ -42,10 +43,10 @@ public partial class Charts_PhysicalDepartmentCharge : BasePage
         string sqlw = " 1=1 ";
 
         if (txtStartDate.Text != "")
-            sqlw += string.Format(" And  PaymentDate>'{0}' ", Convert.ToDateTime(txtStartDate.Text));
+            sqlw += string.Format(" And  PaymentDate>='{0}' ", Convert.ToDateTime(txtStartDate.Text));
 
         if (txtEndDate.Text != "")
-            sqlw += string.Format("  And PaymentDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text));
+            sqlw += string.Format("  And PaymentDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
         DataSet ds = bll.GetListByPage_DepartmentCharge(sqlw, "",(Pager.CurrentPageIndex-1)*Pager.PageSize,(Pager.CurrentPageIndex)*Pager.PageSize );
 

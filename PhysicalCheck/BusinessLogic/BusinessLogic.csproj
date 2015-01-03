@@ -68,6 +68,7 @@
     <Compile Include="SysConfig\IndustryBusiness.cs" />
     <Compile Include="SysConfig\ItemGroupBusiness.cs" />
     <Compile Include="SysConfig\PackageBusiness.cs" />
+    <Compile Include="SysConfig\RegionBusiness.cs" />
     <Compile Include="SysConfig\SuggestionBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

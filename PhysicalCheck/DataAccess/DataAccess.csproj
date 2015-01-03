@@ -94,6 +94,7 @@
     <Compile Include="SysConfig\ItemGroupDetailDataAccess.cs" />
     <Compile Include="SysConfig\PackageDataAccess.cs" />
     <Compile Include="SysConfig\PackageGroupDataAccess.cs" />
+    <Compile Include="SysConfig\RegionDataAccess.cs" />
     <Compile Include="SysConfig\SuggestionDataAccess.cs" />
     <Compile Include="SysConfig\SysParameterDataAccess.cs" />
   </ItemGroup>

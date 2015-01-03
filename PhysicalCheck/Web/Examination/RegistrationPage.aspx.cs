@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
 using Common.FormatProvider;
+using BusinessLogic.SysConfig;
 
 public partial class Examination_RegistrationPage : BasePage {
 
@@ -82,6 +83,24 @@ public partial class Examination_RegistrationPage : BasePage {
 
     private void ClientInitial() {
         txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        using (RegionBusiness Region = new RegionBusiness()) {
+            drpRegion.DataSource = Region.GetRegions("620600000");
+            drpRegion.DataTextField = "RegionCode";
+            drpRegion.DataTextField = "RegionName";
+            drpRegion.DataBind();
+        }
+        using (IndustryBusiness Industry = new IndustryBusiness()) {
+            drpIndustry.DataSource = Industry.GetIndustrys();
+            drpIndustry.DataTextField = "IndustryName";
+            drpIndustry.DataValueField = "IndustryID";
+            drpIndustry.DataBind();
+        }
+        using (CommonCodeBusiness CommonCode = new CommonCodeBusiness()) {
+            drpTrade.DataSource = CommonCode.GetCommonCodes("003");
+            drpTrade.DataTextField = "Name";
+            drpTrade.DataValueField = "Code";
+            drpTrade.DataBind();
+        }
     }
 
     /// <summary>
@@ -103,10 +122,13 @@ public partial class Examination_RegistrationPage : BasePage {
         txtMobile.Text = "";
         txtEMail.Text = "";
         txtRegisterDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
-        txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        //txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
         hDeptID.Value = "1";
         hPackageID.Value = "-1";
         hGroups.Value = "";
+        drpRegion.SelectedIndex = -1;
+        drpIndustry.SelectedIndex = -1;
+        drpTrade.SelectedIndex = -1;
     }
     /// <summary>
     /// 填充界面
@@ -120,7 +142,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtRegisterNo.Text = Result.RegisterNo;
         txtPackageName.Text = Result.PackageName;
         txtRegisterDate.Text = EnvShowFormater.GetShortDate(Result.RegisterDate);
-        txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
+        //txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
         txtDeptName.Text = Result.DeptName;
         txtName.Text = Result.Name;
         drpSex.SelectedValue = Result.Sex;
@@ -135,6 +157,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtAddress.Text = Result.Address;
         txtMobile.Text = Result.Mobile;
         txtEMail.Text = Result.EMail;
+        //drpTrade.SelectedIndex
     }
 
     /// <summary>
@@ -159,7 +182,11 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.Address = txtAddress.Text;
         Result.Mobile = txtMobile.Text;
         Result.EMail = txtEMail.Text;
-        Result.CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
+        Result.Photo = hPhoto.Value;
+        Result.TradeCode = drpTrade.SelectedValue;
+        Result.IndustryID = Convert.ToInt32(drpIndustry.SelectedValue);
+        Result.RegionCode = drpRegion.SelectedValue;
+        //Result.CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
         Result.RegisterDate = EnvConverter.ToDateTime(txtRegisterDate.Text);
         if (!String.IsNullOrEmpty(hGroups.Value)) {
             String[] ItemGroups = hGroups.Value.Split(',');

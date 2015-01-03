@@ -18,16 +18,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div class="l-navigationbars">
         <div class="l-navigationbars-l">
-            <a href="#" style="left: 100px; text-decoration: none;">体检档案</a></div>
+            <a href="#" style="left: 100px; text-decoration: none;">组合查询</a></div>
         <div class="l-navigationbars-r">
             <a href="customerArchiveList.aspx" target="_self">返回</a></div>
     </div>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">登记信息</a></li>
-            <li><a href="#tabs-2">缴费信息</a></li>
-            <li><a href="#tabs-3">体检报告</a></li>
-            <li><a href="#tabs-4">复检通知书</a></li>
+            <li><a href="#tabs-2">体检报告</a></li>
         </ul>
         <div id="tabs-1">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -51,17 +49,13 @@
                     </td>
                     <td class="VLine">
                         <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
-                        <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择体检单位"
-                            onclick="selectDept();" align="middle" border="0" />
                         <asp:HiddenField ID="hDeptID" runat="server" />
                     </td>
                     <td class="VLine">
                         套 餐
                     </td>
                     <td class="VLine">
-                        <asp:TextBox ID="TextBox1" runat="server" CssClass="textbox31" />
-                        <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
-                            onclick="selectPackage();" align="middle" border="0" />
+                        <asp:TextBox ID="txtPackageName" runat="server" CssClass="textbox31" />
                         <asp:HiddenField ID="hPackageID" runat="server" />
                     </td>
                 </tr>
@@ -76,7 +70,7 @@
                         姓 名
                     </td>
                     <td class="VLine">
-                        <asp:TextBox CssClass="textbox31" ID="TextBox2" runat="server" />
+                        <asp:TextBox CssClass="textbox31" ID="txtName" runat="server" />
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +78,7 @@
                         性 别
                     </td>
                     <td class="VLine">
-                        <asp:DropDownList ID="DropDownList1" runat="server">
+                        <asp:DropDownList ID="drpSex" runat="server">
                             <asp:ListItem Value="男">男</asp:ListItem>
                             <asp:ListItem Value="女">女</asp:ListItem>
                             <asp:ListItem Value="儿童">儿童</asp:ListItem>
@@ -116,7 +110,7 @@
                         年 龄
                     </td>
                     <td class="VLine">
-                        <asp:TextBox CssClass="textbox31" ID="TextBox3" runat="server" />
+                        <asp:TextBox CssClass="textbox31" ID="txtAge" runat="server" />
                     </td>
                     <td class="VLine">
                         婚姻状况
@@ -139,7 +133,7 @@
                         学 历
                     </td>
                     <td class="VLine">
-                        <asp:DropDownList ID="DropDownList2" runat="server">
+                        <asp:DropDownList ID="drpEducation" runat="server">
                             <asp:ListItem Value="其他">其他</asp:ListItem>
                             <asp:ListItem Value="初中">初中</asp:ListItem>
                             <asp:ListItem Value="高中">高中</asp:ListItem>
@@ -161,7 +155,7 @@
                         联系地址
                     </td>
                     <td class="VLine">
-                        <asp:TextBox CssClass="textbox31" ID="TextBox4" runat="server" />
+                        <asp:TextBox CssClass="textbox31" ID="txtAddress" runat="server" />
                     </td>
                 </tr>
                 <tr>
@@ -181,211 +175,130 @@
             </table>
         </div>
         <div id="tabs-2">
-            <asp:UpdatePanel ID="UP1" runat="Server">
-                <ContentTemplate>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td class="HVLine">
-                                缴费人
-                            </td>
-                            <td class="HVLine" colspan="3">
-                                <asp:TextBox CssClass="textbox31" ID="txtPayer" runat="server" Width="90%" />
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                体检套餐
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtPackageName" runat="server" ReadOnly="true" />
-                                
-                            </td>
-                            <td class="VLine">
-                                体检人数
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtCheckNum" runat="server" onchange="javascript:CalcCharge();" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                应收费用（元）
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtCharge" runat="server" Enabled="false" />
-                            </td>
-                            <td class="VLine">
-                                实收费用（元）
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtActualCharge" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                缴费方式
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpPaymentMethod" runat="server">
-                                    <asp:ListItem Value="1">现金</asp:ListItem>
-                                    <asp:ListItem Value="2">暂时不收</asp:ListItem>
-                                    <asp:ListItem Value="3">免费</asp:ListItem>
-                                    <asp:ListItem Value="4">转账</asp:ListItem>
-                                    <asp:ListItem Value="5">信汇</asp:ListItem>
-                                    <asp:ListItem Value="6">托收</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <td class="VLine">
-                                缴费时间
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31 Wdate" ID="txtPaymentDate" runat="server" onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"
-                                    ReadOnly="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                收费人
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtChargePerson" runat="server" Enabled="false" />
-                            </td>
-                            <td class="VLine">
-                            </td>
-                            <td class="VLine">
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-        <div id="tabs-3">
             <asp:UpdatePanel ID="UP2" runat="Server">
                 <ContentTemplate>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td class="HVLine">
-                                体检编号
-                            </td>
-                            <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtBillNo" runat="server" ReadOnly="true" />
-                            </td>
-                            <td class="HVLine">
-                                检查套餐
-                            </td>
-                            <td class="HVLine">
-                                <asp:TextBox ID="txtPackageName3" runat="server" CssClass="inputCss" ReadOnly="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                单位名称
-                            </td>
-                            <td class="VLine" colspan="3">
-                                <asp:TextBox ID="txtCompanyName" runat="server" CssClass="inputCss" Width="99%" ReadOnly="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                地址
-                            </td>
-                            <td class="VLine" colspan="3">
-                                <asp:TextBox ID="txtAddress" runat="server" CssClass="inputCss" Width="99%" ReadOnly="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                姓名
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtName" runat="server" />
-                            </td>
-                            <td class="VLine">
-                                性别
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpSex" runat="server">
-                                    <asp:ListItem Value="0">男</asp:ListItem>
-                                    <asp:ListItem Value="1">女</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                年龄
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtAge" runat="server" />
-                            </td>
-                            <td class="VLine">
-                                文化程度
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpEducation" runat="server">
-                                    <asp:ListItem Value="初中">初中</asp:ListItem>
-                                    <asp:ListItem Value="高中">高中</asp:ListItem>
-                                    <asp:ListItem Value="大专">大专</asp:ListItem>
-                                    <asp:ListItem Value="本科">本科</asp:ListItem>
-                                    <asp:ListItem Value="硕士">硕士</asp:ListItem>
-                                    <asp:ListItem Value="博士">博士</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                所属区域
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpRegion" runat="server">
-                                </asp:DropDownList>
-                            </td>
-                            <td class="VLine">
-                                行业类别
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpTrade" runat="server">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                工种
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpWorkType" runat="server" />
-                            </td>
-                            <td class="VLine">
-                                单位性质
-                            </td>
-                            <td class="VLine">
-                                <asp:DropDownList ID="drpNature" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="VLine">
-                                经办人
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox ID="txtOperator" runat="server" CssClass="inputCss" />
-                            </td>
-                            <td class="VLine">
-                                登记日期
-                            </td>
-                            <td class="VLine">
-                                <asp:TextBox ID="txtRegDate" runat="server" CssClass="inputCss Wdate" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" align="center" class="VLine">
-                            </td>
-                        </tr>
-                    </table>
+                    <asp:Repeater ID="rptMain" OnItemDataBound="rptMain_ItemDataBound" runat="server">
+                        <ItemTemplate>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th>
+                                        <%# Eval("DeptName")%>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tr class="tr1">
+                                                <td class="VLine" align="center" style="width: 150px;">
+                                                    <%# Eval("GroupName")%>
+                                                </td>
+                                                <td class="VLine" style="width: 150px;" align="center">
+                                                    检查医生
+                                                </td>
+                                                <td class="VLine" align="center">
+                                                    <%# Eval("CheckDoctor")%>
+                                                </td>
+                                                <td class="VLine" style="width: 150px;" align="center">
+                                                    检查时间
+                                                </td>
+                                                <td class="VLine" align="center">
+                                                    &nbsp;
+                                                    <%# Eval("CheckDate")%>
+                                                </td>
+                                            </tr>
+                                            <tr class="tr1">
+                                                <td class="VLine" style="width: 150px;" align="center">
+                                                    小结
+                                                </td>
+                                                <td class="VLine" align="center" colspan="4">
+                                                    &nbsp;
+                                                    <%# Eval("Summary")%>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Repeater ID="rptSub" runat="server">
+                                            <HeaderTemplate>
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <th>
+                                                            检查项目
+                                                        </th>
+                                                        <th>
+                                                            检查结果
+                                                        </th>
+                                                        <th>
+                                                            单位
+                                                        </th>
+                                                        <th>
+                                                            参考下限
+                                                        </th>
+                                                        <th>
+                                                            参考上限
+                                                        </th>
+                                                        <th>
+                                                            正常提示
+                                                        </th>
+                                                    </tr>
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                                                    <td class="VLine" align="center">
+                                                        <asp:Literal ID="lblRegisterNo" runat="server" Text=' <%# Eval("ItemName")%>' />
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("CheckedResult")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("MeasureUnit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("UpperLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("NormalTips")%>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                            <AlternatingItemTemplate>
+                                                <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                                                    <td class="VLine" align="center">
+                                                        <asp:Literal ID="lblRegisterNo" runat="server" Text=' <%# Eval("ItemName")%>' />
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("CheckedResult")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("MeasureUnit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("UpperLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("NormalTips")%>
+                                                    </td>
+                                                </tr>
+                                            </AlternatingItemTemplate>
+                                            <FooterTemplate>
+                                                </table>
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                    </td>
+                                </tr>
+                                <br />
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </ContentTemplate>
             </asp:UpdatePanel>
-        </div>
-        <div id="tabs-4">
-
         </div>
     </div>
 </asp:Content>

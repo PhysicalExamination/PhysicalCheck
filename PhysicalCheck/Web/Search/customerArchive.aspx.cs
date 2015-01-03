@@ -8,6 +8,7 @@ using Common.FormatProvider;
 using DataEntity.Examination;
 using BusinessLogic.Examination;
 using BusinessLogic.SysConfig;
+using System.Data;
 public partial class Examination_customerArchive : BasePage
 {
     #region 私有成员
@@ -68,6 +69,15 @@ public partial class Examination_customerArchive : BasePage
         //    ChargeRepeater.DataSource = Charge.GetCharges(Pager.CurrentPageIndex, Pager.PageSize, "", out RecordCount);
         //    Pager.RecordCount = RecordCount;
         //}
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sql = "";
+
+        sql += string.Format(" RegisterNo='{0}'", RegisterNo);
+
+      
+        rptMain.DataSource = bll.GetList_GroupResult(sql);
+        
         base.DataBind();
     }
     /// <summary>
@@ -92,67 +102,15 @@ public partial class Examination_customerArchive : BasePage
     private void ClientIntial()
     {
 
-        SetRegistrationUI();
+        SetRegsitrationUI();
 
-        //using (PartmentBusiness Partment = new PartmentBusiness())
-        //{
-        //    drpRegion.DataSource = Partment.GetPartments();
-        //    drpRegion.DataValueField = "id";
-        //    drpRegion.DataTextField = "name";
-        //    drpRegion.DataBind();
-        //}
-        //using (HealthVocationBusiness Vocation = new HealthVocationBusiness())
-        //{
-        //    drpTrade.DataSource = Vocation.GetHealthVocations();
-        //    drpTrade.DataValueField = "id";
-        //    drpTrade.DataTextField = "name";
-        //    drpTrade.DataBind();
-        //}
-
-        //using (CompanyTypeBusiness CompanyType = new CompanyTypeBusiness())
-        //{
-        //    drpNature.DataSource = CompanyType.GetCompanyTypes();
-        //    drpNature.DataValueField = "id";
-        //    drpNature.DataTextField = "name";
-        //    drpNature.DataBind();
-        //}
-
-        //using (HealthPaperTypeBusiness HealthPaperType = new HealthPaperTypeBusiness())
-        //{
-        //    drpWorkType.DataSource = HealthPaperType.GetHealthPaperTypes();
-        //    drpWorkType.DataValueField = "id";
-        //    drpWorkType.DataTextField = "name";
-        //    drpWorkType.DataBind();
-
-        //}
     }
 
-    /// <summary>
-    /// 重置界面
-    /// </summary>
-    private void ClearRegistrationUI()
-    {
-        drpRegion.SelectedIndex = -1;
-        drpTrade.SelectedIndex = -1;
-        drpNature.SelectedIndex = -1;
-        drpWorkType.SelectedIndex = -1;
-        drpEducation.SelectedIndex = -1;
-        drpSex.SelectedIndex = -1;
-        txtBillNo.Text = "";
-        txtPackageName.Text = "";
-        txtCompanyName.Text = "";
-        txtAddress.Text = "";
-        txtName.Text = "";
-        txtAge.Text = "";
-        txtOperator.Text = UserName;
-        txtRegDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
-    }
-
-   
+ 
         /// <summary>
     /// 填充界面
     /// </summary>
-    private void SetRegistrationUI() {
+    private void SetRegsitrationUI() {
 
         RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
         if (Result == null) return;
@@ -180,26 +138,6 @@ public partial class Examination_customerArchive : BasePage
     }
 
 
-    /// <summary>
-    /// 填充缴费信息界面
-    /// </summary>
-    private void SetChargeUI()
-    {
-        //ChargeViewEntity Result = m_Charge.GetCharge(BillNo);
-        //if (Result == null) return;
-        //hDeptID.Value = Result.ChargeDeptID + "";
-        //txtPayer.Text = Result.Payer;
-        //hPackageID.Value = Result.PackageID + "";
-        //txtPackageName.Text = Result.PackageName;
-        //txtCheckNum.Text = Result.CheckNum + "";
-        //txtCharge.Text = EnvShowFormater.GetNumberString(Result.Charge);
-        //txtActualCharge.Text = EnvShowFormater.GetNumberString(Result.ActualCharge);
-        //drpPaymentMethod.SelectedValue = Result.PaymentMethod;
-        //txtPaymentDate.Text = EnvShowFormater.GetShortDate(Result.PaymentDate);
-        //txtChargePerson.Text = Result.ChargePerson;
-    }
-
-
     #endregion
 
     #region 事件
@@ -211,10 +149,34 @@ public partial class Examination_customerArchive : BasePage
         DataBind();
     }
 
-    protected void Pager_PageChanged(object source, EventArgs e)
+
+    protected void rptMain_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        DataBind();
+
+        //判断里层repeater处于外层repeater的哪个位置（ AlternatingItemTemplate，FooterTemplate，
+
+        //HeaderTemplate，，ItemTemplate，SeparatorTemplate）
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            Repeater rep = e.Item.FindControl("rptSub") as Repeater;//找到里层的repeater对象
+            DataRowView rowv = (DataRowView)e.Item.DataItem;//找到分类Repeater关联的数据项 
+            string DeptID = Convert.ToString(rowv["DeptID"]); //获取填充子类的id 
+
+            string GroupID = Convert.ToString(rowv["GroupID"]); //获取填充子类的id 
+
+            Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+            string sql = "";
+
+            sql += string.Format(" RegisterNo='{0}' And DeptID='{1}' And GroupID='{2}'  ", RegisterNo, DeptID,GroupID);
+
+            rep.DataSource = bll.GetList_itemresult(sql);
+            rep.DataBind();
+
+        }
     }
+
+
 
 
     #endregion

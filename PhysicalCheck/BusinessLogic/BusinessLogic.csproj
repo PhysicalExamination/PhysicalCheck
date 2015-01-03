@@ -49,6 +49,7 @@
     <Compile Include="Admin\SysUserBusiness.cs" />
     <Compile Include="BaseBusiness.cs" />
     <Compile Include="chart\chart.cs" />
+    <Compile Include="chart\Search.cs" />
     <Compile Include="Examination\ChargeBusiness.cs" />
     <Compile Include="Examination\DepartmentGroupBusiness.cs" />
     <Compile Include="Examination\GroupResultBusiness.cs" />

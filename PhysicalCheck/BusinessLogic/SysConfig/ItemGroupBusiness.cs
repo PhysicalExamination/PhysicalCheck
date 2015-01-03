@@ -37,6 +37,11 @@ namespace BusinessLogic.SysConfig {
             return DataAccess.GetItemGroups(pageIndex, pageSize, out RecordCount);
         }
 
+        public List<ItemGroupViewEntity> GetItemGroups(int pageIndex, int pageSize, String GroupName,
+            out int RecordCount) {
+            return DataAccess.GetItemGroups(pageIndex, pageSize, GroupName, out RecordCount);
+        }
+
         public ItemGroupViewEntity GetItemGroup(int GroupID) {
             return DataAccess.GetItemGroup(GroupID);
         }

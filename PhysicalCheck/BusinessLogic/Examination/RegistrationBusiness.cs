@@ -7,6 +7,7 @@ using DataEntity.Examination;
 using BusinessLogic.SysConfig;
 using DataEntity.SysConfig;
 using System.Text.RegularExpressions;
+using DataAccess.SysConfig;
 
 namespace BusinessLogic.Examination {
 
@@ -120,7 +121,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
-            SaveCheckGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value);
+            SaveCheckedGroups(Registration.RegisterNo, Registration.PackageID.Value,Registration.Groups);
         }
 
         /// <summary>
@@ -195,7 +196,12 @@ namespace BusinessLogic.Examination {
 
         #region 私有方法
 
-        private void SaveCheckGroups(String RegisterNo, int PackageID) {
+        private void SaveCheckedGroups(String RegisterNo, int PackageID,List<int> ItemGroups) {
+            //自定义套餐保存体检组合项
+            if ((ItemGroups != null) && (ItemGroups.Count > 0)) {
+                SaveCheckedGroups(RegisterNo, ItemGroups);
+                return;
+            }
             GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess();
             using (PackageBusiness Package = new PackageBusiness()) {
                 List<PackageGroupViewEntity> Groups = Package.GetPackageGroups(PackageID);
@@ -208,6 +214,24 @@ namespace BusinessLogic.Examination {
                     };
                     GroupDataAccess.SaveGroupResult(GroupResult);
                     SaveCheckItems(RegisterNo, Group.ID.GroupID.Value);
+                }
+            }
+        }
+
+        private void SaveCheckedGroups(String RegisterNo, List<int> Groups) {
+            ItemGroupDataAccess ItemGroupDA = new ItemGroupDataAccess();
+            ItemGroupViewEntity ItemGroup;
+            using (GroupResultDataAccess GroupDataAccess = new GroupResultDataAccess()) {
+                foreach (int GroupID in Groups) {
+                    ItemGroup = ItemGroupDA.GetItemGroup(GroupID);
+                    GroupResultEntity GroupResult = new GroupResultEntity {
+                        ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
+                        DeptID = ItemGroup.DeptID,
+                        IsOver = false,
+                        PackageID = -1
+                    };
+                    GroupDataAccess.SaveGroupResult(GroupResult);
+                    SaveCheckItems(RegisterNo, GroupID);
                 }
             }
         }

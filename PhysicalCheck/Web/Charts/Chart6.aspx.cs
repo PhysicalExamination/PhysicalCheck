@@ -49,7 +49,7 @@ public partial class Charts_Chart6 : BasePage {
         Series.ToolTip = "#PERCENT{P2}";
 
 
-        DataTable checkitem = bll.GetList_department("").Tables[0];
+        DataTable checkitem = new Maticsoft.BLL.BaseInfo.BaseInfo().GetList_department("").Tables[0];
 
         string sql = "";
         sql = string.Format(" LEFT(RegisterNo,4)='{0}' ", drpYears.SelectedValue);

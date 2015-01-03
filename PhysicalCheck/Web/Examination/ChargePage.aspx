@@ -11,8 +11,8 @@
             $("#tabs").tabs("option", "active", index);
         }
 
-        function selectDept() {            
-            var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?rand=" + Math.random();
+        function selectDept() {
+            var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?DeptID=-1&rand=" + Math.random();
             var sFeatures = "center:yes;help:no;status:no;rsizable:yes";
             var vArguments = "";
             var urlValue = window.showModalDialog(sURL, vArguments, sFeatures);
@@ -32,10 +32,10 @@
                 $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
                 $("#hPackagePrice").val(urlValue[2]);
                 CalcCharge();
-            }            
+            }
         }
 
-        function CalcCharge() {           
+        function CalcCharge() {
             var price = parseFloat($("#hPackagePrice").val());
             var count = parseInt($("#<%=txtCheckNum.ClientID %>").val());
             console.log($("#<%=txtCheckNum.ClientID %>").val());
@@ -56,6 +56,9 @@
         <div id="tabs-1">
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
+                    缴费人<asp:TextBox ID="txtPaymentMan" runat="server" CssClass="textbox31" />
+                    <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+                    <div class="blank5"></div>
                     <asp:Repeater ID="ChargeRepeater" runat="server" OnItemCommand="ChargeItemCommand">
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -138,13 +141,16 @@
                         PageSize="15">
                     </asp:AspNetPager>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnSearch" />
+                </Triggers>
             </asp:UpdatePanel>
         </div>
         <div id="tabs-2">
             <asp:UpdatePanel ID="UP2" runat="Server">
                 <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>                            
+                        <tr>
                             <td class="HVLine">
                                 缴费人
                             </td>
@@ -190,7 +196,7 @@
                             <td class="VLine">
                                 缴费方式
                             </td>
-                            <td class="VLine">                               
+                            <td class="VLine">
                                 <asp:DropDownList ID="drpPaymentMethod" runat="server">
                                     <asp:ListItem Value="1">现金</asp:ListItem>
                                     <asp:ListItem Value="2">暂时不收</asp:ListItem>
@@ -204,8 +210,8 @@
                                 缴费时间
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox31 Wdate" ID="txtPaymentDate" runat="server" 
-                                    onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"  ReadOnly="true" />
+                                <asp:TextBox CssClass="textbox31 Wdate" ID="txtPaymentDate" runat="server" onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"
+                                    ReadOnly="true" />
                             </td>
                         </tr>
                         <tr>
@@ -213,14 +219,12 @@
                                 收费人
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtChargePerson" runat="server"  Enabled="false"/>
-                            </td>   
-                            <td class="VLine">
-                            
+                                <asp:TextBox CssClass="textbox31" ID="txtChargePerson" runat="server" Enabled="false" />
                             </td>
                             <td class="VLine">
-                              
-                            </td>                        
+                            </td>
+                            <td class="VLine">
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="4" align="center" class="VLine">
@@ -232,7 +236,7 @@
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelCharge_Click" />
                             </td>
                         </tr>
-                    </table>                   
+                    </table>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

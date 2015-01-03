@@ -104,6 +104,9 @@ public partial class Examination_RegistrationPage : BasePage {
         txtEMail.Text = "";
         txtRegisterDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
         txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        hDeptID.Value = "1";
+        hPackageID.Value = "-1";
+        hGroups.Value = "";
     }
     /// <summary>
     /// 填充界面
@@ -141,7 +144,7 @@ public partial class Examination_RegistrationPage : BasePage {
     private RegistrationViewEntity GetRegistrationUI() {
         RegistrationViewEntity Result = new RegistrationViewEntity();
         Result.PersonID = PersonID;
-        Result.RegisterNo = RegisterNo;// new RegistrationPK { RegisterNo = RegisterNo, PersonID = PersonID };
+        Result.RegisterNo = RegisterNo;
         Result.Name = txtName.Text;
         Result.Sex = drpSex.SelectedValue;
         Result.IDNumber = txtIDNumber.Text;
@@ -158,6 +161,10 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.EMail = txtEMail.Text;
         Result.CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
         Result.RegisterDate = EnvConverter.ToDateTime(txtRegisterDate.Text);
+        if (!String.IsNullOrEmpty(hGroups.Value)) {
+            String[] ItemGroups = hGroups.Value.Split(',');
+            Result.Groups = ItemGroups.Select(p => Convert.ToInt32(p)).ToList();
+        }
         return Result;
     }
 

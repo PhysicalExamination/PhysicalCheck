@@ -27,27 +27,6 @@ public partial class Examination_OverallCheckedPage : BasePage {
         }
     }
 
-    private int PersonID {
-        get {
-            if (ViewState["PersonID"] == null) return int.MinValue;
-            return (int)ViewState["PersonID"];
-        }
-        set {
-            ViewState["PersonID"] = value;
-        }
-    }
-
-    private int PackageID {
-        get {
-            if (ViewState["PackageID"] == null) return int.MinValue;
-            return (int)ViewState["PackageID"];
-        }
-        set {
-            ViewState["PackageID"] = value;
-        }
-    }
-
-
     #endregion
 
     #region 重写方法
@@ -108,9 +87,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// </summary>
     private void SetRegistrationUI() {
         RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
-        if (Result == null) return;
-        PersonID = Result.PersonID.Value;
-        PackageID = Result.PackageID.Value;
+        if (Result == null) return;      
         txtRegisterNo.Text = Result.RegisterNo;
         txtDeptName.Text = Result.DeptName;
         txtPackageName.Text = Result.PackageName;
@@ -132,7 +109,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             RegisterNo = RegInfo.RegisterNo,
             RegisterDate = RegInfo.RegisterDate,
             PersonID = RegInfo.PersonID,
-            PackageID=  RegInfo.PersonID,
+            PackageID=  RegInfo.PackageID,
             IsCheckOver = true,
             Conclusion = txtConclusion.Text,
             Recommend = txtRecommend.Text,
@@ -142,8 +119,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             ReviewSummary = txtReviewSummary.Text,
             EvaluateResult = drpEvaluateResult.SelectedValue,
             HealthCondition = drpHealthCondition.SelectedValue,
-        };      
-      
+        };  
         return Result;
     }
 
@@ -193,8 +169,8 @@ public partial class Examination_OverallCheckedPage : BasePage {
 
     protected void btnSave_Click(object sender, EventArgs e) {
         RegistrationEntity Result = GetRegistrationUI();
-        //m_Registration.SaveRegistration(Result);
-        ShowMessage("体检登记数据保存成功!");
+        m_Registration.SaveOverallChecked(Result);
+        ShowMessage("总检数据保存成功!");
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");

@@ -59,7 +59,11 @@ public partial class Examination_ChargePage : BasePage
     /// 缴费信息数据绑定
     /// </summary>
     public override void DataBind() {
-        ChargeRepeater.DataSource = m_Charge.GetCharges();
+        String PaymentMan = txtPaymentMan.Text.Trim();
+        int RecordCount = 0;
+        ChargeRepeater.DataSource = m_Charge.GetCharges(Pager.CurrentPageIndex,
+            Pager.PageSize,PaymentMan,out RecordCount);
+        Pager.RecordCount = RecordCount;
         base.DataBind();
     }
     /// <summary>

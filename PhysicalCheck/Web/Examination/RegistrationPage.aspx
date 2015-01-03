@@ -26,12 +26,15 @@
         }
 
         function selectPackage() {
-            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random();
-            var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
+            var sDeptID = $("#<%=hDeptID.ClientID %>").val();
+            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
+            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random() +"&DeptID=" + sDeptID;
+            var urlValue = window.showModalDialog(sURL, '', sFeatures);
             //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
                 $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
+                $("#<%=hGroups.ClientID%>").val(urlValue[3]);
             }
         }
 
@@ -44,6 +47,11 @@
         
         function PrintIntroduction(RegisterNo) {
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo +"&ReportKind=3";
+            window.open(sURL, "_blank", "", true);
+        }
+
+        function downLoadTemplate() {
+            var sURL = "<%=ApplicationPath%>/DownLoad/团体数据填报模板.zip";
             window.open(sURL, "_blank", "", true);
         }
        
@@ -62,6 +70,7 @@
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
             <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
+            <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();"/>
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
@@ -190,7 +199,7 @@
                                 <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择体检单位"
                                     onclick="selectDept();" align="middle" border="0" />
-                                <asp:HiddenField ID="hDeptID" runat="server" />
+                                <asp:HiddenField ID="hDeptID" runat="server" Value="1" />
                             </td>
                             <td class="VLine">
                                 套 餐
@@ -198,7 +207,7 @@
                             <td class="VLine">
                                 <asp:TextBox ID="txtPackageName" runat="server" CssClass="textbox31" />
                                  <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
-                                    onclick="selectPackage();" align="middle" border="0" />
+                                    onclick="selectPackage();" align="middle" border="0"  />
                                      <asp:HiddenField ID="hPackageID" runat="server" />
                             </td>
                         </tr>
@@ -327,6 +336,7 @@
                             </td>
                         </tr>
                     </table>
+                    <asp:HiddenField ID="hGroups" runat="server" Value="" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

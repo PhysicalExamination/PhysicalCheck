@@ -148,6 +148,39 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 个人照片
+        /// </summary>
+        public virtual String Photo {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// 工种
+        /// </summary>
+        public virtual String TradeCode {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 行业
+        /// </summary>
+        public virtual int? IndustryID {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 所属地区
+        /// </summary>
+        public virtual String RegionCode {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 是否启用
         /// </summary>		
         public virtual bool? Enabled {

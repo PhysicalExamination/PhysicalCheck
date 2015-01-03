@@ -20,6 +20,10 @@
         <property name="Mobile" column="Mobile" type="String" not-null="false" length="60" />
         <property name="EMail" column="EMail" type="String" not-null="false" length="300" />
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
+        <property name="Photo" column="Photo" type="String" not-null="false" length="65535"/>
+        <property name="TradeCode" column="TradeCode" type="String" not-null="false" length="6"/>
+        <property name="IndustryID" column="IndustryID" type="Int32" not-null="false"/>
+        <property name="RegionCode" column="RegionCode" type="String" not-null="false" length="20"/>
     </class>
 </hibernate-mapping>
 

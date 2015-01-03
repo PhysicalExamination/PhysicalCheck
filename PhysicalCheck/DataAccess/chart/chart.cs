@@ -114,21 +114,6 @@ namespace Maticsoft.DAL.chart
        #region "检查项目人数分布"
 
 
-       /// <summary>
-       /// 获得体检组合项目列表
-       /// </summary>
-       public DataSet GetList_itemgroup(string strWhere)
-       {
-           StringBuilder strSql = new StringBuilder();
-           strSql.Append("select * from itemgroup  ");
-
-           if (strWhere.Trim() != "")
-           {
-               strSql.Append(" where " + strWhere);
-           }
-         
-           return DbHelperMySQL.Query(strSql.ToString());
-       }
 
        /// <summary>
        /// 获得体检组合项目人数分布列表
@@ -155,21 +140,7 @@ namespace Maticsoft.DAL.chart
        #region "检查可是按年人数分布"
 
 
-       /// <summary>
-       /// 获得科室列表
-       /// </summary>
-       public DataSet GetList_department(string strWhere)
-       {
-           StringBuilder strSql = new StringBuilder();
-           strSql.Append("select * from department  ");
-
-           if (strWhere.Trim() != "")
-           {
-               strSql.Append(" where " + strWhere);
-           }
-
-           return DbHelperMySQL.Query(strSql.ToString());
-       }
+       
 
        /// <summary>
        /// 获得体检组合项目人数分布列表

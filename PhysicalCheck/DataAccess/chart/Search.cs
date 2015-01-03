@@ -12,6 +12,7 @@ namespace Maticsoft.DAL.Search
     public partial class Search
     {
 
+
         #region 组合查询
         /// <summary>
         /// 获得体检组合项目结论列表
@@ -47,9 +48,31 @@ namespace Maticsoft.DAL.Search
             return DbHelperMySQL.Query(strSql.ToString());
         }
 
-
         #endregion
 
+        #region 工作量
+        /// <summary>
+        /// 获得体检组合项目结论列表
+        /// </summary>
+        public DataSet GetList_workload(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" SELECT D.DeptName ,  ItemName, SUM(1) as sumNum from groupresult as A  ");
+            strSql.Append(" INNER JOIN itemresult as B on A.RegisterNo=B.RegisterNo AND A.GroupID=B.GroupID  ");
+            strSql.Append(" INNER JOIN checkeditem as C on  C.ItemID=B.ItemID  ");
+            strSql.Append(" INNER JOIN department as D on  D.DeptID=A.DeptID	  ");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+
+            strSql.Append(" GROUP BY D.DeptName, C.ItemName	  ");
+
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+        #endregion
 
     }
 }

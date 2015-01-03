@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PagedList;
 using NHibernate;
 using NHibernate.Linq;
 using DataEntity.Examination;
+using NHibernate.Criterion;
 
 namespace DataAccess.Examination {
 
@@ -33,6 +35,45 @@ namespace DataAccess.Examination {
                     where p.Enabled == true
                     select p;
             List<ChargeViewEntity> Result = q.ToList<ChargeViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+        public IList<ChargeViewEntity> GetCharges(int pageIndex, int pageSize,
+            String DeptName, out int RecordCount) {
+            var q = Session.Query<ChargeViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.PaymentDate == DateTime.Now.Date);
+            }
+            else {
+                q = q.Where(p => p.Payer.Contains(DeptName));
+            }
+            List<ChargeViewEntity> Result = q.ToPagedList<ChargeViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();                     
+            /*ICriteria Criteria = Session.CreateCriteria<ChargeViewEntity>();
+            Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("ChargePerson", DeptName, MatchMode.Anywhere));
+            }
+            else {
+                Criteria.Add(Restrictions.Eq("PaymentDate", DateTime.Now.Date));
+            }
+            RecordCount = Convert.ToInt32(Criteria.UniqueResult());
+
+            Criteria = Session.CreateCriteria<ChargeViewEntity>();
+            Criteria.SetProjection(Projections.RowCount());
+            Criteria.Add(Restrictions.Eq("Enabled", true));
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                Criteria.Add(Restrictions.Like("ChargePerson", DeptName, MatchMode.Anywhere));
+            }
+            else {
+                Criteria.Add(Restrictions.Eq("PaymentDate", DateTime.Now.Date));
+            }
+            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
+                   .SetMaxResults(pageSize);
+            IList<ChargeViewEntity> Result = Criteria.List<ChargeViewEntity>();*/
             CloseSession();
             return Result;
         }

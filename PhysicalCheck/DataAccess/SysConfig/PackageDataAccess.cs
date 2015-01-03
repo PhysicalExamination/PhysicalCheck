@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PagedList;
 using NHibernate;
 using NHibernate.Linq;
 using DataEntity.SysConfig;
@@ -29,7 +30,7 @@ namespace DataAccess.SysConfig {
         ///获取所有体检套餐数据
         /// </summary>
         public List<PackageEntity> GetPackages() {
-            var q = from p in Session.Query<PackageEntity>()                  
+            var q = from p in Session.Query<PackageEntity>()
                     select p;
             List<PackageEntity> Result = q.ToList<PackageEntity>();
             CloseSession();
@@ -40,15 +41,23 @@ namespace DataAccess.SysConfig {
         ///获取所有体检套餐数据
         /// </summary>
         public List<PackageEntity> GetPackages(int pageIndex, int pageSize, out int RecordCount) {
-            String hql = "select count(PackageID) from PackageEntity";
-            IQuery query = Session.CreateQuery(hql);
-            object obj = query.UniqueResult();
-            int.TryParse(obj.ToString(), out RecordCount);
-           
-            List<PackageEntity> Result = Session.CreateQuery(@" from PackageEntity")                                               
-                                                .SetFirstResult((pageIndex - 1) * pageSize)
-                                                .SetMaxResults(pageSize)
-                                                .List<PackageEntity>().ToList<PackageEntity>();
+            var q = Session.Query<PackageEntity>();
+            q = q.Where(p => p.Enabled == true);
+            List<PackageEntity> Result = q.ToPagedList<PackageEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;            
+        }
+
+        public List<PackageEntity> GetPackages(int pageIndex, int pageSize, String PackageName,
+            out int RecordCount) {
+            var q = Session.Query<PackageEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (!String.IsNullOrWhiteSpace(PackageName)) {
+                q = q.Where(p => p.PackageName.Contains(PackageName));
+            }
+            List<PackageEntity> Result = q.ToPagedList<PackageEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
             CloseSession();
             return Result;
         }
@@ -80,7 +89,7 @@ namespace DataAccess.SysConfig {
         public void SavePackage(PackageEntity Package) {
             if (Package.PackageID == int.MinValue) Package.PackageID = GetLineID("Package");
             Package.DisplayOrder = Package.PackageID;
-            //Package.en
+            Package.Enabled = true;
             Session.SaveOrUpdate(Package);
             Session.Flush();
             CloseSession();
@@ -91,7 +100,9 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="Package">体检套餐实体</param> 
         public void DeletePackage(PackageEntity Package) {
-            Session.Delete(Package);
+            //Session.Delete(Package);
+            Package.Enabled = false;
+            Session.SaveOrUpdate(Package);
             Session.Flush();
             CloseSession();
         }

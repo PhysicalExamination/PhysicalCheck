@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PagedList;
 using NHibernate;
 using NHibernate.Linq;
 using DataEntity.SysConfig;
@@ -26,10 +27,14 @@ namespace DataAccess.SysConfig {
         #region 公共方法
 
         public IList<ItemGroupViewEntity> GetItemGroups(int DeptID) {
-            String hql = @" from ItemGroupViewEntity where Enabled=1 and DeptID=? order by DisplayOrder";
-            IList<ItemGroupViewEntity> Result = Session.CreateQuery(hql)
-                                               .SetInt32(0,DeptID)
-                                                .List<ItemGroupViewEntity>();
+            var q = Session.Query<ItemGroupViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            q = q.Where(p => p.DeptID == DeptID);
+            //String hql = @" from ItemGroupViewEntity where Enabled=1 and DeptID=? order by DisplayOrder";
+            //IList<ItemGroupViewEntity> Result = Session.CreateQuery(hql)
+            //                                   .SetInt32(0, DeptID)
+            //                                    .List<ItemGroupViewEntity>();
+            List<ItemGroupViewEntity> Result = q.ToList();
             CloseSession();
             return Result;
         }
@@ -43,15 +48,23 @@ namespace DataAccess.SysConfig {
         /// <param name="RecordCount">总记录数据</param>
         ///<returns>组合项目列表</returns>
         public List<ItemGroupViewEntity> GetItemGroups(int pageIndex, int pageSize, out int RecordCount) {
-            String hql = @"select count(DeptID) from ItemGroupViewEntity where Enabled=1 ";
-            IQuery query = Session.CreateQuery(hql);
-            object obj = query.UniqueResult();
-            int.TryParse(obj.ToString(), out RecordCount);
-            hql = @" from ItemGroupViewEntity where Enabled=1 order by DisplayOrder";
-            List<ItemGroupViewEntity> Result = Session.CreateQuery(hql)                                                
-                                                .SetFirstResult((pageIndex - 1) * pageSize)
-                                                .SetMaxResults(pageSize)
-                                                .List<ItemGroupViewEntity>().ToList<ItemGroupViewEntity>();
+            var q = Session.Query<ItemGroupViewEntity>();
+            q = q.Where(p => p.Enabled == true);           
+            List<ItemGroupViewEntity> Result = q.ToPagedList<ItemGroupViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;           
+        }
+
+        public List<ItemGroupViewEntity> GetItemGroups(int pageIndex, int pageSize, String GroupName,
+            out int RecordCount) {
+            var q = Session.Query<ItemGroupViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (!String.IsNullOrWhiteSpace(GroupName)) {
+                q = q.Where(p => p.GroupName.Contains(GroupName));
+            }
+            List<ItemGroupViewEntity> Result = q.ToPagedList<ItemGroupViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
             CloseSession();
             return Result;
         }

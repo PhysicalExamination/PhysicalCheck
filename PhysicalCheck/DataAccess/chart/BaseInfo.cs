@@ -10,6 +10,8 @@ namespace Maticsoft.DAL.BaseInfo
     //综合查询类
     public partial class BaseInfo
     {
+
+
         /// <summary>
         /// 获得科室列表
         /// </summary>

@@ -11,7 +11,7 @@ using BusinessLogic.SysConfig;
 using DataEntity.SysConfig;
 using DataEntity.Admin;
 using BusinessLogic.Admin;
-
+using System.Data;
 public partial class Reports_Default : BasePage {
 
     private RegistrationBusiness m_Registration;
@@ -37,11 +37,59 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
+            if (ReportKind == "61") BuildSearch_Composed();//组合查询
+
             //BuildIntroduction(RegisterNo);
         }
     }
 
     #endregion
+
+    #region "组合查询"
+
+    public void BuildSearch_Composed()
+    {
+        WebReport1.ReportFile = Server.MapPath("Search_Composed.frx");
+        
+        
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["RegisterNo"] != "")
+            sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
+
+        if (Request.Params["DeptName"] != "")
+            sqlw += string.Format("  And DeptName like '%{0}%' ",Request.Params["DeptName"] );
+
+        if (Request.Params["Name"] != "")
+            sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
+
+
+        if (Request.Params["IdNumber"] != "")
+            sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
+
+        if (Request.Params["OverallDoctor"] != "")
+            sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+
+
+        DataSet ds = bll.GetList_Composed(sqlw );
+
+        WebReport1.Report.RegisterData(ds.Tables[0], "View_Search_Composed");
+        
+        WebReport1.Prepare();
+    }
+
+    #endregion
+
 
     #region 私有方法
 

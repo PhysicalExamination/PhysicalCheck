@@ -26,6 +26,28 @@ namespace Maticsoft.BLL.Search
          {
              return dal.GetList_itemresult(strWhere);
          }
+          /// <summary>
+        /// 获得组合查询列表
+        /// </summary>
+         public DataSet GetList_Composed(string strWhere)
+         {
+             return dal.GetList_Composed(strWhere);
+         }
+          /// <summary>
+        /// 获取组合查询记录总数
+        /// </summary>
+         public int GetRecordCount_Composed(string strWhere)
+         {
+             return dal.GetRecordCount_Composed(strWhere);
+         }
+
+          /// <summary>
+        /// 分页获取组合查询数据列表
+        /// </summary>
+         public DataSet GetListByPage_Composed(string strWhere, string orderby, int startIndex, int endIndex)
+         {
+             return dal.GetListByPage_Composed(strWhere, orderby, startIndex, endIndex);
+         }
 
            #endregion
 

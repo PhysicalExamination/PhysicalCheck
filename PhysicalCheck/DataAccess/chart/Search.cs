@@ -29,7 +29,6 @@ namespace Maticsoft.DAL.Search
             {
                 strSql.Append(" where " + strWhere);
             }
-
             return DbHelperMySQL.Query(strSql.ToString());
         }
 
@@ -45,6 +44,65 @@ namespace Maticsoft.DAL.Search
             {
                 strSql.Append(" where " + strWhere);
             }
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+
+        /// <summary>
+        /// 获得组合查询列表
+        /// </summary>
+        public DataSet GetList_Composed(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * ");
+            strSql.Append(" FROM View_Search_Composed ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获取组合查询记录总数
+        /// </summary>
+        public int GetRecordCount_Composed(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) FROM View_Search_Composed ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            object obj = DbHelperMySQL.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+        /// <summary>
+        /// 分页获取组合查询数据列表
+        /// </summary>
+        public DataSet GetListByPage_Composed(string strWhere, string orderby, int startIndex, int endIndex)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM View_Search_Composed ");
+
+            if (!string.IsNullOrEmpty(strWhere.Trim()))
+            {
+                strSql.Append(" WHERE " + strWhere);
+            }
+            if (!string.IsNullOrEmpty(orderby.Trim()))
+            {
+                strSql.Append("order by " + orderby);
+            }
+
+            strSql.AppendFormat(" limit {0} , {1}", startIndex, endIndex);
+
             return DbHelperMySQL.Query(strSql.ToString());
         }
 

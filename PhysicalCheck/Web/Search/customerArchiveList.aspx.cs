@@ -55,7 +55,7 @@ public partial class Examination_customerArchive : BasePage
     /// </summary>
     public override void DataBind()
     {
-        Maticsoft.BLL.messages.messagesSend bll = new Maticsoft.BLL.messages.messagesSend();
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
 
         string sqlw = " 1=1 ";
 
@@ -83,9 +83,9 @@ public partial class Examination_customerArchive : BasePage
             sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
 
-        DataSet ds = bll.GetListByPage_Registration(sqlw, "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
+        DataSet ds = bll.GetListByPage_Composed(sqlw, "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
 
-        Pager.RecordCount = bll.GetRecordCount_Registration(sqlw);
+        Pager.RecordCount = bll.GetRecordCount_Composed(sqlw);
         ReportRepeater.DataSource = ds.Tables[0];
 
         base.DataBind();

@@ -37,7 +37,7 @@
                 登记日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-                <asp:Repeater ID="ReportRepeater" OnItemDataBound="rptMain_ItemDataBound" runat="server">
+                <asp:Repeater ID="ReportRepeater" runat="server">
                     <HeaderTemplate>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tr>
@@ -62,10 +62,10 @@
                                 <th>
                                     体检状态
                                 </th>
-                                <th>
+                                <th style=" width:250px;">
                                     已体检
                                 </th>
-                                <th>
+                                <th style=" width:250px;">
                                     未体检
                                 </th>
                                 <th>
@@ -97,11 +97,11 @@
                                 <%# Eval("IsCheckOver ").ToString() == "False" ? "进行中" : "完成"%>
                             </td>
 
-                            <td class="VLine" align="center">
-                                <asp:Literal ID="ltDO" runat="server" Text="" />
+                          <td class="VLine" align="center">
+                                <%# Eval("haveDo")%>
                             </td>
                             <td class="VLine" align="center">
-                                <asp:Literal ID="ltNoDo" runat="server" Text="" />
+                                <%# Eval("noDo")%>
                             </td>
 
                             <td class="VLine" align="center">
@@ -132,11 +132,12 @@
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver").ToString()=="False" ? "进行中" : "完成"%>
                             </td>
-                             <td class="VLine" align="center">
-                                <asp:Literal ID="ltDO" runat="server" Text="" />
+                            
+                            <td class="VLine" align="center">
+                                <%# Eval("haveDo")%>
                             </td>
                             <td class="VLine" align="center">
-                                <asp:Literal ID="ltNoDo" runat="server" Text="" />
+                                <%# Eval("noDo")%>
                             </td>
                             <td class="VLine" align="center">
                                 <a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>" target="_self">详情</a>

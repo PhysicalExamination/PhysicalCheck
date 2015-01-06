@@ -23,10 +23,10 @@
             sURL += "&OverallDoctor=" + $("#<%=txtOverallDoctor.ClientID%>").val();
             sURL += "&StartDate=" + $("#<%=txtStartDate.ClientID%>").val();
             sURL += "&EndDate=" + $("#<%=txtEndDate.ClientID%>").val();
-                       window.open(sURL, "_blank", "", true);
+            window.open(sURL, "_blank", "", true);
 
             //alert($("#<%=txtRegisterNo.ClientID%>").val());
-            
+
         }
     
     </script>
@@ -37,11 +37,10 @@
             <div class="l-navigationbars-l">
                 <a href="#" style="left: 100px; text-decoration: none;">综合查询</a></div>
         </div>
-         登记号：
-                <asp:TextBox ID="txtRegisterNo" Text="wsw" Name="txtRegisterNo"  runat="server"></asp:TextBox>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
-               
+                登记号：
+                <asp:TextBox ID="txtRegisterNo" Text="" Name="txtRegisterNo" runat="server"></asp:TextBox>
                 单位：
                 <asp:TextBox ID="txtDeptName" runat="server"></asp:TextBox>
                 名称：

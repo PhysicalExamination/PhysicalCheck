@@ -53,12 +53,21 @@ namespace Maticsoft.BLL.Search
 
           #region 工作量
         /// <summary>
-        /// 获得体检组合项目结论列表
+        /// 获得体检套餐工作量、
         /// </summary>
-         public DataSet GetList_workload(string strWhere)
+         public DataSet GetList_workload_package(string strWhere)
          {
-             return dal.GetList_workload(strWhere);
+             return dal.GetList_workload_package(strWhere);
          }
+         /// <summary>
+         /// 获得体检组合项目结论列表
+         /// </summary>
+         public DataSet GetList_workload_checkItem(string strWhere)
+         {
+             return dal.GetList_workload_checkItem(strWhere);
+         }
+
+
           #endregion
 
     }

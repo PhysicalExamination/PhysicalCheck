@@ -110,9 +110,9 @@ namespace Maticsoft.DAL.Search
 
         #region 工作量
         /// <summary>
-        /// 获得体检组合项目结论列表
+        /// 获得体检项目合计工作量
         /// </summary>
-        public DataSet GetList_workload(string strWhere)
+        public DataSet GetList_workload_checkItem(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(" SELECT D.DeptName ,  ItemName, SUM(1) as sumNum from groupresult as A  ");
@@ -126,6 +126,25 @@ namespace Maticsoft.DAL.Search
             }
 
             strSql.Append(" GROUP BY D.DeptName, C.ItemName	  ");
+
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得体检项目合计工作量
+        /// </summary>
+        public DataSet GetList_workload_package(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" select B.PackageName,SUM(1) as sumNum, SUM(B.Price) as sumPrice  from groupresult as A ");
+            strSql.Append(" INNER JOIN package as B ON A.PackageID=B.PackageID  ");
+            
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+
+            strSql.Append(" GROUP BY B.PackageName  ");
 
             return DbHelperMySQL.Query(strSql.ToString());
         }

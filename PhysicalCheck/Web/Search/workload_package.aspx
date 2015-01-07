@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master"
-    AutoEventWireup="true" CodeFile="workload.aspx.cs" Inherits="Examination_customerArchive" %>
+    AutoEventWireup="true" CodeFile="workload_package.aspx.cs" Inherits="Examination_customerArchive" %>
 
 <%@ Import Namespace="Common.FormatProvider" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -35,40 +35,44 @@
                     <HeaderTemplate>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tr>
+                              
                                 <th>
-                                    科室
-                                </th>
-                                <th>
-                                    检测项
+                                    套餐
                                 </th>
                                 <th>
                                     工作量
+                                </th>
+
+                                  <th>
+                                    合计价格
                                 </th>
                             </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                             <td class="VLine" align="center">
-                                <asp:Literal ID="DeptName" runat="server" Text=' <%# Eval("DeptName")%>' />
+                                <asp:Literal ID="PackageName" runat="server" Text=' <%# Eval("PackageName")%>' />
                             </td>
-                            <td class="VLine" align="center">
-                                <%# Eval("ItemName")%>
-                            </td>
+                         
                             <td class="VLine" align="center">
                                 <%# Eval("sumNum")%>
+                            </td>
+                               <td class="VLine" align="center">
+                                <%# Eval("sumPrice")%>
                             </td>
                         </tr>
                     </ItemTemplate>
                     <AlternatingItemTemplate>
                         <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
-                            <td class="VLine" align="center">
-                                <asp:Literal ID="DeptName" runat="server" Text=' <%# Eval("DeptName")%>' />
+                           <td class="VLine" align="center">
+                                <asp:Literal ID="PackageName" runat="server" Text=' <%# Eval("PackageName")%>' />
                             </td>
-                            <td class="VLine" align="center">
-                                <%# Eval("ItemName")%>
-                            </td>
+                         
                             <td class="VLine" align="center">
                                 <%# Eval("sumNum")%>
+                            </td>
+                               <td class="VLine" align="center">
+                                <%# Eval("sumPrice")%>
                             </td>
                         </tr>
                     </AlternatingItemTemplate>

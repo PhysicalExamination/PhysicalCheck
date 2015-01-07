@@ -59,9 +59,7 @@ public partial class Examination_customerArchive : BasePage
 
         string sqlw = " 1=1 ";
 
-        if (txtCheckDoctor.Text != "")
-            sqlw += string.Format("  And B.CheckDoctor= '{0}' ", txtCheckDoctor.Text);
-
+        
         if (drpdepartment.Text != "")
             sqlw += string.Format("  And A.DeptID = '{0}' ", drpdepartment.SelectedValue);
 
@@ -71,7 +69,7 @@ public partial class Examination_customerArchive : BasePage
         if (txtEndDate.Text != "")
             sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
-        ReportRepeater.DataSource =bll.GetList_workload(sqlw).Tables[0];
+        ReportRepeater.DataSource =bll.GetList_workload_package(sqlw).Tables[0];
 
         base.DataBind();
     }

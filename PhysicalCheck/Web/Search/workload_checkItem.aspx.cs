@@ -71,7 +71,7 @@ public partial class Examination_customerArchive : BasePage
         if (txtEndDate.Text != "")
             sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
-        ReportRepeater.DataSource =bll.GetList_workload(sqlw).Tables[0];
+        ReportRepeater.DataSource =bll.GetList_workload_checkItem(sqlw).Tables[0];
 
         base.DataBind();
     }

@@ -19,10 +19,15 @@
     <div>
         <div class="l-navigationbars">
             <div class="l-navigationbars-l">
-                <a href="#" style="left: 100px; text-decoration: none;">体检医生工作量查询</a></div>
+                <a href="#" style="left: 100px; text-decoration: none;">体检科室/医生工作量查询 </a>
+            </div>
         </div>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
+                <asp:RadioButtonList ID="rdbtntype" RepeatDirection="Horizontal" runat="server">
+                    <asp:ListItem Value="0" Selected="True">按科室统计</asp:ListItem>
+                    <asp:ListItem Value="1">按人员统计</asp:ListItem>
+                </asp:RadioButtonList>
                 科室：
                 <asp:DropDownList ID="drpdepartment" runat="server">
                 </asp:DropDownList>
@@ -57,12 +62,11 @@
                             <td class="VLine" align="center">
                                 <%# Eval("sumNum")%>
                             </td>
-                           
                         </tr>
                     </ItemTemplate>
                     <AlternatingItemTemplate>
                         <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
-                             <td class="VLine" align="center">
+                            <td class="VLine" align="center">
                                 <asp:Literal ID="DeptName" runat="server" Text=' <%# Eval("DeptName")%>' />
                             </td>
                             <td class="VLine" align="center">
@@ -76,7 +80,7 @@
                     <FooterTemplate>
                         </table>
                     </FooterTemplate>
-                </asp:Repeater>               
+                </asp:Repeater>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>

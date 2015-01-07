@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master"
-    AutoEventWireup="true" CodeFile="workload_Person.aspx.cs" Inherits="Examination_customerArchive" %>
+    AutoEventWireup="true" CodeFile="workload_checkItem.aspx.cs" Inherits="Examination_customerArchive" %>
 
 <%@ Import Namespace="Common.FormatProvider" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">

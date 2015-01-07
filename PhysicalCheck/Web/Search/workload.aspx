@@ -19,20 +19,15 @@
     <div>
         <div class="l-navigationbars">
             <div class="l-navigationbars-l">
-                <a href="#" style="left: 100px; text-decoration: none;">体检科室/医生工作量查询 </a>
+                <a href="#" style="left: 100px; text-decoration: none;">体检科室工作量查询 </a>
             </div>
         </div>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
-                <asp:RadioButtonList ID="rdbtntype" RepeatDirection="Horizontal" runat="server">
-                    <asp:ListItem Value="0" Selected="True">按科室统计</asp:ListItem>
-                    <asp:ListItem Value="1">按人员统计</asp:ListItem>
-                </asp:RadioButtonList>
+                
                 科室：
                 <asp:DropDownList ID="drpdepartment" runat="server">
-                </asp:DropDownList>
-                体检医生：
-                <asp:TextBox ID="txtCheckDoctor" runat="server"></asp:TextBox>
+                </asp:DropDownList>                
                 日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />

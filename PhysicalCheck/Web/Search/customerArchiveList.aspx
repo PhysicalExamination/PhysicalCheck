@@ -25,8 +25,6 @@
             sURL += "&EndDate=" + $("#<%=txtEndDate.ClientID%>").val();
             window.open(sURL, "_blank", "", true);
 
-            //alert($("#<%=txtRegisterNo.ClientID%>").val());
-
         }
     
     </script>
@@ -41,14 +39,14 @@
             <ContentTemplate>
                 登记号：
                 <asp:TextBox ID="txtRegisterNo" Text="" Name="txtRegisterNo" runat="server"></asp:TextBox>
-                单位：
+                单&nbsp;&nbsp; 位：
                 <asp:TextBox ID="txtDeptName" runat="server"></asp:TextBox>
-                名称：
+                名称&nbsp;&nbsp;：
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
-                身份证：
+                身份证&nbsp;：
                 <asp:TextBox ID="txtIdNumber" runat="server"></asp:TextBox>
                 <br />
-                总检：
+                总检人：
                 <asp:TextBox ID="txtOverallDoctor" runat="server"></asp:TextBox>
                 登记日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />

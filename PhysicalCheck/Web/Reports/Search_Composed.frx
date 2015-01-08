@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/07/2015 14:23:01" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/08/2015 11:49:24" ReportInfo.CreatorVersion="2013.2.5.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +47,8 @@ namespace FastReport
       //Table1.PrintRow(2);
       //Table1.PrintColumns();
     }
+
+   
   }
 }
 </ScriptText>
@@ -61,11 +63,18 @@ namespace FastReport
       <Column Name="haveDo" DataType="System.String"/>
       <Column Name="noDo" DataType="System.String"/>
     </TableDataSource>
+    <Parameter Name="registerNo" DataType="System.String"/>
+    <Parameter Name="pOverallDoctor" DataType="System.String"/>
+    <Parameter Name="Name" DataType="System.String"/>
+    <Parameter Name="IdNumber" DataType="System.String"/>
+    <Parameter Name="DeptName" DataType="System.String"/>
+    <Parameter Name="StartDate" DataType="System.String"/>
+    <Parameter Name="EndDate" DataType="System.String"/>
   </Dictionary>
-  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
-    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="129.89" Border.Lines="Top">
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" Guides="0,1048.95,9.45,1039.5,174.15,263.25,352.35,432,558.9,827.55,18.9,94.5,472.5,567,699.3,793.8,217.35,292.95,113.4,207.9,689.85,945,859.95,189,283.5,378,226.8,274.05,311.85,425.25,831.6,926.1" StartPageEvent="Page1_StartPage">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="196.04" Border.Lines="Top" Guides="0,28.35,122.85,185.85,31.5,63,47.25,66.15,85.05,103.95">
       <TextObject Name="Text2" Width="1048.95" Height="28.35" Text="组合查询" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 14pt, style=Bold"/>
-      <TableObject Name="Table1" Left="9.45" Top="47.25" Width="1030.05" Height="63" ManualBuildEvent="Table1_ManualBuild">
+      <TableObject Name="Table1" Left="9.45" Top="122.85" Width="1030.05" Height="63" ManualBuildEvent="Table1_ManualBuild">
         <TableColumn Name="Column1" Width="164.7"/>
         <TableColumn Name="Column2" Width="89.1"/>
         <TableColumn Name="Column3" Width="89.1"/>
@@ -92,8 +101,22 @@ namespace FastReport
           <TableCell Name="Cell26" Border.Lines="All" Border.Color="LightGray" Text="[View_Search_Composed.noDo]" Padding="0, 0, 5, 0" Font="宋体, 9pt"/>
         </TableRow>
       </TableObject>
+      <TextObject Name="Text3" Left="18.9" Top="47.25" Width="75.6" Height="18.9" Text="登记号：" Font="宋体, 9pt"/>
+      <TextObject Name="Text4" Left="472.5" Top="85.05" Width="94.5" Height="18.9" Text="单位：" Font="宋体, 9pt"/>
+      <TextObject Name="Text5" Left="472.5" Top="47.25" Width="94.5" Height="18.9" Text="名称：" Font="宋体, 9pt"/>
+      <TextObject Name="Text6" Left="699.3" Top="47.25" Width="94.5" Height="18.9" Text="身份证：" Font="宋体, 9pt"/>
+      <TextObject Name="Text7" Left="217.35" Top="47.25" Width="75.6" Height="18.9" Text="总检医生：" Font="宋体, 9pt"/>
+      <TextObject Name="Text8" Left="18.9" Top="85.05" Width="94.5" Height="18.9" Text="登记日期：" Font="宋体, 9pt"/>
+      <TextObject Name="Text9" Left="94.5" Top="47.25" Width="113.4" Height="18.9" Text="[registerNo]" Font="宋体, 9pt"/>
+      <TextObject Name="Text10" Left="567" Top="47.25" Width="122.85" Height="18.9" Text="[Name]" Font="宋体, 9pt"/>
+      <TextObject Name="Text11" Left="793.8" Top="47.25" Width="151.2" Height="18.9" Text="[IdNumber]" Font="宋体, 9pt"/>
+      <TextObject Name="Text13" Left="567" Top="85.05" Width="292.95" Height="18.9" Text="[DeptName]" Font="宋体, 9pt"/>
+      <TextObject Name="Text14" Left="94.5" Top="85.05" Width="94.5" Height="18.9" Text="[StartDate]" Font="宋体, 9pt"/>
+      <TextObject Name="Text15" Left="283.5" Top="85.05" Width="94.5" Height="18.9" Text="[EndDate]" Font="宋体, 9pt"/>
+      <TextObject Name="Text16" Left="226.8" Top="85.05" Width="47.25" Height="18.9" Text="至" Font="宋体, 9pt"/>
+      <TextObject Name="Text12" Left="311.85" Top="47.25" Width="113.4" Height="18.9" Text="[pOverallDoctor]" Font="宋体, 9pt"/>
     </ReportTitleBand>
-    <PageFooterBand Name="PageFooter1" Top="133.89" Width="1047.06" Height="18.9">
+    <PageFooterBand Name="PageFooter1" Top="200.04" Width="1047.06" Height="18.9" Guides="0,18.9">
       <TextObject Name="Text1" Left="831.6" Width="94.5" Height="18.9" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
     </PageFooterBand>
   </ReportPage>

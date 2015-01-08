@@ -49,7 +49,10 @@ public partial class Reports_Default : BasePage {
 
     public void BuildSearch_Composed()
     {
-        WebReport1.ReportFile = Server.MapPath("Search_Composed.frx");
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("Search_Composed.frx"));
         
         
         Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
@@ -83,9 +86,22 @@ public partial class Reports_Default : BasePage {
 
         DataSet ds = bll.GetList_Composed(sqlw );
 
-        WebReport1.Report.RegisterData(ds.Tables[0], "View_Search_Composed");
-        
+        a.SetParameterValue("RegisterNo", Request.Params["RegisterNo"]);
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("Name", Request.Params["Name"]);
+        a.SetParameterValue("IdNumber", Request.Params["IdNumber"]);
+       
+        a.SetParameterValue("pOverallDoctor", Request.Params["OverallDoctor"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "View_Search_Composed"); 
+        WebReport1.Report = a;
+        //WebReport1.Report.RegisterData(ds.Tables[0], "View_Search_Composed");
+        //WebReport1.Report.SetParameterValue("registerNo", Request.Params["RegisterNo"].ToString());
+       // WebReport1.Report.SetParameterValue("pOverallDoctor", "wsw");
+
         WebReport1.Prepare();
+        
     }
 
     #endregion

@@ -38,6 +38,7 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
+            if (ReportKind == "62") BuildSearch_workload_package();//组合查询
 
             //BuildIntroduction(RegisterNo);
         }
@@ -45,8 +46,9 @@ public partial class Reports_Default : BasePage {
 
     #endregion
 
-    #region "组合查询"
+    #region "查询"
 
+    //组合查询
     public void BuildSearch_Composed()
     {
 
@@ -102,6 +104,40 @@ public partial class Reports_Default : BasePage {
 
         WebReport1.Prepare();
         
+    }
+
+    //组合查询
+    public void BuildSearch_workload_package()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("workload_package.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptID"] != "")
+            sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+        DataSet ds = bll.GetList_workload_package(sqlw);
+
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "workload_package");
+        WebReport1.Report = a;
+       
+        WebReport1.Prepare();
+
     }
 
     #endregion

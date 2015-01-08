@@ -38,8 +38,8 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
-            if (ReportKind == "62") BuildSearch_workload_package();//组合查询
-
+            if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
+            if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
             //BuildIntroduction(RegisterNo);
         }
     }
@@ -106,7 +106,7 @@ public partial class Reports_Default : BasePage {
         
     }
 
-    //组合查询
+    //科室工作量查询
     public void BuildSearch_workload_package()
     {
 
@@ -136,6 +136,45 @@ public partial class Reports_Default : BasePage {
         a.RegisterData(ds.Tables[0], "workload_package");
         WebReport1.Report = a;
        
+        WebReport1.Prepare();
+
+    }
+
+    //科室医生工作量查询
+    public void BuildSearch_workload_checkItem()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("workload_checkItem.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptID"] != "")
+            sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
+
+        if (Request.Params["CheckDoctor"] != "")
+            sqlw += string.Format("  And B.CheckDoctor= '{0}' ", Request.Params["CheckDoctor"]);
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+        DataSet ds = bll.GetList_workload_checkItem(sqlw);
+
+        a.SetParameterValue("CheckDoctor", Request.Params["CheckDoctor"]);
+
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "workload_checkItem");
+        WebReport1.Report = a;
+
         WebReport1.Prepare();
 
     }

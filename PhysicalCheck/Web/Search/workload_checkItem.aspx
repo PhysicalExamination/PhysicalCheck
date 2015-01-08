@@ -12,7 +12,17 @@
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
         }
-        
+        function Printrpt() {
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?ReportKind=63";
+            sURL += "&DeptId=" + $("select#<%=drpdepartment.ClientID%>").find('option:selected').val();
+            sURL += "&DeptName=" + $("select#<%=drpdepartment.ClientID%>").find('option:selected').text();
+            sURL += "&CheckDoctor="+$("#<%=txtCheckDoctor.ClientID%>").val();
+            sURL += "&StartDate=" + $("#<%=txtStartDate.ClientID%>").val();
+            sURL += "&EndDate=" + $("#<%=txtEndDate.ClientID%>").val();
+            window.open(sURL, "_blank", "", true);
+
+
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -32,6 +42,7 @@
                 日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+                <input type="button" class="buttonCss" value="打印" onclick="Printrpt();" />
                 <asp:Repeater ID="ReportRepeater" runat="server">
                     <HeaderTemplate>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">

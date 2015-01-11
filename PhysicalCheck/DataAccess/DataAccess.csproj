@@ -81,6 +81,7 @@
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />
     <Compile Include="messages\messagesSend.cs" />
+    <Compile Include="messages\messages_type.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemDataAccess.cs" />

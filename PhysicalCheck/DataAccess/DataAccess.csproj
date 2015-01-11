@@ -69,7 +69,9 @@
     <Compile Include="Admin\RolePermissionDataAccess.cs" />
     <Compile Include="Admin\SysUserDataAccess.cs" />
     <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="chart\BaseInfo.cs" />
     <Compile Include="chart\chart.cs" />
+    <Compile Include="chart\Search.cs" />
     <Compile Include="Examination\ChargeDataAccess.cs" />
     <Compile Include="Examination\CheckPersonDataAccess.cs" />
     <Compile Include="Examination\DepartmentGroupDataAccess.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />
     <Compile Include="messages\messagesSend.cs" />
+    <Compile Include="messages\messages_type.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemDataAccess.cs" />

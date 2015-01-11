@@ -68,6 +68,7 @@
     <Compile Include="messages\messages.cs" />
     <Compile Include="messages\messagesjoin.cs" />
     <Compile Include="messages\messages_rate.cs" />
+    <Compile Include="messages\messages_type.cs" />
     <Compile Include="Norecordor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysConfig\CheckedItemEntity.cs" />

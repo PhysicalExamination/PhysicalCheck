@@ -26,9 +26,7 @@
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <th>
-                                        序号
-                                    </th>
+                                  
                                     <th>
                                         编码
                                     </th>
@@ -48,9 +46,7 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
-                                <td class="VLine" align="center">
-                                    <%# Container.ItemIndex + 1 %>
-                                </td>
+                               
                                 <td class="VLine" align="center">
                                     <%# Eval("Code") %>
                                     <asp:Literal runat="server" ID="lblId" Text='<%# Eval("id") %>' Visible="false" />
@@ -72,9 +68,7 @@
                         </ItemTemplate>
                         <AlternatingItemTemplate>
                             <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
-                               <td class="VLine" align="center">
-                                    <%# Container.ItemIndex + 1 %>
-                                </td>
+                              
                                 <td class="VLine" align="center">
                                     <%# Eval("Code") %>
                                     <asp:Literal runat="server" ID="lblId" Text='<%# Eval("id") %>' Visible="false" />

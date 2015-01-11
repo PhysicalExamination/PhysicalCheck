@@ -90,6 +90,8 @@ public partial class Examination_CheckedRepeatPage : BasePage
                 {
 
                     //string smsResult = SMS.Send("",en.telephone);
+                    Maticsoft.BLL.messages.messages_type bllType = new Maticsoft.BLL.messages.messages_type();
+                    Maticsoft.Model.messages.messages_type msgType = new Maticsoft.Model.messages.messages_type();
                     Maticsoft.Model.messages.messages model = new Maticsoft.Model.messages.messages();
 
                     model.type = messagesType.复检通知.ToString();
@@ -98,7 +100,11 @@ public partial class Examination_CheckedRepeatPage : BasePage
                     model.unit = ltlblDeptName.Text;
                     model.sendTime = DateTime.Now;
 
-                    model.content = string.Format("[{0}]您好!您在[YYMC]的体检完成,网上www.tophim.com查询体检结果的帐号[ZH]密码[MM]", en.Name);
+
+                    msgType = bllType.GetModelbyCode(messagesType.复检通知.GetHashCode().ToString());
+                    if (msgType != null)
+                        model.content = msgType.templet;
+                   // model.content = string.Format("[{0}]您好!您在[YYMC]的体检完成,网上www.tophim.com查询体检结果的帐号[ZH]密码[MM]", en.Name);
 
                     model.status = "成功";
 

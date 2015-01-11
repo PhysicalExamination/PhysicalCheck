@@ -56,8 +56,8 @@ public partial class Admin_DepartmentPage : BasePage {
 	/// 检查科室数据绑定
 	/// </summary>
 	public override void DataBind() {
-      
-        DepartmentRepeater.DataSource = bll.GetAllList();
+
+        DepartmentRepeater.DataSource = bll.GetList(" 1=1 order by code ");
        
 		base.DataBind();
 	}
@@ -111,7 +111,7 @@ public partial class Admin_DepartmentPage : BasePage {
     /// 重置检查科室界面
 	/// </summary>
 	private void ClearUserUI() {
-		
+        id = 0;
 		txtCode.Text = "";
         txtTemplet.Text = "";
         txtType_name.Text = "";

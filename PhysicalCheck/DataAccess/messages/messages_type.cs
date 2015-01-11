@@ -313,6 +313,33 @@ namespace Maticsoft.DAL.messages
 		#endregion  BasicMethod
 		#region  ExtensionMethod
 
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Maticsoft.Model.messages.messages_type GetModelbyCode(string code)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select id,code,type_name,templet,upd_time from messages_type ");
+            strSql.Append(" where Code=@Code");
+            MySqlParameter[] parameters = {
+					new MySqlParameter("@Code", MySqlDbType.String)
+			};
+            parameters[0].Value = code;
+
+            Maticsoft.Model.messages.messages_type model = new Maticsoft.Model.messages.messages_type();
+            DataSet ds = DbHelperMySQL.Query(strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return DataRowToModel(ds.Tables[0].Rows[0]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
 		#endregion  ExtensionMethod
 	}
 }

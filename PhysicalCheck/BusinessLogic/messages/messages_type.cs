@@ -182,6 +182,13 @@ namespace Maticsoft.BLL.messages
 		#endregion  BasicMethod
 		#region  ExtensionMethod
 
+         /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Maticsoft.Model.messages.messages_type GetModelbyCode(string code)
+        {
+            return dal.GetModelbyCode(code);
+        }
 		#endregion  ExtensionMethod
 	}
 }

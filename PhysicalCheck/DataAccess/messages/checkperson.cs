@@ -349,7 +349,7 @@ namespace Maticsoft.DAL.messages
 			{
 				strSql.Append(" where "+strWhere);
 			}
-			object obj = DbHelperSQL.GetSingle(strSql.ToString());
+            object obj = DbHelperMySQL.GetSingle(strSql.ToString());
 			if (obj == null)
 			{
 				return 0;
@@ -364,52 +364,24 @@ namespace Maticsoft.DAL.messages
 		/// </summary>
 		public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
 		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("SELECT * FROM ( ");
-			strSql.Append(" SELECT ROW_NUMBER() OVER (");
-			if (!string.IsNullOrEmpty(orderby.Trim()))
-			{
-				strSql.Append("order by T." + orderby );
-			}
-			else
-			{
-				strSql.Append("order by T.PersonID desc");
-			}
-			strSql.Append(")AS Row, T.*  from checkperson T ");
-			if (!string.IsNullOrEmpty(strWhere.Trim()))
-			{
-				strSql.Append(" WHERE " + strWhere);
-			}
-			strSql.Append(" ) TT");
-			strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
-			return DbHelperMySQL.Query(strSql.ToString());
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM checkperson ");
+
+            if (!string.IsNullOrEmpty(strWhere.Trim()))
+            {
+                strSql.Append(" WHERE " + strWhere);
+            }
+            if (!string.IsNullOrEmpty(orderby.Trim()))
+            {
+                strSql.Append("order by " + orderby);
+            }
+
+            strSql.AppendFormat(" limit {0} , {1}", startIndex, endIndex);
+
+            return DbHelperMySQL.Query(strSql.ToString());
 		}
-
-		/*
-		/// <summary>
-		/// 分页获取数据列表
-		/// </summary>
-		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-		{
-			MySqlParameter[] parameters = {
-					new MySqlParameter("@tblName", MySqlDbType.VarChar, 255),
-					new MySqlParameter("@fldName", MySqlDbType.VarChar, 255),
-					new MySqlParameter("@PageSize", MySqlDbType.Int32),
-					new MySqlParameter("@PageIndex", MySqlDbType.Int32),
-					new MySqlParameter("@IsReCount", MySqlDbType.Bit),
-					new MySqlParameter("@OrderType", MySqlDbType.Bit),
-					new MySqlParameter("@strWhere", MySqlDbType.VarChar,1000),
-					};
-			parameters[0].Value = "checkperson";
-			parameters[1].Value = "PersonID";
-			parameters[2].Value = PageSize;
-			parameters[3].Value = PageIndex;
-			parameters[4].Value = 0;
-			parameters[5].Value = 0;
-			parameters[6].Value = strWhere;	
-			return DbHelperMySQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
-		}*/
-
+	
+		
 		#endregion  BasicMethod
 		#region  ExtensionMethod
 

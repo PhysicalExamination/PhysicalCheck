@@ -3,6 +3,7 @@
 
 <%@ Import Namespace="Common.FormatProvider" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script href="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
@@ -12,7 +13,20 @@
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
         }
-        
+
+
+        function Printrpt() {
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + $("#<%=txtRegisterNo.ClientID%>").val() + "&ReportKind=61";
+            sURL += "&DeptName=" + $("#<%=txtDeptName.ClientID%>").val();
+            sURL += "&Name=" + $("#<%=txtName.ClientID%>").val();
+            sURL += "&IdNumber=" + $("#<%=txtIdNumber.ClientID%>").val();
+            sURL += "&OverallDoctor=" + $("#<%=txtOverallDoctor.ClientID%>").val();
+            sURL += "&StartDate=" + $("#<%=txtStartDate.ClientID%>").val();
+            sURL += "&EndDate=" + $("#<%=txtEndDate.ClientID%>").val();
+            window.open(sURL, "_blank", "", true);
+
+        }
+    
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -24,20 +38,20 @@
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
                 登记号：
-                <asp:TextBox ID="txtRegisterNo" runat="server"></asp:TextBox>
-                单位：
+                <asp:TextBox ID="txtRegisterNo" Text="" Name="txtRegisterNo" runat="server"></asp:TextBox>
+                单&nbsp;&nbsp; 位：
                 <asp:TextBox ID="txtDeptName" runat="server"></asp:TextBox>
-                名称：
+                名称&nbsp;&nbsp;：
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
-                身份证：
+                身份证&nbsp;：
                 <asp:TextBox ID="txtIdNumber" runat="server"></asp:TextBox>
                 <br />
-                总检：
+                总检人：
                 <asp:TextBox ID="txtOverallDoctor" runat="server"></asp:TextBox>
-
                 登记日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+                <input type="button" class="buttonCss" value="打印" onclick="Printrpt();" />
                 <asp:Repeater ID="ReportRepeater" runat="server">
                     <HeaderTemplate>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -47,9 +61,6 @@
                                 </th>
                                 <th>
                                     套餐
-                                </th>
-                                <th>
-                                    身份证
                                 </th>
                                 <th>
                                     姓名
@@ -66,6 +77,12 @@
                                 <th>
                                     体检状态
                                 </th>
+                                <th style="width: 250px;">
+                                    已体检
+                                </th>
+                                <th style="width: 250px;">
+                                    未体检
+                                </th>
                                 <th>
                                     操作
                                 </th>
@@ -76,12 +93,8 @@
                             <td class="VLine" align="center">
                                 <asp:Literal ID="lblRegisterNo" runat="server" Text=' <%# Eval("RegisterNo")%>' />
                             </td>
-                           
                             <td class="VLine" align="center">
                                 <%# Eval("PackageName")%>
-                            </td>
-                             <td class="VLine" align="center">
-                                <%# Eval("IdNumber")%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("Name")%>
@@ -99,6 +112,12 @@
                                 <%# Eval("IsCheckOver ").ToString() == "False" ? "进行中" : "完成"%>
                             </td>
                             <td class="VLine" align="center">
+                                <%# Eval("haveDo")%>
+                            </td>
+                            <td class="VLine" align="center">
+                                <%# Eval("noDo")%>
+                            </td>
+                            <td class="VLine" align="center">
                                 <a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>" target="_self">详情</a>
                             </td>
                         </tr>
@@ -108,13 +127,9 @@
                             <td class="VLine" align="center">
                                 <asp:Literal ID="lblRegisterNo" runat="server" Text=' <%# Eval("RegisterNo")%>' />
                             </td>
-                              <td class="VLine" align="center">
+                            <td class="VLine" align="center">
                                 <%# Eval("PackageName")%>
                             </td>
-                            <td class="VLine" align="center">
-                                <%# Eval("IdNumber")%>
-                            </td>
-                          
                             <td class="VLine" align="center">
                                 <%# Eval("Name")%>
                             </td>
@@ -125,12 +140,16 @@
                                 <%# Eval("sex")%>
                             </td>
                             <td class="VLine" align="center">
-                               
                                 <%# Eval("CheckDate")%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver").ToString()=="False" ? "进行中" : "完成"%>
-                               
+                            </td>
+                            <td class="VLine" align="center">
+                                <%# Eval("haveDo")%>
+                            </td>
+                            <td class="VLine" align="center">
+                                <%# Eval("noDo")%>
                             </td>
                             <td class="VLine" align="center">
                                 <a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>" target="_self">详情</a>

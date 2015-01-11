@@ -23,7 +23,8 @@ public partial class Charts_Chart5 : BasePage {
 
     private void InitData()
     {
-        DataTable dt = bll.GetList_itemgroup("").Tables[0];
+
+        DataTable dt = new Maticsoft.BLL.BaseInfo.BaseInfo().GetList_itemgroup("").Tables[0];
 
         drpItems.Items.Clear();
 

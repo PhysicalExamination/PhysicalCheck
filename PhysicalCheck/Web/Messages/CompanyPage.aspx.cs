@@ -154,6 +154,10 @@ public partial class Examination_CompanyPage : BasePage
                 {
 
                     //string smsResult = SMS.Send("",en.telephone);
+
+                    Maticsoft.BLL.messages.messages_type bllType = new Maticsoft.BLL.messages.messages_type();
+                    Maticsoft.Model.messages.messages_type msgType =  new Maticsoft.Model.messages.messages_type();
+
                     Maticsoft.Model.messages.messages model = new Maticsoft.Model.messages.messages();
 
                     model.type = messagesType.单位体检通知.ToString();
@@ -161,9 +165,10 @@ public partial class Examination_CompanyPage : BasePage
                     model.rcvTel = en.LinkTel;
                     model.unit = en.DeptName;
                     model.sendTime = DateTime.Now;
-
-                    model.content = string.Format("贵单位已经到了体检日期， 欢迎您来[YYMC]医院进行体检。");
-
+                    msgType= bllType.GetModelbyCode(messagesType.单位体检通知.GetHashCode().ToString());
+                    if (msgType != null)
+                        model.content = msgType.templet;
+                    
                     model.status = "成功";
 
                     Maticsoft.BLL.messages.messages bll = new Maticsoft.BLL.messages.messages();

@@ -31,10 +31,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div>
-        <div class="l-navigationbars">
-            <div class="l-navigationbars-l">
-                <a href="#" style="left: 100px; text-decoration: none;">综合查询</a></div>
-        </div>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
                 登记号：

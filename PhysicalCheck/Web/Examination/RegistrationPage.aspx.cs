@@ -126,6 +126,7 @@ public partial class Examination_RegistrationPage : BasePage {
         hDeptID.Value = "1";
         hPackageID.Value = "-1";
         hGroups.Value = "";
+        hPhoto.Value = "";
         drpRegion.SelectedIndex = -1;
         drpIndustry.SelectedIndex = -1;
         drpTrade.SelectedIndex = -1;
@@ -157,6 +158,10 @@ public partial class Examination_RegistrationPage : BasePage {
         txtAddress.Text = Result.Address;
         txtMobile.Text = Result.Mobile;
         txtEMail.Text = Result.EMail;
+        drpRegion.SelectedValue = Result.RegionCode;
+        drpIndustry.SelectedValue = Result.IndustryID+"";
+        drpTrade.SelectedValue = Result.TradeCode;
+        hPhoto.Value = Result.Photo;
         //drpTrade.SelectedIndex
     }
 
@@ -235,6 +240,7 @@ public partial class Examination_RegistrationPage : BasePage {
             txtDeptName.Enabled = false;
             txtPackageName.Enabled = false;
         }
+        txtChargeID.Enabled = false;
         txtRegisterNo.Enabled = false;
     }
 

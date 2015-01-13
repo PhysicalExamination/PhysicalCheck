@@ -96,6 +96,14 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        ///是否合格
+        /// </summary>
+        public virtual bool IsPassed {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

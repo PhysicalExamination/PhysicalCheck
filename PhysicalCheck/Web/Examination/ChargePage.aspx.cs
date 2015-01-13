@@ -172,6 +172,10 @@ public partial class Examination_ChargePage : BasePage
     #region 事件
 
     protected void btnSaveCharge_Click(object sender, EventArgs e) {
+        if (String.IsNullOrEmpty(hPackageID.Value)) {
+            ShowMessage("请您选择套餐!");
+            return;
+        }
         ChargeEntity Result = GetChargeUI();
         m_Charge.SaveCharge(Result);
         ShowMessage("缴费信息数据保存成功!");

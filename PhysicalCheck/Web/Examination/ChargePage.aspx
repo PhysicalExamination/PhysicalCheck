@@ -26,6 +26,7 @@
         function selectPackage() {
             var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
+//            console.log(urlValue);
             //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
@@ -38,8 +39,8 @@
         function CalcCharge() {
             var price = parseFloat($("#hPackagePrice").val());
             var count = parseInt($("#<%=txtCheckNum.ClientID %>").val());
-            console.log($("#<%=txtCheckNum.ClientID %>").val());
-            console.log("price=" + price + "Count=" + count);
+//            console.log($("#<%=txtCheckNum.ClientID %>").val());
+//            console.log("price=" + price + "Count=" + count);
             var Charge = price * count;
             $("#<%=txtCharge.ClientID %>").val(Charge);
             $("#<%=txtActualCharge.ClientID %>").val(Charge);

@@ -38,6 +38,17 @@
             }
         }
 
+        function selectCharge() {            
+            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
+            var sURL = "<%=ApplicationPath%>/Examination/ChargeDialog.aspx?rand=" + Math.random();
+            var urlValue = window.showModalDialog(sURL, '', sFeatures);
+            $("#<%=txtChargeID.ClientID%>").val(urlValue[0]);
+            $("#<%=hPackageID.ClientID %>").val(urlValue[1]);
+            $("#<%=txtPackageName.ClientID %>").val(urlValue[2]);
+            $("#<%=hDeptID.ClientID %>").val(urlValue[3]);
+            $("#<%=txtDeptName.ClientID %>").val(urlValue[4]);
+        }
+
         function btnDataImport() {
             var sURL = " RegImportDialog.aspx?rand=" + Math.random();
             var vArguments = "";
@@ -54,7 +65,32 @@
             var sURL = "<%=ApplicationPath%>/DownLoad/团体数据填报模板.zip";
             window.open(sURL, "_blank", "", true);
         }
-       
+
+        var isInit = false;
+        function readCard() {
+            var CardReader = document.getElementById("CardReader1");
+           
+            if (false == isInit) {
+                obj.setPortNum(0);
+                isInit = true;
+            }
+            CardReader.Flag = 0;
+            var ResultCode = CardReader.ReadCard();
+            //alert(ResultCode);
+            if (ResultCode == 0x90) {
+                $("#<%=txtName.ClientID%>").val(CardReader.NameL());
+                $("#<%=txtBirthday.ClientID%>").val(CardReader.BornL());
+                $("#<%=drpSex.ClientID%>").val(CardReader.SexL());
+                $("#<%=txtNation.ClientID%>").val(CardReader.NationL());
+                $("#<%=txtIDNumber.ClientID%>").val(CardReader.CardNo());
+                $("#<%=txtAddress.ClientID%>").val(CardReader.Address());
+                $("#<%=hPhoto.ClientID%>").val(CardReader.GetImage());
+                var img = "data:image/png;base64," + CardReader.GetImage();
+                $("#Pricture").attr("src",img);
+            } else {
+                alert("身份证信息读取失败！");
+            }
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -168,17 +204,27 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                登记号
+                                收费单
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtRegisterNo" runat="server" Enabled="false" />
+                                <asp:TextBox CssClass="textbox31" ID="txtChargeID" runat="server" Enabled="false" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择收费单"
+                                    onclick="selectCharge();" align="middle" border="0" />
                             </td>
-                            <td class="HVLine" rowspan="4">
+                            <td class="HVLine" rowspan="5">
                                 照片
                             </td>
-                            <td class="HVLine" rowspan="4" align="center">
-                                <img src="<%=ApplicationPath%>/images/nopricture.jpg" alt="个人照片" />
+                            <td class="HVLine" rowspan="5" align="center">
+                                <img src="<%=ApplicationPath%>/images/nopricture.jpg" alt="个人照片" id="Pricture" />
                                 <asp:HiddenField ID="hPhoto" Value="" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="VLine">
+                                登记号
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox31" ID="txtRegisterNo" runat="server" Enabled="false" />
                             </td>
                         </tr>
                         <tr>
@@ -346,7 +392,7 @@
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" id="btnReadCard" value="读取身份证" />
+                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />
                             </td>
                         </tr>
                     </table>
@@ -355,4 +401,11 @@
             </asp:UpdatePanel>
         </div>
     </div>
+    <object id="CardReader1" codebase="FirstActivex.cab#version=1,3,0,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B"
+        width="102" height="126">
+        <param name="_Version" value="65536" />
+        <param name="_ExtentX" value="2646" />
+        <param name="_ExtentY" value="1323" />
+        <param name="_StockProps" value="0" />
+    </object>
 </asp:Content>

@@ -5,9 +5,9 @@
     <script type="text/javascript">
         function onSetSummary() {
             var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random();
-            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";           
+            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sResult = window.showModalDialog(sURL, null, sFeatures);
-            $("#<%=txtSummary.ClientID %>").val(sResult);           
+            $("#<%=txtSummary.ClientID %>").val(sResult);
         }
     </script>
 </asp:Content>
@@ -93,12 +93,21 @@
             </asp:AspNetPager>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnSearch" />           
+            <asp:AsyncPostBackTrigger ControlID="btnSearch" />
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="UP2" runat="Server">
         <ContentTemplate>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                   
+                    <td class="HVLine">
+                        检查是否合格
+                    </td>
+                    <td class="HVLine">
+                        <asp:CheckBox ID="chkIsPassed" runat="server" Checked="false" />
+                    </td>
+                </tr>
                 <tr>
                     <td class="HVLine">
                         小结
@@ -106,12 +115,12 @@
                     <td class="HVLine">
                         <asp:TextBox CssClass="inputCss" TextMode="MultiLine" ID="txtSummary" runat="server"
                             Height="80px" Width="99%" />
-                    </td>
+                    </td> 
                 </tr>
                 <tr>
                     <td class="VLine" colspan="2" align="center">
                         <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-                        <input type="button" class="buttonCss" value="导入小结"  onclick="onSetSummary();"/>
+                        <input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />
                     </td>
                 </tr>
             </table>

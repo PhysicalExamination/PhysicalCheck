@@ -97,6 +97,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             CheckDoctor = UserName,
             IsOver = true,
             Summary = txtSummary.Text,
+            IsPassed = chkIsPassed.Checked,
             PackageID = PackageID
         };
         m_GroupResut.SaveGroupResult(Group);

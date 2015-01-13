@@ -40,6 +40,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            ClientInitial();
             DataBind();
             SetUIState("Default");
         }
@@ -91,6 +92,18 @@ public partial class SysConfig_ItemGroupPage : BasePage {
     #endregion
 
     #region 私有成员
+
+    private void ClientInitial() {
+        //drpSpecimen
+        using (CommonCodeBusiness Business = new CommonCodeBusiness()) {
+            List<CommonCodeEntity> List = Business.GetCommonCodes("001");
+            var q = from p in List
+                    select new ListItem { Value = p.Code, Text = p.Name };
+            drpSpecimen.Items.Add("");
+            drpSpecimen.Items.AddRange(q.ToArray());
+        }
+
+    }
 
     /// <summary>
     /// 设置界面控件显示状态

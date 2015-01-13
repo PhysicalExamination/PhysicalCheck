@@ -160,7 +160,11 @@
                                 适用性别
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox41" ID="txtSex" runat="server" />
+                                <asp:DropDownList ID="drpSex" runat="server">
+                                    <asp:ListItem Value="%">不限性别</asp:ListItem>
+                                    <asp:ListItem Value="0">女</asp:ListItem>
+                                    <asp:ListItem Value="1">男</asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>

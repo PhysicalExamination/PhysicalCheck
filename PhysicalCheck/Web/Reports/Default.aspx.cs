@@ -11,7 +11,7 @@ using BusinessLogic.SysConfig;
 using DataEntity.SysConfig;
 using DataEntity.Admin;
 using BusinessLogic.Admin;
-
+using System.Data;
 public partial class Reports_Default : BasePage {
 
     private RegistrationBusiness m_Registration;
@@ -37,11 +37,151 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
-            //BuildIntroduction(RegisterNo);
+            if (ReportKind == "61") BuildSearch_Composed();//组合查询
+            if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
+            if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
         }
     }
 
     #endregion
+
+
+    #region "查询"
+
+    //组合查询
+    public void BuildSearch_Composed()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("Search_Composed.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["RegisterNo"] != "")
+            sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
+
+        if (Request.Params["DeptName"] != "")
+            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
+
+        if (Request.Params["Name"] != "")
+            sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
+
+
+        if (Request.Params["IdNumber"] != "")
+            sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
+
+        if (Request.Params["OverallDoctor"] != "")
+            sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+
+
+        DataSet ds = bll.GetList_Composed(sqlw);
+
+        a.SetParameterValue("RegisterNo", Request.Params["RegisterNo"]);
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("Name", Request.Params["Name"]);
+        a.SetParameterValue("IdNumber", Request.Params["IdNumber"]);
+
+        a.SetParameterValue("pOverallDoctor", Request.Params["OverallDoctor"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "View_Search_Composed");
+        WebReport1.Report = a;
+        //WebReport1.Report.RegisterData(ds.Tables[0], "View_Search_Composed");
+        //WebReport1.Report.SetParameterValue("registerNo", Request.Params["RegisterNo"].ToString());
+        // WebReport1.Report.SetParameterValue("pOverallDoctor", "wsw");
+
+        WebReport1.Prepare();
+
+    }
+
+    //科室工作量查询
+    public void BuildSearch_workload_package()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("workload_package.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptID"] != "")
+            sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+        DataSet ds = bll.GetList_workload_package(sqlw);
+
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "workload_package");
+        WebReport1.Report = a;
+
+        WebReport1.Prepare();
+
+    }
+
+    //科室医生工作量查询
+    public void BuildSearch_workload_checkItem()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("workload_checkItem.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptID"] != "")
+            sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
+
+        if (Request.Params["CheckDoctor"] != "")
+            sqlw += string.Format("  And B.CheckDoctor= '{0}' ", Request.Params["CheckDoctor"]);
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+        DataSet ds = bll.GetList_workload_checkItem(sqlw);
+
+        a.SetParameterValue("CheckDoctor", Request.Params["CheckDoctor"]);
+
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "workload_checkItem");
+        WebReport1.Report = a;
+
+        WebReport1.Prepare();
+
+    }
+
+    #endregion
+
+
 
     #region 私有方法
 

@@ -43,7 +43,7 @@ public class BasePage : System.Web.UI.Page {
 
     protected String UserAccount {
 		get {
-			return "Admin";
+			return User.Identity.Name;
 		}
 	}
 

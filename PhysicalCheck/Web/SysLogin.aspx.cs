@@ -65,9 +65,14 @@ public partial class SysLogin : Page, ICallbackEventHandler
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
                 Response.Cookies.Add(authCookie);
                 callBackResult = FormsAuthentication.DefaultUrl;
+                FormsAuthentication.SetAuthCookie(userAccount, true);
+                Server.Transfer(FormsAuthentication.DefaultUrl);
+            }
+            else {
+                String JS = "alert('用户名或密码错误！请重新输入用户名和密码。');";
+                ClientScript.RegisterClientScriptBlock(GetType(), "Msg", JS, true);
             }
         }
-        FormsAuthentication.SetAuthCookie(userAccount, true);
-        Server.Transfer(FormsAuthentication.DefaultUrl);
+       
     }
 }

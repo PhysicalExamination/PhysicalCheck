@@ -1,0 +1,33 @@
+﻿<%@ master language="C#" autoeventwireup="true" inherits="MasterPage_ContentMasterPage, App_Web_0kivlrhv" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>健康体检管理系统</title>        
+    <%--<link href="~/css/Default.css" rel="stylesheet" type="text/css" />--%>
+    <link href="~/Styles/template.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/validationEngine.jquery.css" rel="stylesheet" 
+        type="text/css" />
+    <asp:Literal ID="lblScript1" runat="server" />
+    <asp:Literal ID="lblScript2" runat="server" />
+    <asp:Literal ID="lblScript3" runat="server" />
+    <asp:Literal ID="lblScript4" runat="server" />
+    <asp:Literal ID="lblScript5" runat="server" />
+    <asp:Literal ID="lblScript6" runat="server" />
+    <asp:Literal ID="lblScript7" runat="server" />
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+   
+    
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" ScriptMode="Auto" >
+    </asp:ScriptManager>
+    <asp:ContentPlaceHolder ID="Content" runat="server">
+    </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

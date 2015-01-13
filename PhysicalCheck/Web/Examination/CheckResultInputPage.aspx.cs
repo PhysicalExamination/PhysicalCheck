@@ -8,6 +8,7 @@ using BusinessLogic.Examination;
 using Common.FormatProvider;
 using DataEntity.Examination;
 using BusinessLogic.SysConfig;
+using BusinessLogic.Admin;
 
 public partial class Examination_CheckResultInputPage : BasePage {
 
@@ -60,8 +61,9 @@ public partial class Examination_CheckResultInputPage : BasePage {
     public override void DataBind() {
         int RecordCount = 0;
         String RegisterNo = txtsRegisterNo.Text.Trim();
+        int DeptID = Convert.ToInt32(drpGroups.SelectedValue);
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
-            Pager.PageSize, RegisterNo, DepartNo, out RecordCount);
+            Pager.PageSize, RegisterNo, DeptID, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
     }
@@ -116,12 +118,18 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 私有方法
 
     private void ClientInitial() {
-        using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-            drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
-            drpGroups.DataValueField = "GroupID";
-            drpGroups.DataTextField = "GroupName";
+        using (DepartmentBusiness Department = new DepartmentBusiness()) {
+            drpGroups.DataSource = Department.GetDepartments();
+            drpGroups.DataValueField = "DeptID";
+            drpGroups.DataTextField = "DeptName";
             drpGroups.DataBind();
         }
+        //using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
+        //    drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
+        //    drpGroups.DataValueField = "GroupID";
+        //    drpGroups.DataTextField = "GroupName";
+        //    drpGroups.DataBind();
+        //}
     }
 
     #endregion

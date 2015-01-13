@@ -1,0 +1,1007 @@
+﻿<html>
+<head>
+<public:component tagName="Calendar">
+  <public:defaults viewLinkContent />
+  <public:defaults viewInheritStyle="false" />
+     
+   <public:property name="ReExpress" internalName="reexpress" />
+   <public:property name="isShowTime" internalName="isshowtime" />   
+   <public:property name="format" internalName="dateformat" /> 
+   <public:property name="lan" internalName="language" />      
+   
+  <public:property name="selectedDate" get="get_selectedDate" put="set_selectedDate" />
+  <public:property name="calendarStyle" internalName="g_strCalendarStyle" />
+  <public:property name="titleStyle" internalName="g_strTitleStyle" />
+  <public:property name="dayHeaderStyle" internalName="g_strDayHeaderStyle" />
+  <public:property name="dayStyle" internalName="g_strNormalDayStyle" />
+  <public:property name="otherMonthDayStyle" internalName="g_strOtherMonthDayStyle" />
+  <public:property name="todayDayStyle" internalName="g_strTodayDayStyle" />
+  <public:property name="selectedDayStyle" internalName="g_strSelectedDayStyle" />  
+  <public:event id="datePicked" name="onDatePicked" />
+  <public:attach event="onContentReady" onevent="OnContentReady()" />
+</public:component>
+<style>
+body {
+  cursor: default;
+}
+.NavButton {
+  font-weight: normal;
+  font-family: marlett;
+  font-size: 12pt;
+  text-decoration: none;
+}
+.Calendar {
+}
+.Title {
+}
+.DayHeader {
+}
+.NormalDay {
+  cursor: hand;
+}
+.OtherMonthDay {
+}
+.TodayDay {BORDER-LEFT: #cecfce 0px solid;
+}
+.SelectedDay {
+}
+
+.ARROWSTYLE { BORDER-RIGHT: 2px outset; BORDER-TOP: 2px outset; BACKGROUND: buttonface; FONT: 6px marlett; BORDER-LEFT: 2px outset; WIDTH: 18px; BORDER-BOTTOM: 2px outset; TEXT-ALIGN: center }
+.ARROWSELECTSTYLE{ BORDER-RIGHT: buttonshadow 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: buttonshadow 1px solid; PADDING-LEFT: 2px; BACKGROUND: buttonface; PADDING-BOTTOM: 0px; FONT: 6px marlett; BORDER-LEFT: buttonshadow 1px solid; WIDTH: 18px; PADDING-TOP: 2px; BORDER-BOTTOM: buttonshadow 1px solid; HEIGHT: 100%; TEXT-ALIGN: center}
+</style>
+
+
+
+<script language=javascript>
+
+
+var c_nMinYear = 1900;
+var c_nMaxYear = 2099;
+var c_iCalendarStyle = 2;
+var c_iTitleStyle = 3;
+var c_iDayHeaderStyle = 4;
+var c_iNormalDayStyle = 5;
+var c_iOtherMonthDayStyle = 6;
+var c_iTodayDayStyle = 7;
+var c_iSelectedDayStyle = 8;
+
+var c_arrMonthNames =
+    new Array('01', '02', '03', '04', '05', '06', '07',
+              '08', '09', '10', '11', '12');
+
+//var c_arrMonthNames =
+//    new Array('January', 'February', 'March', 'April', 'May', 'June', 'July',
+//              'August', 'September', 'October', 'November', 'December');
+
+var c_arrMonthDays = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+var g_strCalendarStyle = null;
+var g_strTitleStyle = null;
+var g_strDayHeaderStyle = null;
+var g_strNormalDayStyle = null;
+var g_strOtherMonthDayStyle = null;
+var g_strTodayDayStyle = null;
+var g_strSelectedDayStyle = null;
+var reexpress = null;
+var isshowtime = null;
+var dateformat = null;
+var language =null;
+
+var g_nDay = null;
+var g_nMonth = null;
+var g_nYear = null;
+var g_dtSelected = null;
+var g_fCancel = false;
+var g_fInitialized = false;
+
+var elementTarget = null;
+var onfocusobj =null;
+
+
+var g_arrDayCells = new Array();
+
+
+
+function get_selectedDate() {
+   // alert(elementid+"122");
+    if (g_fCancel == true) {
+        g_fCancel = false;
+        return null;
+    }
+    if (g_dtSelected == null) {
+        return new Date();
+    }   
+    return g_dtSelected;
+}
+
+function set_selectedDate(value) {    
+  
+
+ //    hasTime = false;
+ //    if(isshowtime == "true")
+  //    hasTime = true;
+         
+  //    if(!hasTime) 
+  //    document.all("timeContain").style.display="none";
+  //    else
+  //    document.all("timeContain").style.display="";
+           
+    if (typeof(value) == "string") {
+          
+        if (value.length != 0) {     
+        
+								var rx = new RegExp(reexpress);
+								var m = rx.exec(value);           
+								if (m == null) {               
+									g_dtSelected = null;
+									fillTime();     
+									return;
+                                }   
+          sDateFormat = dateformat;      
+          sDateValue  = value; 
+          indexYear = dateformat.indexOf("yyyy");
+          indexMon  = dateformat.indexOf("MM");
+          indexDay  = dateformat.indexOf("dd");
+          indexHour = dateformat.indexOf("HH");
+          indexMin  = dateformat.indexOf("mm");
+          indexSen  = dateformat.indexOf("ss");
+          if((indexYear ==-1)||(indexMon==-1)||(indexDay==-1))//设置格式无法解析
+          {
+            value= new Date();
+            fillTime();     
+            return;       
+          }
+          y = value.substr(indexYear,4);
+          m = value.substr(indexMon,2);
+          d = value.substr(indexDay,2);	
+          h ="";
+          mi="";
+          s="";
+          if(indexHour!=-1)	
+          {    
+             h = value.substr(indexHour,2);     
+			 document.all("dpHour").value = h;
+			 document.all("timeContain").style.display="";
+		   }
+		   else
+		   {
+		     document.all("timeContain").style.display="none";
+		     document.all("dpHour").value = "00";
+		   }
+		   
+		  if(indexMin!=-1)	
+          {    
+             mi = value.substr(indexMin,2);     
+			 document.all("dpMinute").value = mi;
+		   }
+		   else
+		   document.all("dpMinute").value = "00";
+		   
+		  if(indexSen!=-1)	
+          {    
+             s = value.substr(indexSen,2);     
+			 document.all("dpSecon").value = mi;
+		   }
+		   else
+		   document.all("dpSecon").value = "00";		   
+          
+           value = new Date(y,m-1,d);
+		}
+		else
+		{
+		   indexHour = dateformat.indexOf("HH");		  		  
+		  if(indexHour!=-1)	
+           document.all("timeContain").style.display="";
+		   else
+		   document.all("timeContain").style.display="none";
+		   value = new Date();
+		   fillTime();
+		  
+		}
+      
+       
+    }
+
+   
+
+
+
+    var nYear = value.getYear();
+    if (nYear < 100) {
+        nYear += 1900;
+    }
+    if ((nYear >= c_nMinYear) && (nYear <= c_nMaxYear)) {
+        g_nYear = nYear;
+        g_nMonth = value.getMonth() + 1;
+        g_nDay = value.getDate();
+
+        InitializeLeapYear();
+
+        if (g_fInitialized == true) {
+            UpdateCalendar();
+        }
+    }
+  
+    g_dtSelected = value;
+     // alert(g_dtSelected);
+}
+
+
+function fillTime()
+{
+      d = new Date();
+			 document.all("dpHour").value = d.getHours();
+			 document.all("dpMinute").value = d.getMinutes();	
+			 document.all("dpSecon").value  = d.getSeconds(); 
+}
+function InitializeCurrentDate() {
+    var dateInitial = g_dtSelected;
+    
+    if (dateInitial == null) {
+        dateInitial = new Date();
+    }
+
+    g_nDay = dateInitial.getDate();
+    g_nMonth = dateInitial.getMonth() + 1;
+    g_nYear = dateInitial.getYear();
+    if (g_nYear < 100) {
+        g_nYear += 1900;
+    }
+    InitializeLeapYear();
+}
+
+function InitializeLeapYear() {
+    var leapYear = false;
+    
+    if ((g_nYear % 4) == 0) {
+        if (((g_nYear % 100) != 0) ||
+            ((g_nYear % 400) == 0)) {
+            leapYear = true;
+        }
+    }
+
+    if (leapYear == true) {
+        c_arrMonthDays[1] = 29;
+    }
+    else {
+        c_arrMonthDays[1] = 28;
+    }
+}
+
+function OnClickClose() {
+    g_fCancel = true;
+    datePicked.fire();
+}
+
+function OnClickDayCell() {
+    var e = window.event.srcElement;
+    if (e.tagName == 'TD') {
+    if((e.id == "scell")||(e.id == "scell1")||(e.id == "scell2"))
+    e = document.all("fcell");
+   
+        var day = e.day;
+        var month = e.month;
+        var year = e.year;
+        if(isshowtime)
+        {
+			h = document.all("dpHour").value;
+			m = document.all("dpMinute").value;
+			s = document.all("dpSecon").value;
+			
+			g_dtSelected = new Date(year, month - 1, day,h,m,s);
+        }
+        else
+        g_dtSelected = new Date(year, month - 1, day);                
+        datePicked.fire(createEventObject());
+        
+        
+    }
+}
+
+function OnClickNextMonth() {
+    var month = g_nMonth + 1;
+    if (month == 13) {
+        if (g_nYear < c_nMaxYear) {
+            g_nYear++;
+            InitializeLeapYear();
+        }
+        else {
+            return;
+        }
+
+        month = 1;
+    }
+
+    g_nMonth = month;
+    g_nDay = 1;
+
+    UpdateCalendar();
+}
+
+function OnClickPrevMonth() {
+    var month = g_nMonth - 1;
+    if (month == 0) {
+        if (g_nYear > c_nMinYear) {
+            g_nYear--;
+            InitializeLeapYear();
+        }
+        else {
+            return;
+        }
+        month = 12;
+    }
+
+    g_nMonth = month;
+    g_nDay = 1;
+
+    UpdateCalendar();
+}
+
+function OnClickPrevYear() {
+	var year = g_nYear - 1;
+    if (year >= c_nMinYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+
+    UpdateCalendar();
+}
+
+function OnClickNextYear() {
+	var year = g_nYear + 1;
+    if (year <= c_nMaxYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+
+    UpdateCalendar();
+}
+
+function OnContentReady() {
+     //alert(elementid);
+    var nRow;
+    var nCell;
+    for (nRow = 0; nRow < 6; nRow++) {
+        for (nCell = 0; nCell < 7; nCell++) {
+            g_arrDayCells[nRow * 7 + nCell] = daysTable.rows[nRow + 1].cells[nCell];
+        }
+    }
+
+    g_arrDayCells[6 * 7] = daysTable.rows[7].cells[0];
+	
+    if (g_strCalendarStyle != null) {
+        document.styleSheets(0).rules(c_iCalendarStyle).style.cssText = g_strCalendarStyle;
+    }
+    if (g_strTitleStyle != null) {
+        document.styleSheets(0).rules(c_iTitleStyle).style.cssText = g_strTitleStyle;
+    }
+    if (g_strDayHeaderStyle != null) {
+        document.styleSheets(0).rules(c_iDayHeaderStyle).style.cssText = g_strDayHeaderStyle;
+    }
+    if (g_strNormalDayStyle != null) {
+        document.styleSheets(0).rules(c_iNormalDayStyle).style.cssText =
+            document.styleSheets(0).rules(c_iNormalDayStyle).style.cssText + g_strNormalDayStyle;
+    }
+    if (g_strOtherMonthDayStyle != null) {
+        document.styleSheets(0).rules(c_iOtherMonthDayStyle).style.cssText = g_strOtherMonthDayStyle;
+    }
+    if (g_strTodayDayStyle != null) {
+        document.styleSheets(0).rules(c_iTodayDayStyle).style.cssText = g_strTodayDayStyle;
+    }
+    if (g_strSelectedDayStyle != null) {
+        document.styleSheets(0).rules(c_iSelectedDayStyle).style.cssText = g_strSelectedDayStyle;
+    }
+    daysTable.style.fontFamily = calendarTable.currentStyle.fontFamily;
+    daysTable.style.fontSize = calendarTable.currentStyle.fontSize;
+    daysTable.style.color = calendarTable.currentStyle.color;
+
+    prevMonthAnchor.style.color = titleRow.currentStyle.color;
+    nextMonthAnchor.style.color = titleRow.currentStyle.color;
+    prevYearAnchor.style.color = titleRow.currentStyle.color;
+    nextYearAnchor.style.color = titleRow.currentStyle.color;
+    closeAnchor.style.color = titleRow.currentStyle.color;
+
+    g_fInitialized = true;
+    
+    InitializeCurrentDate();
+    UpdateCalendar();
+}
+
+function OnMouseOutDayCell() {
+    var e = window.event.srcElement;
+
+    if (e.tagName == 'TD') {
+        var className = e.className;
+        var i = className.indexOf(' SelectedDay');
+
+        if (i > 0) {
+            e.className = className.substr(0, i);
+        }
+    }
+}
+
+function OnMouseOverDayCell() {
+    var e = window.event.srcElement;
+
+    if (e.tagName == 'TD') {
+        if (e.className.indexOf(' SelectedDay') < 0) {
+            e.className = e.className + ' SelectedDay';
+        }
+    }
+}
+
+function meSelMon(mon)
+{ 
+   if(language=="en") 
+    {
+      meSelMonen(mon);
+      return;
+    }    
+	s1="<nobr style='background-color:Transparent;' >"+"<span id=selYear onmouseover=meSelYear(this.innerText); >" +g_nYear + "</span>年"+"<select id=smon1 onchange=changemon(this.value);>";
+	for(i=1;i<=12;i++)
+	{
+	if(i==mon) s1+="<option value='"+i+"' selected>"+i+"</option>\r\n";
+	else
+	s1+="<option value='"+i+"'>"+i+"</option>\r\n";
+	}
+
+	s1+="</select>月</nobr>" ;
+	titleCell.innerHTML = s1;
+}
+
+
+function meSelMonen(mon)
+{
+	s1="<nobr style='background-color:Transparent;' >"+"<select id=smon1 onchange=changemon(this.value);>";
+    var enmon="";
+    m =getEnMonthValue(mon);
+    
+	for(i=1;i<=12;i++)
+	{
+	    enmon =getEnMonth(i);
+	   
+		if(i==m) 
+		{		   
+		   s1+="<option value='"+i+"' selected>"+enmon+"</option>\r\n";
+		}
+		else
+		s1+="<option value='"+i+"'>"+enmon+"</option>\r\n";
+	}
+
+	s1+="</select>"+"<span id=selYear onmouseover=meSelYear(this.innerText); >" +g_nYear + "</span>"+"</nobr>" ;
+	titleCell.innerHTML = s1;  
+}
+
+function getEnMonth(i)
+{
+//    new Array('January', 'February', 'March', 'April', 'May', 'June', 'July',
+//              'August', 'September', 'October', 'November', 'December');
+		switch (i){
+		case 1:
+	        return "Jan" ;
+		case 2:
+		     return "Feb" ;
+		case 3:
+		     return "Mar";
+		case 4:
+		     return "Apr";
+		case 5:
+		     return "May";
+		case 6:
+	        return "Jun" ;
+		case 7:
+		     return "Jul" ;
+		case 8:
+		     return "Aug";
+		case 9:
+		     return "Sep";
+		case 10:
+	        return "Oct" ;
+		case 11:
+		     return "Nov" ;
+		case 12:
+		     return "Dec";
+		     }
+}
+
+   
+function getEnMonthTwo(m)
+{
+  
+   //  if(m=="07") return "Jul";
+   
+		switch (m){
+		case "01":
+	         return "Jan" ;break;
+		case "02":
+		     return "Feb" ;
+		case "03":
+		     return "Mar";
+		case "04":
+		     return "Apr";
+		case "05":
+		     return "May";
+		case "06":
+	        return "Jun" ;
+		case "07":
+		     return "Jul" ;
+		case "08":
+		     return "Aug";
+		case "09":
+		     return "Sep";
+		case "10":
+	        return "Oct" ;
+		case "11":
+		     return "Nov" ;
+		case "12":
+		     return "Dec";
+		    
+		default:"Jan";
+		}
+		     
+}
+
+function getEnMonthValue(mon)
+{
+  
+      
+   //  if(m=="07") return "Jul";
+   
+		switch (mon){
+		case "Jan":
+	         return 1 ;
+		case "Feb":
+		     return 2 ;
+		case "Mar":
+		     return 3;
+		case "Apr":
+		     return 4;
+		case "May":
+		     return 5;
+		case "Jun":
+	        return 6 ;
+		case "Jul":	
+		     return 7;		
+		case "Aug":
+		     return 8;
+		case "Sep":
+		     return 9;
+		case "Oct":
+	        return 10 ;
+		case "Nov":
+		     return 11;
+		case "Dec":
+		     return 12;
+		    
+		default:1;
+		}
+		     
+}
+
+
+function setValue(obj,objvalue)
+{
+ obj.value = objvalue;
+ //alert(objvalue);
+}
+
+function setYear(ovalue)
+{
+   //alert(ovalue);
+}
+function meSelYear(year)
+{
+  if(language=="en") 
+    {
+      meSelYearen(year);
+      return;
+    }    
+	j = 0;
+	s1="<nobr style='background-color:Transparent;width:100%'>";
+	s1=s1+" <TABLE id=Table1  style='HEIGHT: 25px;background-color:Transparent;' cellSpacing=1 cellPadding=1 width=12 border=0>";
+	s1=s1+" <TR><TD><input  id=tableSelect style='color:black;background-color:white;border-style:None;font-size:9pt;width:30px'; HEIGHT: 100%' type=text value='"+year+"' onfocus=document.all('tablediv').focus(); ></TD> ";
+	//s1=s1+" <TD><DIV id=tablediv class='ARROWSTYLE' onmouseup=this.className='ARROWSTYLE';  onmousedown=this.className='ARROWSELECTSTYLE';style='WIDTH: 18px; HEIGHT: 6px' onclick=addYear();>5</DIV>";
+	s1=s1+"<TD><DIV id=tablediv style='WIDTH:18px;Height:6px;' class='ARROWSTYLE' onmouseout=this.className='ARROWSTYLE'; onmouseup=this.className='ARROWSTYLE';onmousedown=this.className='ARROWSELECTSTYLE'; onclick=addYear();>5</DIV>";
+	s1=s1+" <DIV style='WIDTH:18px;Height:6px;' class='ARROWSTYLE'  onmouseup=this.className='ARROWSTYLE';  onmousedown=this.className='ARROWSELECTSTYLE'; onclick=jianYear();>6</DIV>";	
+	s1=s1+" </td><TD style='color:white;font-size:9pt;'>";
+	///s1=s1+" <TD style='color:white;font-size:9pt;'>";
+
+	//s1=s1+</tr></table>";	
+   
+	s2 = "年</td><td style='color:white;font-size:9pt;'><span style='color:white;font-size:9pt;' id=selMon onmouseover=meSelMon();>" + c_arrMonthNames[g_nMonth - 1] + "</span></td><td style='color:white;font-size:9pt;'>月" + "</td></tr></table></nobr>";
+    
+	s1=s1+s2;
+
+	
+	titleCell.innerHTML = s1;
+
+}
+
+function meSelYearen(year)
+{
+   	j = 0;
+	s1="<nobr style='background-color:Transparent;width:100%'>";
+	s1=s1+" <TABLE id=Table1  style='HEIGHT: 25px;background-color:Transparent;' cellSpacing=1 cellPadding=1 width=12 border=0>";
+	s1=s1+" <TR>"+"<td style='color:white;font-size:9pt;'><span style='color:white;font-size:9pt;' id=selMon onmouseover=meSelMon();>" + getEnMonthTwo(c_arrMonthNames[g_nMonth - 1]) + "</span></td><td style='color:white;font-size:9pt;'></td>"+"<TD><input  id=tableSelect style='color:black;background-color:white;border-style:None;font-size:9pt;width:30px'; HEIGHT: 100%' type=text value="+year+" onfocus=document.all('tablediv').focus(); ></TD> ";
+	s1=s1+" <TD><DIV id=tablediv style='WIDTH:18px; HEIGHT:6px' class='ARROWSTYLE' onmouseup=this.className='ARROWSTYLE';  onmousedown=this.className='ARROWSELECTSTYLE'; onclick=addYear();>5</DIV>";
+	s1=s1+" <DIV  style='WIDTH:18px;HEIGHT:6px' class='ARROWSTYLE' onmouseup=this.className='ARROWSTYLE';  onmousedown=this.className='ARROWSELECTSTYLE'; onclick=jianYear();>6</DIV>";	
+	s1=s1+" </td><TD style='color:white;font-size:9pt;'>";
+
+	//s1=s1+</tr></table>";	
+
+	s2 = "</td>" + "</tr></table></nobr>";
+
+
+	s1=s1+s2;
+	titleCell.innerHTML = s1;
+}
+function addYear(year)
+{ 
+  intTe=document.all('tableSelect').value - 1+2;   
+  
+ document.all("tableSelect").value =intTe ;
+
+  var year = intTe
+    if (year >= c_nMinYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+       
+   updateYear();
+}
+
+function jianYear()
+{
+  intTe  =document.all("tableSelect").value-1 ;
+   var year = intTe
+    if (year >= c_nMinYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+document.all("tableSelect").value =intTe  ;
+   updateYear()   ;
+   //UpdateCalendar();
+}
+//onchange=changeyear(this.value);
+function clickselect(year)
+{
+     
+  var year = year;
+    if (year >= c_nMinYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+    //alert(year);
+   
+   UpdateCalendar();
+}
+function changeyear(year)
+{
+   
+    var year = year;
+    if (year >= c_nMinYear) {
+        InitializeLeapYear();
+    }
+    else {
+        return;
+    }
+    g_nYear = year;
+    g_nDay = 1;
+    UpdateCalendar();
+
+
+
+   
+}
+
+function changemon(mon)
+{
+    var month = mon; 
+    g_nMonth = month;
+    g_nDay = 1;
+    UpdateCalendar();
+}
+
+
+
+function UpdateCalendar() {
+//   titleCell.innerHTML = "<nobr style='background-color:#000040;' onmouseover=alert('aa')>" + g_nYear + "年" + c_arrMonthNames[g_nMonth - 1]      //   + "月" + "</nobr>";
+if(language=="en")
+{
+  val = c_arrMonthNames[g_nMonth - 1];  
+  val = getEnMonthTwo(val);
+  titleCell.innerHTML = "<nobr>" +"<span id=selMon onmouseover=meSelMon(this.innerText);>"+val+"</span>"+ "  <span id=selYear onmouseover=meSelYear(this.innerText);  >" +g_nYear + "</span>" + "</nobr>";
+}
+else
+titleCell.innerHTML = "<nobr>" + "<span id=selYear onmouseover=meSelYear(this.innerText);  >" +g_nYear + "</span>年<span id=selMon onmouseover=meSelMon(this.innerText);>" + c_arrMonthNames[g_nMonth - 1] + "</span>月" + "</nobr>";
+
+if(language=="en")
+{
+   r = document.all("sun");
+   r.cells(0).innerText="S";
+   r.cells(1).innerText="M";
+   r.cells(2).innerText="T";
+   r.cells(3).innerText="W";
+   r.cells(4).innerText="T";
+   r.cells(5).innerText="F";
+   r.cells(6).innerText="S";
+}
+
+updateYear();
+
+
+
+
+ 
+
+}
+
+function updateYear()
+{
+   var nLastMonth = g_nMonth - 1;
+    var nLastMonthYear = g_nYear;
+    var nNextMonth = g_nMonth + 1;
+    var nNextMonthYear = g_nYear;
+
+    if (g_nMonth == 1) {
+        nLastMonth = 12;
+        nLastMonthYear = g_nYear - 1;
+    }
+    else if (g_nMonth == 12) {
+        nNextMonth = 1;
+        nNextMonthYear = g_nYear + 1;
+    }
+
+    var nLastMonthDays = c_arrMonthDays[nLastMonth - 1];
+    var nNextMonthDays = c_arrMonthDays[nNextMonth - 1];
+
+    var iDayCell = 0;
+    var dtFirstDay = new Date(g_nYear, (g_nMonth - 1), 1);
+
+    var dtTodayDay = new Date();
+    var nTodayDay = new Date().getDate();
+    var nTodayYear = dtTodayDay.getYear();
+    if (nTodayYear < 100) {
+        nTodayYear += 1900;
+    }
+    var fThisMonth = ((g_nYear == nTodayYear) && (g_nMonth == dtTodayDay.getMonth() + 1));
+
+    var nStartDay = dtFirstDay.getDay();
+    nStartDay = nLastMonthDays - nStartDay + 1;
+
+    for (i = nStartDay; i <= nLastMonthDays; i++, iDayCell++) {
+        g_arrDayCells[iDayCell].innerText = i;
+
+        g_arrDayCells[iDayCell].className = 'NormalDay OtherMonthDay';
+        g_arrDayCells[iDayCell].day = i;
+        g_arrDayCells[iDayCell].month = nLastMonth;
+        g_arrDayCells[iDayCell].year = nLastMonthYear;
+    }
+
+    for (i = 1; i <= c_arrMonthDays[g_nMonth - 1]; i++, iDayCell++) {
+        g_arrDayCells[iDayCell].innerText = i;
+
+        if ((fThisMonth == true) && (i == nTodayDay)) {
+            g_arrDayCells[iDayCell].className = 'NormalDay TodayDay';
+        }
+        else {
+            g_arrDayCells[iDayCell].className = 'NormalDay';
+        }
+        g_arrDayCells[iDayCell].day = i;
+        g_arrDayCells[iDayCell].month = g_nMonth;
+        g_arrDayCells[iDayCell].year = g_nYear;
+    }
+
+
+    for (i = 1; iDayCell < 42; i++, iDayCell++) {
+        g_arrDayCells[iDayCell].innerText = i;
+
+        g_arrDayCells[iDayCell].className = 'NormalDay OtherMonthDay';
+        g_arrDayCells[iDayCell].day = i;
+        g_arrDayCells[iDayCell].month = nNextMonth;
+        g_arrDayCells[iDayCell].year = nNextMonthYear;
+    }
+
+	var nTodayMonth = dtTodayDay.getMonth() + 1;
+	if(language=="en")
+    g_arrDayCells[iDayCell].innerText = "Today：" +((nTodayMonth < 10) ? ("0" + nTodayMonth) : nTodayMonth ) + "/" + ((nTodayDay < 10) ? ("0" + nTodayDay) : nTodayDay )+"/" +nTodayYear  ;
+    else
+    g_arrDayCells[iDayCell].innerText = "今天：" + nTodayYear +"-" + ((nTodayMonth < 10) ? ("0" + nTodayMonth) : nTodayMonth ) + "-" + ((nTodayDay < 10) ? ("0" + nTodayDay) : nTodayDay );
+    g_arrDayCells[iDayCell].className = 'NormalDay TodayDay';
+    g_arrDayCells[iDayCell].day = nTodayDay;
+    g_arrDayCells[iDayCell].month = nTodayMonth;
+    g_arrDayCells[iDayCell].year = nTodayYear;
+	
+}
+function winonload()
+{
+   document.oncontextmenu = getFase;
+}
+
+function selectHour(obj)
+{
+   onfocusobj =obj;
+   obj.select();
+}
+
+
+function addTime()
+{ 
+    
+    if(onfocusobj==undefined)
+     onfocusobj =document.all("dpHour");    
+    intTe=parseInt(onfocusobj.value);
+
+  if(onfocusobj.id == "dpHour") 
+  {
+        if(intTe==23) 
+        {         
+          intTe   =0;     
+        }
+        else
+         intTe = intTe +1;   
+  }
+  else     
+     {
+        if(intTe==59) intTe   =0;
+         else
+         intTe = intTe +1;
+     }
+ onfocusobj.value =intTe ;
+}
+
+function jianTime()
+{  
+    if(onfocusobj==null)
+    {        
+        onfocusobj =document.all("dpHour");           
+    }
+    
+  intTe=parseInt(onfocusobj.value);  
+  
+ // onfocusobj.value = 30;
+  if(intTe>1) intTe =intTe- 1;
+  else
+  {
+     if(onfocusobj.id == "dpHour") intTe = 23;
+     else
+     intTe = 59; 
+  }    
+    onfocusobj.value = intTe ;
+}
+
+function getFase(){
+return false;
+}
+</script>
+<body onload=" document.oncontextmenu = false;" >
+  <table id="calendarTable" cellspacing="0" cellpadding="0" class="Calendar" style="border-collapse: collapse; width: 100%; height: 100%">
+
+    <tr id="titleRow" class="Title" style="height: 16pt">
+      <td align="center">
+      <a class="NavButton" id="prevYearAnchor" href="" onclick="OnClickPrevYear(); return false;" title="上年">3</a>&nbsp;</td>
+	   
+      <td id="titleCell" align="right"  colspan=3></td>      
+	  <td align=right  colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;<a class="NavButton" id="nextYearAnchor" href="" onclick="OnClickNextYear(); return false;" title="下年">4</a>
+      <a class="NavButton" id="closeAnchor" href="" onclick="OnClickClose(); return false;" title="取消">r</a>&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="6">
+        <table id="daysTable" width="100%" height="100%" cellspacing="0" cellpadding="1" style="border-collapse: collapse">
+          <tr class="DayHeader" style="height: 16pt" id=sun>
+            <td width="14%" align="center">日</td>
+            <td width="14%" align="center">一</td>
+            <td width="14%" align="center">二</td>
+            <td width="14%" align="center">三</td>
+            <td width="14%" align="center">四</td>
+            <td width="14%" align="center">五</td>
+            <td width="14%" align="center">六</td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"  style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"  style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"  style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"  style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center" style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+          <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td align="center" style="BORDER-LEFT: #cecfce 0px solid;"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center" style="BORDER-RIGHT: #cecfce 0px solid;"></td>
+          </tr>
+                   <tr onclick="OnClickDayCell()" onMouseOver="OnMouseOverDayCell()" onMouseOut="OnMouseOutDayCell()">
+            <td  id=fcell align="left" colspan="4" ></td>
+            <td   id=scell colspan=3 class="NormalDay TodayDay">   <SPAN id=timeContain style="BORDER-RIGHT: 2px inset; BORDER-TOP: 2px inset; BORDER-LEFT: 2px inset; WIDTH: 16px; BORDER-BOTTOM: 2px inset; HEIGHT: 20px">
+				<TABLE id="Table1" cellSpacing="0" cellPadding="0" border="0" width="100%">
+					<TR>
+						<TD id=scell1><div><span style="WIDTH:2px"></span><input name="dpHour" type="text" maxlength="2" value="10" id="dpHour" style="WIDTH:20px;COLOR:black;BORDER-TOP-STYLE:none;BORDER-RIGHT-STYLE:none;BORDER-LEFT-STYLE:none;HEIGHT:100%;BACKGROUND-COLOR:white;BORDER-BOTTOM-STYLE:none;background-color:Transparent;" onclick='selectHour(this);'><span>:</span><input  onclick='selectHour(this);' name="dpMinute" type="text" maxlength="2" id="Text2" value="20" style="WIDTH:20px;COLOR:black;BORDER-TOP-STYLE:none;BORDER-RIGHT-STYLE:none;BORDER-LEFT-STYLE:none;HEIGHT:100%;BACKGROUND-COLOR:white;BORDER-BOTTOM-STYLE:none;background-color:Transparent;">:<input name="dpSecon" onclick='selectHour(this);' type="text" value="30" maxlength="2" id="Text3" style="WIDTH:20px;COLOR:black;BORDER-TOP-STYLE:none;BORDER-RIGHT-STYLE:none;BORDER-LEFT-STYLE:none;HEIGHT:100%;BACKGROUND-COLOR:white;BORDER-BOTTOM-STYLE:none;background-color:Transparent;"></div>
+							<FONT face="宋体"></FONT>
+						</TD>
+						<TD id=scell2>
+							<DIV onmouseup="this.className='ARROWSTYLE';" onmousedown="this.className='ARROWSELECTSTYLE';"
+								id="Div1" style="BORDER-RIGHT: 2px outset; BORDER-TOP: 2px outset; BACKGROUND: buttonface; FONT: 5px marlett; BORDER-LEFT: 2px outset; WIDTH: 19px; BORDER-BOTTOM: 2px outset; HEIGHT: 5px; TEXT-ALIGN: center"
+								onclick="addTime();">5</DIV>
+							<DIV onmouseup="this.className='ARROWSTYLE';" onmousedown="this.className='ARROWSELECTSTYLE';"
+								style="BORDER-RIGHT: 2px outset; BORDER-TOP: 2px outset; BACKGROUND: buttonface; FONT: 5px marlett; BORDER-LEFT: 2px outset; WIDTH: 19px; BORDER-BOTTOM: 2px outset; HEIGHT: 5px; TEXT-ALIGN: center"onclick="jianTime();">6</DIV>
+						</TD>
+					</TR>
+								
+				</TABLE>
+			</SPAN></td>
+          </tr>
+       
+<A class=NavButton id=prevMonthAnchor style="display:none;" title=上月 
+      style="COLOR: white" onclick="OnClickPrevMonth(); return false;" 
+    href="">3</A>
+<A class=NavButton id=nextMonthAnchor title=下月 
+      style="COLOR: white;display:none;" onclick="OnClickNextMonth(); return false;" 
+      href="">4</A>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+

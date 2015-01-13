@@ -1,4 +1,4 @@
-﻿<%@ page title="" language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_customerArchive, App_Web_fqbgs5lm" theme="redmond" %>
+﻿<%@ page title="" language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_customerArchive, App_Web_v3y4r1pc" theme="redmond" %>
 
 <%@ Import Namespace="Common.FormatProvider" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">

@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_IntroductionPage, App_Web_lbndgfpo" theme="redmond" %>
+﻿<%@ page language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_IntroductionPage, App_Web_2avxo4hp" theme="redmond" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 

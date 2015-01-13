@@ -59,11 +59,18 @@ public partial class SysLogin : Page, ICallbackEventHandler
             bool passed = user.Authentication(userAccount, password);
             if (passed) {
                 FormsAuthentication.SetAuthCookie(userAccount, true);
-                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);
+                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);              
                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
-                authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+                //FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
+                authCookie.Value = FormsAuthentication.Encrypt(ticket);
+                authCookie.HttpOnly = true;
+                authCookie.Expires = ticket.Expiration;
+                authCookie.Path = FormsAuthentication.FormsCookiePath;
+                authCookie.Domain = FormsAuthentication.CookieDomain;
+                authCookie.Secure = FormsAuthentication.RequireSSL;
+                Response.Cookies.Remove(authCookie.Name);
                 Response.Cookies.Add(authCookie);
+
                 callBackResult = FormsAuthentication.DefaultUrl;
                 FormsAuthentication.SetAuthCookie(userAccount, true);
                 Server.Transfer(FormsAuthentication.DefaultUrl);

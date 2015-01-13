@@ -35,18 +35,12 @@
 
     }
     protected void Application_AuthenticateRequest(Object sender, EventArgs e) {
-        if (Request.IsAuthenticated) {
-            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, Context.User.Identity.Name,
-            //    DateTime.Now, DateTime.Now.AddHours(1), false, "", FormsAuthentication.FormsCookiePath);
-            //string encTicket = FormsAuthentication.Encrypt(ticket);
-            //Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
-            //System.Threading.Thread.CurrentPrincipal = new JointSkyPrincipal(Context.User.Identity.Name);
-            //Context.User = new ASERPrincipal(Context.User.Identity.Name);
-            HttpCookie authCookie =  FormsAuthentication.GetAuthCookie(Context.User.Identity.Name, true);
-            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-            FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
-            authCookie.Value = FormsAuthentication.Encrypt(newTicket);
-            Response.Cookies.Add(authCookie);
+        if (Request.IsAuthenticated) {           
+            //HttpCookie authCookie =  FormsAuthentication.GetAuthCookie(Context.User.Identity.Name, true);
+            //FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            //FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
+            //authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+            //Response.Cookies.Add(authCookie);
         }
     }
        

@@ -20,7 +20,8 @@ public partial class Header : BasePage,ICallbackEventHandler{
 			if (Theme == "redmond") imageBtnURL = "images/index/imageBtn.png";
 			if (Theme == "lightness") imageBtnURL = "images/index/imageBtn1.png";
 			if (Theme == "smoothness") imageBtnURL = "images/index/imageBtn2.png";
-			
+            //ShowMessage(User.Identity.Name);
+            //ShowMessage(UserName);
         }
     }
 

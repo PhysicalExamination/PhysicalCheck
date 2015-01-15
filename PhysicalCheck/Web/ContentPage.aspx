@@ -78,7 +78,7 @@
                     <img alt="" src="images/home/4.png" /></a>
                 <div class="splitimgdiv">
                 </div>
-                <a id="p6" style="float: left" href="Examination/OverallCheckedPage.aspx">
+                <a id="p6" style="float: left" href="search/customerArchiveList.aspx">
                     <img alt="" src="images/home/6.png" /></a>
             </div>
             <div style="width: 200px; height: 60px; float: left; margin-left: 690px">

@@ -38,7 +38,7 @@
             }
         }
 
-        function selectCharge() {            
+        function selectCharge() {
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sURL = "<%=ApplicationPath%>/Examination/ChargeDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
@@ -69,7 +69,7 @@
         var isInit = false;
         function readCard() {
             var CardReader = document.getElementById("CardReader1");
-           
+
             if (false == isInit) {
                 obj.setPortNum(0);
                 isInit = true;
@@ -86,7 +86,7 @@
                 $("#<%=txtAddress.ClientID%>").val(CardReader.Address());
                 $("#<%=hPhoto.ClientID%>").val(CardReader.GetImage());
                 var img = "data:image/png;base64," + CardReader.GetImage();
-                $("#Pricture").attr("src",img);
+                $("#Pricture").attr("src", img);
             } else {
                 alert("身份证信息读取失败！");
             }
@@ -401,11 +401,13 @@
             </asp:UpdatePanel>
         </div>
     </div>
-    <object id="CardReader1" codebase="FirstActivex.cab#version=1,3,0,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B"
-        width="102" height="126">
-        <param name="_Version" value="65536" />
-        <param name="_ExtentX" value="2646" />
-        <param name="_ExtentY" value="1323" />
-        <param name="_StockProps" value="0" />
-    </object>
+    <div style="display: none">
+        <object id="CardReader1" codebase="FirstActivex.cab#version=1,3,0,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B"
+            width="102" height="126">
+            <param name="_Version" value="65536" />
+            <param name="_ExtentX" value="2646" />
+            <param name="_ExtentY" value="1323" />
+            <param name="_StockProps" value="0" />
+        </object>
+    </div>
 </asp:Content>

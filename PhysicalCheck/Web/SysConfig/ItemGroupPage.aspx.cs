@@ -154,13 +154,14 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         hDeptID.Value = "";
         drpCheckCategory.SelectedIndex = -1;
         drpSex.SelectedIndex = -1;
-        txtPrice.Text = "";
+        txtPrice.Text = "0.00";
         txtNotice.Text = "";
         txtClinical.Text = "";
         txtNormalDesc.Text = "";
         chkHasSpecimen.Checked = false;
         drpSpecimen.SelectedIndex = -1;
         drpResultMode.SelectedIndex = -1;
+        txtDeptName.Text = "";
         //txtDisplayOrder.Text = "";
     }
     /// <summary>

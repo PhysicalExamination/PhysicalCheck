@@ -140,7 +140,5 @@ namespace DataEntity.SysConfig {
         }
 
         #endregion
-
-
     }
 }

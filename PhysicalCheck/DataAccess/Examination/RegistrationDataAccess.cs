@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataEntity.Examination;
+using PagedList;
 using NHibernate;
 using NHibernate.Transaction;
 using NHibernate.Linq;
@@ -44,7 +45,7 @@ namespace DataAccess.Examination {
             }
             if (RegisterDate != null) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
-            }            
+            }
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
             Criteria = Session.CreateCriteria<RegistrationViewEntity>();
@@ -61,11 +62,28 @@ namespace DataAccess.Examination {
             if (RegisterDate != null) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
-            
-            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();    
+
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
         }
+
+        /// <summary>
+        /// 返回体检人员信息
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="RecordCount"></param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
+            DateTime CheckDate, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver==false);
+            RecordCount = q.Count();
+            return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+        }
+
 
         /// <summary>
         /// 返回所有通过体检但未总检的登记信息
@@ -81,7 +99,7 @@ namespace DataAccess.Examination {
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
-            Criteria.Add(Restrictions.Eq("Enabled",true));
+            Criteria.Add(Restrictions.Eq("Enabled", true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
             }
@@ -182,18 +200,18 @@ namespace DataAccess.Examination {
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
         public IList<RegistrationViewEntity> GetReviews(int pageIndex, int pageSize,
-            DateTime StartDate, DateTime EndDate,out int RecordCount) {
+            DateTime StartDate, DateTime EndDate, out int RecordCount) {
             ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
             Criteria.Add(Restrictions.Eq("Enabled", true));
-            Criteria.Add(Restrictions.Between("ReviewDate",StartDate,EndDate));            
+            Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate));
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
 
             Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.Add(Restrictions.Eq("Enabled", true));
             Criteria.SetFirstResult((pageIndex - 1) * pageSize)
                     .SetMaxResults(pageSize);
-            Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate)); 
+            Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -205,7 +223,7 @@ namespace DataAccess.Examination {
         /// <param name="PersonID"></param> 
         /// <param name="RegisterNo"></param> 
         /// <returns>体检登记实体</returns>
-        public RegistrationViewEntity GetRegistration(string RegisterNo) {            
+        public RegistrationViewEntity GetRegistration(string RegisterNo) {
             RegistrationViewEntity Result = Session.Get<RegistrationViewEntity>(RegisterNo);
             CloseSession();
             return Result;
@@ -228,8 +246,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
         public void DeleteRegistration(String RegisterNo) {
-            RegistrationEntity  Registration = Session.Get<RegistrationEntity>(RegisterNo);
-            Registration.Enabled = false;           
+            RegistrationEntity Registration = Session.Get<RegistrationEntity>(RegisterNo);
+            Registration.Enabled = false;
             Session.SaveOrUpdate(Registration);
             Session.Flush();
             CloseSession();

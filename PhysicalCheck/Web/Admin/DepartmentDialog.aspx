@@ -28,10 +28,7 @@
                             </th>
                             <th>
                                 科室类别
-                            </th>
-                            <th>
-                                科室位置
-                            </th>
+                            </th>                            
                             <th>
                                 操作
                             </th>
@@ -47,11 +44,8 @@
                             
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("DeptKind")%>
-                        </td>
-                        <td class="VLine" align="center">
-                            <%# Eval("DepLlocation")%>
-                        </td>
+                            <%# GetDeptCategory(Eval("DeptKind"))%>
+                        </td>                       
                         <td class="VLine" align="center">
                           <input type="button" class="buttonCss" value="选择" onclick="onSelected(<%# Eval("DeptID")%>, '<%# Eval("DeptName") %>')" />
                         </td>
@@ -66,11 +60,8 @@
                             <%# Eval("DeptName") %>                           
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("DeptKind")%>
-                        </td>
-                        <td class="VLine" align="center">
-                            <%# Eval("DepLlocation")%>
-                        </td>
+                            <%# GetDeptCategory(Eval("DeptKind"))%>
+                        </td>                        
                         <td class="VLine" align="center">
                            <input type="button" class="buttonCss" value="选择" onclick="onSelected(<%# Eval("DeptID")%>, '<%# Eval("DeptName") %>')" />
                         </td>

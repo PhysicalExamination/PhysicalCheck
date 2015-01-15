@@ -135,7 +135,7 @@
                         DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
                         MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
                         AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
-                        PageSize="20">
+                        PageSize="15">
                     </asp:AspNetPager>
                 </ContentTemplate>
             </asp:UpdatePanel>

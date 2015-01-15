@@ -85,7 +85,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         using (RegionBusiness Region = new RegionBusiness()) {
             drpRegion.DataSource = Region.GetRegions("620600000");
-            drpRegion.DataTextField = "RegionCode";
+            drpRegion.DataValueField = "RegionCode";
             drpRegion.DataTextField = "RegionName";
             drpRegion.DataBind();
         }
@@ -193,6 +193,7 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.RegionCode = drpRegion.SelectedValue;
         //Result.CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
         Result.RegisterDate = EnvConverter.ToDateTime(txtRegisterDate.Text);
+        Result.CheckDate = Result.RegisterDate;
         if (!String.IsNullOrEmpty(hGroups.Value)) {
             String[] ItemGroups = hGroups.Value.Split(',');
             Result.Groups = ItemGroups.Select(p => Convert.ToInt32(p)).ToList();

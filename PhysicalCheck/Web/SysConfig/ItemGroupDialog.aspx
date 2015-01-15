@@ -48,7 +48,7 @@
                             <%# Eval("Price")%>
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("Sex")%>
+                            <%# GetSex(Eval("Sex"))%>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("Clinical")%>
@@ -68,7 +68,7 @@
                             <%# Eval("Price")%>
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("Sex")%>
+                            <%# GetSex(Eval("Sex"))%>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("Clinical")%>

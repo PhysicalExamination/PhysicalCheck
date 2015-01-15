@@ -144,7 +144,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
     /// 填充界面
     /// </summary>
     private void SetCheckedItemUI() {
-        CheckedItemEntity Result = m_CheckedItem.GetCheckedItem(ItemID);
+        CheckedItemViewEntity Result = m_CheckedItem.GetCheckedItem(ItemID);
         if (Result == null) return;
         ItemID = Result.ItemID.Value;
         txtItemName.Text = Result.ItemName;
@@ -156,6 +156,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtLowerTips.Text = Result.LowerTips;
         txtUpperTips.Text = Result.UpperTips;
         drpSex.SelectedValue = Result.Sex;
+        txtDeptName.Text = Result.DeptName;
         chkIsSummary.Checked = false;
         if (Result.IsSummary.HasValue) chkIsSummary.Checked = Result.IsSummary.Value;
     }

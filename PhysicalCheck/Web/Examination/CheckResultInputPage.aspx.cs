@@ -17,11 +17,19 @@ public partial class Examination_CheckResultInputPage : BasePage {
     private ItemResultBusiness m_ItemResult;
     private GroupResultBusiness m_GroupResut;
 
+    private String RegisterNo {
+        get {
+            if (ViewState["RegisterNo"] == null) return "";
+            return (String)ViewState["RegisterNo"];
+        }
+        set {
+            ViewState["RegisterNo"] = value;
+        }
+    }
     private int? PackageID {
         get {
             if (ViewState["PackageID"] == null) {
                 using (RegistrationBusiness Registration = new RegistrationBusiness()) {
-                    String RegisterNo = txtsRegisterNo.Text.Trim();
                     ViewState["PackageID"] = Registration.GetRegistration(RegisterNo).PackageID;
                 }
             }
@@ -59,12 +67,13 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// 数据绑定
     /// </summary>
     public override void DataBind() {
-        int RecordCount = 0;
-        String RegisterNo = txtsRegisterNo.Text.Trim();
-        int DeptID = Convert.ToInt32(drpGroups.SelectedValue);
-        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
-            Pager.PageSize, RegisterNo, DeptID, out RecordCount);
-        Pager.RecordCount = RecordCount;
+        using (RegistrationBusiness Registration = new RegistrationBusiness()) {
+            int RecordCount = 0;
+            DateTime CheckDate = Convert.ToDateTime(txtCheckedDate.Text);
+            RegistrationRepeater.DataSource = Registration.GetCheckedList(Pager.CurrentPageIndex, Pager.PageSize,
+            CheckDate, out RecordCount);
+            Pager.RecordCount = RecordCount;
+        }
         base.DataBind();
     }
 
@@ -73,28 +82,32 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
-        Literal lblItemID;
+        if (ItemResultRepeater.Items.Count <= 0) return;
+        Literal lblItemID, lblGroupID;
         TextBox txtCheckResult;
-        int? GroupID = Convert.ToInt32(drpGroups.SelectedValue), ItemID;
+        int? GroupID, ItemID;
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
             lblItemID = (Literal)Item.FindControl("lblItemID");
+            lblGroupID = (Literal)Item.FindControl("lblGroupID");
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             ItemID = EnvConverter.ToInt32(lblItemID.Text);
+            GroupID = EnvConverter.ToInt32(lblGroupID.Text);
             ItemResult = new ItemResultEntity {
-                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo=txtsRegisterNo.Text },                
-                DeptID = DepartNo,
+                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = RegisterNo },
+                DeptID = Convert.ToInt32(drpDepts.SelectedValue),
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
                 CheckedResult = txtCheckResult.Text
             };
             m_ItemResult.SaveItemResult(ItemResult);
         }
-
+        lblGroupID = (Literal)Items[0].FindControl("lblGroupID");
+        GroupID = Convert.ToInt32(lblGroupID.Text);
         GroupResultEntity Group = new GroupResultEntity {
-            ID = new GroupResultPK { GroupID = GroupID, RegisterNo = txtsRegisterNo.Text },
-            DeptID = DepartNo,
+            ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
+            DeptID = Convert.ToInt32(drpDepts.SelectedValue),
             CheckDate = DateTime.Now.Date,
             CheckDoctor = UserName,
             IsOver = true,
@@ -110,29 +123,48 @@ public partial class Examination_CheckResultInputPage : BasePage {
         DataBind();
     }
 
+    protected void ItemCommand(object sender, RepeaterCommandEventArgs e) {
+        Literal lblRegisterNo = (Literal)e.Item.FindControl("lblRegisterNo");
+        RegisterNo = lblRegisterNo.Text;
+        ItemResultBind();
+    }
+
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
-    } 
+    }
+
+    protected void Pager1_PageChanged(object source, EventArgs e) {
+        ItemResultBind();
+    }
+
+    protected void drpDepts_SelectedIndexChanged(object sender, EventArgs e) {
+        ItemResultBind();
+    }
     #endregion
 
     #region 私有方法
 
     private void ClientInitial() {
+        txtCheckedDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         using (DepartmentBusiness Department = new DepartmentBusiness()) {
-            drpGroups.DataSource = Department.GetDepartments();
-            drpGroups.DataValueField = "DeptID";
-            drpGroups.DataTextField = "DeptName";
-            drpGroups.DataBind();
+            drpDepts.DataSource = Department.GetDepartments().OrderBy(p=>p.DeptID);
+            drpDepts.DataValueField = "DeptID";
+            drpDepts.DataTextField = "DeptName";
+            drpDepts.DataBind();
         }
-        //using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-        //    drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
-        //    drpGroups.DataValueField = "GroupID";
-        //    drpGroups.DataTextField = "GroupName";
-        //    drpGroups.DataBind();
-        //}
+    }
+
+    private void ItemResultBind() {
+        int RecordCount = 0;
+        int DeptID = Convert.ToInt32(drpDepts.SelectedValue);
+        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager1.CurrentPageIndex,
+            Pager1.PageSize, RegisterNo, DeptID, out RecordCount);
+        Pager1.RecordCount = RecordCount;
+        ItemResultRepeater.DataBind();
     }
 
     #endregion
 
 
+    
 }

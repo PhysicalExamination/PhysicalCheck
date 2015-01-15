@@ -1,4 +1,4 @@
-﻿<%@ page title="" language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_customerArchive, App_Web_u1gnojsd" theme="redmond" %>
+﻿<%@ page title="" language="C#" masterpagefile="~/MasterPage/ContentMasterPage.master" autoeventwireup="true" inherits="Examination_customerArchive, App_Web_atzmyr1w" theme="redmond" %>
 
 <%@ Import Namespace="Common.FormatProvider" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -30,10 +30,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div>
-        <div class="l-navigationbars">
-            <div class="l-navigationbars-l">
-                <a href="#" style="left: 100px; text-decoration: none;">综合查询</a></div>
-        </div>
         <asp:UpdatePanel ID="UP1" runat="Server">
             <ContentTemplate>
                 登记号：

@@ -26,9 +26,22 @@ namespace BusinessLogic.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-            return DataAccess.GetRegistrations(pageIndex, pageSize, CheckDate, DeptName,
-                RegisterNo, out RecordCount);
+            DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
+            return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
+            RegisterNo, out RecordCount);
+        }
+
+        /// <summary>
+        /// 返回体检人员信息
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="RecordCount"></param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
+            DateTime CheckDate, out int RecordCount) {
+            return DataAccess.GetCheckedList(pageIndex, pageSize, CheckDate, out RecordCount);
         }
 
         /// <summary>
@@ -125,7 +138,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
-            SaveCheckedGroups(Registration.RegisterNo, Registration.PackageID.Value,Registration.Groups);
+            SaveCheckedGroups(Registration.RegisterNo, Registration.PackageID.Value, Registration.Groups);
         }
 
         /// <summary>
@@ -138,7 +151,7 @@ namespace BusinessLogic.Examination {
             DataAccess.SaveReview(RegisterNo, InformResult, InformPerson);
         }
 
-        public void SaveOverallChecked(RegistrationEntity OverallChecked) {            
+        public void SaveOverallChecked(RegistrationEntity OverallChecked) {
             DataAccess.SaveRegistration(OverallChecked);
         }
 
@@ -200,7 +213,7 @@ namespace BusinessLogic.Examination {
 
         #region 私有方法
 
-        private void SaveCheckedGroups(String RegisterNo, int PackageID,List<int> ItemGroups) {
+        private void SaveCheckedGroups(String RegisterNo, int PackageID, List<int> ItemGroups) {
             //自定义套餐保存体检组合项
             if ((ItemGroups != null) && (ItemGroups.Count > 0)) {
                 SaveCheckedGroups(RegisterNo, ItemGroups);

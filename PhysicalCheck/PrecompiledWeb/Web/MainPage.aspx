@@ -1,4 +1,4 @@
-﻿<%@ page language="C#" autoeventwireup="true" inherits="MainPage, App_Web_eth0igbe" theme="redmond" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="MainPage, App_Web_citeevoy" theme="redmond" %>
 
 <html>
 <head id="Head1" runat="server">

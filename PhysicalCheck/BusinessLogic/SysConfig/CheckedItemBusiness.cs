@@ -25,16 +25,16 @@ namespace BusinessLogic.SysConfig {
 
         #region 公共方法
 
-        public List<CheckedItemEntity> GetCheckedItems() {
+        public List<CheckedItemViewEntity> GetCheckedItems() {
             return DataAccess.GetCheckedItems();
         }
 
-        public List<CheckedItemEntity> GetCheckedItems(int pageIndex, int pageSize, 
+        public List<CheckedItemViewEntity> GetCheckedItems(int pageIndex, int pageSize, 
             int DeptID, out int RecordCount) {
                 return DataAccess.GetCheckedItems(pageIndex, pageSize, DeptID, out RecordCount);
         }
 
-        public CheckedItemEntity GetCheckedItem(int ItemID) {
+        public CheckedItemViewEntity GetCheckedItem(int ItemID) {
             return DataAccess.GetCheckedItem(ItemID);
         }
 

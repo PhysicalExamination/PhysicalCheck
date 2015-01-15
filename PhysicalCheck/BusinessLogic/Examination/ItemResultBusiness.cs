@@ -38,7 +38,7 @@ namespace BusinessLogic.Examination {
             var q = List.Select(p => new ItemResultViewEntity {
                 ID = p.ID,
                 ItemName = p.ItemName,
-                CheckedResult = String.IsNullOrEmpty(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
+                CheckedResult = String.IsNullOrWhiteSpace(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
                 UpperLimit = p.UpperLimit,
                 LowerLimit = p.LowerLimit,
                 MeasureUnit = p.MeasureUnit

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/08/2015 16:57:58" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/16/2015 09:33:13" ReportInfo.CreatorVersion="2013.2.5.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,14 +84,14 @@ namespace FastReport
         <TableRow Name="Row3">
           <TableCell Name="Cell9" Text="总计：" Font="宋体, 9pt"/>
           <TableCell Name="Cell10" Font="宋体, 9pt"/>
-          <TableCell Name="Cell11" Text="[totalNum]" Font="宋体, 9pt"/>
+          <TableCell Name="Cell11" Text="[totalNum]" HorzAlign="Right" Font="宋体, 9pt"/>
         </TableRow>
       </TableObject>
       <TextObject Name="Text4" Left="18.9" Top="56.7" Width="94.5" Height="18.9" Text="科室：" Font="宋体, 9pt"/>
       <TextObject Name="Text8" Left="18.9" Top="85.05" Width="94.5" Height="18.9" Text="日期：" Font="宋体, 9pt"/>
       <TextObject Name="Text13" Left="94.5" Top="56.7" Width="283.5" Height="18.9" Text="[DeptName]" Font="宋体, 9pt"/>
-      <TextObject Name="Text14" Left="94.5" Top="85.05" Width="94.5" Height="18.9" Text="[StartDate]" Font="宋体, 9pt"/>
-      <TextObject Name="Text15" Left="283.5" Top="85.05" Width="94.5" Height="18.9" Text="[EndDate]" Font="宋体, 9pt"/>
+      <TextObject Name="Text14" Left="94.5" Top="85.05" Width="113.4" Height="18.9" Text="[StartDate]" Font="宋体, 9pt"/>
+      <TextObject Name="Text15" Left="283.5" Top="85.05" Width="141.75" Height="18.9" Text="[EndDate]" Font="宋体, 9pt"/>
       <TextObject Name="Text16" Left="226.8" Top="85.05" Width="47.25" Height="18.9" Text="至" Font="宋体, 9pt"/>
       <TextObject Name="Text3" Left="510.3" Top="56.7" Width="113.4" Height="18.9" Text="[CheckDoctor]" Font="宋体, 9pt"/>
       <TextObject Name="Text5" Left="413.1" Top="56.7" Width="94.5" Height="18.9" Text="检查医生：" Font="宋体, 9pt"/>

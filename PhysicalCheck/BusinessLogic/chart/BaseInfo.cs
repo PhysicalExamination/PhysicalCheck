@@ -28,6 +28,15 @@ namespace Maticsoft.BLL.BaseInfo
             return dal.GetList_itemgroup(strWhere);
         }
 
+          /// <summary>
+        /// 获得字典表列表
+        /// </summary>
+        /// select * from  commoncode where Category=3 
+        public DataSet GetList_CommonCode(string strWhere)
+        {
+            return dal.GetList_CommonCode(strWhere);
+
+        }
 
     }
 }

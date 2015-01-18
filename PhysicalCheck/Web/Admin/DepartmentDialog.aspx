@@ -47,7 +47,7 @@
                             
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("DeptKind")%>
+                            <%# GetDeptCategory(Eval("DeptKind"))%>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("DepLlocation")%>
@@ -66,7 +66,7 @@
                             <%# Eval("DeptName") %>                           
                         </td>
                         <td class="VLine" align="center">
-                            <%# Eval("DeptKind")%>
+                            <%# GetDeptCategory(Eval("DeptKind"))%>
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("DepLlocation")%>

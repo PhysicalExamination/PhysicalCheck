@@ -88,9 +88,9 @@ namespace DataAccess {
             }
             BillNo = Convert.ToInt32(Norecordor.BillNo);
             if (CurrentDate>Norecordor.LastBillDate) {
-                Norecordor.BillNo = "1";
+                Norecordor.BillNo = "0";
                 Norecordor.LastBillDate = CurrentDate;
-                BillNo = 1;                
+                BillNo = 0;                
             }
             if (CurrentDate == Norecordor.LastBillDate) {
                 BillNo = Convert.ToInt32(Norecordor.BillNo) + 1;               

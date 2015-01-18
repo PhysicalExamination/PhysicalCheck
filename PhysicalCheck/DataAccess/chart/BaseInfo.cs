@@ -29,6 +29,24 @@ namespace Maticsoft.DAL.BaseInfo
         }
 
         /// <summary>
+        /// 获得字典表列表
+        /// </summary>
+        /// select * from  commoncode where Category=3 
+        public DataSet GetList_CommonCode(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from  commoncode  ");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+
+        /// <summary>
         /// 获得体检组合项目列表
         /// </summary>
         public DataSet GetList_itemgroup(string strWhere)

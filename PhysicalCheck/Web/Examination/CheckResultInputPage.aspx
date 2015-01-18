@@ -3,12 +3,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
-        function onSetSummary() {
-            var DeptID = $("#<%=drpDepts.ClientID %>").val();
-            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random() + "&DeptID=" + DeptID;
+        function onSetSummary() {            
+            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random() 
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sResult = window.showModalDialog(sURL, null, sFeatures);
-            $("#<%=txtSummary.ClientID %>").val(sResult);
+           
         }
 
         $(function () {
@@ -29,8 +28,7 @@
         <div id="tabs-1">
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
-                   体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtCheckedDate" runat="server"
-                        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                    体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtCheckedDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                         <HeaderTemplate>
@@ -111,8 +109,7 @@
             </asp:UpdatePanel>
         </div>
         <div id="tabs-2">
-            体检科室：<asp:DropDownList ID="drpDepts" runat="server" AutoPostBack="true" 
-                onselectedindexchanged="drpDepts_SelectedIndexChanged" />
+            体检项：<asp:DropDownList ID="drpGroups" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpGroups_SelectedIndexChanged" />
             <asp:UpdatePanel ID="UP2" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="ItemResultRepeater" runat="server">
@@ -139,8 +136,9 @@
                         <ItemTemplate>
                             <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                                 <td class="VLine" align="center">
-                                     <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("ID.GroupID") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("ID.GroupID") %>' Visible="false" />
                                     <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ID.ItemID") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblDeptID" Text='<%#Eval("DeptID") %>' Visible="false" />
                                     <%# Eval("ItemName")%>
                                 </td>
                                 <td class="VLine" align="center">
@@ -160,8 +158,9 @@
                         <AlternatingItemTemplate>
                             <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                                 <td class="VLine" align="center">
-                                     <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("ID.GroupID") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblGroupID" Text='<%# Eval("ID.GroupID") %>' Visible="false" />
                                     <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ID.ItemID") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblDeptID" Text='<%#Eval("DeptID") %>' Visible="false" />
                                     <%# Eval("ItemName")%>
                                 </td>
                                 <td class="VLine" align="center">
@@ -182,30 +181,14 @@
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
-                    <asp:AspNetPager ID="Pager1" runat="server" PageAlign="center" PageIndexBox="DropDownList"
-                        OnPageChanged="Pager1_PageChanged" ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center"
-                        DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
-                        MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
-                        AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
-                        PageSize="20">
-                    </asp:AspNetPager>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="drpDepts" />
-                </Triggers>
-            </asp:UpdatePanel>
-            <asp:UpdatePanel ID="UP3" runat="server">
-                <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td class="HVLine">
-                                检查是否合格
-                            </td>
-                            <td class="HVLine">
-                                <asp:CheckBox ID="chkIsPassed" runat="server" Checked="false" />
-                            </td>
+                            <td class="VLine" align="center">
+                                <asp:CheckBox ID="chkIsPassed" Text="检查是否合格" runat="server" Checked="false" /> 
+                                 <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
+                            </td>                          
                         </tr>
-                        <tr>
+                       <%-- <tr>
                             <td class="HVLine">
                                 小结
                             </td>
@@ -216,13 +199,28 @@
                         </tr>
                         <tr>
                             <td class="VLine" colspan="2" align="center">
-                                <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-                                <input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />
-                            </td>
-                        </tr>
+                               
+                                <%--<input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />--%>
+                             <%--</td>
+                        </tr>--%>
                     </table>
+                    <asp:AspNetPager ID="Pager1" runat="server" PageAlign="center" PageIndexBox="DropDownList"
+                        OnPageChanged="Pager1_PageChanged" ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center"
+                        DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
+                        MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
+                        AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
+                        PageSize="20">
+                    </asp:AspNetPager>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="drpGroups" />
+                </Triggers>
             </asp:UpdatePanel>
+          <%--  <asp:UpdatePanel ID="UP3" runat="server">
+                <ContentTemplate>
+                    
+                </ContentTemplate>
+            </asp:UpdatePanel>--%>
         </div>
     </div>
 </asp:Content>

@@ -100,6 +100,20 @@ namespace BusinessLogic.Examination {
         }
 
         /// <summary>
+        /// 获取总检数据
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <returns></returns>
+        public RegistrationViewEntity GetOverall(string RegisterNo) {
+            RegistrationViewEntity Result = DataAccess.GetRegistration(RegisterNo);
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                //Result.Summary=  String.Join(Environment.NewLine, Group.GetGroupSummary(RegisterNo).ToArray());
+                Result.Summary = String.Join("     ", Group.GetGroupSummary(RegisterNo).ToArray());
+            } 
+            return Result;
+        }
+
+        /// <summary>
         /// 保存体检登记数据
         /// </summary>
         /// <param name="Registration">体检登记实体</param>
@@ -138,7 +152,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
-            SaveCheckedGroups(Registration.RegisterNo, Registration.PackageID.Value, Registration.Groups);
+            SaveCheckedGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value, Registration.Groups);
         }
 
         /// <summary>

@@ -83,35 +83,39 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected void btnSave_Click(object Source, EventArgs e) {
         if (ItemResultRepeater.Items.Count <= 0) return;
-        Literal lblItemID, lblGroupID;
+        Literal lblItemID, /*lblGroupID, */lblDeptID;
         TextBox txtCheckResult;
-        int? GroupID, ItemID;
+        int? ItemID;
+        int GroupID = Convert.ToInt32(drpGroups.SelectedValue);      
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
             lblItemID = (Literal)Item.FindControl("lblItemID");
-            lblGroupID = (Literal)Item.FindControl("lblGroupID");
+            //lblGroupID = (Literal)Item.FindControl("lblGroupID");
+            lblDeptID = (Literal)Item.FindControl("lblDeptID");
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             ItemID = EnvConverter.ToInt32(lblItemID.Text);
-            GroupID = EnvConverter.ToInt32(lblGroupID.Text);
+            
             ItemResult = new ItemResultEntity {
                 ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = RegisterNo },
-                DeptID = Convert.ToInt32(drpDepts.SelectedValue),
+                DeptID = Convert.ToInt32(lblDeptID.Text),
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
                 CheckedResult = txtCheckResult.Text
             };
             m_ItemResult.SaveItemResult(ItemResult);
         }
-        lblGroupID = (Literal)Items[0].FindControl("lblGroupID");
-        GroupID = Convert.ToInt32(lblGroupID.Text);
+        //lblGroupID = (Literal)Items[0].FindControl("lblGroupID");
+        lblDeptID = (Literal)Items[0].FindControl("lblDeptID");
+        String Summary = "【"+ drpGroups.SelectedItem.Text + "】检查" ;
+        Summary += chkIsPassed.Checked ? "合格" : "不合格";
         GroupResultEntity Group = new GroupResultEntity {
             ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
-            DeptID = Convert.ToInt32(drpDepts.SelectedValue),
+            DeptID = Convert.ToInt32(lblDeptID.Text),
             CheckDate = DateTime.Now.Date,
             CheckDoctor = UserName,
             IsOver = true,
-            Summary = txtSummary.Text,
+            Summary = Summary,
             IsPassed = chkIsPassed.Checked,
             PackageID = PackageID
         };
@@ -137,8 +141,9 @@ public partial class Examination_CheckResultInputPage : BasePage {
         ItemResultBind();
     }
 
-    protected void drpDepts_SelectedIndexChanged(object sender, EventArgs e) {
+    protected void drpGroups_SelectedIndexChanged(object sender, EventArgs e) {
         ItemResultBind();
+        
     }
     #endregion
 
@@ -146,21 +151,23 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private void ClientInitial() {
         txtCheckedDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
-        using (DepartmentBusiness Department = new DepartmentBusiness()) {
-            drpDepts.DataSource = Department.GetDepartments().OrderBy(p=>p.DeptID);
-            drpDepts.DataValueField = "DeptID";
-            drpDepts.DataTextField = "DeptName";
-            drpDepts.DataBind();
+        using (ItemGroupBusiness Business = new ItemGroupBusiness()) {
+            drpGroups.DataSource = Business.GetItemGroups();
+            drpGroups.DataValueField = "GroupID";
+            drpGroups.DataTextField = "GroupName";
+            drpGroups.DataBind();
         }
     }
 
-    private void ItemResultBind() {
-        int RecordCount = 0;
-        int DeptID = Convert.ToInt32(drpDepts.SelectedValue);
-        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager1.CurrentPageIndex,
-            Pager1.PageSize, RegisterNo, DeptID, out RecordCount);
-        Pager1.RecordCount = RecordCount;
-        ItemResultRepeater.DataBind();
+    private void ItemResultBind() {       
+        int GroupID = Convert.ToInt32(drpGroups.SelectedValue);
+        List<ItemResultViewEntity> DataSource = m_ItemResult.GetItemResults(RegisterNo, GroupID);
+        ItemResultRepeater.DataSource = DataSource;
+        Pager1.RecordCount = DataSource.Count;
+        ItemResultRepeater.DataBind();       
+        GroupResultViewEntity Result = m_GroupResut.GetGroupResult(RegisterNo, GroupID);
+        //txtSummary.Text = Result.Summary;
+        chkIsPassed.Checked = Result.IsPassed;
     }
 
     #endregion

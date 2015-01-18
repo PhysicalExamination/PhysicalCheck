@@ -24,8 +24,19 @@ namespace BusinessLogic.Examination {
 
         #region 公共方法
 
-        public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
-            return DataAccess.GetItemResults(RegisterNo, GroupID);
+        public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {           
+            IList<ItemResultViewEntity> List = DataAccess.GetItemResults(RegisterNo, GroupID);
+            var q = List.Select(p => new ItemResultViewEntity {
+                ID = p.ID,
+                DeptID = p.DeptID,
+                DeptName = p.DeptName,
+                ItemName = p.ItemName,
+                CheckedResult = String.IsNullOrWhiteSpace(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
+                UpperLimit = p.UpperLimit,
+                LowerLimit = p.LowerLimit,
+                MeasureUnit = p.MeasureUnit
+            });
+            return q.ToList<ItemResultViewEntity>();
         }
 
         /// <summary>
@@ -37,6 +48,8 @@ namespace BusinessLogic.Examination {
                 RegisterNo, DeptID, out RecordCount);
             var q = List.Select(p => new ItemResultViewEntity {
                 ID = p.ID,
+                DeptID = p.DeptID,
+                DeptName = p.DeptName,
                 ItemName = p.ItemName,
                 CheckedResult = String.IsNullOrWhiteSpace(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
                 UpperLimit = p.UpperLimit,

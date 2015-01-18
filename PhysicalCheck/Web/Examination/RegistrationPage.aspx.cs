@@ -107,6 +107,7 @@ public partial class Examination_RegistrationPage : BasePage {
     /// 重置界面
     /// </summary>
     private void ClearcheckpersonUI() {
+        txtChargeID.Text = "";
         txtRegisterNo.Text = "";
         txtName.Text = "";
         drpSex.SelectedIndex = -1;
@@ -121,7 +122,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtAddress.Text = "";
         txtMobile.Text = "";
         txtEMail.Text = "";
-        txtRegisterDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        txtRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         //txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
         hDeptID.Value = "1";
         hPackageID.Value = "-1";
@@ -130,6 +131,10 @@ public partial class Examination_RegistrationPage : BasePage {
         drpRegion.SelectedIndex = -1;
         drpIndustry.SelectedIndex = -1;
         drpTrade.SelectedIndex = -1;
+        txtDeptName.Text = "";
+        txtPackageName.Text = "";
+        PersonID = int.MinValue;
+        RegisterNo = "";
     }
     /// <summary>
     /// 填充界面

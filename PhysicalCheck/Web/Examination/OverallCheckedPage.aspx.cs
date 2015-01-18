@@ -86,7 +86,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// 填充界面
     /// </summary>
     private void SetRegistrationUI() {
-        RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
+        RegistrationViewEntity Result = m_Registration.GetOverall(RegisterNo);
         if (Result == null) return;      
         txtRegisterNo.Text = Result.RegisterNo;
         txtDeptName.Text = Result.DeptName;
@@ -108,6 +108,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         RegistrationEntity Result = new RegistrationEntity {
             RegisterNo = RegInfo.RegisterNo,
             RegisterDate = RegInfo.RegisterDate,
+            CheckDate = RegInfo.CheckDate,
             PersonID = RegInfo.PersonID,
             PackageID=  RegInfo.PackageID,
             IsCheckOver = true,

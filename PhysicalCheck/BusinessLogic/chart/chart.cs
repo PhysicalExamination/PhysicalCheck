@@ -80,5 +80,18 @@ namespace Maticsoft.BLL.chart
         }
         #endregion
 
+           #region " 工种按年体检人数同比分析-chart2"
+
+
+       /// <summary>
+       /// 获得数据列表
+       /// </summary>
+        public DataSet GetList_TradeYear(string strWhere)
+        {
+            return dal.GetList_TradeYear(strWhere);
+        }
+
+           #endregion
+
     }
 }

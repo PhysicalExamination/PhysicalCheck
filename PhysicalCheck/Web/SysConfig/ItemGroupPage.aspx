@@ -5,7 +5,12 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
+        }
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
@@ -135,16 +140,16 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                组合名称
+                                组合项名称<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtGroupName" runat="server" />
+                                <asp:TextBox CssClass="inputCss validate[required]" ID="txtGroupName" runat="server" data-errormessage="组合项名称不能为空！" />
                             </td>
                             <td class="HVLine">
-                                检查科室
+                                检查科室<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtDeptName" runat="server" ReadOnly="true" />
+                                <asp:TextBox CssClass="inputCss validate[required]" ID="txtDeptName" runat="server" ReadOnly="true"  data-errormessage="检查科室不能为空！"/>
                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择检查科室"
                                     onclick="selectDept();" align="middle" border="0" />
                                     <asp:HiddenField ID="hDeptID" runat="server" />
@@ -176,10 +181,10 @@
                         </tr>
                         <tr>
                             <td class="VLine">
-                                单价
+                                单价（元）<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPrice" runat="server" />
+                                <asp:TextBox CssClass="validate[required] inputCss" ID="txtPrice" runat="server" data-errormessage="单价不能为空！"/>
                             </td>
                             <td class="VLine">
                                 正常描述
@@ -238,7 +243,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditItemGroup_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteItemGroup_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveItemGroup_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveItemGroup_Click"
+                                    OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelItemGroup_Click" />
                                 <input type="button" class="buttonCss" value="设置项目" onclick="onSetCheckedItem();"/>
                                 <asp:HiddenField ID="hValue" runat="server" />

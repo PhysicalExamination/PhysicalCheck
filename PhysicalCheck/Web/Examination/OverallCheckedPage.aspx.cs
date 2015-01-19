@@ -35,8 +35,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         base.OnLoad(e);
         if (!IsPostBack) {
             ClientInitial();
-            DataBind();
-            SetUIState("Default");
+            DataBind();           
         }
     }
 
@@ -80,7 +79,8 @@ public partial class Examination_OverallCheckedPage : BasePage {
         drpEvaluateResult.SelectedIndex = -1;
         drpHealthCondition.SelectedIndex = -1;
         txtConclusion.Text = "";
-        txtRecommend.Text = "";       
+        txtRecommend.Text = "";
+        txtSummary.Text = "";
     }
     /// <summary>
     /// 填充界面
@@ -104,6 +104,8 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// </summary>
     /// <returns></returns>
     private RegistrationEntity GetRegistrationUI() {
+        bool IsCheckOver = true;
+        if (drpHealthCondition.SelectedValue == "04") IsCheckOver = false;
         RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegisterNo);
         RegistrationEntity Result = new RegistrationEntity {
             RegisterNo = RegInfo.RegisterNo,
@@ -111,7 +113,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             CheckDate = RegInfo.CheckDate,
             PersonID = RegInfo.PersonID,
             PackageID=  RegInfo.PackageID,
-            IsCheckOver = true,
+            IsCheckOver = IsCheckOver,
             Conclusion = txtConclusion.Text,
             Recommend = txtRecommend.Text,
             OverallDate = DateTime.Now.Date,
@@ -133,36 +135,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         foreach (Control ctrl in Controls) {
             if (ctrl is WebControl) ((WebControl)ctrl).Enabled = Enabled;
         }
-    }
-    /// <summary>
-    /// 设置界面按钮显示状态
-    /// </summary>
-    /// <param name="State"></param>
-    private void SetUIState(string State) {
-        if (State == "Default") {
-            SetUIStatus(false);         
-            btnEdit.Enabled = CanEditData;            
-            btnSave.Enabled = false;
-        }
-        if (State == "New") {
-            SetUIStatus(true);           
-            btnEdit.Enabled = false;            
-            btnSave.Enabled = true;
-        }
-
-        if (State == "Edit") {
-            SetUIStatus(true);           
-            btnEdit.Enabled = false;           
-            btnSave.Enabled = true; 
-        }
-        txtRegisterNo.Enabled = false;
-        txtDeptName.Enabled = false;
-        txtPackageName.Enabled = false;
-        txtCheckDate.Enabled = false;
-        txtName.Enabled = false;
-        drpSex.Enabled = false;
-        txtSummary.Enabled = false;
-    }
+    }    
 
     #endregion
 
@@ -172,26 +145,24 @@ public partial class Examination_OverallCheckedPage : BasePage {
         RegistrationEntity Result = GetRegistrationUI();
         m_Registration.SaveOverallChecked(Result);
         ShowMessage("总检数据保存成功!");
+        ClearUI();
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
-        DataBind();
-        SetUIState("Default");
+        DataBind();       
     }
 
     protected void btnNew_Click(object sender, EventArgs e) {
         ClearUI();
-        btnSave.Enabled = CanEditData;
-        SetUIState("New");
+        btnSave.Enabled = CanEditData;       
     }
    
     protected void btnEdit_Click(object sender, EventArgs e) {
-        SetUIState("Edit");
+     
     }
 
     protected void btnCancel_Click(object sender, EventArgs e) {
-        ClearUI();
-        SetUIState("Default");
+        ClearUI();       
     }
 
     protected void btnSearch_Click(object sender, EventArgs e) {
@@ -203,7 +174,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             Literal lblRegisterNo = (Literal)e.Item.FindControl("lblRegisterNo");
             RegisterNo = lblRegisterNo.Text;
             SetRegistrationUI();
-            SetUIState("Default");
+            //SetUIState("Default");
         }
     }
 

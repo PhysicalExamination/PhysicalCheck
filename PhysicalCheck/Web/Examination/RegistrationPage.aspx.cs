@@ -248,6 +248,8 @@ public partial class Examination_RegistrationPage : BasePage {
         }
         txtChargeID.Enabled = false;
         txtRegisterNo.Enabled = false;
+        txtPackageName.Enabled = false;
+        txtDeptName.Enabled = false;
     }
 
     #endregion

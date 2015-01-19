@@ -36,7 +36,7 @@ public partial class Reports_Default : BasePage {
             String ReportKind = Request.Params["ReportKind"];
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
-            if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
+            if (ReportKind == "3") BuildIntroductionReport(RegisterNo);//引导单
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
@@ -266,7 +266,7 @@ public partial class Reports_Default : BasePage {
 
     private List<Package> GetPackageItems(int PackageID) {
         //0 检查科室 1 检验科室 2 功能科室
-        String[] Names = new String[] { "抽血及其它化验项目", "医生检查项目", "功能检查项目" };
+        String[] Names = new String[] { "医生检查项目", "抽血及其它化验项目", "功能检查项目" };
         List<Package> List = new List<Package>();
         List<DepartmentEntity> Departments;
         List<PackageGroupViewEntity> Groups;

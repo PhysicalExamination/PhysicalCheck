@@ -5,10 +5,15 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
+        }
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
         }
         
     </script>
@@ -119,24 +124,24 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                体检单位
+                                体检单位<font color="red">*</font>
                             </td>
                             <td class="HVLine" colspan="3">
-                                <asp:TextBox CssClass="textbox51" ID="txtDeptName" runat="server" Width="99%" />
+                                <asp:TextBox CssClass="validate[required] textbox51" ID="txtDeptName" runat="server" Width="99%" data-errormessage-value-missing="体检单位不能为空!"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="VLine">
-                                联系人
+                                联系人<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox41" ID="txtLeader" runat="server" />
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtLeader" runat="server" data-errormessage-value-missing="联系人不能为空!"/>
                             </td>
                             <td class="VLine">
-                                联系电话
+                                联系电话<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox41" ID="txtLinkTel" runat="server" />
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtLinkTel" runat="server" data-errormessage-value-missing="联系电话不能为空!"/>
                             </td>
                         </tr>
                         <tr>
@@ -198,7 +203,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditPhysicalDepartment_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeletePhysicalDepartment_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSavePhysicalDepartment_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSavePhysicalDepartment_Click" 
+                                    OnClientClick="return checkForm();"/>
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelPhysicalDepartment_Click" />
                             </td>
                         </tr>

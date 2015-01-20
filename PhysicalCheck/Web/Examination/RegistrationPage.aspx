@@ -5,7 +5,12 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
+        }
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
@@ -185,10 +190,12 @@
                                 <asp:TextBox CssClass="textbox31" ID="txtRegisterNo" runat="server" Enabled="false" />
                             </td>
                             <td class="HVLine">
-                                登记日期
+                                登记日期<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox31  Wdate" ID="txtRegisterDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                                <asp:TextBox CssClass="validate[required] textbox31  Wdate" ID="txtRegisterDate" runat="server" 
+                                onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" 
+                                data-errormessage-value-missing="登记日期不能为空!"/>
                             </td>
                         </tr>
                         <tr>
@@ -202,10 +209,10 @@
                                 <asp:HiddenField ID="hDeptID" runat="server" Value="1" />
                             </td>
                             <td class="VLine">
-                                套 餐
+                                套 餐<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox ID="txtPackageName" runat="server" CssClass="textbox31" />
+                                <asp:TextBox ID="txtPackageName" runat="server" CssClass="validate[required] textbox31" data-errormessage-value-missing="套餐不能为空!"/>
                                  <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
                                     onclick="selectPackage();" align="middle" border="0"  />
                                      <asp:HiddenField ID="hPackageID" runat="server" />
@@ -213,16 +220,16 @@
                         </tr>
                         <tr>
                             <td class="VLine">
-                                体检日期
+                                体检日期<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox ID="txtCheckDate" runat="server" CssClass="textbox31 Wdate" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                                <asp:TextBox ID="txtCheckDate" runat="server" CssClass="validate[required] textbox31 Wdate" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" data-errormessage-value-missing="体检日期不能为空!"/>
                             </td>
                             <td class="VLine">
-                                姓 名
+                                姓 名<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtName" runat="server" />
+                                <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server" data-errormessage-value-missing="环保施安装单位不能为空!"/>
                             </td>
                         </tr>
                         <tr>
@@ -245,10 +252,11 @@
                         </tr>
                         <tr>
                             <td class="VLine">
-                                身份证号
+                                身份证号<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtIDNumber" runat="server" />
+                                <asp:TextBox CssClass="validate[required] validate[custom[chinaIdLoose]] textbox31" ID="txtIDNumber" runat="server" 
+                                data-errormessage-value-missing="身份证号不能为空!" data-errormessage-custom-error="身份证号码有误请重新输入15位或18位身份证号码！"/>
                             </td>
                             <td class="VLine">
                                 出生日期
@@ -330,7 +338,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEdit_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDelete_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" 
+                                    OnClientClick="return checkForm();"/>
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
                                 
                             </td>

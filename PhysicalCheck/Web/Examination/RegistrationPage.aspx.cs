@@ -102,11 +102,13 @@ public partial class Examination_RegistrationPage : BasePage {
         txtAddress.Text = "";
         txtMobile.Text = "";
         txtEMail.Text = "";
-        txtRegisterDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
-        txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        txtRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        txtCheckDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         hDeptID.Value = "1";
         hPackageID.Value = "-1";
         hGroups.Value = "";
+        PersonID = int.MinValue;
+        RegisterNo = "";
     }
     /// <summary>
     /// 填充界面

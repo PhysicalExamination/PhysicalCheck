@@ -105,12 +105,14 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// <returns></returns>
     private RegistrationEntity GetRegistrationUI() {
         RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegisterNo);
+        bool IsCheckOver = true;
+        if (!String.IsNullOrWhiteSpace(txtReviewDate.Text)) IsCheckOver = false;
         RegistrationEntity Result = new RegistrationEntity {
             RegisterNo = RegInfo.RegisterNo,
             RegisterDate = RegInfo.RegisterDate,
             PersonID = RegInfo.PersonID,
             PackageID=  RegInfo.PackageID,
-            IsCheckOver = true,
+            IsCheckOver = IsCheckOver,
             Conclusion = txtConclusion.Text,
             Recommend = txtRecommend.Text,
             OverallDate = DateTime.Now.Date,

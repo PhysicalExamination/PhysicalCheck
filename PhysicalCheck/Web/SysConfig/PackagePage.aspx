@@ -5,10 +5,15 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
+        }
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
         }
 
         function onSetItemGroup() {
@@ -113,16 +118,16 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                套餐名称
+                                套餐名称<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPackageName" runat="server" />
+                                <asp:TextBox CssClass="validate[required] inputCss" ID="txtPackageName" runat="server" data-errormessage-value-missing="套餐名称不能为空!"/>
                             </td>
                             <td class="HVLine">
-                                价格（元）
+                                价格（元）<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtPrice" runat="server" ReadOnly="true" />
+                                <asp:TextBox CssClass="validate[required] inputCss" ID="txtPrice" runat="server" ReadOnly="true" data-errormessage-value-missing="套餐单价不能为空!" />
                             </td>
                         </tr>
                         <tr>
@@ -144,7 +149,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditPackage_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeletePackage_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSavePackage_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSavePackage_Click" 
+                                    OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelPackage_Click" />
                                 <input type="button" id="btnSetGroup" value="设置组合项" class="buttonCss" onclick="onSetItemGroup();" />
                             </td>

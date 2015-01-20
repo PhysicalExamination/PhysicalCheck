@@ -136,7 +136,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtNormalTips.Text = "";
         txtLowerTips.Text = "";
         txtUpperTips.Text = "";
-        txtSex.Text = "";
+        drpSex.SelectedIndex =-1;
         chkIsSummary.Checked = false;    
     }
 
@@ -155,7 +155,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtNormalTips.Text = Result.NormalTips;
         txtLowerTips.Text = Result.LowerTips;
         txtUpperTips.Text = Result.UpperTips;
-        txtSex.Text = Result.Sex;
+        drpSex.SelectedValue = Result.Sex;
         chkIsSummary.Checked = false;
         if (Result.IsSummary.HasValue) chkIsSummary.Checked = Result.IsSummary.Value;
     }
@@ -175,7 +175,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         Result.NormalTips = txtNormalTips.Text;
         Result.LowerTips = txtLowerTips.Text;
         Result.UpperTips = txtUpperTips.Text;
-        Result.Sex = txtSex.Text;
+        Result.Sex = drpSex.SelectedValue;
         Result.IsSummary = chkIsSummary.Checked;
         return Result;
     }

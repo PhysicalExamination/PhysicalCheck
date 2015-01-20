@@ -143,7 +143,7 @@ public partial class SysConfig_PackagePage : BasePage {
     private void ClearPackageUI() {
         PackageID = int.MinValue;
         txtPackageName.Text = "";
-        txtPrice.Text = "";
+        txtPrice.Text = "0.00";
         drpCategorys.SelectedIndex = -1;
     }
 

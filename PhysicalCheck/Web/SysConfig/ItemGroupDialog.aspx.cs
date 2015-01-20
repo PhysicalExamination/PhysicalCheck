@@ -67,6 +67,18 @@ public partial class SysConfig_ItemGroupDialog : BasePage {
 
     #endregion
 
+    #region 受保护方法
+
+    protected String GetSex(Object obj) {
+        String val = (String)obj;
+        if (val == "%") return "不限";
+        if (val == "0") return "女";
+        if (val == "1") return "男";
+        return "";
+    }
+
+    #endregion
+
     #region 事件
 
     protected void Pager_PageChanged(object source, EventArgs e) {

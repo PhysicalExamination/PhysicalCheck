@@ -5,11 +5,16 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
-        }       
+        }
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
+        }  
         
     </script>
 </asp:Content>
@@ -105,10 +110,10 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                科室名称
+                                科室名称<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox41" ID="txtDeptName" runat="server" />
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtDeptName" runat="server" />
                             </td>
                              <td class="HVLine">
                                 科室类别
@@ -127,7 +132,7 @@
                                 科室位置
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="textbox41" T ID="txtDepLlocation" runat="server" Width="99%" />
+                                <asp:TextBox CssClass="textbox41" ID="txtDepLlocation" runat="server" Width="99%" />
                             </td>
                         </tr>
                         <tr>
@@ -136,7 +141,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditUser_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteUser_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click" 
+                                     OnClientClick="return checkForm();"/>
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelUser_Click" />
                             </td>
                         </tr>

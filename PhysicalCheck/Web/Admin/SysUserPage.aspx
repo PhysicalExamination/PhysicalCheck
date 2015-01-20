@@ -5,13 +5,15 @@
     <script type="text/javascript">
         $(function() {
             $("#tabs").tabs();
-            $("#<%=txtUserAccount.ClientID %>").blur( function () { 
-                alert("Hello World!"); 
-            });
+           $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
+        }
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
         }
         
         function CheckUserAccount() {
@@ -148,16 +150,16 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                用户名
+                                用户名<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtUserName" runat="server" />
+                                <asp:TextBox CssClass="validate[required] inputCss" ID="txtUserName" runat="server" data-errormessage-value-missing="用户名不能为空!"/>
                             </td>
                             <td class="HVLine">
-                                登录账号
+                                登录账号<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtUserAccount" runat="server" />
+                                <asp:TextBox CssClass="validate[required] inputCss" ID="txtUserAccount" runat="server" data-errormessage-value-missing="登录账号不能为空!"/>
                             </td>
                         </tr>
                         <tr>
@@ -182,7 +184,7 @@
                                 <asp:TextBox CssClass="inputCss" ID="txtMobile" runat="server" />
                             </td>
                             <td class="VLine">
-                                所在部门
+                                所在部门<font color="red">*</font>
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpDeparts" runat="server">
@@ -200,10 +202,10 @@
                                 </asp:DropDownList>
                             </td>
                             <td class="VLine">
-                                密码
+                                密码<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="inputCss" TextMode="Password" ID="txtPassWord" runat="server" />
+                                <asp:TextBox CssClass="validate[required] inputCss" TextMode="Password" ID="txtPassWord" runat="server" data-errormessage-value-missing="密码不能为空!" />
                             </td>
                         </tr>
                         <tr>
@@ -220,7 +222,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditUser_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteUser_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click" 
+                                    OnClientClick="return checkForm();"/>
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelUser_Click" />
                             </td>
                         </tr>

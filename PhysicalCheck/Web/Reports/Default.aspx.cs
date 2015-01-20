@@ -59,31 +59,41 @@ public partial class Reports_Default : BasePage {
 
         Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
 
+        bool blDate = true;
         string sqlw = " 1=1 ";
 
         if (Request.Params["RegisterNo"] != "")
+        {
             sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
+            blDate = false;
+        }
 
         if (Request.Params["DeptName"] != "")
-            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
-
+        {sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
+        blDate = false;
+        }
         if (Request.Params["Name"] != "")
-            sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
-
+        {   sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
+        blDate = false;
+        }
 
         if (Request.Params["IdNumber"] != "")
-            sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
-
+        {   sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
+        blDate = false;
+        }
         if (Request.Params["OverallDoctor"] != "")
-            sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+        {   sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+        blDate = false;
+        }
 
+        if (blDate)
+        {
+            if (Request.Params["StartDate"] != "")
+                sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
 
-        if (Request.Params["StartDate"] != "")
-            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
-
-        if (Request.Params["EndDate"] != "")
-            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
-
+            if (Request.Params["EndDate"] != "")
+                sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+        }
 
 
         DataSet ds = bll.GetList_Composed(sqlw);

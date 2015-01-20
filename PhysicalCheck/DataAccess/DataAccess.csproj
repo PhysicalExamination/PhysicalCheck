@@ -70,6 +70,7 @@
     <Compile Include="Admin\SysUserDataAccess.cs" />
     <Compile Include="BaseDataAccess.cs" />
     <Compile Include="chart\BaseInfo.cs" />
+    <Compile Include="chart\chart.cs" />
     <Compile Include="chart\Search.cs" />
     <Compile Include="Examination\ChargeDataAccess.cs" />
     <Compile Include="Examination\CheckPersonDataAccess.cs" />

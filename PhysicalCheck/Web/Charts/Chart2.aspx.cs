@@ -42,7 +42,7 @@ public partial class Charts_Chart2 : System.Web.UI.Page {
         Title m_Title = Chart1.Titles[0];
         m_Title.Font = new Font("宋体", 12f);
         m_Title.Font = new Font("宋体", 12f, System.Drawing.FontStyle.Bold);
-        m_Title.Text = "历年" + drpTrades.Text + "从业人员体检人数分布";
+        m_Title.Text = "历年" + drpTrades.SelectedItem.Text + "从业人员体检人数分布";
         ChartArea chartaera = Chart1.ChartAreas["ChartArea1"];
         chartaera.AxisX.LabelStyle.Font = new Font("宋体", 9.75f);
         chartaera.AxisY.LabelStyle.Font = new Font("宋体", 9.75f);

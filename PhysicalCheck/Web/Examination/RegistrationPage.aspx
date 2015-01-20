@@ -229,7 +229,7 @@
                                 姓 名<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server" data-errormessage-value-missing="环保施安装单位不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server" data-errormessage-value-missing="体检人姓名不能为空!"/>
                             </td>
                         </tr>
                         <tr>

@@ -64,6 +64,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             Pager.PageSize, RegisterNo, DepartNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
+        txtSummary.Text = "";
     }
 
     #endregion

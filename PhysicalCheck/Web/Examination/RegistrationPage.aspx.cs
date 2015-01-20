@@ -88,6 +88,8 @@ public partial class Examination_RegistrationPage : BasePage {
     /// 重置界面
     /// </summary>
     private void ClearcheckpersonUI() {
+        txtDeptName.Text = "个人体检";
+        txtPackageName.Text = "";
         txtRegisterNo.Text = "";
         txtName.Text = "";
         drpSex.SelectedIndex = -1;
@@ -211,6 +213,8 @@ public partial class Examination_RegistrationPage : BasePage {
             txtPackageName.Enabled = false;
         }
         txtRegisterNo.Enabled = false;
+        txtDeptName.Enabled = false;
+        txtPackageName.Enabled = false;
     }
 
     #endregion

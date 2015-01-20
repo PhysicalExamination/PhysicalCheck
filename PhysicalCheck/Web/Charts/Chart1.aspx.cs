@@ -53,7 +53,6 @@ public partial class Charts_Chart1 :BasePage {
         string strSql = "";
 
         strSql = string.Format("   LEFT(RegisterNo,4)>='{0}' And LEFT(RegisterNo,4)<='{1}' ", Convert.ToInt32(drpYears.SelectedValue)-1, drpYears.SelectedValue);
-
         DataTable dt = new Maticsoft.BLL.chart.chart().GetList_PersonNumber(strSql).Tables[0];
 
         DateTime startDateTime = new DateTime(Convert.ToInt32(drpYears.SelectedValue)-1, 1, 1), endDateTime = new DateTime(Convert.ToInt32(drpYears.SelectedValue)-1, 12, 31);

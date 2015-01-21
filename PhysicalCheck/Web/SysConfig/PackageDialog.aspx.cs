@@ -99,7 +99,7 @@ public partial class SysConfig_PackageDialog : BasePage {
         }
         hGroups.Value = String.Join(",", Groups.ToArray());
         hGroups.Value = hGroups.Value.Substring(1, hGroups.Value.Length - 1);
-        //ShowMessage(hGroups.Value);
+        ShowMessage("您选择的体检组合项保存成功！");
     }
 
     protected void btnSearch_Click(Object Source, EventArgs e) {

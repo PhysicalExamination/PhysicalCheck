@@ -121,7 +121,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
-            SaveCheckedGroups(Registration.RegisterNo, Registration.PackageID.Value,Registration.Groups);
+            SaveCheckedGroups(RegEntity.RegisterNo, Registration.PackageID.Value, Registration.Groups);
         }
 
         /// <summary>

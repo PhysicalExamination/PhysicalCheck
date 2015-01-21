@@ -59,6 +59,26 @@
             var sURL = "<%=ApplicationPath%>/DownLoad/团体数据填报模板.zip";
             window.open(sURL, "_blank", "", true);
         }
+
+        function setBirthdaySex(event) {           
+            var regex = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            var IDNumber = $("#<%=txtIDNumber.ClientID%>").val();          
+            if (!regex.test(IDNumber)) return;            
+            var birthday = IDNumber.substr(6, 4) + "年" +
+                           IDNumber.substr(10, 2) + "月" +
+                           IDNumber.substr(12, 2) + "日";
+            $("#<%=txtBirthday.ClientID%>").val(birthday);
+            $("#<%=drpSex.ClientID%>").val("男");
+            var sex=1;
+            if (IDNumber.length == 18) sex = parseInt(IDNumber.substr(16, 1), 10);
+            if (IDNumber.length == 15) sex = parseInt(IDNumber.substr(13, 1), 10);
+            if (sex % 2 == 0) $("#<%=drpSex.ClientID%>").val("女");
+            var d = new Date();
+            var CurrentYear = d.getFullYear();
+            var BirthYear = parseInt(IDNumber.substr(6, 4), 10);
+            var age = CurrentYear - BirthYear;
+            $("#<%=txtAge.ClientID%>").val(age);
+        }
        
     </script>
 </asp:Content>
@@ -255,7 +275,7 @@
                                 身份证号<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] validate[custom[chinaIdLoose]] textbox31" ID="txtIDNumber" runat="server" 
+                                <asp:TextBox CssClass="validate[required] validate[custom[chinaIdLoose]] textbox31" ID="txtIDNumber" runat="server" onchange="setBirthdaySex();"                              
                                 data-errormessage-value-missing="身份证号不能为空!" data-errormessage-custom-error="身份证号码有误请重新输入15位或18位身份证号码！"/>
                             </td>
                             <td class="VLine">
@@ -346,6 +366,9 @@
                         </tr>
                     </table>
                     <asp:HiddenField ID="hGroups" runat="server" Value="" />
+                    <script type="text/javascript">
+                        $("#<%=txtIDNumber.ClientID%>").bind("change", setBirthdaySex);
+                    </script>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

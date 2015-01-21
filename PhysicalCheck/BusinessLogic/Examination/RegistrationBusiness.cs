@@ -26,8 +26,8 @@ namespace BusinessLogic.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-            return DataAccess.GetRegistrations(pageIndex, pageSize, CheckDate, DeptName,
+            DateTime? RegDate, String DeptName, String RegisterNo, out int RecordCount) {
+                return DataAccess.GetRegistrations(pageIndex, pageSize, RegDate, DeptName,
                 RegisterNo, out RecordCount);
         }
 
@@ -84,6 +84,20 @@ namespace BusinessLogic.Examination {
         /// <returns>体检登记实体</returns>
         public RegistrationViewEntity GetRegistration(string RegisterNo) {
             return DataAccess.GetRegistration(RegisterNo);
+        }
+
+        /// <summary>
+        /// 获取总检数据
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <returns></returns>
+        public RegistrationViewEntity GetOverall(string RegisterNo) {
+            RegistrationViewEntity Result = DataAccess.GetRegistration(RegisterNo);
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                //Result.Summary=  String.Join(Environment.NewLine, Group.GetGroupSummary(RegisterNo).ToArray());
+                Result.Summary = String.Join(Environment.NewLine, Group.GetGroupSummary(RegisterNo).ToArray());
+            }
+            return Result;
         }
 
         /// <summary>

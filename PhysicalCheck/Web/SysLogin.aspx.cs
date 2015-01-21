@@ -41,13 +41,14 @@ public partial class SysLogin : Page, ICallbackEventHandler
                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
                 FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+                Response.Cookies.Remove(authCookie.Name);
                 Response.Cookies.Add(authCookie);
                 callBackResult = FormsAuthentication.DefaultUrl;
             }
         }
-        FormsAuthentication.SetAuthCookie("Admin", true);
+        //FormsAuthentication.SetAuthCookie("Admin", true);
         //Server.Transfer(FormsAuthentication.DefaultUrl);
-        callBackResult = FormsAuthentication.DefaultUrl;
+        //callBackResult = FormsAuthentication.DefaultUrl;
 	}
 
 	#endregion

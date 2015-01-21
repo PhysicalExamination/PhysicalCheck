@@ -113,7 +113,7 @@
                                 科室名称<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtDeptName" runat="server" />
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtDeptName" runat="server" data-errormessage-value-missing="科室名称不能为空!"/>
                             </td>
                              <td class="HVLine">
                                 科室类别

@@ -31,7 +31,7 @@ namespace DataAccess.Examination {
         /// <summary>
         ///获取所有体检登记数据
         /// </summary>
-        public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
+        public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
             DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => p.Enabled == true);
@@ -46,6 +46,27 @@ namespace DataAccess.Examination {
             }
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 获取某天或体检单位的所有体检登记数据
+        /// </summary>
+        /// <param name="RegisterDate"></param>
+        /// <param name="DeptName"></param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetRegistrationForReport(DateTime? RegisterDate, String DeptName) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            
+            if(String.IsNullOrWhiteSpace(DeptName)&&(RegisterDate != null)) {
+                q = q.Where(p => p.RegisterDate == RegisterDate);
+            }
+            List<RegistrationViewEntity> Result = q.ToList();          
             CloseSession();
             return Result;
         }

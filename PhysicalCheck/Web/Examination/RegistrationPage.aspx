@@ -49,9 +49,16 @@
             var sFeatures = "dialogHeight=600px;dialogWidth=800px;center:yes;help:no;status:no;rsizable:yes";
             window.showModalDialog(sURL, vArguments, sFeatures);
         }
-        
+
+        function PrintIntroductions() {
+            var RegisterDate = $("#<%=txtSRegisterDate.ClientID %>").val();
+            var DeptName = encodeURI($("#<%=txtsDeptName.ClientID %>").val());
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterDate=" + RegisterDate + "&DeptName=" + DeptName + "&ReportKind=4";
+            window.open(sURL, "_blank", "", true);
+        }
+
         function PrintIntroduction(RegisterNo) {
-            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo +"&ReportKind=3";
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=3";
             window.open(sURL, "_blank", "", true);
         }
 
@@ -95,6 +102,7 @@
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
             <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
+            <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
             <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();"/>
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>

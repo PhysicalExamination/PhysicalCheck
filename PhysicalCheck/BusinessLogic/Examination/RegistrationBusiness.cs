@@ -25,12 +25,19 @@ namespace BusinessLogic.Examination {
         /// <summary>
         ///获取所有体检登记数据
         /// </summary>
-        public IList<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime? RegDate, String DeptName, String RegisterNo, out int RecordCount) {
-                return DataAccess.GetRegistrations(pageIndex, pageSize, RegDate, DeptName,
+        public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
+                return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
                 RegisterNo, out RecordCount);
         }
 
+
+        /// <summary>
+        ///获取某天或体检单位的所有体检登记数据
+        /// </summary>
+        public List<RegistrationViewEntity> GetRegistrationForReport(DateTime? RegisterDate, String DeptName) {
+            return DataAccess.GetRegistrationForReport(RegisterDate, DeptName);
+        }
         /// <summary>
         /// 返回所有通过体检但未总检的登记信息
         /// </summary>

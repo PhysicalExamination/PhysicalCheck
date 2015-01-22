@@ -37,7 +37,9 @@ public partial class Reports_Default : Page {
             String ReportKind = Request.Params["ReportKind"];
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
-            if (ReportKind == "3") BuildIntroductionReport(RegisterNo);
+            if (ReportKind == "3") BuildIntroductionReport(RegisterNo);//体检引导单
+            if (ReportKind == "4") BuildIntroductionListReport();//体检引导单批量打印
+            if (ReportKind == "5") BuildBarCodeListReport();//条码单批量打印
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
@@ -185,13 +187,40 @@ public partial class Reports_Default : Page {
 
     #region 私有方法
 
-    public void BuildBarCodeReport(String RegisterNo) {
+    /// <summary>
+    /// 个人条码打印
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    private void BuildBarCodeReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
         WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");
         WebReport1.Report.Prepare();
     }
 
-    public void BuildCheckReport(String RegisterNo) {
+    /// <summary>
+    /// 条码批量打印
+    /// </summary>
+    private void BuildBarCodeListReport() {
+        WebReport1.ReportFile = Server.MapPath("BarCode.frx");
+        DateTime? RegisterDate = null;
+        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"])) {
+            RegisterDate = Convert.ToDateTime(Request.Params["RegisterDate"]);
+        }
+        String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
+        List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrationForReport(RegisterDate, DeptName);
+        List<BarCode> BarCodes = new List<BarCode>();
+        foreach (RegistrationViewEntity Registration in Registrations) {
+            BarCodes.AddRange(GetBarCodes(Registration.RegisterNo));
+        }
+        WebReport1.Report.RegisterData(BarCodes, "BarCodes");
+        WebReport1.Report.Prepare();
+    }
+
+    /// <summary>
+    /// 体检报告打印
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    private void BuildCheckReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("CheckReport.frx");
         //WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");            
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
@@ -208,7 +237,11 @@ public partial class Reports_Default : Page {
         WebReport1.Prepare();
     }
 
-    public void BuildIntroductionReport(String RegisterNo) {
+    /// <summary>
+    /// 个人体检引导单打印
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    private void BuildIntroductionReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("IntroductionReport.frx");
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
@@ -221,10 +254,17 @@ public partial class Reports_Default : Page {
         WebReport1.Prepare();
     }
 
-    public void BuildIntroductionListReport() {
+    /// <summary>
+    /// 引导单批量打印
+    /// </summary>
+    private void BuildIntroductionListReport() {
         WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");
-        int RecordCount = 0;
-        IList<RegistrationViewEntity> Registrations = m_Registration.GetRegistrations(1, 200, null, "北斗", null, out RecordCount);
+        DateTime? RegisterDate = null;
+        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"])) {
+            RegisterDate = Convert.ToDateTime(Request.Params["RegisterDate"]);
+        }        
+        String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
+        List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrationForReport(RegisterDate, DeptName);
         //Registrations.Add(Registration);
         List<Package> Packages = new List<Package>();
         List<GroupItem> GroupItems = new List<GroupItem>();

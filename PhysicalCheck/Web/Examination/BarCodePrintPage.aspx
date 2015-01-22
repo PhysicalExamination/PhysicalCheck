@@ -7,6 +7,13 @@
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=1";
             window.open(sURL, "_blank", "", true);
         }
+        function PrintBarCodes() {
+            var RegisterDate = $("#<%=txtSRegisterDate.ClientID %>").val();
+            var DeptName = encodeURI($("#<%=txtsDeptName.ClientID %>").val());
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterDate=" + RegisterDate + 
+                       "&DeptName=" + DeptName + "&ReportKind=5";
+            window.open(sURL, "_blank", "", true);
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -15,6 +22,7 @@
     体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
     登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+    <input type="button" class="buttonCss" value="批量打印" onclick="PrintBarCodes();" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">

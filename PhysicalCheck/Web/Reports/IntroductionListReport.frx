@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="01/22/2015 10:52:25" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="Name" DataType="System.String"/>
+      <Column Name="Sex" DataType="System.String"/>
+      <Column Name="Age" DataType="System.Int32"/>
+      <Column Name="DeptName" DataType="System.String"/>
+      <Column Name="IDNumber" DataType="System.String"/>
+      <Column Name="LinkTel" DataType="System.String"/>
+      <Column Name="PackageName" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Packages" ReferenceName="Packages" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="GroupID" DataType="System.Int32"/>
+      <Column Name="PackageName" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="ItemGroups" ReferenceName="ItemGroups" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="GroupID" DataType="System.Int32"/>
+      <Column Name="GroupName" DataType="System.String"/>
+      <Column Name="Clinical" DataType="System.String"/>
+      <Column Name="Notice" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <Relation Name="Registration_Packages1" ParentDataSource="Registration" ChildDataSource="Packages" ParentColumns="RegisterNo" ChildColumns="RegisterNo" Enabled="true"/>
+    <Relation Name="Packages_ItemGroups1" ParentDataSource="Packages" ChildDataSource="ItemGroups" ParentColumns="RegisterNo&#13;&#10;GroupID" ChildColumns="RegisterNo&#13;&#10;GroupID" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="378,653,170.1,548.1,-9.45,94.5,274.05,349.65,472.5,567,718.2,576.45,727.65,207.9,538.65,737.1,330.75,689.85">
+    <DataBand Name="Data1" Width="718.2" Height="311.85" StartNewPage="true" Guides="122.85,160.65,189,47.25,85.05,207.9,232.47,245.7,270.27,283.5,308.07" DataSource="Registration">
+      <BarcodeObject Name="Barcode1" Left="378" Top="122.85" Width="275" Height="37.8" Text="20141214000043" ShowText="false"/>
+      <TextObject Name="Text2" Left="378" Top="160.65" Width="275" Height="28.35" Text="登记号：[Registration.RegisterNo]" AutoWidth="true" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text1" Left="170.1" Top="47.25" Width="378" Height="37.8" Text="体 检 指 引 单" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
+      <TextObject Name="Text3" Left="-9.45" Top="207.9" Width="103.95" Height="24.57" Text="档 案 号：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text4" Left="94.5" Top="207.9" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text5" Left="274.05" Top="207.9" Width="75.6" Height="24.57" Text="姓 名 ：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text6" Left="349.65" Top="207.9" Width="122.85" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.Name]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text7" Left="472.5" Top="207.9" Width="94.5" Height="24.57" Text="性 别： " VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text8" Left="567" Top="207.9" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.Sex]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text9" Left="274.05" Top="245.7" Width="75.6" Height="24.57" Text="年 龄：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text10" Left="349.65" Top="245.7" Width="122.85" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.Age]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text11" Left="-9.45" Top="245.7" Width="103.95" Height="24.57" Text="身份证号：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text12" Left="94.5" Top="245.7" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.IDNumber]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text13" Left="472.5" Top="245.7" Width="94.5" Height="24.57" Text="联系电话：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text14" Left="567" Top="245.7" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.LinkTel]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text15" Left="-9.45" Top="283.5" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text16" Left="94.5" Top="283.5" Width="378" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text17" Left="472.5" Top="283.5" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text18" Left="576.45" Top="283.5" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <DataBand Name="Data2" Top="315.7" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="Packages">
+        <TextObject Name="Text19" Left="-9.45" Width="217.35" Height="24.57" Fill.Color="Gainsboro" Text="[Packages.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <TextObject Name="Text20" Left="207.9" Width="330.75" Height="24.57" Fill.Color="Gainsboro" Text="临床意义" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <TextObject Name="Text21" Left="538.65" Width="198.45" Height="24.57" Fill.Color="Gainsboro" Text="检查提示" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <DataBand Name="Data3" Top="344.11" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="ItemGroups">
+          <TextObject Name="Text22" Left="-9.45" Width="217.35" Height="24.57" CanGrow="true" Text="[ItemGroups.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text23" Left="207.9" Width="330.75" Height="24.57" CanGrow="true" Text="[ItemGroups.Clinical]" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text24" Left="538.65" Width="198.45" Height="24.57" CanGrow="true" Text="[ItemGroups.Notice]" VertAlign="Center" Font="宋体, 12pt"/>
+        </DataBand>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="372.53" Width="718.2" Height="109.62" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
+      <TextObject Name="Text25" Left="-9.45" Top="9.45" Width="727.65" Height="37.8" Border.Lines="Top, Bottom" Border.Width="1.5" Text="祝您身体健康！" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text26" Left="-9.45" Top="56.7" Width="737.1" Height="24.57" Text="医院地址：陕西省西安市长乐西路15号" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text27" Left="-9.45" Top="85.05" Width="340.2" Height="24.57" Text="联系电话：029-84775507" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text28" Left="349.65" Top="85.05" Width="340.2" Height="24.57" Text="传 真：029-84775507" VertAlign="Center" Font="宋体, 12pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

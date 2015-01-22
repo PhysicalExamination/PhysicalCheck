@@ -12,7 +12,7 @@ using DataEntity.SysConfig;
 using DataEntity.Admin;
 using BusinessLogic.Admin;
 using System.Data;
-public partial class Reports_Default : BasePage {
+public partial class Reports_Default : Page {
 
     private RegistrationBusiness m_Registration;
 
@@ -32,6 +32,7 @@ public partial class Reports_Default : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            BuildIntroductionListReport();
             String RegisterNo = Request.Params["RegisterNo"];//"20141214000043"
             String ReportKind = Request.Params["ReportKind"];
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
@@ -212,11 +213,27 @@ public partial class Reports_Default : BasePage {
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
         Registrations.Add(Registration);
-        using (PackageBusiness Business = new PackageBusiness()) {
-            Business.GetPackageGroups(1);
+        List<Package> Packages = GetPackageItems(RegisterNo,Registration.PackageID.Value);
+        List<GroupItem> GroupItems = GetGroupItems(RegisterNo,Registration.PackageID.Value);
+        WebReport1.Report.RegisterData(Registrations, "Registration");
+        WebReport1.Report.RegisterData(Packages, "Packages");
+        WebReport1.Report.RegisterData(GroupItems, "ItemGroups");
+        WebReport1.Prepare();
+    }
+
+    public void BuildIntroductionListReport() {
+        WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");
+        int RecordCount = 0;
+        IList<RegistrationViewEntity> Registrations = m_Registration.GetRegistrations(1, 200, null, "北斗", null, out RecordCount);
+        //Registrations.Add(Registration);
+        List<Package> Packages = new List<Package>();
+        List<GroupItem> GroupItems = new List<GroupItem>();
+        foreach (RegistrationViewEntity Registration in Registrations) {
+            Packages.AddRange(GetPackageItems(Registration.RegisterNo,Registration.PackageID.Value));
+            GroupItems.AddRange(GetGroupItems(Registration.RegisterNo, Registration.PackageID.Value));
         }
-        List<Package> Packages = GetPackageItems(Registration.PackageID.Value);
-        List<GroupItem> GroupItems = GetGroupItems(Registration.PackageID.Value);
+        //List<Package> Packages = GetPackageItems(Registration.PackageID.Value);
+        //List<GroupItem> GroupItems = GetGroupItems(Registration.PackageID.Value);
         WebReport1.Report.RegisterData(Registrations, "Registration");
         WebReport1.Report.RegisterData(Packages, "Packages");
         WebReport1.Report.RegisterData(GroupItems, "ItemGroups");
@@ -263,7 +280,7 @@ public partial class Reports_Default : BasePage {
     }
 
 
-    private List<Package> GetPackageItems(int PackageID) {
+    private List<Package> GetPackageItems(String RegisterNo,int PackageID) {
         //0 检查科室 1 检验科室 2 功能科室
         String[] Names = new String[] { "抽血及其它化验项目", "医生检查项目", "功能检查项目" };
         List<Package> List = new List<Package>();
@@ -279,13 +296,14 @@ public partial class Reports_Default : BasePage {
                 join b in Departments on a.DeptID equals b.DeptID
                 group b by b.DeptKind into g
                 select new Package {
+                    RegisterNo = RegisterNo,
                     GroupID = Convert.ToInt32(g.Key),
                     PackageName = Names[Convert.ToInt32(g.Key)] + g.Count() + "项"
                 };
         return q.ToList();
     }
 
-    private List<GroupItem> GetGroupItems(int PackageID) {
+    private List<GroupItem> GetGroupItems(String RegisterNo, int PackageID) {
         List<DepartmentEntity> Departments;
         List<PackageGroupViewEntity> Groups;
         using (PackageBusiness Business = new PackageBusiness()) {
@@ -297,6 +315,7 @@ public partial class Reports_Default : BasePage {
         var q = from a in Groups
                 join b in Departments on a.DeptID equals b.DeptID
                 select new GroupItem {
+                    RegisterNo = RegisterNo,
                     GroupID = Convert.ToInt32(b.DeptKind),
                     GroupName = a.GroupName,
                     Clinical = a.Clinical,
@@ -448,6 +467,11 @@ public class ItemResult {
 
 public class Package {
 
+    public String RegisterNo {
+        get;
+        set;
+    }
+
     public int GroupID {
         get;
         set;
@@ -459,6 +483,11 @@ public class Package {
 }
 
 public class GroupItem {
+
+    public String RegisterNo {
+        get;
+        set;
+    }
 
     public int GroupID {
         get;

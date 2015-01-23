@@ -90,7 +90,19 @@ namespace DataAccess.Examination {
             PhysicalDepartmentEntity Result = Session.Get<PhysicalDepartmentEntity>(DeptID);
             CloseSession();
             return Result;
+        }
 
+        /// <summary>
+        /// 通过体检单位名称返回体检单位编码
+        /// </summary>
+        /// <param name="DeptName"></param>
+        /// <returns></returns>
+        public int GetPhysicalDepartmentID(String DeptName) {
+            var q = Session.Query<PhysicalDepartmentEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptName.Contains(DeptName));
+           List<PhysicalDepartmentEntity> Depts = q.ToList();
+           if (Depts.Count > 0) return Depts.First().DeptID.Value;
+           return int.MinValue;
         }
 
         /// <summary>

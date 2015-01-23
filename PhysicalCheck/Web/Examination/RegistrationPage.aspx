@@ -96,10 +96,10 @@
             <li><a href="#tabs-2">编辑</a></li>
         </ul>
         <div id="tabs-1">
-            登记日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
+            登记日期<asp:TextBox CssClass="textbox21  Wdate" ID="txtSRegisterDate" runat="server"
                 onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
-            体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
-            登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
+            体检单位<asp:TextBox CssClass="textbox21" ID="txtsDeptName" runat="server" />
+            登记号/身份证号<asp:TextBox CssClass="textbox21" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
             <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
             <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
@@ -305,6 +305,7 @@
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpMarriage" runat="server">
+                                    <asp:ListItem Value="">未知</asp:ListItem>
                                     <asp:ListItem Value="未婚">未婚</asp:ListItem>
                                     <asp:ListItem Value="已婚">已婚</asp:ListItem>
                                 </asp:DropDownList>

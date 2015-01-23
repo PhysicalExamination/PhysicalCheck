@@ -8,6 +8,7 @@ using BusinessLogic.Examination;
 using Common.FormatProvider;
 using DataEntity.Examination;
 using BusinessLogic.SysConfig;
+using DataEntity.SysConfig;
 
 public partial class Examination_CheckResultInputPage : BasePage {
 
@@ -117,10 +118,15 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private void ClientInitial() {
         using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-            drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
-            drpGroups.DataValueField = "GroupID";
-            drpGroups.DataTextField = "GroupName";
-            drpGroups.DataBind();
+            List<ItemGroupViewEntity> DataSource = ItemGroup.GetItemGroups(DepartNo);
+            DataSource = DataSource.Where(p => p.ResultMode == "0").ToList();
+            if (DataSource.Count > 0) {
+                drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
+                drpGroups.DataValueField = "GroupID";
+                drpGroups.DataTextField = "GroupName";
+                drpGroups.DataBind();
+            }
+            if (DataSource.Count <= 0) drpGroups.Enabled = false;
         }
     }
 

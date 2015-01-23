@@ -104,17 +104,26 @@ public partial class Examination_RegImportDialog : BasePage {
     private void SaveDataToDB(DataTable SourceTable) {
         RegistrationViewEntity RegInfo;
         Regex regex = new Regex(@"/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/");
-        String IDNumber,PackageName,PersonName;       
+        String IDNumber,PackageName,PersonName;
+        int DeptID=1;
         using (RegistrationBusiness Registration = new RegistrationBusiness()) {
             DataRowCollection Rows = SourceTable.Rows;
+            if (Rows.Count > 0) {
+                DeptID = GetDeptID(Rows[0][0] + "");
+                if (DeptID == int.MinValue) {
+                    ShowMessage("该体检单位在系统中不存在，请在体检单位设置中录入该体检单位！");
+                    return;
+                }
+            }
             foreach (DataRow Row in Rows) {
                 PackageName = Row[7] + "";
                 PersonName = Row[1] + "";
                 if (String.IsNullOrWhiteSpace(PackageName)) continue;
                 if (String.IsNullOrWhiteSpace(PersonName)) continue;
                 RegInfo = new RegistrationViewEntity();
-                RegInfo.DeptID = 1;
+                RegInfo.DeptID = DeptID;
                 RegInfo.RegisterDate = DateTime.Now.Date;
+                RegInfo.CheckDate = DateTime.Now.Date;
                 RegInfo.Name = PersonName;               
                 RegInfo.Sex = Row[2] + "";
                 IDNumber = Row[3] + "";
@@ -123,6 +132,7 @@ public partial class Examination_RegImportDialog : BasePage {
                     RegInfo.IDNumber = IDNumber;
                     RegInfo.Birthday = GetBirthday(IDNumber);
                     RegInfo.Age = GetAge(IDNumber);
+                    RegInfo.Sex = GetSex(IDNumber);
                 }
                 RegInfo.Marriage = Row[4] + "";
                 RegInfo.LinkTel = Row[6] + "";
@@ -145,6 +155,18 @@ public partial class Examination_RegImportDialog : BasePage {
         int Day = Convert.ToInt32(IDNumber.Substring(12, 2));
         return new DateTime(Year, Month, Day);
     }
+    private String GetSex(String IDNumber) {
+        string Value = "";
+        if (IDNumber.Length == 18) {
+            Value = IDNumber.Substring(16, 1);
+        }
+        if (IDNumber.Length == 15) {
+            Value = IDNumber.Substring(13, 1);
+        }
+        int Sex = Convert.ToInt32(Value);
+        if (Sex % 2 == 0) return "女";
+        return "男";
+    }
 
     private int? GetPackage(String PackageName) {
         var q = from p in m_Packages
@@ -153,6 +175,14 @@ public partial class Examination_RegImportDialog : BasePage {
         List<int?> List = q.ToList<int?>();
         if (List.Count > 0) return List[0];
         return null;
+    }
+
+    private int GetDeptID(String DeptName) {
+        int DeptID = 0;
+        using (PhysicalDepartmentBusiness Business = new PhysicalDepartmentBusiness()){
+            DeptID = Business.GetPhysicalDepartmentID(DeptName);
+        }
+        return DeptID;        
     }
 
     #endregion

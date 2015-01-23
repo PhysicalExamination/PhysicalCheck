@@ -36,6 +36,15 @@ namespace BusinessLogic.Examination {
             DataAccess.DeletePhysicalDepartment(PhysicalDepartment);
         }
 
+        /// <summary>
+        /// 通过体检单位名称返回体检单位编码
+        /// </summary>
+        /// <param name="DeptName"></param>
+        /// <returns></returns>
+        public int GetPhysicalDepartmentID(String DeptName) {
+            return DataAccess.GetPhysicalDepartmentID(DeptName);
+        }
+
         #endregion
     }
 }

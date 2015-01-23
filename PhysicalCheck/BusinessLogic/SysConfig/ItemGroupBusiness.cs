@@ -29,7 +29,7 @@ namespace BusinessLogic.SysConfig {
 
         #region 公共方法
 
-        public IList<ItemGroupViewEntity> GetItemGroups(int DeptID) {
+        public List<ItemGroupViewEntity> GetItemGroups(int DeptID) {
             return DataAccess.GetItemGroups(DeptID);
         }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="01/20/2015 16:37:45" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="01/23/2015 16:42:19" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -56,17 +56,17 @@
     </DataBand>
     <PageFooterBand Name="PageFooter1" Top="640.84" Width="718.2" Height="75.6"/>
   </ReportPage>
-  <ReportPage Name="Page2" Guides="0,718.2,122.85,236.25,472.5,567,349.65,463.05,576.45">
+  <ReportPage Name="Page2" Guides="0,718.2,170.1,283.5,472.5,567,122.85,236.25,349.65,463.05,576.45">
     <PageHeaderBand Name="PageHeader2" Width="718.2" Height="37.8"/>
     <DataBand Name="Data2" Top="41.65" Width="718.2" Height="132.3" Guides="0,28.35,56.7,132.3" DataSource="ItemGroupResult">
       <TextObject Name="Text1" Width="718.2" Height="28.35" Dock="Top" Anchor="Left" Border.Lines="All" Fill.Color="LightSkyBlue" Text="[ItemGroupResult.DeptName]" VertAlign="Center" Font="宋体, 16pt, style=Bold"/>
-      <TextObject Name="Text16" Top="28.35" Width="122.85" Height="28.35" Border.Lines="All" Text="[ItemGroupResult.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text17" Left="122.85" Top="28.35" Width="113.4" Height="28.35" Border.Lines="All" Text="检查日期" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
-      <TextObject Name="Text18" Left="236.25" Top="28.35" Width="236.25" Height="28.35" Border.Lines="All" Text="[ItemGroupResult.CheckDate]" Format="Date" Format.Format="D" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text16" Top="28.35" Width="170.1" Height="28.35" Border.Lines="All" Text="[ItemGroupResult.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text17" Left="170.1" Top="28.35" Width="113.4" Height="28.35" Border.Lines="All" Text="检查日期" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <TextObject Name="Text18" Left="283.5" Top="28.35" Width="189" Height="28.35" Border.Lines="All" Text="[ItemGroupResult.CheckDate]" Format="Date" Format.Format="D" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text19" Left="472.5" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="检查医生" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
       <TextObject Name="Text20" Left="567" Top="28.35" Width="151.2" Height="28.35" Border.Lines="All" Text="[ItemGroupResult.CheckDoctor]" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text21" Top="56.7" Width="122.85" Height="75.6" Border.Lines="All" Text="小结" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
-      <TextObject Name="Text23" Left="122.85" Top="56.7" Width="595.35" Height="75.6" Border.Lines="All" Text="[ItemGroupResult.Summary]" Font="宋体, 12pt"/>
+      <TextObject Name="Text21" Top="56.7" Width="170.1" Height="75.6" Border.Lines="All" Text="小结" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <TextObject Name="Text23" Left="170.1" Top="56.7" Width="548.1" Height="75.6" Border.Lines="All" Text="[ItemGroupResult.Summary]" Font="宋体, 12pt"/>
       <DataBand Name="Data3" Top="209.99" Width="718.2" Height="28.35" Fill.Color="WhiteSmoke" Guides="0,28.35" DataSource="ItemResult">
         <TextObject Name="Text21" Width="122.85" Height="28.35" Border.Lines="All" Text="[ItemResult.ItemName]" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text24" Left="122.85" Width="113.4" Height="28.35" Border.Lines="All" Text="[ItemResult.CheckedResult]" VertAlign="Center" Font="宋体, 12pt"/>

@@ -55,6 +55,10 @@ public partial class SysLogin : Page, ICallbackEventHandler
     protected void btnLogin_Click(object sender, EventArgs e) {
         String userAccount = txtUsername.Text.Trim();
         String password = txtPassword.Text.Trim();
+        if(String.IsNullOrWhiteSpace(userAccount) ||String.IsNullOrWhiteSpace(password)){
+            String js = "alert('用户名或密码错误请重新输入！');";
+            ClientScript.RegisterClientScriptBlock(GetType(), "Msg", js, true);
+        }
         password = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
         using (SysUserBusiness user = new SysUserBusiness()) {
             bool passed = user.Authentication(userAccount, password);

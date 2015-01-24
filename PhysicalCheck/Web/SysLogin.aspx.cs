@@ -64,11 +64,16 @@ public partial class SysLogin : Page, ICallbackEventHandler
                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
                 FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
                 authCookie.Value = FormsAuthentication.Encrypt(newTicket);
-                Response.Cookies.Add(authCookie);
+                Response.Cookies.Add(authCookie);                
                 callBackResult = FormsAuthentication.DefaultUrl;
+                Server.Transfer(FormsAuthentication.DefaultUrl);
+            }
+            else {
+                String js = "alert('用户名或密码错误请重新输入！');";
+                ClientScript.RegisterClientScriptBlock(GetType(), "Msg", js, true);
             }
         }
-        FormsAuthentication.SetAuthCookie(userAccount, true);
-        Server.Transfer(FormsAuthentication.DefaultUrl);
+        //FormsAuthentication.SetAuthCookie(userAccount, true);
+        //Server.Transfer(FormsAuthentication.DefaultUrl);
     }
 }

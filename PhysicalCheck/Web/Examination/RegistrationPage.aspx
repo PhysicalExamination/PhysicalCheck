@@ -86,6 +86,30 @@
             var age = CurrentYear - BirthYear;
             $("#<%=txtAge.ClientID%>").val(age);
         }
+
+        var isInit = false;
+        function readCard() {
+            var CardReader = document.getElementById("CardReader1");
+            if (false == isInit) {
+                CardReader.setPortNum(0);
+                isInit = true;
+            }
+            CardReader.Flag = 0;
+            var ResultCode = CardReader.ReadCard();
+            if (ResultCode == 0x90) {
+                $("#<%=txtName.ClientID%>").val(CardReader.NameL());
+                $("#<%=txtBirthday.ClientID%>").val(CardReader.BornL());
+                $("#<%=drpSex.ClientID%>").val(CardReader.SexL());
+                $("#<%=txtNation.ClientID%>").val(CardReader.NationL());
+                $("#<%=txtIDNumber.ClientID%>").val(CardReader.CardNo());
+                $("#<%=txtAddress.ClientID%>").val(CardReader.Address());
+                $("#<%=hPhoto.ClientID%>").val(CardReader.GetImage());
+                var img = "data:image/png;base64," + CardReader.GetImage();
+                $("#Pricture").attr("src", img);
+            } else {
+                alert("身份证信息读取失败！");
+            }
+        }
        
     </script>
 </asp:Content>
@@ -370,16 +394,26 @@
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" 
                                     OnClientClick="return checkForm();"/>
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                
+                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />                                
                             </td>
                         </tr>
                     </table>
                     <asp:HiddenField ID="hGroups" runat="server" Value="" />
+                    <asp:HiddenField ID="hPhoto" Value="" runat="server" />
                     <script type="text/javascript">
                         $("#<%=txtIDNumber.ClientID%>").bind("change", setBirthdaySex);
                     </script>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+    </div>
+    <div style="display: none">
+        <object id="CardReader1" codebase="FirstActivex.cab#version=1,3,0,1" classid="CLSID:F225795B-A882-4FBA-934C-805E1B2FBD1B"
+            width="102" height="126">
+            <param name="_Version" value="65536" />
+            <param name="_ExtentX" value="2646" />
+            <param name="_ExtentY" value="1323" />
+            <param name="_StockProps" value="0" />
+        </object>
     </div>
 </asp:Content>

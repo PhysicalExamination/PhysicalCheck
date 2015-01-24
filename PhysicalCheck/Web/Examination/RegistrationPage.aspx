@@ -97,6 +97,12 @@
             CardReader.Flag = 0;
             var ResultCode = CardReader.ReadCard();
             if (ResultCode == 0x90) {
+                var IDNumber = CardReader.CardNo();
+                var d = new Date();
+                var CurrentYear = d.getFullYear();
+                var BirthYear = parseInt(IDNumber.substr(6, 4), 10);
+                var age = CurrentYear - BirthYear;
+                $("#<%=txtAge.ClientID%>").val(age);
                 $("#<%=txtName.ClientID%>").val(CardReader.NameL());
                 $("#<%=txtBirthday.ClientID%>").val(CardReader.BornL());
                 $("#<%=drpSex.ClientID%>").val(CardReader.SexL());
@@ -104,8 +110,8 @@
                 $("#<%=txtIDNumber.ClientID%>").val(CardReader.CardNo());
                 $("#<%=txtAddress.ClientID%>").val(CardReader.Address());
                 $("#<%=hPhoto.ClientID%>").val(CardReader.GetImage());
-                var img = "data:image/png;base64," + CardReader.GetImage();
-                $("#Pricture").attr("src", img);
+//                var img = "data:image/png;base64," + CardReader.GetImage();
+//                $("#Pricture").attr("src", img);
             } else {
                 alert("身份证信息读取失败！");
             }

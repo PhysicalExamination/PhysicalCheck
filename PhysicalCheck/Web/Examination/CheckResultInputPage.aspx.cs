@@ -29,6 +29,16 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
     }
 
+    protected bool InputEnabled {
+        get {
+            if (ViewState["InputEnabled"] == null) return true;
+            return (bool)ViewState["InputEnabled"];
+        }
+        set {
+            ViewState["InputEnabled"] = value;
+        }
+    }
+
     #endregion
 
     #region 重写方法
@@ -66,6 +76,12 @@ public partial class Examination_CheckResultInputPage : BasePage {
         Pager.RecordCount = RecordCount;
         base.DataBind();
         txtSummary.Text = "";
+        TextBox txtCheckResult;
+        RepeaterItemCollection Items = ItemResultRepeater.Items;
+        foreach (RepeaterItem Item in Items) {            
+            txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
+            txtCheckResult.Enabled = InputEnabled;
+        }
     }
 
     #endregion
@@ -83,7 +99,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             ItemID = EnvConverter.ToInt32(lblItemID.Text);
             ItemResult = new ItemResultEntity {
-                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo=txtsRegisterNo.Text },                
+                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = txtsRegisterNo.Text },
                 DeptID = DepartNo,
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
@@ -111,22 +127,22 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
-    } 
+    }
     #endregion
 
     #region 私有方法
 
     private void ClientInitial() {
         using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-            List<ItemGroupViewEntity> DataSource = ItemGroup.GetItemGroups(DepartNo);
-            DataSource = DataSource.Where(p => p.ResultMode == "0").ToList();
-            if (DataSource.Count > 0) {
-                drpGroups.DataSource = ItemGroup.GetItemGroups(DepartNo);
-                drpGroups.DataValueField = "GroupID";
-                drpGroups.DataTextField = "GroupName";
-                drpGroups.DataBind();
-            }
-            if (DataSource.Count <= 0) drpGroups.Enabled = false;
+            List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups(DepartNo);
+            List<ItemGroupViewEntity> DataSource = ItemGroups.Where(p => p.ResultMode == "0").ToList();
+            if (DataSource.Count <= 0) InputEnabled = false;
+            drpGroups.DataSource = ItemGroups;
+            drpGroups.DataValueField = "GroupID";
+            drpGroups.DataTextField = "GroupName";
+            drpGroups.DataBind();
+
+
         }
     }
 

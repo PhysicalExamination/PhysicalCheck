@@ -109,6 +109,7 @@ public partial class Examination_RegistrationPage : BasePage {
         hDeptID.Value = "1";
         hPackageID.Value = "-1";
         hGroups.Value = "";
+        hPhoto.Value = "";
         PersonID = int.MinValue;
         RegisterNo = "";
     }
@@ -139,6 +140,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtAddress.Text = Result.Address;
         txtMobile.Text = Result.Mobile;
         txtEMail.Text = Result.EMail;
+        hPhoto.Value = Result.Photo;
     }
 
     /// <summary>
@@ -163,6 +165,7 @@ public partial class Examination_RegistrationPage : BasePage {
         Result.Address = txtAddress.Text;
         Result.Mobile = txtMobile.Text;
         Result.EMail = txtEMail.Text;
+        Result.Photo = hPhoto.Value;
         Result.CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
         Result.RegisterDate = EnvConverter.ToDateTime(txtRegisterDate.Text);
         if (!String.IsNullOrEmpty(hGroups.Value)) {

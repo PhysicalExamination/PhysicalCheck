@@ -127,7 +127,8 @@ namespace BusinessLogic.Examination {
                 Marriage = Registration.Marriage,
                 Name = Registration.Name,
                 DeptID = Registration.DeptID,
-                Mobile = Registration.Mobile
+                Mobile = Registration.Mobile,
+                Photo = Registration.Photo
             };
             using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
                 CheckPerson.SaveCheckPerson(PersonInfo);

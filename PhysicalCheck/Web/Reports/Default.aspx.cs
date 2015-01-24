@@ -206,6 +206,7 @@ public partial class Reports_Default : BasePage {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
         WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");
         WebReport1.Report.Prepare();
+        //WebReport1.Report.Print();
     }
 
     /// <summary>

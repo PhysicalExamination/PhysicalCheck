@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="01/22/2015 10:52:25" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="01/24/2015 15:44:19" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -26,10 +26,9 @@
     <Relation Name="Registration_Packages1" ParentDataSource="Registration" ChildDataSource="Packages" ParentColumns="RegisterNo" ChildColumns="RegisterNo" Enabled="true"/>
     <Relation Name="Packages_ItemGroups1" ParentDataSource="Packages" ChildDataSource="ItemGroups" ParentColumns="RegisterNo&#13;&#10;GroupID" ChildColumns="RegisterNo&#13;&#10;GroupID" Enabled="true"/>
   </Dictionary>
-  <ReportPage Name="Page1" Guides="378,653,170.1,548.1,-9.45,94.5,274.05,349.65,472.5,567,718.2,576.45,727.65,207.9,538.65,737.1,330.75,689.85">
-    <DataBand Name="Data1" Width="718.2" Height="311.85" StartNewPage="true" Guides="122.85,160.65,189,47.25,85.05,207.9,232.47,245.7,270.27,283.5,308.07" DataSource="Registration">
-      <BarcodeObject Name="Barcode1" Left="378" Top="122.85" Width="275" Height="37.8" Text="20141214000043" ShowText="false"/>
-      <TextObject Name="Text2" Left="378" Top="160.65" Width="275" Height="28.35" Text="登记号：[Registration.RegisterNo]" AutoWidth="true" VertAlign="Center" Font="宋体, 12pt"/>
+  <ReportPage Name="Page1" Guides="510.3,785.3,170.1,548.1,-9.45,94.5,274.05,349.65,472.5,567,718.2,576.45,727.65,207.9,538.65,737.1,330.75,689.85">
+    <DataBand Name="Data1" Width="718.2" Height="311.85" StartNewPage="true" Guides="103.95,170.1,47.25,85.05,207.9,232.47,245.7,270.27,283.5,308.07" DataSource="Registration">
+      <BarcodeObject Name="Barcode1" Left="510.3" Top="103.95" Width="275" Height="66.15" DataColumn="Registration.RegisterNo" Text="" Barcode="Code128" Barcode.AutoEncode="true"/>
       <TextObject Name="Text1" Left="170.1" Top="47.25" Width="378" Height="37.8" Text="体 检 指 引 单" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
       <TextObject Name="Text3" Left="-9.45" Top="207.9" Width="103.95" Height="24.57" Text="档 案 号：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text4" Left="94.5" Top="207.9" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>

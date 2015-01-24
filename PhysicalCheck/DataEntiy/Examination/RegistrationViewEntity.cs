@@ -316,6 +316,14 @@ namespace DataEntity.Examination {
             get;
             set;
         }
+
+        /// <summary>
+        /// 个人照片
+        /// </summary>
+        public virtual String Photo {
+            get;
+            set;
+        }
         #endregion
     }
 }

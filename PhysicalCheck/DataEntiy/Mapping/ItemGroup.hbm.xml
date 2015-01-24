@@ -15,7 +15,8 @@
         <property name="HasSpecimen" column="HasSpecimen" type="Boolean" not-null="false" /> 
         <property name="Specimen" column="Specimen" type="String" not-null="false" length="9" /> 
         <property name="ResultMode" column="ResultMode" type="String" not-null="false" length="9" /> 
-        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" /> 
+        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+        <property name="HasBarCode" column="HasBarCode" type="Boolean" not-null="false"/>
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" /> 
     </class>
 </hibernate-mapping>

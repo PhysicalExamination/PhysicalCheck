@@ -124,6 +124,14 @@ namespace DataEntity.SysConfig {
         }
 
         /// <summary>
+        /// 是否需要条码
+        /// </summary>
+        public virtual bool? HasBarCode {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 是否启用
         /// </summary>		
         public virtual bool? Enabled {

@@ -125,6 +125,14 @@ namespace DataEntity.SysConfig {
         }
 
         /// <summary>
+        /// 是否需要条码
+        /// </summary>
+        public virtual bool? HasBarCode {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 显示顺序
         /// </summary>		
         public virtual int? DisplayOrder {

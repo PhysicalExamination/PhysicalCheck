@@ -17,7 +17,7 @@
     <asp:UpdatePanel ID="UP1" runat="server">
         <ContentTemplate>
             <asp:Chart ID="Chart1" runat="server" BorderlineColor="26, 59, 105" TextAntiAliasingQuality="Normal"
-                BorderLineStyle="Solid" BackGradientType="TopBottom" BackGradientEndColor="65, 140, 240"
+                BorderLineStyle="Solid" BackGradientType="TopBottom" BackGradientEndColor="65, 140, 240"  
                 Width="800px" Height="600px" runat="server">
                 <Titles>
                     <asp:Title Name="Default" Font="宋体, 12pt" Text="" />
@@ -30,10 +30,10 @@
                 <Legends>
                     <asp:Legend  Name="Default"  Font="宋体, 8.75pt">
                         <CellColumns>
-                            <asp:LegendCellColumn ColumnType="SeriesSymbol" Name="Column1" 
+                            <%--<asp:LegendCellColumn ColumnType="SeriesSymbol" Name="Column1" 
                                 Alignment="TopLeft" Font="宋体, 10.5pt">
                                 <Margins Left="15" Right="15" />
-                            </asp:LegendCellColumn>
+                            </asp:LegendCellColumn>--%>
                             <asp:LegendCellColumn Name="Column2" Text="#VALX  #PERCENT" 
                                 Alignment="TopRight">
                                 <Margins Left="15" Right="15" />
@@ -42,7 +42,7 @@
                     </asp:Legend>
                 </Legends>
                 <ChartAreas>
-                    <asp:ChartArea Name="ChartArea1" BackColor="White">
+                    <asp:ChartArea Name="ChartArea1" BackColor="White" >
                     <Area3DStyle Enable3D="true" />
                         <AxisY>
                             <LabelStyle Format="N2"></LabelStyle>

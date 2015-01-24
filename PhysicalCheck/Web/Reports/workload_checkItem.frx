@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/16/2015 09:33:13" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Description="Demonstrates how to print multiple Table rows with a script. To do this:&#13;&#10;&#13;&#10;- select the Table object;&#13;&#10;&#13;&#10;- go to the &quot;Properties&quot; window and click the &quot;Events&quot; button to view list of available events;&#13;&#10;&#13;&#10;- doubleclick the &quot;ManualBuild&quot; event;&#13;&#10;&#13;&#10;- you will see the empty event handler. You need to print rows using TableObject.PrintRow method; in each row, you must also print all columns (using PrintColumns method). See the script code for more details.&#13;&#10;&#13;&#10;When you run a report, the Table will repeat a row and fill it with data." ReportInfo.Created="01/17/2008 20:40:24" ReportInfo.Modified="01/18/2015 12:01:08" ReportInfo.CreatorVersion="2013.2.5.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,37 +18,7 @@ namespace FastReport
 {
   public class ReportScript
   {
-
-    private void Table1_ManualBuild(object sender, EventArgs e)
-    {
-      // get the data source by its name
-      DataSourceBase rowData = Report.GetDataSource(&quot;workload_checkItem&quot;);
-      // init the data source
-      rowData.Init();
-      
-      // print the first table row - it is a header
-      Table1.PrintRow(0);
-      // each PrintRow call must be followed by either PrintColumn or PrintColumns call
-      // to print cells on the row
-      Table1.PrintColumns();
-      
-      // now enumerate the data source and print the table body
-      while (rowData.HasMoreRows)
-      {
-        // print the table body  
-        Table1.PrintRow(1);
-        Table1.PrintColumns();
-        
-        // go next data source row
-        rowData.Next();
-      }
-      
-      // print the last table row - it is a footer
-      Table1.PrintRow(2);
-      Table1.PrintColumns();
-    }
-
-   
+    
   }
 }
 </ScriptText>
@@ -62,31 +32,11 @@ namespace FastReport
     <Parameter Name="DeptName" DataType="System.String"/>
     <Parameter Name="StartDate" DataType="System.String"/>
     <Parameter Name="EndDate" DataType="System.String"/>
-    <Total Name="totalNum" Expression="[workload_checkItem.sumNum]"/>
+    <Total Name="totalNum" Expression="[workload_checkItem.sumNum]" Evaluator="Data1" PrintOn="ReportSummary1"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" Guides="0,1048.95,9.45,1039.5,174.15,263.25,352.35,432,558.9,827.55,18.9,94.5,472.5,567,699.3,793.8,217.35,292.95,113.4,207.9,689.85,945,859.95,189,283.5,378,226.8,274.05,311.85,425.25,831.6,926.1" StartPageEvent="Page1_StartPage">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="204.75" Border.Lines="Top" Guides="0,28.35,122.85,185.85,31.5,63,47.25,66.15,85.05,103.95">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="119.7" Border.Lines="Top" Guides="0,28.35,122.85,185.85,31.5,63,47.25,66.15,85.05,103.95">
       <TextObject Name="Text2" Left="-141.75" Width="1048.95" Height="28.35" Text="检查医生工作量查询" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 14pt, style=Bold"/>
-      <TableObject Name="Table1" Left="9.45" Top="122.85" Width="692.55" Height="81.9" ManualBuildEvent="Table1_ManualBuild">
-        <TableColumn Name="Column1" Width="278.1"/>
-        <TableColumn Name="Column2" Width="193.05"/>
-        <TableColumn Name="Column3" Width="221.4"/>
-        <TableRow Name="Row1" Height="31.5">
-          <TableCell Name="Cell1" Border.Lines="All" Border.Color="LightGray" Fill="Glass" Fill.Color="LightGray" Fill.Blend="0.47" Fill.Hatch="false" Text="科室" Padding="5, 0, 0, 0" VertAlign="Center" Font="Tahoma, 8pt, style=Bold"/>
-          <TableCell Name="Cell2" Border.Lines="All" Border.Color="LightGray" Fill="Glass" Fill.Color="LightGray" Fill.Blend="0.47" Fill.Hatch="false" Text="检查项目" Padding="0, 0, 5, 0" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt, style=Bold"/>
-          <TableCell Name="Cell3" Border.Lines="All" Border.Color="LightGray" Fill="Glass" Fill.Color="LightGray" Fill.Blend="0.47" Fill.Hatch="false" Text="数量" Padding="0, 0, 5, 0" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 8pt, style=Bold"/>
-        </TableRow>
-        <TableRow Name="Row2" Height="31.5">
-          <TableCell Name="Cell6" Border.Lines="All" Border.Color="LightGray" Text="[workload_checkItem.DeptName]" Padding="5, 0, 0, 0" VertAlign="Center" Font="Tahoma, 8pt"/>
-          <TableCell Name="Cell7" Border.Lines="All" Border.Color="LightGray" Text="[workload_checkItem.ItemName]" Padding="0, 0, 5, 0" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
-          <TableCell Name="Cell8" Border.Lines="All" Border.Color="LightGray" Text="[workload_checkItem.sumNum]" Padding="0, 0, 5, 0" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 8pt"/>
-        </TableRow>
-        <TableRow Name="Row3">
-          <TableCell Name="Cell9" Text="总计：" Font="宋体, 9pt"/>
-          <TableCell Name="Cell10" Font="宋体, 9pt"/>
-          <TableCell Name="Cell11" Text="[totalNum]" HorzAlign="Right" Font="宋体, 9pt"/>
-        </TableRow>
-      </TableObject>
       <TextObject Name="Text4" Left="18.9" Top="56.7" Width="94.5" Height="18.9" Text="科室：" Font="宋体, 9pt"/>
       <TextObject Name="Text8" Left="18.9" Top="85.05" Width="94.5" Height="18.9" Text="日期：" Font="宋体, 9pt"/>
       <TextObject Name="Text13" Left="94.5" Top="56.7" Width="283.5" Height="18.9" Text="[DeptName]" Font="宋体, 9pt"/>
@@ -96,8 +46,22 @@ namespace FastReport
       <TextObject Name="Text3" Left="510.3" Top="56.7" Width="113.4" Height="18.9" Text="[CheckDoctor]" Font="宋体, 9pt"/>
       <TextObject Name="Text5" Left="413.1" Top="56.7" Width="94.5" Height="18.9" Text="检查医生：" Font="宋体, 9pt"/>
     </ReportTitleBand>
-    <PageFooterBand Name="PageFooter1" Top="208.75" Width="718.2" Height="18.9" Guides="0,18.9">
-      <TextObject Name="Text1" Left="491.4" Width="94.5" Height="18.9" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
+    <DataBand Name="Data1" Top="156.61" Width="718.2" Height="30.24" DataSource="workload_checkItem">
+      <TextObject Name="Text6" Left="18.9" Width="264.6" Height="30.24" Border.Lines="All" Text="[workload_checkItem.DeptName]" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text9" Left="283.5" Width="189" Height="30.24" Border.Lines="All" Text="[workload_checkItem.ItemName]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text11" Left="472.5" Width="170.1" Height="30.24" Border.Lines="All" Text="[workload_checkItem.sumNum]" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="123.03" Width="718.2" Height="30.24">
+        <TextObject Name="Text7" Left="18.9" Width="264.6" Height="30.24" Border.Lines="All" Fill="Glass" Fill.Color="Gainsboro" Fill.Blend="0.4" Fill.Hatch="true" Text="科室" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+        <TextObject Name="Text10" Left="283.5" Width="189" Height="30.24" Border.Lines="All" Fill="Glass" Fill.Color="Gainsboro" Fill.Blend="0.4" Fill.Hatch="true" Text="检查项目" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+        <TextObject Name="Text12" Left="472.5" Width="170.1" Height="30.24" Border.Lines="All" Fill="Glass" Fill.Color="Gainsboro" Fill.Blend="0.4" Fill.Hatch="true" Text="数量" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+      </DataHeaderBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="190.18" Width="718.2" Height="37.8">
+      <TextObject Name="Text17" Left="548.1" Top="9.45" Width="94.5" Height="18.9" Text="[totalNum]" HorzAlign="Right" Font="宋体, 9pt"/>
+      <TextObject Name="Text18" Left="18.9" Top="9.45" Width="94.5" Height="18.9" Text="总计：" Font="宋体, 9pt"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="231.31" Width="718.2" Height="18.9" Guides="0,18.9">
+      <TextObject Name="Text1" Left="548.1" Width="94.5" Height="18.9" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

@@ -6,19 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <p align="left">
         工种<asp:DropDownList ID="drpTrades" runat="server">
-            <asp:ListItem>餐饮服务</asp:ListItem>
-            <asp:ListItem>厨师</asp:ListItem>
-            <asp:ListItem>集体食堂</asp:ListItem>
-            <asp:ListItem>食品加工</asp:ListItem>
-            <asp:ListItem>食品销售</asp:ListItem>
-            <asp:ListItem>非食品销售</asp:ListItem>
-            <asp:ListItem>客房服务</asp:ListItem>
-            <asp:ListItem>浴池、游泳馆</asp:ListItem>
-            <asp:ListItem>美容、美发</asp:ListItem>
-            <asp:ListItem>水质</asp:ListItem>
-            <asp:ListItem>卫生用品</asp:ListItem>
-            <asp:ListItem>收银</asp:ListItem>
-            <asp:ListItem>其他</asp:ListItem>
+           
         </asp:DropDownList>
         <asp:Button ID="btnSearch" runat="server" Text="分析" CssClass="buttonCss" OnClick="btnSearch_Click" /></p>
     

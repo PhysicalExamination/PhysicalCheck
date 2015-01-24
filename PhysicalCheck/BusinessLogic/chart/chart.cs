@@ -80,5 +80,29 @@ namespace Maticsoft.BLL.chart
         }
         #endregion
 
+           #region " 工种按年体检人数同比分析-chart2"
+
+
+       /// <summary>
+       /// 获得数据列表
+       /// </summary>
+        public DataSet GetList_TradeYear(string strWhere)
+        {
+            return dal.GetList_TradeYear(strWhere);
+        }
+
+           #endregion
+
+
+          #region " 工种按年体检人数同比分析-chart3"
+
+       /// <summary>
+       /// 获得体检组合项目人数分布列表
+       /// </summary>
+        public DataSet GetList_TradePercent(string strWhere)
+        {
+            return dal.GetList_TradePercent(strWhere);
+        }
+          #endregion
     }
 }

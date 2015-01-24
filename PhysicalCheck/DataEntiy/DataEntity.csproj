@@ -49,6 +49,7 @@
     <Compile Include="Admin\SysUserEntity.cs" />
     <Compile Include="Admin\SysUserViewEntity.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Examination\advise.cs" />
     <Compile Include="Examination\ChargeEntity.cs" />
     <Compile Include="Examination\ChargeViewEntity.cs" />
     <Compile Include="Examination\CheckPersonEntity.cs" />

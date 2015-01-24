@@ -26,6 +26,14 @@ namespace DataAccess.SysConfig {
 
         #region 公共方法
 
+        public List<ItemGroupViewEntity> GetItemGroups() {
+            var q = Session.Query<ItemGroupViewEntity>();
+            q = q.Where(p => p.Enabled == true);  
+            List<ItemGroupViewEntity> Result = q.ToList();
+            CloseSession();
+            return Result;
+        }
+
         public List<ItemGroupViewEntity> GetItemGroups(int DeptID) {
             var q = Session.Query<ItemGroupViewEntity>();
             q = q.Where(p => p.Enabled == true);

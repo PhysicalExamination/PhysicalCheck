@@ -180,6 +180,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         txtNormalDesc.Text = Result.NormalDesc;
         drpSpecimen.SelectedValue = Result.Specimen;
         drpResultMode.SelectedValue = Result.ResultMode;
+        chkHasBarCode.Checked = Result.HasBarCode;
         //txtDisplayOrder.Text = Result.DisplayOrder + "";
     }
 
@@ -200,6 +201,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         Result.NormalDesc = txtNormalDesc.Text;
         Result.Specimen = drpSpecimen.SelectedValue;
         Result.ResultMode = drpResultMode.SelectedValue;
+        Result.HasBarCode = chkHasBarCode.Checked;
         //Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
         return Result;
     }

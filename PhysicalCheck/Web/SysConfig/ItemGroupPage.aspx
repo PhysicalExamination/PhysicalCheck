@@ -142,13 +142,15 @@
                                 组合名称<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtGroupName" runat="server" data-errormessage-value-missing="组合项名称不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtGroupName" runat="server"
+                                    data-errormessage-value-missing="组合项名称不能为空!" />
                             </td>
                             <td class="HVLine">
                                 检查科室<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtDeptName" runat="server" ReadOnly="true" data-errormessage-value-missing="检查科室不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtDeptName" runat="server"
+                                    ReadOnly="true" data-errormessage-value-missing="检查科室不能为空!" />
                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择检查科室"
                                     onclick="selectDept();" align="middle" border="0" />
                                 <asp:HiddenField ID="hDeptID" runat="server" />
@@ -183,7 +185,8 @@
                                 单价<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtPrice" runat="server" data-errormessage-value-missing="组合项单价不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtPrice" runat="server"
+                                    data-errormessage-value-missing="组合项单价不能为空!" />
                             </td>
                             <td class="VLine">
                                 正常描述
@@ -228,11 +231,17 @@
                             <td class="VLine">
                                 结果获取方式
                             </td>
-                            <td class="VLine" colspan="3">
+                            <td class="VLine">
                                 <asp:DropDownList ID="drpResultMode" runat="server">
                                     <asp:ListItem Value="0">手动录入</asp:ListItem>
                                     <asp:ListItem Value="1">自动获取</asp:ListItem>
                                 </asp:DropDownList>
+                            </td>
+                            <td class="VLine">
+                                是否需要条码
+                            </td>
+                            <td class="VLine">
+                                <asp:CheckBox ID="chkHasBarCode" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -241,8 +250,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditItemGroup_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteItemGroup_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveItemGroup_Click" 
-                                     OnClientClick="return checkForm();"  />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveItemGroup_Click"
+                                    OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelItemGroup_Click" />
                                 <input type="button" class="buttonCss" value="设置项目" onclick="onSetCheckedItem();" />
                                 <asp:HiddenField ID="hValue" runat="server" />

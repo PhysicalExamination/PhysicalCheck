@@ -134,7 +134,7 @@ namespace DataEntity.SysConfig {
         /// <summary>
         /// 是否启用
         /// </summary>		
-        public virtual bool? Enabled {
+        public virtual bool Enabled {
             get;
             set;
         }

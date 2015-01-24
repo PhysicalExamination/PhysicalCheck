@@ -58,55 +58,69 @@ public partial class Reports_Default : Page {
         Report a = new Report();
 
         a.Load(Server.MapPath("Search_Composed.frx"));
-        
-        
+
+
         Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
 
+        bool blDate = true;
         string sqlw = " 1=1 ";
 
         if (Request.Params["RegisterNo"] != "")
+        {
             sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
+            blDate = false;
+        }
 
         if (Request.Params["DeptName"] != "")
-            sqlw += string.Format("  And DeptName like '%{0}%' ",Request.Params["DeptName"] );
-
+        {
+            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
+            blDate = false;
+        }
         if (Request.Params["Name"] != "")
+        {
             sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
-
+            blDate = false;
+        }
 
         if (Request.Params["IdNumber"] != "")
+        {
             sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
-
+            blDate = false;
+        }
         if (Request.Params["OverallDoctor"] != "")
+        {
             sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+            blDate = false;
+        }
+
+        if (blDate)
+        {
+            if (Request.Params["StartDate"] != "")
+                sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+            if (Request.Params["EndDate"] != "")
+                sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+        }
 
 
-        if (Request.Params["StartDate"] != "")
-            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
-
-        if (Request.Params["EndDate"] != "")
-            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
-
-
-
-        DataSet ds = bll.GetList_Composed(sqlw );
+        DataSet ds = bll.GetList_Composed(sqlw);
 
         a.SetParameterValue("RegisterNo", Request.Params["RegisterNo"]);
         a.SetParameterValue("DeptName", Request.Params["DeptName"]);
         a.SetParameterValue("Name", Request.Params["Name"]);
         a.SetParameterValue("IdNumber", Request.Params["IdNumber"]);
-       
+
         a.SetParameterValue("pOverallDoctor", Request.Params["OverallDoctor"]);
         a.SetParameterValue("StartDate", Request.Params["StartDate"]);
         a.SetParameterValue("EndDate", Request.Params["EndDate"]);
-        a.RegisterData(ds.Tables[0], "View_Search_Composed"); 
+        a.RegisterData(ds.Tables[0], "View_Search_Composed");
         WebReport1.Report = a;
         //WebReport1.Report.RegisterData(ds.Tables[0], "View_Search_Composed");
         //WebReport1.Report.SetParameterValue("registerNo", Request.Params["RegisterNo"].ToString());
-       // WebReport1.Report.SetParameterValue("pOverallDoctor", "wsw");
+        // WebReport1.Report.SetParameterValue("pOverallDoctor", "wsw");
 
         WebReport1.Prepare();
-        
+
     }
 
     //科室工作量查询
@@ -138,7 +152,7 @@ public partial class Reports_Default : Page {
         a.SetParameterValue("EndDate", Request.Params["EndDate"]);
         a.RegisterData(ds.Tables[0], "workload_package");
         WebReport1.Report = a;
-       
+
         WebReport1.Prepare();
 
     }

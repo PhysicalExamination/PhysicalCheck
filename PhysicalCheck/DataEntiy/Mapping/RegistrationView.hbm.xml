@@ -38,7 +38,8 @@
         <property name="LinkTel" column="LinkTel" type="String" not-null="false" length="60" />
         <property name="Address" column="Address" type="String" not-null="false" length="900" />
         <property name="Mobile" column="Mobile" type="String" not-null="false" length="60" />
-        <property name="EMail" column="EMail" type="String" not-null="false" length="300" />   
+        <property name="EMail" column="EMail" type="String" not-null="false" length="300" />
+        <property name="Photo" column="Photo" type="String" not-null="false" length="65535"/>
     </class>
 </hibernate-mapping>
 

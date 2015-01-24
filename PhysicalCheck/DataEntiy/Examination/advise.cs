@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2015-1-24 14:32:40   N/A    初版
+* V0.01  2015-1-24 16:33:36   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -27,9 +27,13 @@ namespace Maticsoft.Model.Examination
 		{}
 		#region Model
 		private int _id;
-		private string _title;
+		private string _registerno;
+		private string _investigation;
 		private string _content;
-		private decimal? _number;
+		private string _content2;
+		private string _content3;
+		private string _doctor;
+		private DateTime? _add_time;
 		/// <summary>
 		/// auto_increment
 		/// </summary>
@@ -41,10 +45,18 @@ namespace Maticsoft.Model.Examination
 		/// <summary>
 		/// 
 		/// </summary>
-		public string title
+		public string RegisterNo
 		{
-			set{ _title=value;}
-			get{return _title;}
+			set{ _registerno=value;}
+			get{return _registerno;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string investigation
+		{
+			set{ _investigation=value;}
+			get{return _investigation;}
 		}
 		/// <summary>
 		/// 
@@ -57,10 +69,34 @@ namespace Maticsoft.Model.Examination
 		/// <summary>
 		/// 
 		/// </summary>
-		public decimal? number
+		public string content2
 		{
-			set{ _number=value;}
-			get{return _number;}
+			set{ _content2=value;}
+			get{return _content2;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string content3
+		{
+			set{ _content3=value;}
+			get{return _content3;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Doctor
+		{
+			set{ _doctor=value;}
+			get{return _doctor;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? add_time
+		{
+			set{ _add_time=value;}
+			get{return _add_time;}
 		}
 		#endregion Model
 

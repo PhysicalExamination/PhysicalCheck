@@ -140,6 +140,14 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 个人照片
+        /// </summary>
+        public virtual String Photo {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 是否启用
         /// </summary>		
         public virtual bool? Enabled {

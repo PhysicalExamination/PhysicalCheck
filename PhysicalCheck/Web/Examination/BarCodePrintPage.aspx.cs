@@ -76,6 +76,10 @@ public partial class Examination_BarCodePrintPage : BasePage {
 
     #region 事件
 
+    protected void Pager_PageChanged(Object Sender, EventArgs e) {
+        DataBind();
+    }
+
     protected void btnSearch_Click(Object Sender, EventArgs e) {
         DataBind();
     }

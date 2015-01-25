@@ -43,6 +43,15 @@ namespace BusinessLogic.Examination {
             DataAccess.DeleteGroupResult(GroupResult);
         }
 
+        /// <summary>
+        /// 返回体检人各检查项小结
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <returns></returns>
+        public List<String> GetGroupSummary(String RegisterNo) {
+            return DataAccess.GetGroupSummary(RegisterNo);
+        }
+
         #endregion
     }
 }

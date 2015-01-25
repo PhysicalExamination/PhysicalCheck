@@ -27,8 +27,8 @@ namespace BusinessLogic.Examination {
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
             DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
-                return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
-                RegisterNo, out RecordCount);
+            return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
+            RegisterNo, out RecordCount);
         }
 
 
@@ -156,7 +156,7 @@ namespace BusinessLogic.Examination {
             DataAccess.SaveReview(RegisterNo, InformResult, InformPerson);
         }
 
-        public void SaveOverallChecked(RegistrationEntity OverallChecked) {            
+        public void SaveOverallChecked(RegistrationEntity OverallChecked) {
             DataAccess.SaveRegistration(OverallChecked);
         }
 
@@ -172,6 +172,20 @@ namespace BusinessLogic.Examination {
             using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
                 ItemResult.DeleteItemResults(Registration.RegisterNo);
             }*/
+        }
+
+        /// <summary>
+        /// 保存批量体检结果
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="OverallDate">总检日期</param>
+        /// <param name="OverallDoctor">总检医生</param>
+        /// <param name="Summary">综述</param>
+        /// <param name="Recommend">体检建议</param>
+        /// <param name="Conclusion">体检结论</param>
+        public void SaveOverall(String RegisterNo, DateTime OverallDate, String OverallDoctor, String Summary,
+                                String Recommend, String Conclusion) {
+            DataAccess.SaveOverall(RegisterNo, OverallDate, OverallDoctor, Summary, Recommend, Conclusion);
         }
 
         #endregion
@@ -218,7 +232,7 @@ namespace BusinessLogic.Examination {
 
         #region 私有方法
 
-        private void SaveCheckedGroups(String RegisterNo, int PackageID,List<int> ItemGroups) {
+        private void SaveCheckedGroups(String RegisterNo, int PackageID, List<int> ItemGroups) {
             //自定义套餐保存体检组合项
             if ((ItemGroups != null) && (ItemGroups.Count > 0)) {
                 SaveCheckedGroups(RegisterNo, ItemGroups);

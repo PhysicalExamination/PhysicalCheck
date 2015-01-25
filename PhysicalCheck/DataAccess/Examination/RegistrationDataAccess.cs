@@ -62,11 +62,11 @@ namespace DataAccess.Examination {
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 q = q.Where(p => p.DeptName.Contains(DeptName));
             }
-            
-            if(String.IsNullOrWhiteSpace(DeptName)&&(RegisterDate != null)) {
+
+            if (String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
                 q = q.Where(p => p.RegisterDate == RegisterDate);
             }
-            List<RegistrationViewEntity> Result = q.ToList();          
+            List<RegistrationViewEntity> Result = q.ToList();
             CloseSession();
             return Result;
         }
@@ -97,7 +97,7 @@ namespace DataAccess.Examination {
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();
-            return Result;            
+            return Result;
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace DataAccess.Examination {
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();
-            return Result;   
+            return Result;
             /*ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
             Criteria.Add(Restrictions.Eq("Enabled", true));
@@ -180,11 +180,11 @@ namespace DataAccess.Examination {
         public IList<RegistrationViewEntity> GetReviews(int pageIndex, int pageSize,
             DateTime StartDate, DateTime EndDate, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
-            q = q.Where(p => p.Enabled == true && p.ReviewDate>= StartDate && p.ReviewDate<=EndDate);
+            q = q.Where(p => p.Enabled == true && p.ReviewDate >= StartDate && p.ReviewDate <= EndDate);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();
-            return Result; 
+            return Result;
             /*ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
             Criteria.Add(Restrictions.Eq("Enabled", true));
@@ -251,6 +251,40 @@ namespace DataAccess.Examination {
                     .SetString(0, InformResult)
                     .SetString(1, InformPerson)
                     .SetString(2, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
+        /// <summary>
+        /// 保存批量体检结果
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="OverallDate">总检日期</param>
+        /// <param name="OverallDoctor">总检医生</param>
+        /// <param name="Summary">综述</param>
+        /// <param name="Recommend">体检建议</param>
+        /// <param name="Conclusion">体检结论</param>
+        public void SaveOverall(String RegisterNo, DateTime OverallDate, String OverallDoctor, String Summary,
+                                String Recommend, String Conclusion) {
+            String HQL = @"Update RegistrationEntity set OverallDate =?,OverallDoctor=?,IsCheckOver=?,
+                           Summary=?,Recommend=?,Conclusion=? WHERE RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(HQL)
+                    .SetDateTime(0, OverallDate)
+                    .SetString(1, OverallDoctor)
+                    .SetBoolean(2, true)
+                    .SetString(3, Summary)
+                    .SetString(4, Recommend)
+                    .SetString(5, Conclusion)
+                    .SetString(6, RegisterNo)
                     .ExecuteUpdate();
                 tx.Commit();
             }

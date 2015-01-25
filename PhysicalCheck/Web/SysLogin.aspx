@@ -163,8 +163,8 @@
         </div>
     </div>
     <div id="Footer" align="center">
-        Copyright © 2013 武威市疾病预防控制中心<br />
-        系统维护：西安北坤电子科技有限公司
+        Copyright © 2013 中国人民解放军第23医院<br />
+        系统维护：中国人民解放军第四军医大学流行病教研室
     </div>
     <script type="text/javascript">
         windowResize();

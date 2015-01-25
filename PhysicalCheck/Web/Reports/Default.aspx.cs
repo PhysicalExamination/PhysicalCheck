@@ -331,18 +331,11 @@ public partial class Reports_Default : BasePage {
 
     private List<Package> GetPackageItems(String RegisterNo, int PackageID) {
         //0 检查科室 1 检验科室 2 功能科室
-        String[] Names = new String[] { "抽血及其它化验项目", "医生检查项目", "功能检查项目" };
-        List<Package> List = new List<Package>();
-        List<DepartmentEntity> Departments;
-        List<PackageGroupViewEntity> Groups;
-        using (PackageBusiness Business = new PackageBusiness()) {
-            Groups = Business.GetPackageGroups(PackageID);
-        }
-        using (DepartmentBusiness Depart = new DepartmentBusiness()) {
-            Departments = Depart.GetDepartments();
-        }
-        var q = from a in Groups
-                join b in Departments on a.DeptID equals b.DeptID
+        String[] Names = new String[] { "抽血及其它化验项目", "医生检查项目", "功能检查项目" }; 
+        GroupResultBusiness GroupResult = new GroupResultBusiness();
+        DepartmentBusiness Department = new DepartmentBusiness();
+        var q = from a in GroupResult.GetGroupResults(RegisterNo)
+                join b in Department.GetDepartments() on a.DeptID equals b.DeptID
                 group b by b.DeptKind into g
                 select new Package {
                     RegisterNo = RegisterNo,
@@ -352,24 +345,20 @@ public partial class Reports_Default : BasePage {
         return q.ToList();
     }
 
-    private List<GroupItem> GetGroupItems(String RegisterNo, int PackageID) {
-        List<DepartmentEntity> Departments;
-        List<PackageGroupViewEntity> Groups;
-        using (PackageBusiness Business = new PackageBusiness()) {
-            Groups = Business.GetPackageGroups(PackageID);
-        }
-        using (DepartmentBusiness Depart = new DepartmentBusiness()) {
-            Departments = Depart.GetDepartments();
-        }
-        var q = from a in Groups
-                join b in Departments on a.DeptID equals b.DeptID
+    private List<GroupItem> GetGroupItems(String RegisterNo, int PackageID) {       
+        ItemGroupBusiness ItemGroup = new ItemGroupBusiness();
+        GroupResultBusiness GroupResult = new GroupResultBusiness();
+        DepartmentBusiness Department = new DepartmentBusiness();
+        var q = from a in GroupResult.GetGroupResults(RegisterNo) 
+                join b in ItemGroup.GetItemGroups()  on a.ID.GroupID equals b.GroupID
+                join c in Department.GetDepartments() on a.DeptID equals c.DeptID
                 select new GroupItem {
                     RegisterNo = RegisterNo,
-                    GroupID = Convert.ToInt32(b.DeptKind),
+                    GroupID = Convert.ToInt32(c.DeptKind),
                     GroupName = a.GroupName,
-                    Clinical = a.Clinical,
-                    Notice = a.Notice
-                };
+                    Clinical = b.Clinical,
+                    Notice = b.Notice
+                };      
         return q.ToList();
     }
 

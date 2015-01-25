@@ -104,7 +104,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// </summary>
     /// <returns></returns>
     private RegistrationEntity GetRegistrationUI() {
-        RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegisterNo);
+        RegistrationViewEntity RegInfo = m_Registration.GetOverall(RegisterNo);
         bool IsCheckOver = true;
         if (!String.IsNullOrWhiteSpace(txtReviewDate.Text)) IsCheckOver = false;
         RegistrationEntity Result = new RegistrationEntity {
@@ -212,6 +212,17 @@ public partial class Examination_OverallCheckedPage : BasePage {
         DataBind();
     }
 
+    protected void btnBatch_Click(object source, EventArgs e) {
+       RepeaterItemCollection Items = RegistrationRepeater.Items;
+       GroupResultBusiness GroupResult = new GroupResultBusiness();
+       Literal lblRegisterNo;      
+       foreach (RepeaterItem Item in Items) {
+           lblRegisterNo = (Literal)Item.FindControl("lblRegisterNo");
+           String Summary = String.Join(Environment.NewLine, GroupResult.GetGroupSummary(lblRegisterNo.Text).ToArray());
+           m_Registration.SaveOverall(lblRegisterNo.Text, DateTime.Now.Date, UserName,Summary,"","");  
+       }
+       ShowMessage("操作成功！");
+    }
 
     #endregion
 }

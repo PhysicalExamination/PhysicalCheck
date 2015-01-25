@@ -24,7 +24,7 @@
             体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <asp:Button ID="btnBatch" runat="server" CssClass="buttonCss" Text="批量总检" />
+            <asp:Button ID="btnBatch" runat="server" CssClass="buttonCss" Text="批量总检" OnClick="btnBatch_Click" />
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">

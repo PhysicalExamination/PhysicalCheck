@@ -89,6 +89,10 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
+        if (String.IsNullOrWhiteSpace(txtsRegisterNo.Text)){
+            ShowMessage("数据保存失败，请输入体检登记号。");
+            return;
+        }
         Literal lblItemID;
         TextBox txtCheckResult;
         int? GroupID = Convert.ToInt32(drpGroups.SelectedValue), ItemID;

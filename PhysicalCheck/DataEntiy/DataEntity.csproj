@@ -128,7 +128,9 @@
     <EmbeddedResource Include="Mapping\PackageGroupView.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\ItemGroupView.hbm.xml" />
+    <EmbeddedResource Include="Mapping\ItemGroupView.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\ItemGroupDetailView.hbm.xml" />

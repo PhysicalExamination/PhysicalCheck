@@ -12,7 +12,7 @@
                    到<asp:TextBox CssClass="inputCss Wdate" ID="txtDateE" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                     <asp:DropDownList ID="drptype" runat="server">
                         <asp:ListItem Value="0" Text="全部"> </asp:ListItem>
-                        <asp:ListItem Value="体检见过通知" Text="体检见过通知" Selected="True"> 
+                        <asp:ListItem Value="体检过通知" Text="体检过通知" Selected="True"> 
                         </asp:ListItem>
                         <asp:ListItem Value="复检通知" Text="复检通知">                         
                         </asp:ListItem>

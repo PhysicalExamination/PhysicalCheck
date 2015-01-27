@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2015-1-24 16:33:36   N/A    初版
+* V0.01  2015-1-27 10:09:33   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -62,11 +62,13 @@ namespace Maticsoft.DAL.Examination
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into advise(");
-			strSql.Append("RegisterNo,investigation,content,content2,content3,Doctor,add_time)");
+			strSql.Append("RegisterNo,Name,Summary,investigation,content,content2,content3,Doctor,add_time)");
 			strSql.Append(" values (");
-			strSql.Append("@RegisterNo,@investigation,@content,@content2,@content3,@Doctor,@add_time)");
+			strSql.Append("@RegisterNo,@Name,@Summary,@investigation,@content,@content2,@content3,@Doctor,@add_time)");
 			MySqlParameter[] parameters = {
 					new MySqlParameter("@RegisterNo", MySqlDbType.VarChar,20),
+					new MySqlParameter("@Name", MySqlDbType.VarChar,20),
+					new MySqlParameter("@Summary", MySqlDbType.Text),
 					new MySqlParameter("@investigation", MySqlDbType.Text),
 					new MySqlParameter("@content", MySqlDbType.Text),
 					new MySqlParameter("@content2", MySqlDbType.Text),
@@ -74,12 +76,14 @@ namespace Maticsoft.DAL.Examination
 					new MySqlParameter("@Doctor", MySqlDbType.VarChar,50),
 					new MySqlParameter("@add_time", MySqlDbType.DateTime)};
 			parameters[0].Value = model.RegisterNo;
-			parameters[1].Value = model.investigation;
-			parameters[2].Value = model.content;
-			parameters[3].Value = model.content2;
-			parameters[4].Value = model.content3;
-			parameters[5].Value = model.Doctor;
-			parameters[6].Value = model.add_time;
+			parameters[1].Value = model.Name;
+			parameters[2].Value = model.Summary;
+			parameters[3].Value = model.investigation;
+			parameters[4].Value = model.content;
+			parameters[5].Value = model.content2;
+			parameters[6].Value = model.content3;
+			parameters[7].Value = model.Doctor;
+			parameters[8].Value = model.add_time;
 
 			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -99,6 +103,8 @@ namespace Maticsoft.DAL.Examination
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update advise set ");
 			strSql.Append("RegisterNo=@RegisterNo,");
+			strSql.Append("Name=@Name,");
+			strSql.Append("Summary=@Summary,");
 			strSql.Append("investigation=@investigation,");
 			strSql.Append("content=@content,");
 			strSql.Append("content2=@content2,");
@@ -108,6 +114,8 @@ namespace Maticsoft.DAL.Examination
 			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
 					new MySqlParameter("@RegisterNo", MySqlDbType.VarChar,20),
+					new MySqlParameter("@Name", MySqlDbType.VarChar,20),
+					new MySqlParameter("@Summary", MySqlDbType.Text),
 					new MySqlParameter("@investigation", MySqlDbType.Text),
 					new MySqlParameter("@content", MySqlDbType.Text),
 					new MySqlParameter("@content2", MySqlDbType.Text),
@@ -116,13 +124,15 @@ namespace Maticsoft.DAL.Examination
 					new MySqlParameter("@add_time", MySqlDbType.DateTime),
 					new MySqlParameter("@id", MySqlDbType.Int32,11)};
 			parameters[0].Value = model.RegisterNo;
-			parameters[1].Value = model.investigation;
-			parameters[2].Value = model.content;
-			parameters[3].Value = model.content2;
-			parameters[4].Value = model.content3;
-			parameters[5].Value = model.Doctor;
-			parameters[6].Value = model.add_time;
-			parameters[7].Value = model.id;
+			parameters[1].Value = model.Name;
+			parameters[2].Value = model.Summary;
+			parameters[3].Value = model.investigation;
+			parameters[4].Value = model.content;
+			parameters[5].Value = model.content2;
+			parameters[6].Value = model.content3;
+			parameters[7].Value = model.Doctor;
+			parameters[8].Value = model.add_time;
+			parameters[9].Value = model.id;
 
 			int rows=DbHelperMySQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -186,7 +196,7 @@ namespace Maticsoft.DAL.Examination
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select id,RegisterNo,investigation,content,content2,content3,Doctor,add_time from advise ");
+			strSql.Append("select id,RegisterNo,Name,Summary,investigation,content,content2,content3,Doctor,add_time from advise ");
 			strSql.Append(" where id=@id");
 			MySqlParameter[] parameters = {
 					new MySqlParameter("@id", MySqlDbType.Int32)
@@ -222,6 +232,14 @@ namespace Maticsoft.DAL.Examination
 				{
 					model.RegisterNo=row["RegisterNo"].ToString();
 				}
+				if(row["Name"]!=null)
+				{
+					model.Name=row["Name"].ToString();
+				}
+				if(row["Summary"]!=null)
+				{
+					model.Summary=row["Summary"].ToString();
+				}
 				if(row["investigation"]!=null)
 				{
 					model.investigation=row["investigation"].ToString();
@@ -256,7 +274,7 @@ namespace Maticsoft.DAL.Examination
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select id,RegisterNo,investigation,content,content2,content3,Doctor,add_time ");
+			strSql.Append("select id,RegisterNo,Name,Summary,investigation,content,content2,content3,Doctor,add_time ");
 			strSql.Append(" FROM advise ");
 			if(strWhere.Trim()!="")
 			{
@@ -271,7 +289,7 @@ namespace Maticsoft.DAL.Examination
 		public int GetRecordCount(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-            strSql.Append("select count(1) FROM v_advise ");
+			strSql.Append("select count(1) FROM advise ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -292,7 +310,7 @@ namespace Maticsoft.DAL.Examination
 		public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
 		{
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT * FROM v_advise ");
+            strSql.Append("SELECT * FROM advise ");
 
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {

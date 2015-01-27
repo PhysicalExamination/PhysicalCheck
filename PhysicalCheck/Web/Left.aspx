@@ -10,7 +10,8 @@
             $("#accordion").accordion({
                 header: "h3",
                 autoHeight: false,
-                navigation: true
+                navigation: true,
+                collapsible: true
             });
             $("div span").addClass("menuItem");
             $("div span").click(function () {

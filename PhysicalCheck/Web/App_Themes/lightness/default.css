@@ -290,7 +290,7 @@ th
 .menuItem
 {
     color: #1C94C4;
-    cursor: hand;
+    cursor: pointer;
     text-decoration: underline;
     
 }

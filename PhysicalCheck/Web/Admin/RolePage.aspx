@@ -47,7 +47,12 @@
                 lines: true,
                 url: "Services.ashx?Action=GetRoleModuleTree"
             });
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
+
+        function checkForm() {
+            return $("#<%=Form.ClientID%>").validationEngine("validate");
+        }
 
         function onSelected(index, roleNo) {
             RoleNo = roleNo;
@@ -154,10 +159,10 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                角色
+                                角色<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="inputCss" ID="txtRoleName" runat="server" />
+                                <asp:TextBox CssClass="validate[required]  inputCss" ID="txtRoleName" runat="server" data-errormessage-value-missing="角色名称不能为空!" />
                             </td>
                             <td class="HVLine">
                                 序号
@@ -181,7 +186,7 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditRole_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteRole_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveRole_Click" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveRole_Click" OnClientClick="checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelRole_Click" />
                             </td>
                         </tr>

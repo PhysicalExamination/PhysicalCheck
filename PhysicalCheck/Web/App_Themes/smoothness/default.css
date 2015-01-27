@@ -288,7 +288,7 @@ th
 }
 .menuItem
 {    
-    cursor: hand;
+    cursor: pointer;
     text-decoration: underline;
     
 }

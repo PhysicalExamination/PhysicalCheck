@@ -8,13 +8,16 @@ using BusinessLogic.Admin;
 using DataEntity.Admin;
 using Common.FormatProvider;
 using System.Data;
+using BusinessLogic.Examination;
+using DataEntity.Examination;
+using Common.FormatProvider;
 public partial class Admin_DepartmentPage : BasePage {
 
 	#region 私有成员
 
    
 	//private DepartmentBusiness m_Dept;
-
+    private RegistrationBusiness   m_Registration = new RegistrationBusiness();
     private Maticsoft.BLL.Examination.advise bll = new Maticsoft.BLL.Examination.advise();
 
 	#endregion
@@ -71,7 +74,17 @@ public partial class Admin_DepartmentPage : BasePage {
 	/// </summary>
 	public override void DataBind() {
 
-        DataSet ds = bll.GetListByPage("", "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
+        string sqlw=" 1=1 ";
+        
+
+        if (txtsRegisterNo_S.Text != "")
+            sqlw += string.Format(" And RegisterNo='{0}' ", txtsRegisterNo_S.Text.Trim());
+
+        if (txtName_S.Text != "" && txtsRegisterNo_S.Text == "")
+            sqlw += string.Format(" And Name like '{0}%' ", txtName_S.Text.Trim());
+
+
+        DataSet ds = bll.GetListByPage(sqlw, " ", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
 
         Pager.RecordCount = bll.GetRecordCount("");
         DepartmentRepeater.DataSource = ds.Tables[0];
@@ -132,10 +145,12 @@ public partial class Admin_DepartmentPage : BasePage {
         txtContent.Text = "";
         txtContent2.Text = "";
         txtContent3.Text = "";
-        txtDoctor.Text = "";
+        
         txtInvestigation.Text = "";
-
+        txtSummary.Text = "";
+        txtName.Text ="" ;
         txtadd_time.Text = "";
+        txtDoctor.Text =UserName;
 	}
 	/// <summary>
     /// 填充检查科室界面
@@ -147,12 +162,14 @@ public partial class Admin_DepartmentPage : BasePage {
         if (model == null)
             return;
         txtRegisterNo.Text = model.RegisterNo;
+
+        txtName.Text = model.Name;
+        txtSummary.Text = model.Summary;
         txtContent.Text = model.content;
         txtContent2.Text = model.content2;
         txtContent3.Text = model.content3;
         txtDoctor.Text = model.Doctor;
         txtInvestigation.Text = model.investigation;
-
         txtadd_time.Text = model.add_time.ToString();
 	}
 
@@ -166,7 +183,9 @@ public partial class Admin_DepartmentPage : BasePage {
 
         model.id = Id;
        model.RegisterNo= txtRegisterNo.Text  ;
-         model.content=txtContent.Text;
+       model.Name = txtName.Text;
+       model.Summary = txtSummary.Text;
+        model.content=txtContent.Text;
          model.content2 =txtContent2.Text ;
          model.content3=txtContent3.Text ;
          model.Doctor=txtDoctor.Text ;
@@ -204,6 +223,7 @@ public partial class Admin_DepartmentPage : BasePage {
             ShowMessage("删除成功!");
         
 		DataBind();
+        ClearUserUI();
 		SetUIState("Default");
 	}
 	protected void btnEditUser_Click(object sender, EventArgs e) {
@@ -229,6 +249,15 @@ public partial class Admin_DepartmentPage : BasePage {
 
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
+    }
+
+    protected void btnSearchR_Click(object sender, EventArgs e)
+    {
+        RegistrationViewEntity mode = m_Registration.GetRegistration(txtRegisterNo.Text.Trim());
+
+        txtName.Text = mode.Name;
+        txtSummary.Text = mode.Summary;
+      
     }
 
 	#endregion

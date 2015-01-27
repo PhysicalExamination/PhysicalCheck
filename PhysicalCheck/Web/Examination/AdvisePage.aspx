@@ -25,6 +25,9 @@
             <li><a href="#tabs-2">编辑</a></li>
         </ul>
         <div id="tabs-1">
+            登记号：<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo_S" runat="server" />
+            姓名：<asp:TextBox CssClass="textbox31" ID="txtName_S" runat="server" />
+            <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="DepartmentRepeater" runat="server" OnItemCommand="UserItemCommand">
@@ -40,10 +43,9 @@
                                     <th>
                                         姓名
                                     </th>
-                                     <th>
-                                       医生建议
+                                    <th>
+                                        医生建议
                                     </th>
-
                                     <th>
                                         操作
                                     </th>
@@ -58,8 +60,7 @@
                                     <%# Eval("RegisterNo")%>
                                     <asp:Literal runat="server" ID="lblId" Text='<%# Eval("id") %>' Visible="false" />
                                 </td>
-                                
-                                 <td class="VLine" align="center">
+                                <td class="VLine" align="center">
                                     <%# Eval("Name")%>
                                 </td>
                                 <td class="VLine" align="center">
@@ -73,15 +74,14 @@
                         </ItemTemplate>
                         <AlternatingItemTemplate>
                             <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
-                                  <td class="VLine" align="center">
+                                <td class="VLine" align="center">
                                     <%# Container.ItemIndex + 1 %>
                                 </td>
                                 <td class="VLine" align="center">
                                     <%# Eval("RegisterNo")%>
                                     <asp:Literal runat="server" ID="lblId" Text='<%# Eval("id") %>' Visible="false" />
                                 </td>
-                                
-                                 <td class="VLine" align="center">
+                                <td class="VLine" align="center">
                                     <%# Eval("Name")%>
                                 </td>
                                 <td class="VLine" align="center">
@@ -111,47 +111,47 @@
             <asp:UpdatePanel ID="UP2" runat="Server">
                 <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
+                        <tr>
                             <td class="HVLine">
                                 登记号<font color="red">*</font>
                             </td>
-                            <td class="HVLine" >
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtRegisterNo" runat="server" data-errormessage-value-missing="科室名称不能为空!"/>
+                            <td class="HVLine">
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtRegisterNo" runat="server"
+                                    data-errormessage-value-missing="不能为空!" />
+                                <asp:Button ID="btnSearchR" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearchR_Click" />
                             </td>
                             <td class="HVLine">
                                 姓名<font color="red">*</font>
                             </td>
-                            <td class="HVLine" >
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="TextBox2" runat="server" data-errormessage-value-missing="科室名称不能为空!"/>
+                            <td class="HVLine">
+                                <asp:TextBox ID="txtName" runat="server" />
                             </td>
                         </tr>
-
                         <tr>
                             <td class="VLine">
                                 总论<font color="red">*</font>
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="validate[required] textbox41" TextMode="MultiLine" Width="99%"  Enabled=false ID="TextBox3" runat="server"  Height="200px" />
+                                <asp:TextBox TextMode="MultiLine" Width="99%" Enabled="false" ID="txtSummary" runat="server"
+                                    Height="200px" />
                             </td>
-                            
-                        </tr>     
-
-                         <tr>
+                        </tr>
+                        <tr>
                             <td class="VLine">
                                 调查<font color="red">*</font>
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtInvestigation" Width="99%" Height="200px" TextMode="MultiLine"  runat="server" data-errormessage-value-missing="不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox41" ID="txtInvestigation" Width="99%"
+                                    Height="200px" TextMode="MultiLine" runat="server" data-errormessage-value-missing="不能为空!" />
                             </td>
-                            
-                        </tr>                       
+                        </tr>
                         <tr>
                             <td class="VLine">
                                 饮食
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="textbox41" ID="txtContent" TextMode="MultiLine" runat="server" Width="99%" Height="200px" />
-
+                                <asp:TextBox CssClass="textbox41" ID="txtContent" TextMode="MultiLine" runat="server"
+                                    Width="99%" Height="200px" />
                             </td>
                         </tr>
                         <tr>
@@ -159,44 +159,42 @@
                                 运动
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="textbox41" ID="txtContent2" TextMode="MultiLine" runat="server" Width="99%" Height="200px" />
+                                <asp:TextBox CssClass="textbox41" ID="txtContent2" TextMode="MultiLine" runat="server"
+                                    Width="99%" Height="200px" />
                             </td>
-                            
-                        </tr>                       
+                        </tr>
                         <tr>
                             <td class="VLine">
                                 医生建议
                             </td>
                             <td class="VLine" colspan="3">
-                                <asp:TextBox CssClass="textbox41" ID="txtContent3" TextMode="MultiLine" runat="server" Width="99%" Height="200px"/>
-
+                                <asp:TextBox CssClass="textbox41" ID="txtContent3" TextMode="MultiLine" runat="server"
+                                    Width="99%" Height="200px" />
                             </td>
                         </tr>
-
                         <tr>
                             <td class="VLine">
                                 医生
                             </td>
-                            <td class="VLine" >
-                                <asp:TextBox CssClass="textbox41" ID="txtDoctor"  runat="server" Width="99%" />
-
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox41" ID="txtDoctor" ReadOnly="true" runat="server" Width="99%" />
                             </td>
                             <td class="VLine">
                                 时间
                             </td>
-                            <td class="VLine" >
-                                <asp:TextBox CssClass="textbox41" ID="txtadd_time"  Enabled=false  runat="server" Width="99%" />
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox41" ID="txtadd_time" ReadOnly="true" runat="server"
+                                    Width="99%" />
                             </td>
                         </tr>
-
                         <tr>
                             <td colspan="4" align="center" class="VLine">
                                 <asp:Button CssClass="buttonCss" ID="btnNew" runat="server" Text="新建" OnClick="btnNewUser_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditUser_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteUser_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click" 
-                                     OnClientClick="return checkForm();"/>
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveUser_Click"
+                                    OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelUser_Click" />
                             </td>
                         </tr>

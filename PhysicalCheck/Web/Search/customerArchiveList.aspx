@@ -68,7 +68,7 @@
                                     性别
                                 </th>
                                 <th>
-                                    体检日期
+                                    登记日期
                                 </th>
                                 <th>
                                     体检状态
@@ -103,7 +103,7 @@
                             </td>
                             <td class="VLine" align="center">
                               
-                                <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                                <%# EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver ").ToString() == "False" ? "进行中" : "完成"%>
@@ -137,7 +137,7 @@
                                 <%# Eval("sex")%>
                             </td>
                             <td class="VLine" align="center">
-                                <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                                <%# EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver").ToString()=="False" ? "进行中" : "完成"%>

@@ -99,7 +99,7 @@ public partial class Examination_customerArchive : BasePage
 
         }
 
-        DataSet ds = bll.GetListByPage_Composed(sqlw, "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
+        DataSet ds = bll.GetListByPage_Composed(sqlw, " RegisterNo desc ", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
 
         Pager.RecordCount = bll.GetRecordCount_Composed(sqlw);
         ReportRepeater.DataSource = ds.Tables[0];

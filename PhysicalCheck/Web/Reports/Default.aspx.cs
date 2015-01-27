@@ -94,6 +94,7 @@ public partial class Reports_Default : BasePage {
                 sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
         }
 
+        sqlw += " order by RegisterNo Desc";
 
         DataSet ds = bll.GetList_Composed(sqlw);
 

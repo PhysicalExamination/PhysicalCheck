@@ -310,11 +310,10 @@
                         </tr>
                         <tr>
                             <td class="VLine">
-                                身份证号<font color="red">*</font>
+                                身份证号
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] validate[custom[chinaIdLoose]] textbox31" ID="txtIDNumber" runat="server" onchange="setBirthdaySex();"                              
-                                data-errormessage-value-missing="身份证号不能为空!" data-errormessage-custom-error="身份证号码有误请重新输入15位或18位身份证号码！"/>
+                                <asp:TextBox CssClass="textbox31" ID="txtIDNumber" runat="server" onchange="setBirthdaySex();" />
                             </td>
                             <td class="VLine">
                                 出生日期

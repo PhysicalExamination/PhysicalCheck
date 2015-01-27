@@ -290,7 +290,7 @@ th
     border: 1px solid #CBCBCB;
 }
 .menuItem{
-  cursor:hand;
+  cursor:pointer;
   text-decoration: underline;
 }
 .ItemSelected{

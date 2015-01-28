@@ -39,7 +39,7 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);//引导单
             if (ReportKind == "4") BuildIntroductionListReport();//体检引导单批量打印
             if (ReportKind == "5") BuildBarCodeListReport();//条码单批量打印
-            if (ReportKind == "6") BuildIntroductionReport();//根据选择的体检登记号打印引导单
+            if (ReportKind == "6") BuildIntroductionsReport();//根据选择的体检登记号打印引导单
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
@@ -288,7 +288,7 @@ public partial class Reports_Default : BasePage {
        
     }
 
-    private void BuildIntroductionReport() {
+    private void BuildIntroductionsReport() {
         List<String> List = (List<String>)Session["Registrations"];
         Session.Remove("Registrations");
         if (List == null) return;

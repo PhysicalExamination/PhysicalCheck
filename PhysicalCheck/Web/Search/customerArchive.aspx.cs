@@ -14,7 +14,7 @@ public partial class Examination_customerArchive : BasePage
     #region 私有成员
 
     private RegistrationBusiness m_Registration;
-    private ChargeBusiness m_Charge;
+    //private ChargeBusiness m_Charge;
     private string RegisterNo
     {
         get

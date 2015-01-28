@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2015-1-24 16:33:36   N/A    初版
+* V0.01  2015-1-27 10:09:33   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -28,6 +28,8 @@ namespace Maticsoft.Model.Examination
 		#region Model
 		private int _id;
 		private string _registerno;
+		private string _name;
+		private string _summary;
 		private string _investigation;
 		private string _content;
 		private string _content2;
@@ -49,6 +51,22 @@ namespace Maticsoft.Model.Examination
 		{
 			set{ _registerno=value;}
 			get{return _registerno;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Name
+		{
+			set{ _name=value;}
+			get{return _name;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Summary
+		{
+			set{ _summary=value;}
+			get{return _summary;}
 		}
 		/// <summary>
 		/// 

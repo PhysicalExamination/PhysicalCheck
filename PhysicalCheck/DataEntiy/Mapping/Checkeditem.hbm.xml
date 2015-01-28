@@ -13,7 +13,7 @@
         <property name="LowerTips" column="LowerTips" type="String" not-null="false" length="300" /> 
         <property name="UpperTips" column="UpperTips" type="String" not-null="false" length="300" /> 
         <property name="Sex" column="Sex" type="String" not-null="true" length="9" /> 
-        <property name="MaxValue" column="MaxValue" type="Decimal" not-null="false" /> 
+        <property name="MaxValue" column="`MaxValue`" type="Decimal" not-null="false" /> 
         <property name="MinValue" column="MinValue" type="Decimal" not-null="false" /> 
         <property name="IsSummary" column="IsSummary" type="Boolean" not-null="false" /> 
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />

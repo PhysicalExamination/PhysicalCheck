@@ -144,11 +144,15 @@ public partial class SysConfig_CheckedItemPage : BasePage {
     /// 填充界面
     /// </summary>
     private void SetCheckedItemUI() {
+
+        DepartmentBusiness dpt = new DepartmentBusiness();
         CheckedItemEntity Result = m_CheckedItem.GetCheckedItem(ItemID);
         if (Result == null) return;
         ItemID = Result.ItemID.Value;
         txtItemName.Text = Result.ItemName;
         txtDeptID.Text = Result.DeptID + "";
+
+        txtDeptName.Text= dpt.GetDepartment(Convert.ToInt32( Result.DeptID)).DeptName;
         txtMeasureUnit.Text = Result.MeasureUnit;
         txtLowerLimit.Text = Result.LowerLimit;
         txtUpperLimit.Text = Result.UpperLimit;

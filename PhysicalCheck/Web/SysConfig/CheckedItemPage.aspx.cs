@@ -130,6 +130,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         ItemID = int.MinValue;
         txtItemName.Text = "";
         txtDeptID.Text = "";
+        txtDeptName.Text = "";
         txtMeasureUnit.Text = "";
         txtLowerLimit.Text = "";
         txtUpperLimit.Text = "";
@@ -195,8 +196,10 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         //int Succeed = m_CheckedItem.SaveCheckedItem(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
+
         DataBind();
         SetUIState("Default");
+       
     }
 
     protected void btnNewCheckedItem_Click(object sender, EventArgs e) {
@@ -213,6 +216,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         //if (Succeed < 0) ShowMessage("数据删除失败!");
         DataBind();
         SetUIState("Default");
+        ClearCheckedItemUI();
     }
     protected void btnEditCheckedItem_Click(object sender, EventArgs e) {
         SetUIState("Edit");

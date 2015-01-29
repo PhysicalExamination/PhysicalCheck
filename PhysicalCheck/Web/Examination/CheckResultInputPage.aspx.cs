@@ -138,7 +138,9 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private void ClientInitial() {
         using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-            List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups(DepartNo);
+           // List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups(DepartNo);
+            // wsw Edit
+            List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups();
             List<ItemGroupViewEntity> DataSource = ItemGroups.Where(p => p.ResultMode == "0").ToList();
             if (DataSource.Count <= 0) InputEnabled = false;
             drpGroups.DataSource = ItemGroups;

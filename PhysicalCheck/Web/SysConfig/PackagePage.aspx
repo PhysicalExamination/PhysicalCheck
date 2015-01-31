@@ -140,6 +140,7 @@
                                     <asp:ListItem Value="1">男士套餐</asp:ListItem>
                                     <asp:ListItem Value="2">女士套餐</asp:ListItem>
                                     <asp:ListItem Value="3">儿童套餐</asp:ListItem>
+                                    <asp:ListItem Value="4">未婚女士套餐</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                         </tr>

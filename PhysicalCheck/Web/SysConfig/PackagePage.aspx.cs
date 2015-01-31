@@ -13,7 +13,7 @@ public partial class SysConfig_PackagePage : BasePage {
     #region 私有成员
 
     private PackageBusiness m_Package;
-    private readonly String[] Categorys = { "不分性别套餐","男士套餐","女士套餐","儿童套餐" };
+    private readonly String[] Categorys = { "不分性别套餐","男士套餐","女士套餐","儿童套餐","未婚女士体检" };
 
     #endregion
 
@@ -72,7 +72,7 @@ public partial class SysConfig_PackagePage : BasePage {
 
     protected String GetCategory(object obj) {
         int Index = Convert.ToInt32(obj);
-        if ((Index >= 0) && (Index <= 3)) return Categorys[Index];
+        if ((Index >= 0) && (Index <= 4)) return Categorys[Index];
         return "";
     }
 

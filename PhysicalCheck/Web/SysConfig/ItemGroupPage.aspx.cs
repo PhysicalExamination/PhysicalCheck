@@ -170,6 +170,8 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         ItemGroupViewEntity Result = m_ItemGroup.GetItemGroup(GroupID);
         if (Result == null) return;
         txtGroupName.Text = Result.GroupName;
+      
+
         hDeptID.Value = Result.DeptID + "";
         txtDeptName.Text = Result.DeptName;
         drpCheckCategory.SelectedValue = Result.CheckCategory;
@@ -221,7 +223,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
     protected void btnSaveItemGroup_Click(object sender, EventArgs e) {
         ItemGroupEntity Result = GetItemGroupUI();
         m_ItemGroup.SaveItemGroup(Result);
-        GroupID = Result.GroupID.Value;
+       // GroupID = Result.GroupID.Value;
         ShowMessage("组合项目数据保存成功!");
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
@@ -259,6 +261,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         if (e.CommandName.ToLower() == "select") {
             Literal lblGroupID = (Literal)e.Item.FindControl("lblGroupID");
             GroupID = Convert.ToInt32(lblGroupID.Text);
+
             SetItemGroupUI();
             SetUIState("Default");
             BindCheckedItem(GroupID);

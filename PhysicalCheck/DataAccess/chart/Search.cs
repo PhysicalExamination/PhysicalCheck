@@ -131,6 +131,27 @@ namespace Maticsoft.DAL.Search
         }
 
         /// <summary>
+        /// 获得体检组合项目合计工作量
+        /// </summary>
+        public DataSet GetList_workload_itemgroup(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" SELECT D.DeptName ,B.GroupName,B.price,  SUM(1) as sumNum, sum( B.Price )as sumPrice  from groupresult as A  ");
+            strSql.Append(" INNER JOIN itemgroup as B on B.GroupID=A.GroupID ");
+            strSql.Append(" INNER JOIN department as D on  D.DeptID=A.DeptID  ");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+
+            strSql.Append(" GROUP BY D.DeptName, B.GroupName,B.price  ");
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+
+
+        /// <summary>
         /// 获得体检项目合计工作量
         /// </summary>
         public DataSet GetList_workload_package(string strWhere)

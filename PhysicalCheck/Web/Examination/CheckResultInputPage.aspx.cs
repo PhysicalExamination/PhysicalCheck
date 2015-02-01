@@ -16,6 +16,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private ItemResultBusiness m_ItemResult;
     private GroupResultBusiness m_GroupResut;
+    private RegistrationBusiness m_Regist;
 
     private int? PackageID {
         get {
@@ -54,6 +55,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected override void OnInit(EventArgs e) {
         m_ItemResult = new ItemResultBusiness();
         m_GroupResut = new GroupResultBusiness();
+        m_Regist = new RegistrationBusiness();
         base.OnInit(e);
     }
 
@@ -69,6 +71,19 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// 数据绑定
     /// </summary>
     public override void DataBind() {
+
+        if (txtsRegisterNo.Text.Trim() != "")
+        {
+            RegistrationViewEntity en = m_Regist.GetRegistration(txtsRegisterNo.Text.Trim());
+
+            if (en.IsCheckOver)
+            {
+                ShowMessage("此登记号已经体检完毕。");
+                return;            
+            }
+
+        }
+
         int RecordCount = 0;
         String RegisterNo = txtsRegisterNo.Text.Trim();
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
@@ -126,6 +141,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     }
 
     protected void btnSearch_Click(object sender, EventArgs e) {
+
         DataBind();
     }
 

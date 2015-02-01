@@ -43,6 +43,7 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
+            if (ReportKind == "64") BuildSearch_workload_ItemGroup();//查询-检查组合项目工作量
         }
     }
 
@@ -186,6 +187,44 @@ public partial class Reports_Default : BasePage {
         WebReport1.Prepare();
 
     }
+
+
+    //科室医生组合项目查询
+    public void BuildSearch_workload_ItemGroup()
+    {
+
+        Report a = new Report();
+
+        a.Load(Server.MapPath("workload_ItemGroup.frx"));
+
+
+        Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
+
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptID"] != "")
+            sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
+       
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And A.CheckDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+        DataSet ds = bll.GetList_workload_itemgroup(sqlw);
+
+        //a.SetParameterValue("CheckDoctor", Request.Params["CheckDoctor"]);
+
+        a.SetParameterValue("DeptName", Request.Params["DeptName"]);
+        a.SetParameterValue("StartDate", Request.Params["StartDate"]);
+        a.SetParameterValue("EndDate", Request.Params["EndDate"]);
+        a.RegisterData(ds.Tables[0], "workload_ItemGroup");
+        WebReport1.Report = a;
+
+        WebReport1.Prepare();
+
+    }
+
 
     #endregion
 

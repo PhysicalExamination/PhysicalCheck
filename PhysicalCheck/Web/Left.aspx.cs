@@ -91,12 +91,14 @@ public partial class Left : BasePage {
     private String BuildSubMenu(String ParentModuleNo) {
         StringBuilder sb = new StringBuilder();
         List<ModuleEntity> ModuleList;
-        //if (IsAdmin) {
+        if (IsAdmin)
+        {
             ModuleList = m_Module.GetModules(ParentModuleNo);
-        //}
-        //else {
-        //    ModuleList = m_User.GetUserModules(UserAccount, ParentModuleNo);
-        //}
+        }
+        else
+        {
+            ModuleList = m_User.GetUserModules(UserAccount, ParentModuleNo);
+        }
         String URL, ModuleIcon, ModuleName;
         foreach (ModuleEntity Module in ModuleList) {
             sb.AppendLine("<p>");

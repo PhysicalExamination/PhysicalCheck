@@ -8,25 +8,31 @@ using DataEntity.Examination;
 
 namespace LISDataService.Job {
 
-    public class GetCheckedResultJob:IJob{             
+    public class GetCheckedResultJob:IJob{
+        private ItemResultBusiness m_ItemResult = new ItemResultBusiness();
+        private GroupResultBusiness m_GroupResult = new GroupResultBusiness();
 
         public void Execute(IJobExecutionContext context) {
-            GroupResultBusiness GroupResult = new GroupResultBusiness();
-            List<GroupResultViewEntity> List = GroupResult.GetGroupForLis();
-            List<LisEntity> CheckResult;
+            List<GroupResultViewEntity> List = m_GroupResult.GetGroupForLis();
+            List<LisEntity> CheckResults;
             using (LISBusiness LISBusiness = new LISBusiness()) {
                 foreach (GroupResultViewEntity Group in List) {
-                    CheckResult = LISBusiness.GetLisDatas(Group.ID.RegisterNo, Group.ID.GroupID + "");
-                    SaveGroupResult(CheckResult);
-                    SaveItemResult(CheckResult);
+                    CheckResults = LISBusiness.GetLisDatas(Group.ID.RegisterNo, Group.ID.GroupID + "");//从LIS中读取结果数据
+                    SaveGroupResult(CheckResults);
+                    SaveItemResult(CheckResults);
                 }
             }           
         }
 
-        private void SaveGroupResult(List<LisEntity> CheckResult) {
+        private void SaveGroupResult(List<LisEntity> CheckResults) {
+
         }
 
-        private void SaveItemResult(List<LisEntity> CheckResult) {
+        private void SaveItemResult(List<LisEntity> CheckResults) {
+            foreach (LisEntity Result in CheckResults) {
+                m_ItemResult.SaveItemResult(Result.RegisterNo,Convert.ToInt32(Result.ItemID), Result.ItemResult);
+            }
+            //
         }
     }
 }

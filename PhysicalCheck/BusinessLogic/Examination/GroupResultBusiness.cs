@@ -35,6 +35,14 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetGroupResult(RegisterNo, GroupID);
         }
 
+        /// <summary>
+        /// 获取所有一体检未从LIS返回结果信息
+        /// </summary>
+        /// <returns></returns>
+        public List<GroupResultViewEntity> GetGroupForLis() {
+            return DataAccess.GetGroupForLis();
+        }
+
         public void SaveGroupResult(GroupResultEntity GroupResult) {
             DataAccess.SaveGroupResult(GroupResult);
         }

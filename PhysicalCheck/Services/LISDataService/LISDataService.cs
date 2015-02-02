@@ -9,12 +9,14 @@ using System.Text;
 using Quartz;
 using Quartz.Impl;
 using LISDataService.Job;
+using log4net;
 
 namespace LISDataService {
 
     partial class LISDataService : ServiceBase {
 
         IScheduler m_Scheduler;
+        private ILog m_Logger = LogHelper.Logger;
 
         public LISDataService() {
             InitializeComponent();
@@ -26,10 +28,12 @@ namespace LISDataService {
         protected override void OnStart(string[] args) {
             base.OnStart(args);
             m_Scheduler.Start();
+            m_Logger.Info("服务启动成功！");
         }
 
         protected override void OnStop() {
-            m_Scheduler.Shutdown();	
+            m_Scheduler.Shutdown();
+            m_Logger.Info("服务停止成功！");
         }
 
         internal void BuildJob() {
@@ -37,11 +41,9 @@ namespace LISDataService {
             IJobDetail job;          
             ICronTrigger trigger;
 
-
             job = JobBuilder.Create<GetCheckedResultJob>()
                     .WithIdentity("GetCheckedResultJob", "GetCheckedResultJobGroup")
                     .Build();
-
             //每小时执行一次
             trigger = (ICronTrigger)TriggerBuilder.Create()
                       .WithIdentity("GetCheckedResultJobTrigger", "GetCheckedResultJobTriggerGroup")                    

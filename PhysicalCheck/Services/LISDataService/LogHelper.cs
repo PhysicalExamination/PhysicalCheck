@@ -5,7 +5,7 @@ using System.Text;
 using log4net;
 using System.IO;
 
-namespace SISKPI.AlarmService {
+namespace LISDataService {
 
 	internal class LogHelper {
 		private ILog m_Loger;

@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Job\GetCheckedResultJob.cs" />
     <Compile Include="LISDataService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -85,7 +86,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Job\" />
+    <ProjectReference Include="..\..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{4AD1135D-7205-4AF5-8CD1-5B616F300931}</Project>
+      <Name>BusinessLogic %28BusinessLogic\BusinessLogic%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEntiy\DataEntity.csproj">
+      <Project>{1DB68056-24DA-4F94-A681-937F5897A240}</Project>
+      <Name>DataEntity %28DataEntity\DataEntity%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">

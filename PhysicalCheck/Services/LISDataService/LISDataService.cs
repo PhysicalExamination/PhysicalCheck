@@ -6,19 +6,48 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using Quartz;
+using Quartz.Impl;
+using LISDataService.Job;
 
 namespace LISDataService {
+
     partial class LISDataService : ServiceBase {
+
+        IScheduler m_Scheduler;
+
         public LISDataService() {
             InitializeComponent();
+            ISchedulerFactory sf = new StdSchedulerFactory();
+            m_Scheduler = sf.GetScheduler();
+            BuildJob();		
         }
 
         protected override void OnStart(string[] args) {
-            // TODO: 在此处添加代码以启动服务。
+            base.OnStart(args);
+            m_Scheduler.Start();
         }
 
         protected override void OnStop() {
-            // TODO: 在此处添加代码以执行停止服务所需的关闭操作。
+            m_Scheduler.Shutdown();	
+        }
+
+        internal void BuildJob() {
+            DateTimeOffset date = DateTime.Now;          
+            IJobDetail job;          
+            ICronTrigger trigger;
+
+
+            job = JobBuilder.Create<GetCheckedResultJob>()
+                    .WithIdentity("GetCheckedResultJob", "GetCheckedResultJobGroup")
+                    .Build();
+
+            //每小时执行一次
+            trigger = (ICronTrigger)TriggerBuilder.Create()
+                      .WithIdentity("GetCheckedResultJobTrigger", "GetCheckedResultJobTriggerGroup")                    
+                      .WithCronSchedule("0 0/10 * * * ?")
+                      .Build();
+            m_Scheduler.ScheduleJob(job, trigger);            
         }
     }
 }

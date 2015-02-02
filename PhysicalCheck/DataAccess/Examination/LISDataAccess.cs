@@ -17,7 +17,7 @@ namespace DataAccess.Examination {
         #region 构造器
 
         public LISDataAccess() {
-            String ConnectionString = ConfigurationManager.ConnectionStrings[""] + "";
+            String ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"] + "";
             m_Connection = new OracleConnection(ConnectionString);
             m_Connection.Open();
         }
@@ -40,6 +40,7 @@ namespace DataAccess.Examination {
                     DataReader.Close();
                 }
             }
+            //Oracle.DataAccess.Client.piv
             return Result;
         }
 

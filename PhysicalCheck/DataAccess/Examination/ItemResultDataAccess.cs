@@ -73,6 +73,16 @@ namespace DataAccess.Examination {
             return Result;
         }
 
+        public void SaveItemResult(String RegisterNo,int ItemID,String CheckResult) {
+            String hql = @"update ItemResultViewEntity SET CheckedResult=? WHERE RegisterNo=? AND ItemID=?";
+            Session.CreateQuery(hql)
+                .SetString(0, CheckResult)
+                .SetString(1,RegisterNo)                
+                .SetInt32(2,ItemID)
+                .ExecuteUpdate();
+            CloseSession();
+        }
+
         /// <summary>
         /// 保存体检项目结论数据
         /// </summary>

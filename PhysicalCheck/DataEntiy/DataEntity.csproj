@@ -62,6 +62,7 @@
     <Compile Include="Examination\GroupResultViewEntity.cs" />
     <Compile Include="Examination\ItemResultEntity.cs" />
     <Compile Include="Examination\ItemResultViewEntity.cs" />
+    <Compile Include="Examination\LisEntity.cs" />
     <Compile Include="Examination\PhysicalDepartmentEntity.cs" />
     <Compile Include="Examination\RegistrationEntity.cs" />
     <Compile Include="Examination\RegistrationViewEntity.cs" />

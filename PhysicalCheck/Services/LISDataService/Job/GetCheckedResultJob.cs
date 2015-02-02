@@ -17,7 +17,8 @@ namespace LISDataService.Job {
 
         private ILog m_Logger = LogHelper.Logger;
         private ItemResultBusiness m_ItemResult = new ItemResultBusiness();
-        private CheckedItemBusiness m_CheckItem = new CheckedItemBusiness();     
+        private CheckedItemBusiness m_CheckItem = new CheckedItemBusiness();
+        private GroupResultBusiness m_GroupResult = new GroupResultBusiness();
 
         public void Execute(IJobExecutionContext context) {
             List<String> List = m_ItemResult.GetRegisterDataForLIS();
@@ -28,6 +29,7 @@ namespace LISDataService.Job {
                     CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
                     UpdateCheckItem(CheckResults);
                     SaveItemResult(CheckResults);
+                    //SaveGroupResult(RegisterNo);
                     m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
                 }
             }           
@@ -49,6 +51,8 @@ namespace LISDataService.Job {
                 if (References.Length == 2) {
                     CheckedItem.MinValue = Convert.ToDecimal(References[0]);
                     CheckedItem.MaxValue = Convert.ToDecimal(References[1]);
+                    CheckedItem.LowerLimit = References[0];
+                    CheckedItem.UpperLimit = References[1];
                 }
                 if (References.Length == 1) {
                     CheckedItem.NormalTips = References[0];
@@ -67,6 +71,27 @@ namespace LISDataService.Job {
             }          
         }
 
+        private void SaveGroupResult(String RegisterNo) {
+            List<int> Groups = new List<int>();
+            GroupResultViewEntity GroupResult;
+            List<ItemResultViewEntity> ItemResults;
+            decimal CheckedResult, LowerLimit, UpperLimit;
+            foreach (int GroupID in Groups) {
+                GroupResult = m_GroupResult.GetGroupResult(RegisterNo, GroupID);
+                ItemResults = m_ItemResult.GetItemResults(RegisterNo, GroupID);
+                bool passed = true;
+                foreach(ItemResultViewEntity ItemResult  in ItemResults){
+                    if (IsNumeric(ItemResult.CheckedResult)) {
+                        CheckedResult = Convert.ToDecimal(ItemResult.CheckedResult);
+                        LowerLimit = Convert.ToDecimal(ItemResult.LowerLimit);
+                        UpperLimit = Convert.ToDecimal(ItemResult.UpperLimit);
+                        if ((CheckedResult > UpperLimit) || (CheckedResult < LowerLimit)) passed = false;                      
+                    }
+                }
+                if (passed) GroupResult.Summary = "未见异常";
+                //m_GroupResult.SaveGroupResult(GroupResult);
+            }
+        }    
         /// <summary>
         /// 判断一个字符串是否为字符串
         /// </summary>

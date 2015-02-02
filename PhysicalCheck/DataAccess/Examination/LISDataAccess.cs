@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using System.Data.OracleClient;
 using DataEntity.Examination;
+using Oracle.DataAccess.Client;
+using Oracle.DataAccess;
+using System.Configuration;
 
 namespace DataAccess.Examination {
 
-    public class LISDataAccess:IDisposable {
+    public class LISDataAccess : IDisposable {
 
         private OracleConnection m_Connection;
 
         #region 构造器
 
         public LISDataAccess() {
+            String ConnectionString = ConfigurationManager.ConnectionStrings[""] + "";
+            m_Connection = new OracleConnection(ConnectionString);
+            m_Connection.Open();
         }
 
         #endregion
@@ -56,7 +61,7 @@ namespace DataAccess.Examination {
             return Result;
         }
 
-        public List<LisEntity> GetLisDatas(String RegisterNo,String GroupID) {
+        public List<LisEntity> GetLisDatas(String RegisterNo, String GroupID) {
             List<LisEntity> Result = new List<LisEntity>();
             String SqlText = @"SELECT outpatient_id,test_order,test_item_id,
                                 chinese_name,quantitative_result,test_item_reference,
@@ -96,7 +101,12 @@ namespace DataAccess.Examination {
         #region Dispose
 
         public void Dispose() {
-          
+            if (m_Connection != null) {
+                m_Connection.Close();
+                m_Connection.Dispose();
+                m_Connection = null;
+            }
+
         }
 
         #endregion

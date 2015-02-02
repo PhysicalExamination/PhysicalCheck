@@ -92,18 +92,6 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
-        /// 获取所有一体检未从LIS返回结果信息
-        /// </summary>
-        /// <returns></returns>
-        public List<GroupResultViewEntity> GetGroupForLis() {
-            var q = Session.Query<GroupResultViewEntity>();
-            q = q.Where(p => p.IsOver == false);
-            List<GroupResultViewEntity> Result = q.ToList<GroupResultViewEntity>();
-            CloseSession();
-            return Result;
-        }
-
-        /// <summary>
         /// 保存体检组合项目结论数据
         /// </summary>
         /// <param name="GroupResult">体检组合项目结论实体</param>

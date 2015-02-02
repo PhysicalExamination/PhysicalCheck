@@ -33,6 +33,20 @@ namespace DataAccess.Examination {
                     where p.ID.RegisterNo == RegisterNo && p.ID.GroupID == GroupID
                     select p;
             List<ItemResultViewEntity> Result = q.ToList<ItemResultViewEntity>();
+            CloseSession();           
+            return Result;
+        }
+
+        /// <summary>
+        /// 获取所有一体检未从LIS返回结果信息
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetRegisterDataForLIS() {           
+            var q = from p in Session.Query<ItemResultViewEntity>()
+                    where p.CheckedResult == null || p.CheckedResult == ""
+                    group p by new {p.ID.RegisterNo } into g
+                    select  g.Key.RegisterNo;            
+            List<String> Result = q.ToList();
             CloseSession();
             return Result;
         }

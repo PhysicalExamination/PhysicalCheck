@@ -244,6 +244,21 @@
                                 <asp:CheckBox ID="chkHasBarCode" runat="server" />
                             </td>
                         </tr>
+
+                        <tr>
+                            <td class="VLine">
+                                LISCode
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox41" ID="txtLisCode" runat="server" />
+                            </td>
+                            <td class="VLine">
+                                PacsCode
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox41" ID="txtPacsCode" runat="server" />
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="4" align="center" class="VLine">
                                 <asp:Button CssClass="buttonCss" ID="btnNew" runat="server" Text="新建" OnClick="btnNewItemGroup_Click" />

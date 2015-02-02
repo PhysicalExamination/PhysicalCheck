@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
 
-        function CloseWindow() {                   
+        function CloseWindow() {
             window.close();
         }
 
@@ -20,6 +20,9 @@
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <th>
+                            </th>
+                            <th>
+                                项目编码
                             </th>
                             <th>
                                 项目名称
@@ -44,6 +47,9 @@
                             <asp:CheckBox ID="chkSelected" runat="server" />
                         </td>
                         <td class="VLine" align="center">
+                            <%# Eval("ItemID")%>
+                        </td>
+                        <td class="VLine" align="center">
                             <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ItemID") %>' Visible="false" />
                             <%# Eval("ItemName") %>
                         </td>
@@ -65,6 +71,9 @@
                     <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                         <td class="VLine" align="center">
                             <asp:CheckBox ID="chkSelected" runat="server" />
+                        </td>
+                        <td class="VLine" align="center">
+                            <%# Eval("ItemID")%>
                         </td>
                         <td class="VLine" align="center">
                             <asp:Literal runat="server" ID="lblItemID" Text='<%# Eval("ItemID") %>' Visible="false" />
@@ -104,6 +113,6 @@
     <p align="center">
         <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
         <input type="button" class="buttonCss" value="关闭" onclick="CloseWindow();" />
-    </p>    
+    </p>
     <strong><font color="red">注意：</font></strong>翻页前请单击【保存】按钮保存当前结果。
 </asp:Content>

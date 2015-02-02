@@ -89,7 +89,18 @@ namespace DataAccess.Examination {
             GroupResultViewEntity Result = Session.Get<GroupResultViewEntity>(ID);
             CloseSession();
             return Result;
+        }
 
+        /// <summary>
+        /// 获取所有一体检未从LIS返回结果信息
+        /// </summary>
+        /// <returns></returns>
+        public List<GroupResultViewEntity> GetGroupForLis() {
+            var q = Session.Query<GroupResultViewEntity>();
+            q = q.Where(p => p.IsOver == false);
+            List<GroupResultViewEntity> Result = q.ToList<GroupResultViewEntity>();
+            CloseSession();
+            return Result;
         }
 
         /// <summary>

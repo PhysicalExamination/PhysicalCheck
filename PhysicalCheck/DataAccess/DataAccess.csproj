@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
@@ -75,6 +76,7 @@
     <Compile Include="Examination\DepartmentPackageDataAccess.cs" />
     <Compile Include="Examination\GroupResultDataAccess.cs" />
     <Compile Include="Examination\ItemResultDataAccess.cs" />
+    <Compile Include="Examination\LISDataAccess.cs" />
     <Compile Include="Examination\PhysicalDepartmentDataAccess.cs" />
     <Compile Include="Examination\RegistrationDataAccess.cs" />
     <Compile Include="messages\checkperson.cs" />

@@ -1,24 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
-    <class name="ItemGroupViewEntity" table="ItemGroupView" mutable="false">
-        <id name="GroupID" column="GroupID" type="Int32" >
-            <generator class="assigned" />
-        </id>
-        <property name="GroupName" column="GroupName" type="String" not-null="true" length="300" />
-        <property name="DeptID" column="DeptID" type="Int32" not-null="true" />
-        <property name="DeptName" column="DeptName" type="String" not-null="false" length="50" />
-        <property name="CheckCategory" column="CheckCategory" type="String" not-null="true" length="9" />
-        <property name="Sex" column="Sex" type="String" not-null="true" length="18" />
-        <property name="Price" column="Price" type="Decimal" not-null="true" />
-        <property name="Notice" column="Notice" type="String" not-null="false" length="900" />
-        <property name="Clinical" column="Clinical" type="String" not-null="false" length="900" />
-        <property name="NormalDesc" column="NormalDesc" type="String" not-null="false" length="600" />
-        <property name="HasSpecimen" column="HasSpecimen" type="Boolean" not-null="false" />
-        <property name="Specimen" column="Specimen" type="String" not-null="false" length="9" />
-        <property name="ResultMode" column="ResultMode" type="String" not-null="false" length="9" />
-        <property name="HasBarCode" column="HasBarCode" type="Boolean" not-null="false"/>
-        <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
-        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
-    </class>
+  <class name="ItemGroupViewEntity" table="ItemGroupView" mutable="false">
+    <id name="GroupID" column="GroupID" type="Int32" >
+      <generator class="assigned" />
+    </id>
+    <property name="GroupName" column="GroupName" type="String" not-null="true" length="300" />
+    <property name="DeptID" column="DeptID" type="Int32" not-null="true" />
+    <property name="DeptName" column="DeptName" type="String" not-null="false" length="50" />
+    <property name="CheckCategory" column="CheckCategory" type="String" not-null="true" length="9" />
+    <property name="Sex" column="Sex" type="String" not-null="true" length="18" />
+    <property name="Price" column="Price" type="Decimal" not-null="true" />
+    <property name="Notice" column="Notice" type="String" not-null="false" length="900" />
+    <property name="Clinical" column="Clinical" type="String" not-null="false" length="900" />
+    <property name="NormalDesc" column="NormalDesc" type="String" not-null="false" length="600" />
+    <property name="HasSpecimen" column="HasSpecimen" type="Boolean" not-null="false" />
+    <property name="Specimen" column="Specimen" type="String" not-null="false" length="9" />
+    <property name="ResultMode" column="ResultMode" type="String" not-null="false" length="9" />
+    <property name="HasBarCode" column="HasBarCode" type="Boolean" not-null="false"/>
+    <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+    <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
+    <property name="lisCode" column="lisCode" type="String" not-null="false" length="30" />
+    <property name="pacsCode" column="pacsCode" type="String" not-null="false" length="30" />
+  </class>
 </hibernate-mapping>
 

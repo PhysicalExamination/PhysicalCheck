@@ -24,6 +24,14 @@ namespace BusinessLogic.Examination {
 
         #region 公共方法
 
+        /// <summary>
+        /// 获取所有一体检未从LIS返回结果信息
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetRegisterDataForLIS() {
+            return DataAccess.GetRegisterDataForLIS();
+        }
+
         public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
             return DataAccess.GetItemResults(RegisterNo, GroupID);
         }

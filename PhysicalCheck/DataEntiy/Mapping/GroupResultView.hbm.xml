@@ -4,7 +4,7 @@
         <composite-id name="ID" class="GroupResultPK">
             <key-property name="RegisterNo" column="RegisterNo" type="String" length="60" />
             <key-property name="GroupID" column="GroupID" type="Int32" />
-        </composite-id>
+        </composite-id>      
         <property name="GroupName" column="GroupName" type="String" not-null="false" length="100" />
         <property name="PackageID" column="PackageID" type="Int32" not-null="true" />
         <property name="PackageName" column="PackageName" type="String" not-null="false" length="100" />

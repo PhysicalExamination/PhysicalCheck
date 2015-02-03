@@ -152,7 +152,9 @@
     <EmbeddedResource Include="Mapping\Registration.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\GroupResultView.hbm.xml" />
+    <EmbeddedResource Include="Mapping\GroupResultView.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\ItemResultView.hbm.xml" />

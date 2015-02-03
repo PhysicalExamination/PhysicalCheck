@@ -31,6 +31,16 @@ namespace DataEntity.Examination {
             set;
         }
 
+
+        /// <summary>
+        /// 组合编号
+        /// </summary>		
+        public virtual int? GroupID
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 组合项目名称
         /// </summary>		

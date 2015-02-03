@@ -25,6 +25,23 @@ namespace DataEntity.Examination {
         public virtual GroupResultPK ID { get; set; }
 
         /// <summary>
+        /// 登记号
+        /// </summary>		
+        public virtual string RegisterNo
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 组合
+        /// </summary>		
+        public virtual string GroupID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 组合项目名称
         /// </summary>		
         public virtual string GroupName {

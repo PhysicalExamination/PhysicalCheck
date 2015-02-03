@@ -59,7 +59,7 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                            <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&&GroupId=<%# Eval("ID.GroupID") %> "
+                            <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&GroupId=<%# Eval("ID.GroupID") %>&DeptID=<%# Eval("DeptID") %>"
                                 target="_self">详情</a>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                              <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&&GroupId=<%# Eval("ID.GroupID") %> "
+                              <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&GroupId=<%# Eval("ID.GroupID") %>&DeptID=<%# Eval("DeptID") %>"
                                 target="_self">详情</a>
                         </td>
                     </tr>

@@ -10,7 +10,7 @@ using Common.FormatProvider;
 using System.Data;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
-using Common.FormatProvider;
+//using Common.FormatProvider;
 public partial class Admin_DepartmentPage : BasePage {
 
 	#region 私有成员

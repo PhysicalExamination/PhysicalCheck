@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         function onSetSummary() {
-            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random();
+            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random() +"&DeptID=<%=Request.Params["DeptID"] %>";
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";           
             var sResult = window.showModalDialog(sURL, null, sFeatures);
             $("#<%=txtSummary.ClientID %>").val(sResult);           

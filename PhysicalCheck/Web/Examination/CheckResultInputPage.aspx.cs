@@ -56,7 +56,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     {
         get
         {
-            if (ViewState["GroupId"] == null) return Request.QueryString["GroupId"].ToString();
+            if (ViewState["GroupId"] == null) return Request.Params["GroupId"];
             return (string)ViewState["GroupId"];
         }
         set
@@ -64,6 +64,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             ViewState["GroupId"] = value;
         }
     }
+
 
     #endregion
 

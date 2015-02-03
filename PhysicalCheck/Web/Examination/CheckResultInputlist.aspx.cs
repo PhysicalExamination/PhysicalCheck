@@ -14,7 +14,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     #region 私有成员
 
-    private ItemResultBusiness m_ItemResult;
+    //private ItemResultBusiness m_ItemResult;
     private GroupResultBusiness m_GroupResut;
     private RegistrationBusiness m_Regist;
 
@@ -46,8 +46,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
-        if (!IsPostBack) {
-        
+        if (!IsPostBack) {        
             DataBind();
         }
     }

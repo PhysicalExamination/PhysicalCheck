@@ -36,14 +36,35 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetItemResults(RegisterNo, GroupID);
         }
 
+        ///// <summary>
+        /////获取体检科室所有体检项目结论数据
+        ///// </summary>
+        //public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
+        //    string RegisterNo, int DeptID, out int RecordCount) {
+        //    IList<ItemResultViewEntity> List = DataAccess.GetDeptItemResults(pageIndex, pageSize,
+        //        RegisterNo, DeptID, out RecordCount);
+        //    var q = List.Select(p => new ItemResultViewEntity {
+        //        ID = p.ID,
+        //        ItemName = p.ItemName,
+        //        CheckedResult = String.IsNullOrEmpty(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
+        //        UpperLimit = p.UpperLimit,
+        //        LowerLimit = p.LowerLimit,
+        //        MeasureUnit = p.MeasureUnit
+        //    });
+        //    return q.ToList<ItemResultViewEntity>();
+        //    //return DataAccess.GetDeptItemResults(pageIndex, pageSize, RegisterNo, DeptID, out RecordCount);
+        //}
+
         /// <summary>
-        ///获取体检科室所有体检项目结论数据
+        ///获取体检科室组合所有体检项目结论数据
         /// </summary>
         public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
-            string RegisterNo, int DeptID, out int RecordCount) {
+            string RegisterNo,int GroupId , out int RecordCount)
+        {
             IList<ItemResultViewEntity> List = DataAccess.GetDeptItemResults(pageIndex, pageSize,
-                RegisterNo, DeptID, out RecordCount);
-            var q = List.Select(p => new ItemResultViewEntity {
+                RegisterNo, GroupId, out RecordCount);
+            var q = List.Select(p => new ItemResultViewEntity
+            {
                 ID = p.ID,
                 ItemName = p.ItemName,
                 CheckedResult = String.IsNullOrEmpty(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
@@ -54,6 +75,8 @@ namespace BusinessLogic.Examination {
             return q.ToList<ItemResultViewEntity>();
             //return DataAccess.GetDeptItemResults(pageIndex, pageSize, RegisterNo, DeptID, out RecordCount);
         }
+
+
 
         public ItemResultViewEntity GetItemResult(string RegisterNo, int GroupID, int ItemID) {
             return DataAccess.GetItemResult(RegisterNo, GroupID, ItemID);

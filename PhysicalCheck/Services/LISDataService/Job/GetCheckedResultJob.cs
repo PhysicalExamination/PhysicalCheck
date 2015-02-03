@@ -73,25 +73,7 @@ namespace LISDataService.Job {
         }
 
         private void SaveGroupResult(String RegisterNo) {
-            List<int> Groups = new List<int>();
-            GroupResultViewEntity GroupResult;
-            List<ItemResultViewEntity> ItemResults;
-            decimal CheckedResult, LowerLimit, UpperLimit;
-            foreach (int GroupID in Groups) {
-                GroupResult = m_GroupResult.GetGroupResult(RegisterNo, GroupID);
-                ItemResults = m_ItemResult.GetItemResults(RegisterNo, GroupID);
-                bool passed = true;
-                foreach(ItemResultViewEntity ItemResult  in ItemResults){
-                    if (IsNumeric(ItemResult.CheckedResult)) {
-                        CheckedResult = Convert.ToDecimal(ItemResult.CheckedResult);
-                        LowerLimit = Convert.ToDecimal(ItemResult.LowerLimit);
-                        UpperLimit = Convert.ToDecimal(ItemResult.UpperLimit);
-                        if ((CheckedResult > UpperLimit) || (CheckedResult < LowerLimit)) passed = false;                      
-                    }
-                }
-                if (passed) GroupResult.Summary = "未见异常";
-                //m_GroupResult.SaveGroupResult(GroupResult);
-            }
+          
         }    
         /// <summary>
         /// 判断一个字符串是否为字符串

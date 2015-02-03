@@ -67,7 +67,8 @@ namespace LISDataService.Job {
         /// <param name="CheckResults"></param>
         private void SaveItemResult(List<LisEntity> CheckResults) {
             foreach (LisEntity Result in CheckResults) {
-                m_ItemResult.SaveItemResult(Result.RegisterNo,Convert.ToInt32(Result.ItemID), Result.ItemResult);
+                m_ItemResult.SaveItemResult(Result.RegisterNo,Convert.ToInt32(Result.ItemID), 
+                    Result.QuantitativeResult,Result.CheckPerson);
             }          
         }
 

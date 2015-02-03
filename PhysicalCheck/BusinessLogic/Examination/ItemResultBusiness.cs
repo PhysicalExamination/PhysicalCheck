@@ -82,8 +82,8 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetItemResult(RegisterNo, GroupID, ItemID);
         }
 
-        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult) {
-            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult);
+        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult, String CheckDoctor) {
+            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult, CheckDoctor);
         }
 
         public void SaveItemResult(ItemResultEntity ItemResult) {

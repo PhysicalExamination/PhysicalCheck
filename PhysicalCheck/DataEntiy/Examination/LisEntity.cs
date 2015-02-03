@@ -28,6 +28,14 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 体检组合项名称
+        /// </summary>
+        public String GroupName {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 体检明细项编号
         /// </summary>
         public String ItemID {
@@ -44,9 +52,17 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
-        /// 体检明细项结果
+        /// 定量结果
         /// </summary>
-        public String ItemResult {
+        public String QuantitativeResult {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 定性结果
+        /// </summary>
+        public String QualitativeResult {
             get;
             set;
         }
@@ -63,6 +79,22 @@ namespace DataEntity.Examination {
         /// 体检明细项单位
         /// </summary>
         public String MeasureUnit {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 检验人员
+        /// </summary>
+        public String InspectionPerson {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核人员
+        /// </summary>
+        public String CheckPerson {
             get;
             set;
         }

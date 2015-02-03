@@ -21,8 +21,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     private int? PackageID {
         get {
             if (ViewState["PackageID"] == null) {
-                using (RegistrationBusiness Registration = new RegistrationBusiness()) {
-                    String RegisterNo = txtsRegisterNo.Text.Trim();
+                using (RegistrationBusiness Registration = new RegistrationBusiness()) {                   
                     ViewState["PackageID"] = Registration.GetRegistration(RegisterNo).PackageID;
                 }
             }
@@ -40,6 +39,32 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
     }
 
+    private string RegisterNo
+    {
+        get
+        {
+            if (ViewState["RegisterNo"] == null) return Request.QueryString["id"].ToString();
+            return (string)ViewState["RegisterNo"];
+        }
+        set
+        {
+            ViewState["RegisterNo"] = value;
+        }
+    }
+
+    private string GroupId
+    {
+        get
+        {
+            if (ViewState["GroupId"] == null) return Request.QueryString["GroupId"].ToString();
+            return (string)ViewState["GroupId"];
+        }
+        set
+        {
+            ViewState["GroupId"] = value;
+        }
+    }
+
     #endregion
 
     #region 重写方法
@@ -47,7 +72,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
-            ClientInitial();
+
             DataBind();
         }
     }
@@ -72,22 +97,11 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// </summary>
     public override void DataBind() {
 
-        if (txtsRegisterNo.Text.Trim() != "")
-        {
-            RegistrationViewEntity en = m_Regist.GetRegistration(txtsRegisterNo.Text.Trim());
+       
 
-            if (en.IsCheckOver)
-            {
-                ShowMessage("此登记号已经体检完毕。");
-                return;            
-            }
-
-        }
-
-        int RecordCount = 0;
-        String RegisterNo = txtsRegisterNo.Text.Trim();
+        int RecordCount = 0;       
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
-            Pager.PageSize, RegisterNo, DepartNo, out RecordCount);
+            Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
         txtSummary.Text = "";
@@ -104,13 +118,13 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
-        if (String.IsNullOrWhiteSpace(txtsRegisterNo.Text)){
+        if (String.IsNullOrWhiteSpace(RegisterNo)){
             ShowMessage("数据保存失败，请输入体检登记号。");
             return;
         }
         Literal lblItemID;
         TextBox txtCheckResult;
-        int? GroupID = Convert.ToInt32(drpGroups.SelectedValue), ItemID;
+        int? GroupID = Convert.ToInt32(GroupId), ItemID;
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
@@ -118,7 +132,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             ItemID = EnvConverter.ToInt32(lblItemID.Text);
             ItemResult = new ItemResultEntity {
-                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = txtsRegisterNo.Text },
+                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = RegisterNo },
                 DeptID = DepartNo,
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
@@ -128,7 +142,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
 
         GroupResultEntity Group = new GroupResultEntity {
-            ID = new GroupResultPK { GroupID = GroupID, RegisterNo = txtsRegisterNo.Text },
+            ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
             DeptID = DepartNo,
             CheckDate = DateTime.Now.Date,
             CheckDoctor = UserName,
@@ -150,25 +164,6 @@ public partial class Examination_CheckResultInputPage : BasePage {
     }
     #endregion
 
-    #region 私有方法
-
-    private void ClientInitial() {
-        using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
-            List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups(DepartNo);
-            // wsw Edit
-            //List<ItemGroupViewEntity> ItemGroups = ItemGroup.GetItemGroups();
-            List<ItemGroupViewEntity> DataSource = ItemGroups.Where(p => p.ResultMode == "0").ToList();
-            if (DataSource.Count <= 0) InputEnabled = false;
-            drpGroups.DataSource = ItemGroups;
-            drpGroups.DataValueField = "GroupID";
-            drpGroups.DataTextField = "GroupName";
-            drpGroups.DataBind();
-
-
-        }
-    }
-
-    #endregion
-
+   
 
 }

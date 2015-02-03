@@ -12,9 +12,12 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
-    登记号：<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
-    组合项：<asp:DropDownList ID="drpGroups" runat="server" />
-    <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+    <div class="l-navigationbars">
+        <div class="l-navigationbars-l">
+            <a href="#" style="left: 100px; text-decoration: none;">小结录入</a></div>
+        <div class="l-navigationbars-r">
+            <a href="CheckResultInputlist.aspx" target="_self">返回</a></div>
+    </div>
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="ItemResultRepeater" runat="server">
@@ -92,9 +95,7 @@
                 PageSize="15">
             </asp:AspNetPager>
         </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnSearch" />           
-        </Triggers>
+       
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="UP2" runat="Server">
         <ContentTemplate>

@@ -28,9 +28,10 @@ namespace DataAccess.Examination {
 
         public List<LisEntity> GetLisDatas() {
             List<LisEntity> Result = new List<LisEntity>();
-            String SqlText = @"SELECT outpatient_id,test_order,test_item_id,
-                                chinese_name,quantitative_result,test_item_reference,
-                                test_item_unit   FROM v_lis_tijian";
+            String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
+                                      CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
+                                      QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT    
+                               FROM v_lis_tijian";
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
                 using (IDataReader DataReader = Command.ExecuteReader()) {
@@ -46,9 +47,10 @@ namespace DataAccess.Examination {
 
         public List<LisEntity> GetLisDatas(String RegisterNo) {
             List<LisEntity> Result = new List<LisEntity>();
-            String SqlText = @"SELECT outpatient_id,test_order,test_item_id,
-                                chinese_name,quantitative_result,test_item_reference,
-                                test_item_unit   FROM v_lis_tijian WHERE outpatient_id='{0}'";
+            String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
+                                      CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
+                                      QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT    
+                               FROM v_lis_tijian WHERE outpatient_id='{0}'";
             SqlText = String.Format(SqlText, RegisterNo);
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
@@ -64,9 +66,10 @@ namespace DataAccess.Examination {
 
         public List<LisEntity> GetLisDatas(String RegisterNo, String GroupID) {
             List<LisEntity> Result = new List<LisEntity>();
-            String SqlText = @"SELECT outpatient_id,test_order,test_item_id,
-                                chinese_name,quantitative_result,test_item_reference,
-                                test_item_unit   FROM v_lis_tijian WHERE outpatient_id='{0}' AND test_order='{1}'";
+            String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
+                                      CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
+                                      QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT                                 
+                               FROM V_LIS_TIJIAN WHERE outpatient_id='{0}' AND test_order='{1}'";
             SqlText = String.Format(SqlText, RegisterNo, GroupID);
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
@@ -88,11 +91,15 @@ namespace DataAccess.Examination {
             LisEntity Result = new LisEntity {
                 RegisterNo = DataReader.GetString(0),
                 GroupID = DataReader.GetString(1),
-                ItemID = DataReader.GetString(2),
-                ItemName = DataReader.GetString(3),
-                ItemResult = DataReader.GetString(4),
-                Reference = DataReader.GetString(5),
-                MeasureUnit = DataReader.GetString(6)
+                GroupName = DataReader.GetString(2),
+                InspectionPerson = DataReader.GetString(3),
+                CheckPerson = DataReader.GetString(4),
+                ItemID = DataReader.GetString(5),
+                ItemName = DataReader.GetString(6),
+                QuantitativeResult = DataReader.GetString(7),
+                QualitativeResult = DataReader.GetString(8),
+                Reference = DataReader.GetString(9),
+                MeasureUnit = DataReader.GetString(10)
             };
             return Result;
         }

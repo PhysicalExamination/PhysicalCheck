@@ -20,8 +20,9 @@ public partial class SysConfig_SuggestionDialog : BasePage {
     public override void DataBind() {
         using (SuggestionBusiness Suggestion = new SuggestionBusiness()) {
             int RecordCount = 0;
+            int DeptID = Convert.ToInt32(Request.Params["DeptID"]);
             SuggestionRepeater.DataSource = Suggestion.GetSuggestions(Pager.CurrentPageIndex,
-                Pager.PageSize, DepartNo, out RecordCount);
+                Pager.PageSize, DeptID, out RecordCount);
             Pager.RecordCount = RecordCount;
         }
         base.DataBind();

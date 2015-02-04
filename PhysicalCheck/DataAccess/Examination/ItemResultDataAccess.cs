@@ -55,17 +55,18 @@ namespace DataAccess.Examination {
         ///获取体检科室所有体检项目结论数据
         /// </summary>
         public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
-            string RegisterNo, int DeptID, out int RecordCount) {
+            string RegisterNo, int GroupId, out int RecordCount)
+        {
             String hql = @"select count(ItemID) from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
             IQuery query = Session.CreateQuery(hql)
                 .SetString(0, RegisterNo)
-                .SetInt32(1, DeptID);
+                .SetInt32(1, GroupId);
             object obj = query.UniqueResult();
             int.TryParse(obj.ToString(), out RecordCount);
-            hql = @" from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
+            hql = @" from ItemResultViewEntity where RegisterNo=? and GroupId=? ";
             IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
                                                 .SetString(0, RegisterNo)
-                                                .SetInt32(1, DeptID)
+                                                .SetInt32(1, GroupId)
                                                 .SetFirstResult((pageIndex - 1) * pageSize)
                                                 .SetMaxResults(pageSize)
                                                 .List<ItemResultViewEntity>();

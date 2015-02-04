@@ -44,6 +44,7 @@ namespace DataAccess.Examination {
             if (String.IsNullOrWhiteSpace(RegisterNo) && String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
                 q = q.Where(p => p.RegisterDate == RegisterDate);
             }
+            q = q.OrderByDescending(p => p.RegisterNo);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();

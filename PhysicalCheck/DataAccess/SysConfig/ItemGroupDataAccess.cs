@@ -33,6 +33,7 @@ namespace DataAccess.SysConfig {
             CloseSession();
             return Result;
         }
+       
 
         public List<ItemGroupViewEntity> GetItemGroups(int DeptID) {
             var q = Session.Query<ItemGroupViewEntity>();

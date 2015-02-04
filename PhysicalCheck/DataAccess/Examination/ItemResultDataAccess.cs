@@ -87,12 +87,14 @@ namespace DataAccess.Examination {
             return Result;
         }
 
-        public void SaveItemResult(String RegisterNo,int ItemID,String CheckResult) {
-            String hql = @"update ItemResultViewEntity SET CheckedResult=? WHERE RegisterNo=? AND ItemID=?";
+        public void SaveItemResult(String RegisterNo,int ItemID,String CheckResult,String CheckDoctor) {
+            String hql = @"update ItemResultViewEntity SET CheckedResult=?,CheckDoctor=?,CheckDate=? WHERE RegisterNo=? AND ItemID=?";
             Session.CreateQuery(hql)
                 .SetString(0, CheckResult)
-                .SetString(1,RegisterNo)                
-                .SetInt32(2,ItemID)
+                .SetString(1,CheckDoctor)
+                .SetDateTime(2,DateTime.Now.Date)
+                .SetString(3,RegisterNo)                
+                .SetInt32(4,ItemID)
                 .ExecuteUpdate();
             CloseSession();
         }

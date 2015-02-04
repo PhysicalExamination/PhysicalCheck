@@ -47,9 +47,6 @@
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
-      <HintPath>..\packages\odp.net.x86.112.3.20\lib\net40\Oracle.DataAccess.dll</HintPath>
-    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -79,7 +76,6 @@
     <Compile Include="Examination\DepartmentPackageDataAccess.cs" />
     <Compile Include="Examination\GroupResultDataAccess.cs" />
     <Compile Include="Examination\ItemResultDataAccess.cs" />
-    <Compile Include="Examination\LISDataAccess.cs" />
     <Compile Include="Examination\PhysicalDepartmentDataAccess.cs" />
     <Compile Include="Examination\RegistrationDataAccess.cs" />
     <Compile Include="messages\checkperson.cs" />

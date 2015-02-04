@@ -61,6 +61,9 @@ namespace DataAccess.Examination {
         }
 
         public CheckPersonViewEntity GetCheckPerson(String IDNumber) {
+            //wsw Add
+            if (IDNumber == "") return null;
+
             ICriteria Criteria = Session.CreateCriteria<CheckPersonViewEntity>();
             Criteria.Add(Restrictions.Eq("IDNumber", IDNumber));
             CheckPersonViewEntity Result = Criteria.UniqueResult<CheckPersonViewEntity>();         

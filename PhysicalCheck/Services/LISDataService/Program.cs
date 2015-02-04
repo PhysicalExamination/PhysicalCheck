@@ -14,24 +14,8 @@ namespace LISDataService {
         }
 
         internal static void GetData() {
-            IScheduler m_Scheduler;
-            IJobDetail job;
-            ICronTrigger trigger;
-
-            ISchedulerFactory sf = new StdSchedulerFactory();
-            m_Scheduler = sf.GetScheduler();
-
-            job = JobBuilder.Create<GetCheckedResultJob>()
-                    .WithIdentity("GetCheckedResultJob", "GetCheckedResultJobGroup")
-                    .Build();
-
-            //每小时执行一次
-            trigger = (ICronTrigger)TriggerBuilder.Create()
-                      .WithIdentity("GetCheckedResultJobTrigger", "GetCheckedResultJobTriggerGroup")
-                      .WithCronSchedule("0 0/10 * * * ?")
-                      .Build();
-            m_Scheduler.ScheduleJob(job, trigger);
-            m_Scheduler.Start();
+            GetCheckedResultJob job = new GetCheckedResultJob();
+            job.run();
         }
     }
 }

@@ -35,6 +35,24 @@ namespace LISDataService.Job {
             }           
         }
 
+        public void run()
+        {
+            List<String> List = m_ItemResult.GetRegisterDataForLIS();
+            List<LisEntity> CheckResults;
+            using (LISBusiness LISBusiness = new LISBusiness())
+            {
+                foreach (String RegisterNo in List)
+                {
+                    m_Logger.InfoFormat("从LIS中读取档案号{0}的体检结果数据", RegisterNo);
+                    CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
+                    UpdateCheckItem(CheckResults);
+                    SaveItemResult(CheckResults);
+                    //SaveGroupResult(RegisterNo);
+                    m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
+                }
+            }  
+        }
+
         /// <summary>
         /// 保存体检明细项参考上下限及单位
         /// </summary>

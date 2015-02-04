@@ -29,7 +29,8 @@ namespace DataAccess {
 				context.Items[CurrentSessionKey] = currentSession;
 			}
 			return currentSession;
-			/*ISession currentSession;
+            /*
+			ISession currentSession;
 			if (!dictionary.ContainsKey(CurrentSessionKey)) {
 				currentSession = sessionFactory.OpenSession();
 				dictionary.Add(CurrentSessionKey, currentSession);
@@ -37,7 +38,8 @@ namespace DataAccess {
 			else {
 				currentSession = dictionary[CurrentSessionKey] as ISession;
 			}
-			return currentSession;*/
+			return currentSession;
+             */
 		}
 
 		public static void CloseSession() {
@@ -48,14 +50,15 @@ namespace DataAccess {
 			}
 			currentSession.Close();
 			context.Items.Remove(CurrentSessionKey);
-			/*if (dictionary.Count == 0) return;
-			ISession currentSession = dictionary[CurrentSessionKey] as ISession;
-			if (currentSession == null) {
-				return;
-			}
-			currentSession.Close();
-			dictionary.Remove(CurrentSessionKey);*/
-		}
+            /*
+            if (dictionary.Count == 0) return;
+            ISession currentSession = dictionary[CurrentSessionKey] as ISession;
+            if (currentSession == null) {
+                return;
+            }
+            currentSession.Close();
+            dictionary.Remove(CurrentSessionKey);*/
+        }
 
 		public static void CloseSessionFactory() {
 			if (sessionFactory != null) {

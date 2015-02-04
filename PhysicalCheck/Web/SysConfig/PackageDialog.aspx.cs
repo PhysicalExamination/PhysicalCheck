@@ -98,7 +98,11 @@ public partial class SysConfig_PackageDialog : BasePage {
             if (!chkSelected.Checked) Groups.Remove(lblGroupID.Text);
         }
         hGroups.Value = String.Join(",", Groups.ToArray());
-        hGroups.Value = hGroups.Value.Substring(1, hGroups.Value.Length - 1);
+       // hGroups.Value = hGroups.Value.Substring(1, hGroups.Value.Length - 1);
+        //wsw 修改
+        if (hGroups.Value.Length>0 && hGroups.Value.Substring(0,1)==",")
+            hGroups.Value =hGroups.Value.Substring(1, hGroups.Value.Length - 1);
+
         ShowMessage("您选择的体检组合项保存成功！");
     }
 

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using DataEntity.Examination;
-using Oracle.DataAccess.Client;
-using Oracle.DataAccess;
+//using Oracle.DataAccess.Client;
+//using Oracle.DataAccess;
+using System.Data.OracleClient;
 using System.Configuration;
 
 namespace LISDataService {
@@ -15,7 +16,7 @@ namespace LISDataService {
         private OracleConnection m_Connection;
 
         #region 构造器
-
+        //
         public LISDataAccess() {
             String ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"] + "";
             m_Connection = new OracleConnection(ConnectionString);
@@ -31,7 +32,7 @@ namespace LISDataService {
             String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
                                       CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
                                       QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT    
-                               FROM v_lis_tijian";
+                               FROM dbo.v_lis_tijian";
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
                 using (IDataReader DataReader = Command.ExecuteReader()) {
@@ -50,7 +51,7 @@ namespace LISDataService {
             String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
                                       CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
                                       QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT    
-                               FROM v_lis_tijian WHERE outpatient_id='{0}'";
+                               FROM dbo.v_lis_tijian ";//WHERE outpatient_id='{0}'";
             SqlText = String.Format(SqlText, RegisterNo);
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
@@ -69,7 +70,7 @@ namespace LISDataService {
             String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
                                       CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
                                       QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT                                 
-                               FROM V_LIS_TIJIAN WHERE outpatient_id='{0}' AND test_order='{1}'";
+                               FROM dbo.V_LIS_TIJIAN WHERE outpatient_id='{0}' AND test_order='{1}'";
             SqlText = String.Format(SqlText, RegisterNo, GroupID);
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;
@@ -90,8 +91,8 @@ namespace LISDataService {
         private LisEntity GetEntity(IDataReader DataReader) {
             LisEntity Result = new LisEntity {
                 RegisterNo = DataReader.GetString(0),
-                GroupID = DataReader.GetString(1),
-                GroupName = DataReader.GetString(2),
+                GroupID =Convert.ToString( DataReader.GetString(1)),
+                GroupName = Convert.ToString( DataReader.GetString(2)),
                 InspectionPerson = DataReader.GetString(3),
                 CheckPerson = DataReader.GetString(4),
                 ItemID = DataReader.GetString(5),

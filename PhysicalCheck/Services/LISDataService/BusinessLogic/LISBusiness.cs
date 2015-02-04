@@ -11,6 +11,7 @@ namespace LISDataService {
         private LISDataAccess m_DataAccess;
 
         public LISBusiness() {
+            m_DataAccess = new LISDataAccess();
         }
 
         public List<LisEntity> GetLisDatas() {

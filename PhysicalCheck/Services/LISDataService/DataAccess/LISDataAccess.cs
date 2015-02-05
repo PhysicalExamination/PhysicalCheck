@@ -51,7 +51,7 @@ namespace LISDataService {
             String SqlText = @"SELECT OUTPATIENT_ID,TEST_ORDER,TEST_ORDER_NAME, INSPECTION_PERSON,  
                                       CHECK_PERSON, TEST_ITEM_ID, CHINESE_NAME, QUANTITATIVE_RESULT,
                                       QUALITATIVE_RESULT,   TEST_ITEM_REFERENCE,TEST_ITEM_UNIT    
-                               FROM dbo.v_lis_tijian ";//WHERE outpatient_id='{0}'";
+                               FROM dbo.v_lis_tijian WHERE outpatient_id='{0}'";
             SqlText = String.Format(SqlText, RegisterNo);
             using (OracleCommand Command = new OracleCommand(SqlText, m_Connection)) {
                 Command.CommandType = CommandType.Text;

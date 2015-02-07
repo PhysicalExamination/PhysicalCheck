@@ -50,7 +50,8 @@ namespace LISDataService.Job {
                     //SaveGroupResult(RegisterNo);
                     m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
                 }
-            }  
+            }
+            Console.ReadLine();
         }
 
         /// <summary>

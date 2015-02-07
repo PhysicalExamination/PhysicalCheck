@@ -255,12 +255,13 @@
                                                     <td class="VLine" align="center">
                                                         <%# Eval("MeasureUnit")%>
                                                     </td>
+                                                     <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
                                                     <td class="VLine" align="center">
                                                         <%# Eval("UpperLimit")%>
                                                     </td>
-                                                    <td class="VLine" align="center">
-                                                        <%# Eval("LowerLimit")%>
-                                                    </td>
+                                                   
                                                     <td class="VLine" align="center">
                                                         <%# Eval("NormalTips")%>
                                                     </td>
@@ -277,12 +278,13 @@
                                                     <td class="VLine" align="center">
                                                         <%# Eval("MeasureUnit")%>
                                                     </td>
+                                                     <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
                                                     <td class="VLine" align="center">
                                                         <%# Eval("UpperLimit")%>
                                                     </td>
-                                                    <td class="VLine" align="center">
-                                                        <%# Eval("LowerLimit")%>
-                                                    </td>
+                                                   
                                                     <td class="VLine" align="center">
                                                         <%# Eval("NormalTips")%>
                                                     </td>

@@ -51,7 +51,7 @@ public partial class Examination_RegImportDialog : BasePage {
             ShowMessage("文件格式不正确，导入的文件必须是Excel文件");
             return;
         }
-        try {
+        //try {
             DirectoryInfo path = new DirectoryInfo(Server.MapPath("~\\Attachment\\"));
             foreach (FileInfo f in path.GetFiles()) {
                 f.Delete();
@@ -62,12 +62,12 @@ public partial class Examination_RegImportDialog : BasePage {
             //SaveAs 将上传的文件内容保存在服务器上
             FileUpload1.SaveAs(savePath);
             ImportData(savePath);
-            ShowMessage("文件导入成功！");
-        }
-        catch (Exception ex) {
-            ShowMessage("文件导入失败，请核对文件重新导入！");
-            Console.Write(ex.StackTrace);
-        }
+        //    ShowMessage("文件导入成功！");
+        //}
+        //catch (Exception ex) {
+        //    ShowMessage("文件导入失败，请核对文件重新导入！");
+        //    Console.Write(ex.StackTrace);
+        //}
     }
 
     #endregion

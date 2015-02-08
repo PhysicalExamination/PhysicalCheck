@@ -22,13 +22,15 @@ namespace LISDataService {
             InitializeComponent();
             ISchedulerFactory sf = new StdSchedulerFactory();
             m_Scheduler = sf.GetScheduler();
-            BuildJob();		
+            BuildJob();
+            m_Logger.Info("服务创建成功！");            
         }
 
         protected override void OnStart(string[] args) {
             base.OnStart(args);
+            m_Logger.Info("开始启动服务！");
             m_Scheduler.Start();
-            m_Logger.Info("服务启动成功！");
+            m_Logger.Info("服务启动成功！");            
         }
 
         protected override void OnStop() {

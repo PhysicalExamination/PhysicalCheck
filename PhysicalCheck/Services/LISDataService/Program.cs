@@ -6,6 +6,7 @@ using Quartz;
 using LISDataService.Job;
 using Quartz.Impl;
 using System.ServiceProcess;
+using log4net;
 
 namespace LISDataService {
 
@@ -14,10 +15,11 @@ namespace LISDataService {
         static void Main(string[] args) {
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
-			{ 
-			    new LISDataService() 
-			};
+            { 
+                new LISDataService() 
+            };
             ServiceBase.Run(ServicesToRun);
+            LISDataService s = new LISDataService();           
         }
 
         internal static void GetData() {

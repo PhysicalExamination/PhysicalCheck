@@ -16,7 +16,7 @@ namespace LISDataService {
 		private LogHelper() {
 			String logConfigFile = AppDomain.CurrentDomain.BaseDirectory + "log4net.config";
 			log4net.Config.XmlConfigurator.Configure(new FileInfo(logConfigFile));
-			m_Loger = LogManager.GetLogger("Default");
+            m_Loger = LogManager.GetLogger("Default3");
 			//m_SACalcLoger = LogManager.GetLogger("SA");
 		}
 

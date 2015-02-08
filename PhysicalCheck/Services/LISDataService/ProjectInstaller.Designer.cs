@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
-            this.serviceInstaller1 = new System.ServiceProcess.ServiceInstaller();
+            this.serviceInstaller2 = new System.ServiceProcess.ServiceInstaller();
             // 
             // serviceProcessInstaller1
             // 
@@ -32,25 +32,26 @@
             this.serviceProcessInstaller1.Password = null;
             this.serviceProcessInstaller1.Username = null;
             // 
-            // serviceInstaller1
+            // serviceInstaller2
             // 
-            this.serviceInstaller1.Description = "从LIS系统中获取体检结果数据";
-            this.serviceInstaller1.DisplayName = "体检数据提取服务";
-            this.serviceInstaller1.ServiceName = "LISDataService";
-            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
-            this.serviceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller1_AfterInstall);
+            this.serviceInstaller2.Description = "从LIS系统中读取体检结果数据";
+            this.serviceInstaller2.DisplayName = "LISDataService";
+            this.serviceInstaller2.ServiceName = "LISDataService";
+            this.serviceInstaller2.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
             this.serviceProcessInstaller1,
-            this.serviceInstaller1});
+            this.serviceInstaller2});
 
         }
 
         #endregion
 
-        private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
-        private System.ServiceProcess.ServiceInstaller serviceInstaller1;
+        public System.ServiceProcess.ServiceInstaller serviceInstaller1;
+        protected System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
+        private System.ServiceProcess.ServiceInstaller serviceInstaller2;
+
     }
 }

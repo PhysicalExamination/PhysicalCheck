@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="02/07/2015 11:46:10" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="02/08/2015 23:07:07" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -27,11 +27,14 @@
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25" Guides="18.9,56.7">
       <TextObject Name="Text1" Left="170.1" Top="9.45" Width="378" Height="37.8" Text="体 检 指 引 单" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="50.58" Width="718.2" Height="75.6" FirstRowStartsNewPage="true" Guides="0,66.15">
+    <PageHeaderBand Name="PageHeader1" Top="50.58" Width="718.2" Height="125.2" FirstRowStartsNewPage="true" Guides="0,66.15,113.4,113.4,122.85">
+      <TextObject Name="Text32" Top="66.15" Width="689.85" Height="49.14" Border.Lines="Top, Bottom" Border.Width="1.5" Fill.Color="White" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
       <BarcodeObject Name="Barcode1" Left="481.95" Width="196.56" Height="56.7" AutoSize="false" DataColumn="Registration.RegisterNo" Text="" Zoom="2" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <PictureObject Name="Picture1" Left="-9.45" Width="274.05" Height="75.6" ImageLocation="D:\健康体检软件\PhysicalCheck\images\self\logo.jpg"/>
+      <PictureObject Name="Picture1" Left="-9.45" Width="274.05" Height="66.15" ImageLocation="D:\健康体检软件\PhysicalCheck\images\self\logo.jpg"/>
+      <TextObject Name="Text2" Left="15.9" Top="70.15" Width="53.25" Height="36.15" Text="温 馨&#13;&#10;提 示" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text29" Left="103.95" Top="68.15" Width="576.45" Height="43.8" Fill.Color="192, 255, 192" Text="1、抽血后请按压五分钟。&#13;&#10;2、体检当日肝、胆B超火血液检查，早晨须禁食水。&#13;&#10;3、男性前列腺彩超检查火女性子宫、附件彩超检查需憋尿，未婚女子勿做妇检。" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="129.52" Width="718.2" Height="128.52" Guides="0,24.57,37.8,62.37,75.6,100.17" DataSource="Registration">
+    <DataBand Name="Data1" Top="179.12" Width="718.2" Height="100.17" Guides="0,24.57,37.8,62.37,75.6,100.17,85.05" DataSource="Registration">
       <TextObject Name="Text3" Left="-9.45" Width="103.95" Height="24.57" Text="档 案 号：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text4" Left="94.5" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text5" Left="274.05" Width="75.6" Height="24.57" Text="姓 名 ：" VertAlign="Center" Font="宋体, 12pt"/>
@@ -44,26 +47,37 @@
       <TextObject Name="Text12" Left="94.5" Top="37.8" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.IDNumber]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text13" Left="472.5" Top="37.8" Width="94.5" Height="24.57" Text="联系电话：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text14" Left="567" Top="37.8" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.LinkTel]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text15" Left="-9.45" Top="75.6" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text16" Left="94.5" Top="75.6" Width="378" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text17" Left="472.5" Top="75.6" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text18" Left="576.45" Top="75.6" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text15" Left="-9.45" Top="67.6" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text16" Left="94.5" Top="69.6" Width="378" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text17" Left="472.5" Top="70.6" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text18" Left="576.45" Top="69.6" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
     </DataBand>
-    <DataBand Name="Data2" Top="261.37" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="Packages">
+    <DataBand Name="Data2" Top="282.62" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="Packages">
       <TextObject Name="Text19" Left="-9.45" Width="217.35" Height="24.57" Fill.Color="Gainsboro" Text="[Packages.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
       <TextObject Name="Text20" Left="207.9" Width="330.75" Height="24.57" Fill.Color="Gainsboro" Text="临床意义" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
       <TextObject Name="Text21" Left="538.65" Width="198.45" Height="24.57" Fill.Color="Gainsboro" Text="检查提示" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
-      <DataBand Name="Data3" Top="289.27" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="ItemGroups">
+      <DataBand Name="Data3" Top="310.52" Width="718.2" Height="28.35" Guides="0,24.57" DataSource="ItemGroups">
         <TextObject Name="Text22" Left="-9.45" Width="217.35" Height="24.57" CanGrow="true" Text="[ItemGroups.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text23" Left="207.9" Width="330.75" Height="24.57" CanGrow="true" Text="[ItemGroups.Clinical]" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text24" Left="538.65" Width="198.45" Height="24.57" CanGrow="true" Text="[ItemGroups.Notice]" VertAlign="Center" Font="宋体, 12pt"/>
       </DataBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="317.18" Width="718.2" Height="109.62" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
-      <TextObject Name="Text25" Left="-9.45" Top="9.45" Width="727.65" Height="37.8" Border.Lines="Top, Bottom" Border.Width="1.5" Text="祝您身体健康！" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text26" Left="-9.45" Top="56.7" Width="737.1" Height="24.57" Text="医院地址：乌鲁木齐市天山区幸福路556号" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text27" Left="-9.45" Top="85.05" Width="340.2" Height="24.57" Text="咨询台： 0991-4974448" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text28" Left="349.65" Top="85.05" Width="340.2" Height="24.57" Text="值班： 0991-4974448" VertAlign="Center" Font="宋体, 12pt"/>
+    <PageFooterBand Name="PageFooter1" Top="342.21" Width="718.2" Height="170.1" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
+      <TextObject Name="Text25" Left="-9.45" Top="28.35" Width="727.65" Height="26.46" Border.Lines="Top, Bottom" Border.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text26" Left="178.55" Top="121.75" Width="737.1" Height="20.79" Text="体检地址：乌鲁木齐市天山区幸福路556号" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text27" Left="179.55" Top="102.4" Width="245.7" Height="17.01" Text="查询电话： 0991-4974448" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text30" Left="491.4" Top="32.25" Width="103.95" Height="18.9" Fill.Color="White" Text="打印日期：" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text31" Left="595.45" Top="32.02" Width="94.5" Height="18.9" Fill.Color="White" Text="[Date]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text33" Left="274.05" Top="32.35" Width="151.2" Height="18.9" Fill.Color="White" Text="祝您身体健康！" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text34" Left="37.8" Top="71.82" Width="94.5" Height="60.48" Fill.Color="White" Text="餐" HorzAlign="Center" VertAlign="Center" Font="宋体, 42pt, style=Bold"/>
+      <TextObject Name="Text28" Left="18.9" Top="127.97" Width="132.3" Height="18.9" Fill.Color="White" Text="23医院体检中心" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text35" Left="179.55" Top="59.6" Width="292.95" Height="18.9" Fill.Color="White" Text="登记号： [Registration.RegisterNo]" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text36" Left="449.15" Top="57.82" Width="255.15" Height="18.9" Fill.Color="White" Text="姓名：[Registration.Name]" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text37" Left="444.7" Top="80.5" Width="255.15" Height="18.9" Fill.Color="White" Text="性别：[Registration.Sex]" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text38" Left="179.55" Top="81.5" Width="245.7" Height="18.9" Fill.Color="White" Text="年龄：[Registration.Age]" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text39" Left="1.2" Top="148.65" Width="717" Height="18.9" Border.Lines="Top" Border.Width="1.5" Fill.Color="White" Text="体检结束后，请将指引单交汇服务台。" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <TextObject Name="Text40" Left="156.65" Top="56.15" Width="18.9" Height="90.72" Border.Lines="Right" Border.Width="1.5" Fill.Color="White" HorzAlign="Center" VertAlign="Center" Font="宋体, 42pt, style=Bold"/>
+      <TextObject Name="Text41" Left="472.5" Top="5.67" Width="94.5" Height="18.9" Fill.Color="White" Text="总检医生：" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

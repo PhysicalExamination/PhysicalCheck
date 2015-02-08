@@ -23,7 +23,7 @@ namespace DataAccess {
 
 		public static ISession GetCurrentSession() {
 
-            /*
+            
                HttpContext context = HttpContext.Current;
                ISession currentSession = context.Items[CurrentSessionKey] as ISession;
                if (currentSession == null) {
@@ -31,9 +31,10 @@ namespace DataAccess {
                    context.Items[CurrentSessionKey] = currentSession;
                }
                return currentSession;
-             
-             */ 
-               ISession currentSession;
+
+
+            /*
+            ISession currentSession;
                if (!dictionary.ContainsKey(CurrentSessionKey)) {
                    currentSession = sessionFactory.OpenSession();
                    dictionary.Add(CurrentSessionKey, currentSession);
@@ -42,31 +43,31 @@ namespace DataAccess {
                    currentSession = dictionary[CurrentSessionKey] as ISession;
                }
                return currentSession;
-             
-               
+             */
+
         }
 
 		public static void CloseSession() {
-            /*
-            HttpContext context = HttpContext.Current;
-            ISession currentSession = context.Items[CurrentSessionKey] as ISession;
-            if (currentSession == null) {
-                return;
-            }
-            currentSession.Close();
-            context.Items.Remove(CurrentSessionKey);
-            */
+           
+         HttpContext context = HttpContext.Current;
+         ISession currentSession = context.Items[CurrentSessionKey] as ISession;
+         if (currentSession == null) {
+             return;
+         }
+         currentSession.Close();
+         context.Items.Remove(CurrentSessionKey);
             
-             
+            
+           /* 
             if (dictionary.Count == 0) return;
-            ISession currentSession = dictionary[CurrentSessionKey] as ISession;
-            if (currentSession == null) {
-                return;
-            }
-            currentSession.Close();
-            dictionary.Remove(CurrentSessionKey);
-              
-              
+         ISession currentSession = dictionary[CurrentSessionKey] as ISession;
+         if (currentSession == null) {
+             return;
+         }
+         currentSession.Close();
+         dictionary.Remove(CurrentSessionKey);
+          
+             */ 
         }
 
 		public static void CloseSessionFactory() {

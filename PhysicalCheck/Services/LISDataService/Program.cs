@@ -5,12 +5,19 @@ using System.Text;
 using Quartz;
 using LISDataService.Job;
 using Quartz.Impl;
+using System.ServiceProcess;
 
 namespace LISDataService {
 
     class Program {
+
         static void Main(string[] args) {
-            GetData();
+            ServiceBase[] ServicesToRun;
+            ServicesToRun = new ServiceBase[] 
+			{ 
+			    new LISDataService() 
+			};
+            ServiceBase.Run(ServicesToRun);
         }
 
         internal static void GetData() {

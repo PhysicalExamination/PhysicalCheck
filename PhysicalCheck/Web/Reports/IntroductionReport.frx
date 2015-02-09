@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="02/08/2015 23:07:07" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="02/09/2015 11:12:04" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -29,7 +29,7 @@
     </ReportTitleBand>
     <PageHeaderBand Name="PageHeader1" Top="50.58" Width="718.2" Height="125.2" FirstRowStartsNewPage="true" Guides="0,66.15,113.4,113.4,122.85">
       <TextObject Name="Text32" Top="66.15" Width="689.85" Height="49.14" Border.Lines="Top, Bottom" Border.Width="1.5" Fill.Color="White" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
-      <BarcodeObject Name="Barcode1" Left="481.95" Width="196.56" Height="56.7" AutoSize="false" DataColumn="Registration.RegisterNo" Text="" Zoom="2" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode1" Left="430.7" Top="2" Width="224.91" Height="56.7" AutoSize="false" DataColumn="Registration.RegisterNo" Text="" Zoom="2" Barcode="Code128" Barcode.AutoEncode="true"/>
       <PictureObject Name="Picture1" Left="-9.45" Width="274.05" Height="66.15" ImageLocation="D:\健康体检软件\PhysicalCheck\images\self\logo.jpg"/>
       <TextObject Name="Text2" Left="15.9" Top="70.15" Width="53.25" Height="36.15" Text="温 馨&#13;&#10;提 示" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text29" Left="103.95" Top="68.15" Width="576.45" Height="43.8" Fill.Color="192, 255, 192" Text="1、抽血后请按压五分钟。&#13;&#10;2、体检当日肝、胆B超火血液检查，早晨须禁食水。&#13;&#10;3、男性前列腺彩超检查火女性子宫、附件彩超检查需憋尿，未婚女子勿做妇检。" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
@@ -47,7 +47,7 @@
       <TextObject Name="Text12" Left="94.5" Top="37.8" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.IDNumber]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text13" Left="472.5" Top="37.8" Width="94.5" Height="24.57" Text="联系电话：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text14" Left="567" Top="37.8" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.LinkTel]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text15" Left="-9.45" Top="67.6" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text15" Left="-9.45" Top="71.6" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text16" Left="94.5" Top="69.6" Width="378" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text17" Left="472.5" Top="70.6" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text18" Left="576.45" Top="69.6" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>

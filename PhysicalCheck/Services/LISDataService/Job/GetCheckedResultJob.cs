@@ -26,11 +26,18 @@ namespace LISDataService.Job {
             using (LISBusiness LISBusiness = new LISBusiness()) {
                 foreach (String RegisterNo in List) {
                     m_Logger.InfoFormat("从LIS中读取档案号{0}的体检结果数据", RegisterNo);
-                    CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
-                    UpdateCheckItem(CheckResults);
-                    SaveItemResult(CheckResults);
+                    try
+                    {
+                        CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
+                        UpdateCheckItem(CheckResults);
+                        SaveItemResult(CheckResults);
+                    }
+                    catch (Exception ex)
+                    {
+                        m_Logger.InfoFormat("档案号{0}"+ex.Message , RegisterNo);
+                    }
                     //SaveGroupResult(RegisterNo);
-                    m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
+                   // m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
                 }
             }           
         }

@@ -12,14 +12,17 @@ namespace LISDataService {
 
     class Program {
 
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
                 new LISDataService() 
             };
             ServiceBase.Run(ServicesToRun);
-            LISDataService s = new LISDataService();           
+            LISDataService s = new LISDataService();
+
+           // GetData();
         }
 
         internal static void GetData() {

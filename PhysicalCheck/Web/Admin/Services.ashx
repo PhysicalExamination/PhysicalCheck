@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using BusinessLogic.Admin;
@@ -22,6 +23,7 @@ public class Services : IHttpHandler {
         if (Action == "DeleteModule") DeleteModule(context);
         if (Action == "GetRoleModuleTree") GetRoleModuleTree(context);
         if (Action == "SaveRoleModule") SaveRoleModule(context);
+        if (Action == "UserLogin") UserLogin(context);
     }
 
     #region 数据提取
@@ -170,6 +172,34 @@ public class Services : IHttpHandler {
         msg = new Msg { Succeed = true, Message = "数据保存成功！" };
         context.Response.Write(JsonConvert.SerializeObject(msg));
 
+    }
+
+    private void UserLogin(HttpContext context) {
+        Msg msg = new Msg { Succeed = true, Message = "" };
+        HttpRequest Request = context.Request;
+        HttpResponse Response = context.Response;
+        Response.ContentType = "application/json";
+        String userAccount = Request.Params["UserName"];
+        String password = FormsAuthentication.HashPasswordForStoringInConfigFile(Request.Params["Password"], "MD5");
+        using (SysUserBusiness user = new SysUserBusiness()) {
+            bool passed = user.Authentication(userAccount, password);
+            if (passed) {
+                FormsAuthentication.SetAuthCookie(userAccount, true);
+                HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount, true);
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, "");
+                authCookie.Value = FormsAuthentication.Encrypt(newTicket);
+                Response.Cookies.Remove(authCookie.Name);
+                Response.Cookies.Add(authCookie);
+                msg.Message = FormsAuthentication.DefaultUrl;
+            }
+            else {
+                msg.Succeed = false;
+                msg.Message = "用户账号或密码不争取请重新登录！";
+            }
+            
+        }      
+        context.Response.Write(JsonConvert.SerializeObject(msg));
     }
 
     #endregion

@@ -109,16 +109,16 @@ namespace LISDataService
             LisEntity Result = new LisEntity
             {
                 RegisterNo = DataReader.GetString(0),
-                GroupID = Convert.ToString(DataReader.GetString(1)),
-                GroupName = Convert.ToString(DataReader.GetString(2)),
-                InspectionPerson = DataReader.GetString(3),
-                CheckPerson = DataReader.GetString(4),
-                ItemID = DataReader.GetString(5),
-                ItemName = DataReader.GetString(6),
-                QuantitativeResult = DataReader.GetString(7),
-                QualitativeResult = DataReader.GetString(8),
-                Reference = DataReader.GetString(9),
-                MeasureUnit = DataReader.GetString(10)
+                GroupID =  DataReader[1].ToString(),
+                GroupName =  DataReader[2].ToString(),
+                InspectionPerson = DataReader[3].ToString(),
+                CheckPerson = DataReader[4].ToString(),
+                ItemID = DataReader[5].ToString(),
+                ItemName = DataReader[6].ToString(),
+                QuantitativeResult = DataReader[7].ToString(),
+                QualitativeResult = DataReader[8].ToString(),
+                Reference = DataReader[9].ToString(),
+                MeasureUnit = DataReader[10].ToString()
             };
 
            

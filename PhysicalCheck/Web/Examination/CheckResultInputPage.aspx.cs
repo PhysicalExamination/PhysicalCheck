@@ -101,9 +101,14 @@ public partial class Examination_CheckResultInputPage : BasePage {
        
 
         int RecordCount = 0;       
-        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
-            Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
-        Pager.RecordCount = RecordCount;
+        //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
+        //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
+        //Pager.RecordCount = RecordCount;
+
+        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
+             RegisterNo, Convert.ToInt32( GroupId));
+        
+
         base.DataBind();
         txtSummary.Text = "";
         TextBox txtCheckResult;

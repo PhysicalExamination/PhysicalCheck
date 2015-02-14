@@ -75,6 +75,25 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
+        ///获取体检科室所有体检项目结论数据
+        /// </summary>
+        public IList<ItemResultViewEntity> GetDeptItemResults(
+            string RegisterNo, int GroupId)
+        {
+           
+            String hql = @" from ItemResultViewEntity where RegisterNo=? and GroupId=? ";
+            IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
+                                                .SetString(0, RegisterNo)
+                                                .SetInt32(1, GroupId)           
+                                                .List<ItemResultViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+
+
+
+        /// <summary>
         /// 获取体检项目结论数据
         /// </summary>
         /// <param name="RegisterNo"></param> 

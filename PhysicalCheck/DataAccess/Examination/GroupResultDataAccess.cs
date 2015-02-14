@@ -31,7 +31,7 @@ namespace DataAccess.Examination {
             var q = from p in Session.Query<GroupResultViewEntity>()
                     where p.ID.RegisterNo == RegisterNo
                     select p;
-            List<GroupResultViewEntity> Result = q.ToList<GroupResultViewEntity>();
+            List<GroupResultViewEntity> Result = q.OrderBy(p=>p.DeptID).ToList<GroupResultViewEntity>();
             CloseSession();
             return Result;
         }

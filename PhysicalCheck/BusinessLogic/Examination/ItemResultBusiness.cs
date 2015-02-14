@@ -58,11 +58,11 @@ namespace BusinessLogic.Examination {
         /// <summary>
         ///获取体检科室组合所有体检项目结论数据
         /// </summary>
-        public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
-            string RegisterNo,int GroupId , out int RecordCount)
+        public IList<ItemResultViewEntity> GetDeptItemResults(
+            string RegisterNo,int GroupId )
         {
-            IList<ItemResultViewEntity> List = DataAccess.GetDeptItemResults(pageIndex, pageSize,
-                RegisterNo, GroupId, out RecordCount);
+            IList<ItemResultViewEntity> List = DataAccess.GetDeptItemResults(
+                RegisterNo, GroupId);
             var q = List.Select(p => new ItemResultViewEntity
             {
                 ID = p.ID,
@@ -71,9 +71,11 @@ namespace BusinessLogic.Examination {
                 UpperLimit = p.UpperLimit,
                 LowerLimit = p.LowerLimit,
                 MeasureUnit = p.MeasureUnit
+               
             });
+            
             return q.ToList<ItemResultViewEntity>();
-            //return DataAccess.GetDeptItemResults(pageIndex, pageSize, RegisterNo, DeptID, out RecordCount);
+           
         }
 
 

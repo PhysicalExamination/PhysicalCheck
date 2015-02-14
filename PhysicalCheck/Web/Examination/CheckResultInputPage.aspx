@@ -87,13 +87,13 @@
                     </table>
                 </FooterTemplate>
             </asp:Repeater>
-            <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"
+           <%-- <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"
                 OnPageChanged="Pager_PageChanged" ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center"
                 DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
                 MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
                 AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
                 PageSize="15">
-            </asp:AspNetPager>
+            </asp:AspNetPager>--%>
         </ContentTemplate>
        
     </asp:UpdatePanel>

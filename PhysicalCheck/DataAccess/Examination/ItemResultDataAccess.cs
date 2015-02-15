@@ -124,8 +124,11 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="ItemResult">体检项目结论实体</param>
         public void SaveItemResult(ItemResultEntity ItemResult) {
-            Session.SaveOrUpdate(ItemResult);
-            Session.Flush();
+            ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
+            if (String.IsNullOrWhiteSpace(OldResult.CheckDoctor)) {
+                Session.SaveOrUpdate(ItemResult);
+                Session.Flush();               
+            }
             CloseSession();
         }
 

@@ -96,6 +96,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="GroupResult">体检组合项目结论实体</param>
         public void SaveGroupResult(GroupResultEntity GroupResult) {
+            GroupResultEntity oldResult = Session.Get<GroupResultEntity>(GroupResult.ID);
+            GroupResult.DeptID = oldResult.DeptID;
             Session.SaveOrUpdate(GroupResult);
             Session.Flush();
             CloseSession();

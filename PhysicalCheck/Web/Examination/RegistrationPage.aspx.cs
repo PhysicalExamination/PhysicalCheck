@@ -291,6 +291,10 @@ public partial class Examination_RegistrationPage : BasePage {
         }
     }
 
+    protected void btnRefresh_Click(Object source, EventArgs e) {
+        BindCheckedGroups(RegisterNo);
+    }
+
 
     #endregion
 

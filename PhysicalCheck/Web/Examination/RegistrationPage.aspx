@@ -52,12 +52,7 @@
             var sURL = "<%=ApplicationPath%>/Examination/SelectGroupDialog.aspx?rand=" + Math.random() +
                        "&RegisterNo=" + RegisterNo + "&Sex=" + encodeURI(Sex) + "&PackageID=" + PackageID;
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
-            //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
-            if (urlValue != null || urlValue != undefined) {
-                $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
-                $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
-                $("#<%=hGroups.ClientID%>").val(urlValue[3]);
-            }
+            $("#<%=btnRefresh.ClientID%>").click();           
         }
 
         function btnDataImport() {
@@ -462,7 +457,7 @@
                                     <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除"  CommandName="Delete" CommandArgument='<%#Eval("GroupID") %>'/>
+                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除" CommandName="Delete" CommandArgument='<%#Eval("GroupID") %>' />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -477,8 +472,8 @@
                                 <td class="VLine" align="center">
                                     <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
                                 </td>
-                                 <td class="VLine" align="center">
-                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除" CommandName="Delete"  CommandArgument='<%#Eval("GroupID") %>'/>
+                                <td class="VLine" align="center">
+                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除" CommandName="Delete" CommandArgument='<%#Eval("GroupID") %>' />
                                 </td>
                             </tr>
                         </AlternatingItemTemplate>
@@ -487,8 +482,11 @@
                         </FooterTemplate>
                     </asp:Repeater>
                     <p align="center">
-                    <input type="button" value="添加项目" class="buttonCss" onclick="selectGroups();" />
+                        <input type="button" value="添加项目" class="buttonCss" onclick="selectGroups();" />
                     </p>
+                    <div style="display: none">
+                        <asp:Button ID="btnRefresh" Text="刷新" runat="server" OnClick="btnRefresh_Click" />
+                    </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -44,6 +44,22 @@
             }
         }
 
+        function selectGroups() {
+            var RegisterNo = $("#<%=txtRegisterNo.ClientID%>").val();
+            var PackageID = $("#<%=hPackageID.ClientID %>").val();
+            var Sex = $("#<%=drpSex.ClientID%>").val();
+            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
+            var sURL = "<%=ApplicationPath%>/Examination/SelectGroupDialog.aspx?rand=" + Math.random() +
+                       "&RegisterNo=" + RegisterNo + "&Sex=" + encodeURI(Sex) + "&PackageID=" + PackageID;
+            var urlValue = window.showModalDialog(sURL, '', sFeatures);
+            //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
+            if (urlValue != null || urlValue != undefined) {
+                $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
+                $("#<%=txtPackageName.ClientID %>").val(urlValue[1]);
+                $("#<%=hGroups.ClientID%>").val(urlValue[3]);
+            }
+        }
+
         function btnDataImport() {
             var sURL = " RegImportDialog.aspx?rand=" + Math.random();
             var vArguments = "";
@@ -470,6 +486,9 @@
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
+                    <p align="center">
+                    <input type="button" value="添加项目" class="buttonCss" onclick="selectGroups();" />
+                    </p>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

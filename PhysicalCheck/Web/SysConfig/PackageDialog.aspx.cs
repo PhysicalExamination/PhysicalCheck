@@ -42,7 +42,7 @@ public partial class SysConfig_PackageDialog : BasePage {
             if (DataSource.Count <= 0) {
                 using (PackageBusiness Package = new PackageBusiness()) {
                     PackageRepeater.DataSource = Package.GetPackages(Pager.CurrentPageIndex,
-                        Pager.PageSize, SearchKey, out RecordCount); ;
+                        Pager.PageSize, SearchKey,PackageSex, out RecordCount); ;
                     Pager.RecordCount = RecordCount;
                 }
             }
@@ -51,10 +51,10 @@ public partial class SysConfig_PackageDialog : BasePage {
             Pager1.Visible = false;
             Panel.Visible = false;
         }
-        if (SelectedIndex == 1) {
+        if (SelectedIndex == 1) {           
             using (ItemGroupBusiness ItemGroup = new ItemGroupBusiness()) {
                 ItemGroupRepeater.DataSource = ItemGroup.GetItemGroups(Pager1.CurrentPageIndex, Pager1.PageSize,
-                    SearchKey, out RecordCount);
+                    SearchKey, ItemGroupSex, out RecordCount);
                 Pager1.RecordCount = RecordCount;
             }
             Pager.Visible = false;
@@ -72,6 +72,24 @@ public partial class SysConfig_PackageDialog : BasePage {
         String DeptID = Request.Params["DeptID"];
         if (DeptID != "1") drpCategory.Enabled = false;
     }
+
+    private String ItemGroupSex{
+        get {
+            if (Request.Params["Sex"] == "男") return "1";
+            if (Request.Params["Sex"] == "女") return "0";
+            return "";
+        }
+    }
+
+    private String PackageSex {
+        get {
+            if (Request.Params["Sex"] == "男") return "1";
+            if (Request.Params["Sex"] == "女") return "2";
+            if (Request.Params["Sex"] == "儿童") return "3";
+            return "";
+        }
+    }
+       
 
     #endregion
 
@@ -112,4 +130,16 @@ public partial class SysConfig_PackageDialog : BasePage {
 
     #endregion
 
+
+    #region 受保护方法
+
+    protected String GetSex(Object obj) {
+        String val = (String)obj;
+        if (val == "%") return "不限";
+        if (val == "0") return "女";
+        if (val == "1") return "男";
+        return "";
+    }
+
+    #endregion
 }

@@ -22,7 +22,7 @@
         <asp:ListItem Value="1">组合项</asp:ListItem>
     </asp:DropDownList>
     名称<asp:TextBox ID="txtName" runat="server" CssClass="textbox31" />
-    <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索"  OnClick="btnSearch_Click"/>
+    <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="PackageRepeater" runat="server">
@@ -105,8 +105,11 @@
                                 组合项目
                             </th>
                             <th>
+                                适用性别
+                            </th>
+                            <th>
                                 单价（元）
-                            </th>                            
+                            </th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -119,8 +122,11 @@
                             <%# Eval("GroupName") %>
                         </td>
                         <td class="VLine" align="center">
+                            <%# GetSex(Eval("Sex"))%>
+                        </td>
+                        <td class="VLine" align="center">
                             <%#EnvShowFormater.GetCurrencyString( Eval("Price"))%>
-                        </td>                       
+                        </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
@@ -133,8 +139,11 @@
                             <%# Eval("GroupName") %>
                         </td>
                         <td class="VLine" align="center">
+                            <%# GetSex(Eval("Sex"))%>
+                        </td>
+                        <td class="VLine" align="center">
                             <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
-                        </td>                       
+                        </td>
                     </tr>
                 </AlternatingItemTemplate>
                 <FooterTemplate>
@@ -150,16 +159,15 @@
             </asp:AspNetPager>
             <asp:Panel runat="server" ID="Panel">
                 <p align="center">
-                <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-                <input type="button" class="buttonCss" value="返回" onclick="onSelected(-1,'自定义套餐',0)" /></p>
+                    <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
+                    <input type="button" class="buttonCss" value="返回" onclick="onSelected(-1,'自定义套餐',0)" /></p>
                 <strong><font color="red">注意：</font></strong>翻页或返回前请单击【保存】按钮保存当前结果。
             </asp:Panel>
-             <asp:HiddenField ID="hGroups" runat="server" />
+            <asp:HiddenField ID="hGroups" runat="server" />
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="drpCategory" />
             <asp:AsyncPostBackTrigger ControlID="btnSearch" />
         </Triggers>
     </asp:UpdatePanel>
-   
 </asp:Content>

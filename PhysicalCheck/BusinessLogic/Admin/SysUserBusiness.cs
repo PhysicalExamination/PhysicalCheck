@@ -24,7 +24,7 @@ namespace BusinessLogic.Admin {
 
 		#region 公共方法
 
-		public List<SysUserEntity> GetSysUsers() {
+        public List<SysUserViewEntity> GetSysUsers() {
 			return DataAccess.GetSysUsers();
 		}
 

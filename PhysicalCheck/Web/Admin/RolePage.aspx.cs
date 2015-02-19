@@ -77,7 +77,17 @@ public partial class Admin_RolePage : BasePage {
 
 	private void BindUserList() {
 		using (SysUserBusiness user = new SysUserBusiness()) {
-			if (IsAdmin) UserList.DataSource = user.GetSysUsers();			
+            if (IsAdmin) {
+                UserList.DataSource = user.GetSysUsers();
+                List<SysUserViewEntity> SysUsers = user.GetSysUsers();
+                List<RoleMemberEntity> RoleMembers = m_Role.GetRoleMembers(RoleNo);
+                SysUserViewEntity SysUser;
+                foreach (RoleMemberEntity RoleMember in RoleMembers) {
+                    SysUser= SysUsers.Where(p => p.UserNo == RoleMember.UserNo).ToList().FirstOrDefault();
+                    SysUsers.Remove(SysUser);
+                }
+                UserList.DataSource = SysUsers;
+            }
 			UserList.DataBind();
 		}
 	}

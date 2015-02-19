@@ -63,7 +63,7 @@
                 lines: true,
                 animate: true,
                 url: "Services.ashx?Action=GetRoleModuleTree&RoleNo=" + roleNo
-            });            
+            });
         }
 
         function btnSave_Click() {
@@ -82,13 +82,13 @@
         }
 
 
-        function onCheck(node, checked) {              
-            var child = $("#RoleModuleTree").tree("getChildren",node.target);            
+        function onCheck(node, checked) {
+            var child = $("#RoleModuleTree").tree("getChildren", node.target);
             $.each(child, function (index, item) {
                 if (checked) $("#RoleModuleTree").tree("check", item.target);
-                if (!checked) $("#RoleModuleTree").tree("uncheck", item.target);              
+                if (!checked) $("#RoleModuleTree").tree("uncheck", item.target);
             });
-       }
+        }
        
     </script>
 </asp:Content>
@@ -162,7 +162,8 @@
                                 角色<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="validate[required]  inputCss" ID="txtRoleName" runat="server" data-errormessage-value-missing="角色名称不能为空!" />
+                                <asp:TextBox CssClass="validate[required]  inputCss" ID="txtRoleName" runat="server"
+                                    data-errormessage-value-missing="角色名称不能为空!" />
                             </td>
                             <td class="HVLine">
                                 序号
@@ -186,7 +187,8 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditRole_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDeleteRole_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveRole_Click" OnClientClick="checkForm();" />
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveRole_Click"
+                                    OnClientClick="checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelRole_Click" />
                             </td>
                         </tr>
@@ -212,6 +214,12 @@
                                         用户
                                     </th>
                                     <th>
+                                        科室
+                                    </th>
+                                    <th>
+                                        职务
+                                    </th>
+                                    <th>
                                         操作
                                     </th>
                                 </tr>
@@ -220,6 +228,12 @@
                             <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                                 <td class="VLine" align="center">
                                     <%# Eval("UserName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("Position")%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDelete" runat="server" CommandArgument='<%# Eval("UserNo") %>'
@@ -231,6 +245,12 @@
                             <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                                 <td class="VLine" align="center">
                                     <%# Eval( "UserName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("Position")%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDelete" runat="server" CommandArgument='<%# Eval("UserNo") %>'
@@ -253,6 +273,12 @@
                                         用户
                                     </th>
                                     <th>
+                                        科室
+                                    </th>
+                                    <th>
+                                        职务
+                                    </th>
+                                    <th>
                                         操作
                                     </th>
                                 </tr>
@@ -261,6 +287,12 @@
                             <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                                 <td class="VLine" align="center">
                                     <%# Eval("UserName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("Position")%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="Button3" CommandArgument='<%#Eval("UserNo") %>' CommandName="add"
@@ -272,6 +304,12 @@
                             <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                                 <td class="VLine" align="center">
                                     <%# Eval("UserName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName")%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("Position")%>
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Button ID="Button4" CommandArgument='<%# Eval("UserNo") %>' runat="server" CommandName="add"

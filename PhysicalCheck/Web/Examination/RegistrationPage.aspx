@@ -32,8 +32,9 @@
 
         function selectPackage() {
             var sDeptID = $("#<%=hDeptID.ClientID %>").val();
+            var Sex = $("#<%=drpSex.ClientID%>").val();
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
-            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random() +"&DeptID=" + sDeptID;
+            var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random() + "&DeptID=" + sDeptID + "&Sex=" + encodeURI(Sex);
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
             //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
             if (urlValue != null || urlValue != undefined) {

@@ -22,8 +22,8 @@
             var sURL = "<%=ApplicationPath%>/Examination/DepartmentDialog.aspx?rand=" + Math.random();
             var sFeatures = "center:yes;help:no;status:no;rsizable:yes";
             var vArguments = "";
-            var urlValue = window.showModalDialog(sURL, vArguments, sFeatures);            
-            
+            var urlValue = window.showModalDialog(sURL, vArguments, sFeatures);
+
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hDeptID.ClientID %>").val(urlValue[0]);
                 $("#<%=txtDeptName.ClientID %>").val(urlValue[1]);
@@ -68,16 +68,16 @@
             window.open(sURL, "_blank", "", true);
         }
 
-        function setBirthdaySex(event) {           
+        function setBirthdaySex(event) {
             var regex = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-            var IDNumber = $("#<%=txtIDNumber.ClientID%>").val();          
-            if (!regex.test(IDNumber)) return;            
+            var IDNumber = $("#<%=txtIDNumber.ClientID%>").val();
+            if (!regex.test(IDNumber)) return;
             var birthday = IDNumber.substr(6, 4) + "年" +
                            IDNumber.substr(10, 2) + "月" +
                            IDNumber.substr(12, 2) + "日";
             $("#<%=txtBirthday.ClientID%>").val(birthday);
             $("#<%=drpSex.ClientID%>").val("男");
-            var sex=1;
+            var sex = 1;
             if (IDNumber.length == 18) sex = parseInt(IDNumber.substr(16, 1), 10);
             if (IDNumber.length == 15) sex = parseInt(IDNumber.substr(13, 1), 10);
             if (sex % 2 == 0) $("#<%=drpSex.ClientID%>").val("女");
@@ -111,8 +111,8 @@
                 $("#<%=txtIDNumber.ClientID%>").val(CardReader.CardNo());
                 $("#<%=txtAddress.ClientID%>").val(CardReader.Address());
                 $("#<%=hPhoto.ClientID%>").val(CardReader.GetImage());
-//                var img = "data:image/png;base64," + CardReader.GetImage();
-//                $("#Pricture").attr("src", img);
+                //                var img = "data:image/png;base64," + CardReader.GetImage();
+                //                $("#Pricture").attr("src", img);
             } else {
                 alert("身份证信息读取失败！");
             }
@@ -125,6 +125,7 @@
         <ul>
             <li><a href="#tabs-1">浏览</a></li>
             <li><a href="#tabs-2">编辑</a></li>
+            <li><a href="#tabs-3">检查项目</a></li>
         </ul>
         <div id="tabs-1">
             登记日期<asp:TextBox CssClass="textbox21  Wdate" ID="txtSRegisterDate" runat="server"
@@ -132,9 +133,9 @@
             体检单位<asp:TextBox CssClass="textbox21" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox21" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();"/>
+            <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();" />
             <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
-            <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();"/>
+            <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
@@ -187,8 +188,7 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
-                                     <input type="button" class="buttonCss" value="打印"  
-                                            onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');"/>
+                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -215,8 +215,7 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail1" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
-                                      <input type="button" class="buttonCss" value="打印"  
-                                            onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');"/>
+                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
                                 </td>
                             </tr>
                         </AlternatingItemTemplate>
@@ -252,9 +251,8 @@
                                 登记日期<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="validate[required] textbox31  Wdate" ID="txtRegisterDate" runat="server" 
-                                onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" 
-                                data-errormessage-value-missing="登记日期不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox31  Wdate" ID="txtRegisterDate"
+                                    runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" data-errormessage-value-missing="登记日期不能为空!" />
                             </td>
                         </tr>
                         <tr>
@@ -271,10 +269,11 @@
                                 套 餐<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox ID="txtPackageName" runat="server" CssClass="validate[required] textbox31" data-errormessage-value-missing="套餐不能为空!"/>
-                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
-                                    onclick="selectPackage();" align="middle" border="0"  />
-                                     <asp:HiddenField ID="hPackageID" runat="server" />
+                                <asp:TextBox ID="txtPackageName" runat="server" CssClass="validate[required] textbox31"
+                                    data-errormessage-value-missing="套餐不能为空!" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
+                                    onclick="selectPackage();" align="middle" border="0" />
+                                <asp:HiddenField ID="hPackageID" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -282,13 +281,15 @@
                                 体检日期<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox ID="txtCheckDate" runat="server" CssClass="validate[required] textbox31 Wdate" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" data-errormessage-value-missing="体检日期不能为空!"/>
+                                <asp:TextBox ID="txtCheckDate" runat="server" CssClass="validate[required] textbox31 Wdate"
+                                    onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" data-errormessage-value-missing="体检日期不能为空!" />
                             </td>
                             <td class="VLine">
                                 姓 名<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server" data-errormessage-value-missing="体检人姓名不能为空!"/>
+                                <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server"
+                                    data-errormessage-value-missing="体检人姓名不能为空!" />
                             </td>
                         </tr>
                         <tr>
@@ -397,10 +398,10 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEdit_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnDelete" runat="server" Text="删除" OnClick="btnDelete_Click"
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
-                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" 
-                                    OnClientClick="return checkForm();"/>
+                                <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click"
+                                    OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />                                
+                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />
                             </td>
                         </tr>
                     </table>
@@ -409,6 +410,66 @@
                     <script type="text/javascript">
                         $("#<%=txtIDNumber.ClientID%>").bind("change", setBirthdaySex);
                     </script>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div id="tabs-3">
+            <asp:UpdatePanel ID="UP3" runat="Server">
+                <ContentTemplate>
+                    <asp:Repeater ID="GroupsRepeater" runat="server" OnItemCommand="GroupsRepeater_ItemCommand">
+                        <HeaderTemplate>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th>
+                                        组合名称
+                                    </th>
+                                    <th>
+                                        检查科室
+                                    </th>
+                                    <th>
+                                        单价（元）
+                                    </th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                                <td class="VLine" align="center">
+                                    <%# Eval("GroupName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除"  CommandName="Delete" CommandArgument='<%#Eval("GroupID") %>'/>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                        <AlternatingItemTemplate>
+                            <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                                <td class="VLine" align="center">
+                                    <%# Eval("GroupName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
+                                </td>
+                                 <td class="VLine" align="center">
+                                    <asp:Button runat="server" CssClass="buttonCss" Text="删除" CommandName="Delete"  CommandArgument='<%#Eval("GroupID") %>'/>
+                                </td>
+                            </tr>
+                        </AlternatingItemTemplate>
+                        <FooterTemplate>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -141,6 +141,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtMobile.Text = Result.Mobile;
         txtEMail.Text = Result.EMail;
         hPhoto.Value = Result.Photo;
+        BindCheckedGroups(RegisterNo);
     }
 
     /// <summary>
@@ -173,6 +174,11 @@ public partial class Examination_RegistrationPage : BasePage {
             Result.Groups = ItemGroups.Select(p => Convert.ToInt32(p)).ToList();
         }
         return Result;
+    }
+
+    private void BindCheckedGroups(String RegisterNo) {
+        GroupsRepeater.DataSource = m_Registration.GetCheckedGroups(RegisterNo);
+        GroupsRepeater.DataBind();
     }
 
     /// <summary>
@@ -232,6 +238,7 @@ public partial class Examination_RegistrationPage : BasePage {
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
         DataBind();
+        BindCheckedGroups(Result.RegisterNo);
         SetUIState("Default");
     }
 
@@ -273,6 +280,15 @@ public partial class Examination_RegistrationPage : BasePage {
 
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
+    }
+
+    protected void GroupsRepeater_ItemCommand(object source, RepeaterCommandEventArgs e) {
+        if (e.CommandName.ToLower() == "delete") {
+            int GroupID = Convert.ToInt32(e.CommandArgument);
+            m_Registration.DeleteCheckedGroup(RegisterNo, GroupID);
+            BindCheckedGroups(RegisterNo);
+            ShowMessage("组合项删除成功！");
+        }
     }
 
 

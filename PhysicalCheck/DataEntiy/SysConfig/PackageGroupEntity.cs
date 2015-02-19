@@ -56,7 +56,7 @@ namespace DataEntity.SysConfig {
         /// <summary>
         /// 组合编码
         /// </summary>		
-        public virtual int? GroupID {
+        public virtual int GroupID {
             get;
             set;
         }

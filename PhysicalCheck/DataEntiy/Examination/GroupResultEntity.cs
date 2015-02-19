@@ -89,7 +89,7 @@ namespace DataEntity.Examination {
         /// <summary>
         /// 组合项目
         /// </summary>		
-        public virtual int? GroupID {
+        public virtual int GroupID {
             get;
             set;
         }

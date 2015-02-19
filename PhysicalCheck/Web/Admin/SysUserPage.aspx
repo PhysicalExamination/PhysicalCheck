@@ -202,10 +202,10 @@
                                 </asp:DropDownList>
                             </td>
                             <td class="VLine">
-                                密码<font color="red">*</font>
+                                密码
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] inputCss" TextMode="Password" ID="txtPassWord" runat="server" data-errormessage-value-missing="密码不能为空!" />
+                                <asp:TextBox CssClass="inputCss" TextMode="Password" ID="txtPassWord" runat="server"/>
                             </td>
                         </tr>
                         <tr>

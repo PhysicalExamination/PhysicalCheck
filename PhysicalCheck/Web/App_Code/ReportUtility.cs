@@ -33,7 +33,7 @@ public class ReportUtility {
         List<GroupResultViewEntity> GroupResults = m_Registration.GetGroupResults(RegisterNo);
         var q = from p in GroupResults
                 select new GroupItemResult {
-                    GroupID = p.ID.GroupID.Value,
+                    GroupID = p.ID.GroupID,
                     GroupName = p.GroupName,
                     DeptName = p.DeptName,
                     CheckDoctor = p.CheckDoctor,

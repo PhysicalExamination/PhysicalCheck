@@ -66,12 +66,15 @@ namespace DataAccess.SysConfig {
         }
 
         public List<ItemGroupViewEntity> GetItemGroups(int pageIndex, int pageSize, String GroupName,
-            out int RecordCount) {
+            String Sex,out int RecordCount) {
             var q = Session.Query<ItemGroupViewEntity>();
             q = q.Where(p => p.Enabled == true);
             if (!String.IsNullOrWhiteSpace(GroupName)) {
                 q = q.Where(p => p.GroupName.Contains(GroupName));
             }
+            if (!String.IsNullOrWhiteSpace(Sex)) {
+                q = q.Where(p => p.Sex == "%" || p.Sex == Sex);
+            }           
             List<ItemGroupViewEntity> Result = q.ToPagedList<ItemGroupViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();

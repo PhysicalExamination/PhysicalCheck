@@ -50,11 +50,14 @@ namespace DataAccess.SysConfig {
         }
 
         public List<PackageEntity> GetPackages(int pageIndex, int pageSize, String PackageName,
-            out int RecordCount) {
+            String Sex,out int RecordCount) {
             var q = Session.Query<PackageEntity>();
             q = q.Where(p => p.Enabled == true);
             if (!String.IsNullOrWhiteSpace(PackageName)) {
                 q = q.Where(p => p.PackageName.Contains(PackageName));
+            }
+            if (!String.IsNullOrWhiteSpace(Sex)) {
+                q = q.Where(p => p.Category == "0" || p.Category == Sex);
             }
             List<PackageEntity> Result = q.ToPagedList<PackageEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();

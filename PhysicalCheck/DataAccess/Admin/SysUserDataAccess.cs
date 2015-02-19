@@ -28,8 +28,9 @@ namespace DataAccess.Admin {
 		/// <summary>
 		///获取系统用户所有数据
 		/// </summary>
-		public List<SysUserEntity> GetSysUsers() {
-			List<SysUserEntity> Result = (from c in Session.Query<SysUserEntity>() select c).ToList();
+        public List<SysUserViewEntity> GetSysUsers() {
+			//List<SysUserEntity> Result = (from c in Session.Query<SysUserEntity>() select c).ToList();
+            List<SysUserViewEntity> Result = Session.Query<SysUserViewEntity>().ToList();
 			CloseSession();
 			return Result;
 		}

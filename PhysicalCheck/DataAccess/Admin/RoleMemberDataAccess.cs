@@ -32,13 +32,15 @@ namespace DataAccess.Admin {
 		public List<RoleMemberEntity> GetRoleMembers(string RoleNo) {
 			List<RoleMemberEntity> Result = (from a in Session.Query<RoleMemberEntity>()
 											 join b in Session.Query<RoleEntity>() on a.RoleNo equals b.RoleNo
-											 join c in Session.Query<SysUserEntity>() on a.UserNo equals c.UserNo
+                                             join c in Session.Query<SysUserViewEntity>() on a.UserNo equals c.UserNo
 											 where a.RoleNo == RoleNo
 											 select new RoleMemberEntity {
 												 UserNo = a.UserNo,
 												 RoleNo = a.RoleNo,
 												 RoleName = b.RoleName,
-												 UserName = c.UserName
+												 UserName = c.UserName,
+                                                 DeptName = c.DeptName,
+                                                 Position = c.Position
 											 }).ToList<RoleMemberEntity>();
 			CloseSession();
 			return Result;

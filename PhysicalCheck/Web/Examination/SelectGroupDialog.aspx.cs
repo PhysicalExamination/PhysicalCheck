@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic.SysConfig;
 using DataEntity.Examination;
+using BusinessLogic.Examination;
 
 public partial class Examination_SelectGroupDialog : BasePage {
 
@@ -57,10 +58,13 @@ public partial class Examination_SelectGroupDialog : BasePage {
                         RegisterNo = RegisterNo,
                         GroupID = Convert.ToInt32(lblGroupID.Text)
                     },
-                    DeptID = Convert.ToInt32(lblDeptID),
+                    DeptID = Convert.ToInt32(lblDeptID.Text),
                     IsOver = false,
                     PackageID = PackageID
                 };
+                using (RegistrationBusiness Business = new RegistrationBusiness()) {
+                    Business.SaveGroupResult(GroupResult);
+                }
             }
         }
         ShowMessage("数据保存成功！");

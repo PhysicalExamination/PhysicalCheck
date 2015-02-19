@@ -4,15 +4,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
 
-        function CloseWindow() {           
+        function CloseWindow() {
             window.close();
         }
 
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="Server">
-    名称<asp:TextBox ID="txtName" runat="server" CssClass="textbox31" />
+    组合项名称<asp:TextBox ID="txtName" runat="server" CssClass="textbox31" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+    <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
+    <input type="button" class="buttonCss" value="关闭" onclick="CloseWindow()" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="ItemGroupRepeater" runat="server">
@@ -80,12 +82,13 @@
                 AlwaysShow="True" PagingButtonSpacing="8px" NumericButtonCount="5" EnableTheming="True"
                 PageSize="15">
             </asp:AspNetPager>
-            <asp:Panel runat="server" ID="Panel">
-                <p align="center">
-                    <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-                    <input type="button" class="buttonCss" value="返回" onclick="CloseWindow()" /></p>
-                <strong><font color="red">注意：</font></strong>翻页或返回前请单击【保存】按钮保存当前结果。
-            </asp:Panel>
+            <p>
+            </p>
+            <strong><font color="red">注意：</font></strong>翻页或关闭前请单击【保存】按钮保存当前结果。
         </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnSave" />
+            <asp:AsyncPostBackTrigger ControlID="btnSearch" />
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

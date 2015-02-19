@@ -130,6 +130,34 @@ namespace DataAccess.Examination {
             }
         }
 
+        /// <summary>
+        /// 删除体检组合项
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <param name="GroupID"></param>
+        public void DeleteCheckedGroup(String RegisterNo, int GroupID) {
+            String hql = @"DELETE GroupResultEntity WHERE ID.RegisterNo=? AND ID.GroupID=?";
+            String ItemResult = @"DELETE ItemResultEntity WHERE ID.RegisterNo=? AND ID.GroupID=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(hql)
+                    .SetString(0, RegisterNo)
+                    .SetInt32(1,GroupID)
+                    .ExecuteUpdate();
+                Session.CreateQuery(ItemResult)
+                    .SetString(0, RegisterNo)
+                    .SetInt32(1, GroupID)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {               
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
         #endregion
     }
 }

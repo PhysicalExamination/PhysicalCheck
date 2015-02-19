@@ -37,8 +37,8 @@ namespace BusinessLogic.SysConfig {
         }
 
         public List<PackageEntity> GetPackages(int pageIndex, int pageSize, String PackageName,
-            out int RecordCount) {
-            return DataAccess.GetPackages(pageIndex, pageSize, PackageName, out RecordCount);
+            String Sex, out int RecordCount) {
+            return DataAccess.GetPackages(pageIndex, pageSize, PackageName, Sex,out RecordCount);
         }
 
         public PackageEntity GetPackage(int PackageID) {

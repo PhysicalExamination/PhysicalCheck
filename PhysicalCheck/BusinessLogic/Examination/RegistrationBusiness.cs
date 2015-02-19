@@ -190,6 +190,24 @@ namespace BusinessLogic.Examination {
 
         #endregion
 
+        #region 检查项
+
+        /// <summary>
+        /// 返回体检人员检查组合项
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <returns></returns>
+        public List<ItemGroupViewEntity> GetCheckedGroups(String RegisterNo) {
+            ItemGroupBusiness ItemGroup = new ItemGroupBusiness();
+            GroupResultDataAccess GroupResult = new GroupResultDataAccess();
+            var q = from a in ItemGroup.GetItemGroups()
+                    join b in GroupResult.GetGroupResults(RegisterNo) on a.GroupID equals b.ID.GroupID
+                    select a;
+            return q.ToList();
+        }
+
+        #endregion
+
         #region 检查结果
 
         public List<GroupResultViewEntity> GetGroupResults(string RegisterNo) {

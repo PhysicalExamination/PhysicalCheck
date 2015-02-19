@@ -5,7 +5,12 @@
     <script type="text/javascript">
         $(function () {
             $("#tabs").tabs();
-            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
+            $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft",
+                scroll: false, focusFirstField: true
+            });
+             $("#GroupPanel").hide();
+            var Category = '<%=Request.Params["Category"]%>';
+            if (Category=="2") $("#GroupPanel").show();
         });
 
         function checkForm() {
@@ -52,7 +57,7 @@
             var sURL = "<%=ApplicationPath%>/Examination/SelectGroupDialog.aspx?rand=" + Math.random() +
                        "&RegisterNo=" + RegisterNo + "&Sex=" + encodeURI(Sex) + "&PackageID=" + PackageID;
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
-            $("#<%=btnRefresh.ClientID%>").click();           
+            $("#<%=btnRefresh.ClientID%>").click();
         }
 
         function btnDataImport() {
@@ -144,9 +149,11 @@
             体检单位<asp:TextBox CssClass="textbox21" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox21" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();" />
-            <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
-            <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
+            <span id="GroupPanel">
+                <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();" />
+                <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
+                <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
+            </span>
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">

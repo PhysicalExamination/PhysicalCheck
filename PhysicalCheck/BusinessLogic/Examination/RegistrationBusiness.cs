@@ -206,6 +206,12 @@ namespace BusinessLogic.Examination {
             return q.ToList();
         }
 
+        public void DeleteCheckedGroup(String RegisterNo, int GroupID) {
+            using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
+                Group.DeleteCheckedGroup(RegisterNo, GroupID);
+            }
+        }
+
         #endregion
 
         #region 检查结果

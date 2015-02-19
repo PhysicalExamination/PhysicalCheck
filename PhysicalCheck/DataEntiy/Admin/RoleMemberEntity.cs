@@ -56,6 +56,24 @@ namespace DataEntity.Admin {
 			set;
 		}
 
+        /// <summary>
+        /// 所在部门
+        /// </summary>
+        [Description("DeptName")]
+        public virtual string DeptName {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 职务
+        /// </summary>
+        [Description("Position")]
+        public virtual string Position {
+            get;
+            set;
+        }
+
 		#endregion
 
 		#region 重写方法

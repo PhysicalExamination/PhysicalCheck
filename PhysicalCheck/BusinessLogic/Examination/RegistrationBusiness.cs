@@ -237,6 +237,7 @@ namespace BusinessLogic.Examination {
         public void SaveGroupResult(GroupResultEntity GroupResult) {
             using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
                 Group.SaveGroupResult(GroupResult);
+                SaveCheckItems(GroupResult.ID.RegisterNo, GroupResult.ID.GroupID);
             }
         }
 
@@ -273,7 +274,7 @@ namespace BusinessLogic.Examination {
                         PackageID = PackageID
                     };
                     GroupDataAccess.SaveGroupResult(GroupResult);
-                    SaveCheckItems(RegisterNo, Group.ID.GroupID.Value);
+                    SaveCheckItems(RegisterNo, Group.ID.GroupID);
                 }
             }
         }

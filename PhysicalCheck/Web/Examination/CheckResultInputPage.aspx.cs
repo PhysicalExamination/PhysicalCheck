@@ -100,7 +100,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
        
 
-        int RecordCount = 0;       
+        //int RecordCount = 0;       
         //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
         //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
         //Pager.RecordCount = RecordCount;
@@ -130,20 +130,21 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
         Literal lblItemID;
         TextBox txtCheckResult;
-        int? GroupID = Convert.ToInt32(GroupId), ItemID;
+        int GroupID = Convert.ToInt32(GroupId), ItemID;
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
             lblItemID = (Literal)Item.FindControl("lblItemID");
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
-            ItemID = EnvConverter.ToInt32(lblItemID.Text);
+            ItemID = Convert.ToInt32(lblItemID.Text);
+            //ItemResult = m_ItemResult.GetItemResult(RegisterNo, GroupID, ItemID);
             ItemResult = new ItemResultEntity {
                 ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = RegisterNo },
                 DeptID = DepartNo,
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
                 CheckedResult = txtCheckResult.Text
-            };
+            };           
             m_ItemResult.SaveItemResult(ItemResult);
         }
 

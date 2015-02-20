@@ -3,9 +3,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#Panel").hide();
+        $(document).ready(function () {            
             $('#btnAppointment').click(function () {
+                if ($("tbody tr input[type='checkbox']:checked").length<=0){
+                    alert("请选择预约体检人员！");
+                    return;
+                }
                 $("#dialog").dialog({
                     resizable: false,
                     height: 150,
@@ -71,7 +74,7 @@
                             </th>
                             <th>
                                 登记日期
-                            </th>                           
+                            </th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -93,7 +96,7 @@
                         </td>
                         <td class="VLine" align="center">
                             <%# EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
-                        </td>                       
+                        </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
@@ -115,7 +118,7 @@
                         </td>
                         <td class="VLine" align="center">
                             <%#EnvShowFormater.GetShortDate(Eval("RegisterDate"))%>
-                        </td>                       
+                        </td>
                     </tr>
                 </AlternatingItemTemplate>
                 <FooterTemplate>

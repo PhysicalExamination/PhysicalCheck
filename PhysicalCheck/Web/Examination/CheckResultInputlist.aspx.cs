@@ -46,20 +46,20 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
-        if (!IsPostBack) {        
+        if (!IsPostBack) {
             DataBind();
         }
     }
 
     protected override void OnInit(EventArgs e) {
-       
+
         m_GroupResut = new GroupResultBusiness();
         m_Regist = new RegistrationBusiness();
         base.OnInit(e);
     }
 
     protected override void OnUnload(EventArgs e) {
-       
+
         m_GroupResut.Dispose();
         m_GroupResut = null;
         base.OnUnload(e);
@@ -69,44 +69,35 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// 数据绑定
     /// </summary>
     public override void DataBind() {
-
-        if (txtsRegisterNo.Text.Trim() != "")
-        {
+        if (txtsRegisterNo.Text.Trim() != "") {
             RegistrationViewEntity en = m_Regist.GetRegistration(txtsRegisterNo.Text.Trim());
-
-            if (en!=null && en.IsCheckOver)
-            {
+            if (en != null && en.IsCheckOver) {
                 ShowMessage("此登记号已经体检完毕。");
-                return;            
+                return;
             }
-
         }
-
-      
         String RegisterNo = txtsRegisterNo.Text.Trim();
         ItemResultRepeater.DataSource = m_GroupResut.GetGroupResults(RegisterNo);
-        
         base.DataBind();
-          
     }
 
     #endregion
 
     #region 事件
 
-    
+
 
     protected void btnSearch_Click(object sender, EventArgs e) {
 
         DataBind();
     }
 
-   
+
     #endregion
 
     #region 私有方法
 
-    
+
 
     #endregion
 

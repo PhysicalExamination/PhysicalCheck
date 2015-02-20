@@ -9,15 +9,18 @@
             var sResult = window.showModalDialog(sURL, null, sFeatures);
             $("#<%=txtSummary.ClientID %>").val(sResult);           
         }
+        function closeWindow(){
+          open("CheckResultInputlist.aspx","_self","",false);
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
-    <div class="l-navigationbars">
+  <%--  <div class="l-navigationbars">
         <div class="l-navigationbars-l">
             <a href="#" style="left: 100px; text-decoration: none;">小结录入</a></div>
         <div class="l-navigationbars-r">
             <a href="CheckResultInputlist.aspx" target="_self">返回</a></div>
-    </div>
+    </div>--%>
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="ItemResultRepeater" runat="server">
@@ -113,6 +116,7 @@
                     <td class="VLine" colspan="2" align="center">
                         <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
                         <input type="button" class="buttonCss" value="导入小结"  onclick="onSetSummary();"/>
+                        <input type="button" class="buttonCss" value="返回" onclick="closeWindow();" />
                     </td>
                 </tr>
             </table>

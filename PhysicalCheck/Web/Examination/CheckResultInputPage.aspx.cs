@@ -21,7 +21,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     private int? PackageID {
         get {
             if (ViewState["PackageID"] == null) {
-                using (RegistrationBusiness Registration = new RegistrationBusiness()) {                   
+                using (RegistrationBusiness Registration = new RegistrationBusiness()) {
                     ViewState["PackageID"] = Registration.GetRegistration(RegisterNo).PackageID;
                 }
             }
@@ -39,28 +39,22 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
     }
 
-    private string RegisterNo
-    {
-        get
-        {
+    private string RegisterNo {
+        get {
             if (ViewState["RegisterNo"] == null) return Request.QueryString["id"].ToString();
             return (string)ViewState["RegisterNo"];
         }
-        set
-        {
+        set {
             ViewState["RegisterNo"] = value;
         }
     }
 
-    private string GroupId
-    {
-        get
-        {
+    private string GroupId {
+        get {
             if (ViewState["GroupId"] == null) return Request.Params["GroupId"];
             return (string)ViewState["GroupId"];
         }
-        set
-        {
+        set {
             ViewState["GroupId"] = value;
         }
     }
@@ -73,7 +67,6 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
-
             DataBind();
         }
     }
@@ -97,23 +90,18 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// 数据绑定
     /// </summary>
     public override void DataBind() {
-
-       
-
         //int RecordCount = 0;       
         //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
         //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
         //Pager.RecordCount = RecordCount;
-
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
-             RegisterNo, Convert.ToInt32( GroupId));
-        
-
+             RegisterNo, Convert.ToInt32(GroupId));
         base.DataBind();
-        txtSummary.Text = "";
+        GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
+        txtSummary.Text = GroupResult.Summary;
         TextBox txtCheckResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
-        foreach (RepeaterItem Item in Items) {            
+        foreach (RepeaterItem Item in Items) {
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             txtCheckResult.Enabled = InputEnabled;
         }
@@ -124,7 +112,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
-        if (String.IsNullOrWhiteSpace(RegisterNo)){
+        if (String.IsNullOrWhiteSpace(RegisterNo)) {
             ShowMessage("数据保存失败，请输入体检登记号。");
             return;
         }
@@ -144,7 +132,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
                 CheckedResult = txtCheckResult.Text
-            };           
+            };
             m_ItemResult.SaveItemResult(ItemResult);
         }
 
@@ -171,6 +159,6 @@ public partial class Examination_CheckResultInputPage : BasePage {
     }
     #endregion
 
-   
+
 
 }

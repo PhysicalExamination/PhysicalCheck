@@ -9,13 +9,17 @@
             var sResult = window.showModalDialog(sURL, null, sFeatures);
             $("#<%=txtSummary.ClientID %>").val(sResult);           
         }
+
+        function saveData(){
+          $("#<%=btnSave.ClientID%>").click();
+        }
         function closeWindow(){
           open("CheckResultInputlist.aspx","_self","",false);
         }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
-  <%--  <div class="l-navigationbars">
+    <%--  <div class="l-navigationbars">
         <div class="l-navigationbars-l">
             <a href="#" style="left: 100px; text-decoration: none;">小结录入</a></div>
         <div class="l-navigationbars-r">
@@ -90,7 +94,7 @@
                     </table>
                 </FooterTemplate>
             </asp:Repeater>
-           <%-- <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"
+            <%-- <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"
                 OnPageChanged="Pager_PageChanged" ButtonImageNameExtension="enable/" CustomInfoTextAlign="Center"
                 DisabledButtonImageNameExtension="disable/" HorizontalAlign="Center" ImagePath="~/images/"
                 MoreButtonType="Text" NavigationButtonType="Image" NumericButtonType="Text" PagingButtonType="Image"
@@ -98,7 +102,6 @@
                 PageSize="15">
             </asp:AspNetPager>--%>
         </ContentTemplate>
-       
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="UP2" runat="Server">
         <ContentTemplate>
@@ -111,15 +114,15 @@
                         <asp:TextBox CssClass="inputCss" TextMode="MultiLine" ID="txtSummary" runat="server"
                             Height="80px" Width="99%" />
                     </td>
-                </tr>
-                <tr>
-                    <td class="VLine" colspan="2" align="center">
-                        <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-                        <input type="button" class="buttonCss" value="导入小结"  onclick="onSetSummary();"/>
-                        <input type="button" class="buttonCss" value="返回" onclick="closeWindow();" />
-                    </td>
-                </tr>
+                </tr>               
             </table>
         </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnSave" />
+        </Triggers>
     </asp:UpdatePanel>
+    <div style="display: none;">
+        <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
+         <input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />
+    </div>
 </asp:Content>

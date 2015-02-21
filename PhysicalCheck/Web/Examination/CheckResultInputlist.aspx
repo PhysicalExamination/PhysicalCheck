@@ -2,14 +2,31 @@
     CodeFile="CheckResultInputlist.aspx.cs" Inherits="Examination_CheckResultInputPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <%--<script type="text/javascript">
-        function onSetSummary() {
-            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random();
-            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
-            var sResult = window.showModalDialog(sURL, null, sFeatures);
-            $("#<%=txtSummary.ClientID %>").val(sResult);
+    <script type="text/javascript">
+      function InputCheckResult(RegisterNo,GroupID,DeptID) {
+          var src = "CheckResultInputPage.aspx?Rand= " + Math.random() + "&id=" + RegisterNo + 
+                    "&GroupId=" + GroupID + "&DeptID=" + DeptID;
+            $("#dialogFrame").attr("src", src);
+            $("#dialog").dialog({
+                resizable: false,
+                height: 450,
+                width: 750,
+                modal: true,
+                buttons: {
+                    "导入小结": function () {
+                        window.frames["dialogFrame"].onSetSummary();
+                    },
+                    "确定": function () {
+                        window.frames["dialogFrame"].saveData();
+                        $(this).dialog("close");                       
+                    },
+                    "取消": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
         }
-    </script>--%>
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     登记号：<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
@@ -59,8 +76,7 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                            <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&GroupId=<%# Eval("ID.GroupID") %>&DeptID=<%# Eval("DeptID") %>"
-                                target="_self">详情</a>
+                           <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');";
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -83,8 +99,8 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                              <a href="CheckResultInputPage.aspx?id=<%# Eval("ID.RegisterNo") %>&GroupId=<%# Eval("ID.GroupID") %>&DeptID=<%# Eval("DeptID") %>"
-                                target="_self">详情</a>
+                        <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');";
+                            
                         </td>
                     </tr>
                 </AlternatingItemTemplate>
@@ -97,4 +113,8 @@
             <asp:AsyncPostBackTrigger ControlID="btnSearch" />
         </Triggers>
     </asp:UpdatePanel>
+    <div id="dialog" title="体检结果录入" style="display: none;">
+        <iframe id="dialogFrame" frameborder="0" width="720px" height="420px" marginheight="0"
+            marginwidth="0" scrolling="no" src="CheckResultInputPage.aspx"></iframe>
+    </div>
 </asp:Content>

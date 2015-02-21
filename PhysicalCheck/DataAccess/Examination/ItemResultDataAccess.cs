@@ -135,6 +135,7 @@ namespace DataAccess.Examination {
                 OldResult.CheckDate = ItemResult.CheckDate;
                 OldResult.CheckDoctor = ItemResult.CheckDoctor;
                 OldResult.CheckedResult = ItemResult.CheckedResult;
+                OldResult.QualitativeResult = ItemResult.QualitativeResult;
                 Session.SaveOrUpdate(OldResult);
                 Session.Flush();
                 CloseSession();

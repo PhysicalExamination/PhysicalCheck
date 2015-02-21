@@ -86,5 +86,17 @@ public partial class Examination_ExaminationReportPage :BasePage {
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
     }
+
+    protected void ItemCommand(object source,RepeaterCommandEventArgs e) {
+        if (e.CommandName.ToLower() == "cancel") {
+            RegisterNo = (String)e.CommandArgument;            
+            int Succeed = m_Registration.CancelOverallCheck(RegisterNo, UserName);
+            String msg = String.Format("登记号：{0}总检撤销成功！", RegisterNo);
+            if (Succeed < 1)
+                msg = "撤销总检的用户必须是给出总检的人。";
+            ShowMessage(msg);
+            DataBind();
+        }
+    }
     #endregion
 }

@@ -23,7 +23,7 @@
     </div>
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
-            <asp:Repeater ID="RegistrationRepeater" runat="server">
+            <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
@@ -71,6 +71,7 @@
                             <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                         </td>                        
                         <td class="VLine" align="center">
+                            <asp:Button ID="btnCancel" runat="server" CommandArgument='<%# Eval("RegisterNo") %>' Text="撤销总检" CommandName="Cancel" />
                             <input type="button" class="buttonCss" value="打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>
@@ -96,6 +97,7 @@
                             <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                         </td>                        
                         <td class="VLine" align="center">
+                        <asp:Button ID="btnCancel" runat="server" CommandArgument='<%# Eval("RegisterNo") %>' Text="撤销总检" CommandName="Cancel" />
                             <input type="button" class="buttonCss" value="打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>

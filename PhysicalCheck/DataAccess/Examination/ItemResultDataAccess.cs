@@ -125,11 +125,20 @@ namespace DataAccess.Examination {
         /// <param name="ItemResult">体检项目结论实体</param>
         public void SaveItemResult(ItemResultEntity ItemResult) {
             ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
-            if (String.IsNullOrWhiteSpace(OldResult.CheckDoctor)) {
+            if(OldResult==null) {
                 Session.SaveOrUpdate(ItemResult);
-                Session.Flush();               
+                Session.Flush();
+                CloseSession();
+                return;
             }
-            CloseSession();
+            if (String.IsNullOrWhiteSpace(OldResult.CheckDoctor)) {
+                OldResult.CheckDate = ItemResult.CheckDate;
+                OldResult.CheckDoctor = ItemResult.CheckDoctor;
+                OldResult.CheckedResult = ItemResult.CheckedResult;
+                Session.SaveOrUpdate(OldResult);
+                Session.Flush();
+                CloseSession();
+            }            
         }
 
         /// <summary>

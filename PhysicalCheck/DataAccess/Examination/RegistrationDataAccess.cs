@@ -29,6 +29,87 @@ namespace DataAccess.Examination {
         #region 公共方法
 
         /// <summary>
+        /// 返回团体体检未预约数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetAppointments(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptID > 1 && p.CheckDate == null);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            if (String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
+                q = q.Where(p => p.RegisterDate >= RegisterDate);
+            }
+            q = q.OrderByDescending(p => p.RegisterNo);
+            List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
+
+        /// <summary>
+        /// 返回团体登记数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetGroupRegistrations(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptID > 1);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            if (String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
+                q = q.Where(p => p.RegisterDate >= RegisterDate);
+            }
+            q = q.OrderByDescending(p => p.RegisterNo);
+            List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 返回个体登记数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="RegisterNo">身份证号/档案号</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetIndividualRegistrations(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String RegisterNo, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptID == 1);
+
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo) && (RegisterDate != null)) {
+                q = q.Where(p => p.RegisterDate >= RegisterDate);
+            }
+            q = q.OrderByDescending(p => p.RegisterNo);
+            List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
+
+        /// <summary>
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
@@ -295,6 +376,56 @@ namespace DataAccess.Examination {
             finally {
                 CloseSession();
             }
+        }
+
+        /// <summary>
+        /// 保存体检预约
+        /// </summary>
+        /// <param name="RegisterNo">档案号</param>
+        /// <param name="CheckDate">预约体检日期</param>
+        public void SaveCheckAppointment(String RegisterNo, DateTime CheckDate) {
+            String HQL = @"Update RegistrationEntity set CheckDate =? WHERE RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(HQL)
+                    .SetDateTime(0, CheckDate)
+                    .SetString(1, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
+        /// <summary>
+        /// 撤销总检
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="Doctor">总检医生</param>
+        /// <returns></returns>
+        public int CancelOverallCheck(String RegisterNo, String Doctor) {
+            int Result = 0;
+            String HQL = @"Update RegistrationEntity set OverallDate =null,OverallDoctor='',IsCheckOver=0
+                           WHERE RegisterNo=? AND OverallDoctor=?";            
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Result = Session.CreateQuery(HQL)
+                         .SetString(0, RegisterNo)
+                         .SetString(1, Doctor)
+                         .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+            return Result;
         }
 
         #endregion

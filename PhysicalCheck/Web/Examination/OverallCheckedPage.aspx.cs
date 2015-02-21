@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Common.FormatProvider;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
+using System.Data;
 
 public partial class Examination_OverallCheckedPage : BasePage {
     #region 私有成员
@@ -80,23 +81,24 @@ public partial class Examination_OverallCheckedPage : BasePage {
         drpEvaluateResult.SelectedIndex = -1;
         drpHealthCondition.SelectedIndex = -1;
         txtConclusion.Text = "";
-        txtRecommend.Text = "";       
+        txtRecommend.Text = "";
     }
     /// <summary>
     /// 填充界面
     /// </summary>
     private void SetRegistrationUI() {
         RegistrationViewEntity Result = m_Registration.GetOverall(RegisterNo);
-        if (Result == null) return;      
+        if (Result == null) return;
         txtRegisterNo.Text = Result.RegisterNo;
         txtDeptName.Text = Result.DeptName;
         txtPackageName.Text = Result.PackageName;
         txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
         txtName.Text = Result.Name;
         drpSex.SelectedValue = Result.Sex;
-        txtSummary.Text= Result.Summary;
+        txtSummary.Text = Result.Summary;
         txtConclusion.Text = Result.Conclusion;
-        txtRecommend.Text = Result.Recommend;       
+        txtRecommend.Text = Result.Recommend;
+        BindCheckedGroups(RegisterNo);
     }
 
     /// <summary>
@@ -111,7 +113,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             RegisterNo = RegInfo.RegisterNo,
             RegisterDate = RegInfo.RegisterDate,
             PersonID = RegInfo.PersonID,
-            PackageID=  RegInfo.PackageID,
+            PackageID = RegInfo.PackageID,
             IsCheckOver = IsCheckOver,
             Conclusion = txtConclusion.Text,
             Recommend = txtRecommend.Text,
@@ -121,7 +123,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             ReviewSummary = txtReviewSummary.Text,
             EvaluateResult = drpEvaluateResult.SelectedValue,
             HealthCondition = drpHealthCondition.SelectedValue,
-        };  
+        };
         return Result;
     }
 
@@ -141,20 +143,20 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// <param name="State"></param>
     private void SetUIState(string State) {
         if (State == "Default") {
-            SetUIStatus(false);         
-            btnEdit.Enabled = CanEditData;            
+            SetUIStatus(false);
+            btnEdit.Enabled = CanEditData;
             btnSave.Enabled = false;
         }
         if (State == "New") {
-            SetUIStatus(true);           
-            btnEdit.Enabled = false;            
+            SetUIStatus(true);
+            btnEdit.Enabled = false;
             btnSave.Enabled = true;
         }
 
         if (State == "Edit") {
-            SetUIStatus(true);           
-            btnEdit.Enabled = false;           
-            btnSave.Enabled = true; 
+            SetUIStatus(true);
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
         }
         txtRegisterNo.Enabled = false;
         txtDeptName.Enabled = false;
@@ -163,6 +165,13 @@ public partial class Examination_OverallCheckedPage : BasePage {
         txtName.Enabled = false;
         drpSex.Enabled = false;
         txtSummary.Enabled = false;
+    }
+
+    private void BindCheckedGroups(String RegisterNo) {
+        GroupsRepeater.DataSource = m_Registration.GetCheckedGroups(RegisterNo);
+        GroupsRepeater.DataBind();
+        rptMain.DataSource = m_Registration.GetGroupResults(RegisterNo);// bll.GetList_GroupResult(sql);
+        rptMain.DataBind();
     }
 
     #endregion
@@ -185,7 +194,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         btnSave.Enabled = CanEditData;
         SetUIState("New");
     }
-   
+
     protected void btnEdit_Click(object sender, EventArgs e) {
         SetUIState("Edit");
     }
@@ -213,15 +222,25 @@ public partial class Examination_OverallCheckedPage : BasePage {
     }
 
     protected void btnBatch_Click(object source, EventArgs e) {
-       RepeaterItemCollection Items = RegistrationRepeater.Items;
-       GroupResultBusiness GroupResult = new GroupResultBusiness();
-       Literal lblRegisterNo;      
-       foreach (RepeaterItem Item in Items) {
-           lblRegisterNo = (Literal)Item.FindControl("lblRegisterNo");
-           String Summary = String.Join(Environment.NewLine, GroupResult.GetGroupSummary(lblRegisterNo.Text).ToArray());
-           m_Registration.SaveOverall(lblRegisterNo.Text, DateTime.Now.Date, UserName,Summary,"","");  
-       }
-       ShowMessage("操作成功！");
+        RepeaterItemCollection Items = RegistrationRepeater.Items;
+        GroupResultBusiness GroupResult = new GroupResultBusiness();
+        Literal lblRegisterNo;
+        foreach (RepeaterItem Item in Items) {
+            lblRegisterNo = (Literal)Item.FindControl("lblRegisterNo");
+            String Summary = String.Join(Environment.NewLine, GroupResult.GetGroupSummary(lblRegisterNo.Text).ToArray());
+            m_Registration.SaveOverall(lblRegisterNo.Text, DateTime.Now.Date, UserName, Summary, "", "");
+        }
+        ShowMessage("操作成功！");
+    }
+
+
+    protected void rptMain_ItemDataBound(object sender, RepeaterItemEventArgs e) {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem) {
+            Repeater rep = e.Item.FindControl("rptSub") as Repeater;//找到里层的repeater对象
+            Literal lblGroupID = (Literal)e.Item.FindControl("lblGroupID");
+            rep.DataSource = m_Registration.GetItemResults(RegisterNo, Convert.ToInt32(lblGroupID.Text));
+            rep.DataBind();           
+        }
     }
 
     #endregion

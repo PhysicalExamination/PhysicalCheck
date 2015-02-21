@@ -17,6 +17,8 @@
         <ul>
             <li><a href="#tabs-1">浏览</a></li>
             <li><a href="#tabs-2">编辑</a></li>
+            <li><a href="#tabs-3">检查项目</a></li>
+            <li><a href="#tabs-4">检查结果</a></li>
         </ul>
         <div id="tabs-1">
             体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
@@ -187,16 +189,15 @@
                             <td class="VLine">
                                 复查日期
                             </td>
-                            <td class="VLine" >
-                                <asp:TextBox ID="txtReviewDate" runat="server" CssClass="textbox31 Wdate"
-                                    onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"  />
-                            </td>  
-                             <td class="VLine">
+                            <td class="VLine">
+                                <asp:TextBox ID="txtReviewDate" runat="server" CssClass="textbox31 Wdate" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                            </td>
+                            <td class="VLine">
                                 复查概要
                             </td>
-                             <td class="VLine">
+                            <td class="VLine">
                                 <asp:TextBox ID="txtReviewSummary" runat="server" CssClass="textbox61" Width="99%" />
-                            </td>                        
+                            </td>
                         </tr>
                         <tr>
                             <td class="VLine">
@@ -224,8 +225,6 @@
                                     <asp:ListItem Value="05">复查</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                        </tr>
-                        <tr>
                         </tr>
                         <tr>
                             <td class="VLine">
@@ -259,10 +258,179 @@
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEdit_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                               
                             </td>
                         </tr>
                     </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div id="tabs-3">
+            <asp:UpdatePanel ID="UP3" runat="Server">
+                <ContentTemplate>
+                    <asp:Repeater ID="GroupsRepeater" runat="server">
+                        <HeaderTemplate>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th>
+                                        组合名称
+                                    </th>
+                                    <th>
+                                        检查科室
+                                    </th>
+                                    <th>
+                                        单价（元）
+                                    </th>
+                                </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                                <td class="VLine" align="center">
+                                    <%# Eval("GroupName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                        <AlternatingItemTemplate>
+                            <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                                <td class="VLine" align="center">
+                                    <%# Eval("GroupName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# Eval("DeptName") %>
+                                </td>
+                                <td class="VLine" align="center">
+                                    <%# EnvShowFormater.GetCurrencyString(Eval("Price"))%>
+                                </td>
+                            </tr>
+                        </AlternatingItemTemplate>
+                        <FooterTemplate>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div id="tabs-4">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="Server">
+                <ContentTemplate>
+                    <asp:Repeater ID="rptMain" OnItemDataBound="rptMain_ItemDataBound" runat="server">
+                        <ItemTemplate>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th colspan="5">
+                                        <%# Eval("DeptName")%>
+                                        <asp:Literal ID="lblGroupID" runat="server" Text='<%# Eval("ID.GroupID")%>'  Visible="false"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="VLine" align="center">
+                                        <%# Eval("GroupName")%>
+                                    </td>
+                                    <td class="VLine" align="center">
+                                        检查医生
+                                    </td>
+                                    <td class="VLine" align="center">
+                                        <%# Eval("CheckDoctor")%>
+                                    </td>
+                                    <td class="VLine" align="center">
+                                        检查时间
+                                    </td>
+                                    <td class="VLine" align="center">
+                                        <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <td colspan="5">
+                                        <asp:Repeater ID="rptSub" runat="server">
+                                            <HeaderTemplate>
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <th>
+                                                            检查项目
+                                                        </th>
+                                                        <th>
+                                                            检查结果
+                                                        </th>
+                                                        <th>
+                                                            单位
+                                                        </th>
+                                                        <th>
+                                                            参考下限
+                                                        </th>
+                                                        <th>
+                                                            参考上限
+                                                        </th>
+                                                        <th>
+                                                            正常提示
+                                                        </th>
+                                                    </tr>
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <tr class="tr1" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("ItemName")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("CheckedResult")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("MeasureUnit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("UpperLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("NormalTips")%>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                            <AlternatingItemTemplate>
+                                                <tr class="tr2" onmouseover="javascript:this.className;this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("ItemName")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("CheckedResult")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("MeasureUnit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("LowerLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("UpperLimit")%>
+                                                    </td>
+                                                    <td class="VLine" align="center">
+                                                        <%# Eval("NormalTips")%>
+                                                    </td>
+                                                </tr>
+                                            </AlternatingItemTemplate>
+                                            <FooterTemplate>
+                                                </table>
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="VLine" align="center">
+                                        小结
+                                    </td>
+                                    <td class="VLine" align="center" colspan="4">
+                                        <%# Eval("Summary")%>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

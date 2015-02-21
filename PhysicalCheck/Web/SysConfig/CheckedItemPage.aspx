@@ -215,6 +215,20 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="VLine">
+                                LIS代码
+                            </td>
+                            <td class="VLine">
+                                <asp:TextBox CssClass="textbox41" ID="txtLISCode" runat="server" />
+                            </td>
+                            <td class="VLine">
+                                PACS代码 
+                            </td>
+                            <td class="VLine">
+                                 <asp:TextBox CssClass="textbox41" ID="txtPACSCode" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="4" align="center" class="VLine">
                                 <asp:Button CssClass="buttonCss" ID="btnNew" runat="server" Text="新建" OnClick="btnNewCheckedItem_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnEdit" runat="server" Text="编辑" OnClick="btnEditCheckedItem_Click" />

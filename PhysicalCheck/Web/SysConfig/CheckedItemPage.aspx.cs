@@ -137,6 +137,8 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtNormalTips.Text = "";
         txtLowerTips.Text = "";
         txtUpperTips.Text = "";
+        txtLISCode.Text = "";
+        txtPACSCode.Text = "";
         drpSex.SelectedIndex =-1;
         chkIsSummary.Checked = false;    
     }
@@ -161,6 +163,8 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtLowerTips.Text = Result.LowerTips;
         txtUpperTips.Text = Result.UpperTips;
         drpSex.SelectedValue = Result.Sex;
+        txtPACSCode.Text = Result.LISCode;
+        txtLISCode.Text = Result.PACSCode;
         chkIsSummary.Checked = false;
         if (Result.IsSummary.HasValue) chkIsSummary.Checked = Result.IsSummary.Value;
     }
@@ -182,6 +186,8 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         Result.UpperTips = txtUpperTips.Text;
         Result.Sex = drpSex.SelectedValue;
         Result.IsSummary = chkIsSummary.Checked;
+        Result.LISCode = txtLISCode.Text;
+        Result.PACSCode = txtPACSCode.Text;
         return Result;
     }
 

@@ -247,7 +247,7 @@
 
                         <tr>
                             <td class="VLine">
-                                LISCode
+                                LIS代码
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox41" ID="txtLisCode" runat="server" />

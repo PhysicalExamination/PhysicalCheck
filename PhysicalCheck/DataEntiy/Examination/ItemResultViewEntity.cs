@@ -59,6 +59,14 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 定性结论
+        /// </summary>
+        public virtual String QualitativeResult {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 检查科室
         /// </summary>		
         public virtual int? DeptID {

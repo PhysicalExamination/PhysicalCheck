@@ -53,6 +53,14 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 定性结论
+        /// </summary>
+        public virtual String QualitativeResult {
+            get;
+            set;
+        }
+
         #endregion
     }
 

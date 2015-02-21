@@ -139,6 +139,22 @@ namespace DataEntity.SysConfig {
             set;
         }
 
+        /// <summary>
+        /// LIS代码
+        /// </summary>
+        public virtual String LISCode {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// PACK代码
+        /// </summary>
+        public virtual String PACKCode {
+            get;
+            set;
+        }
+
         #endregion
 
 

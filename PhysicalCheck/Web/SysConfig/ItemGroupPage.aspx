@@ -253,7 +253,7 @@
                                 <asp:TextBox CssClass="textbox41" ID="txtLisCode" runat="server" />
                             </td>
                             <td class="VLine">
-                                PacsCode
+                                PACS代码
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox41" ID="txtPacsCode" runat="server" />

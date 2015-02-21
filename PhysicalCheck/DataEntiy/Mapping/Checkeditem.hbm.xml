@@ -18,6 +18,8 @@
         <property name="IsSummary" column="IsSummary" type="Boolean" not-null="false" /> 
         <property name="Enabled" column="Enabled" type="Boolean" not-null="false" />
         <property name="DisplayOrder" column="DisplayOrder" type="Int32" not-null="false" />
+        <property name="LISCode" column="LISCode" type="String" not-null="false" length="100"/>
+        <property name="PACSCode" column="PACSCode" type="String" not-null="false" length="100"/>
     </class>
 </hibernate-mapping>
 

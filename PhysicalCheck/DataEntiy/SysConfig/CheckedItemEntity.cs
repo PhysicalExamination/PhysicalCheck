@@ -148,9 +148,9 @@ namespace DataEntity.SysConfig {
         }
 
         /// <summary>
-        /// PACK代码
+        /// PACS代码
         /// </summary>
-        public virtual String PACKCode {
+        public virtual String PACSCode {
             get;
             set;
         }

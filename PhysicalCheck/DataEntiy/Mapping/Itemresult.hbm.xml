@@ -6,7 +6,8 @@
             <key-property name="GroupID" column="GroupID" type="Int32" /> 
             <key-property name="ItemID" column="ItemID" type="Int32" /> 
         </composite-id>
-        <property name="CheckedResult" column="CheckedResult" type="String" not-null="false" length="1500" /> 
+        <property name="CheckedResult" column="CheckedResult" type="String" not-null="false" length="1500" />
+        <property name="QualitativeResult" column="QualitativeResult" type="String" not-null="false" length="1500"/>
         <property name="DeptID" column="DeptID" type="Int32" not-null="false" /> 
         <property name="CheckDoctor" column="CheckDoctor" type="String" not-null="false" length="60" /> 
         <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" /> 

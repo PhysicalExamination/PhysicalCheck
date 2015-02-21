@@ -12,7 +12,8 @@
         <property name="LowerLimit" column="LowerLimit" type="String" not-null="false" length="30" />
         <property name="UpperLimit" column="UpperLimit" type="String" not-null="false" length="30" />
         <property name="NormalTips" column="NormalTips" type="String" not-null="false" length="300" />
-        <property name="CheckedResult" column="CheckedResult" type="String" not-null="false" length="1500" />        
+        <property name="CheckedResult" column="CheckedResult" type="String" not-null="false" length="1500" />
+        <property name="QualitativeResult" column="QualitativeResult" type="String" not-null="false" length="1500"/>
         <property name="DeptID" column="DeptID" type="Int32" not-null="false" />
         <property name="DeptName" column="DeptName" type="String" not-null="false" length="50" />
         <property name="CheckDoctor" column="CheckDoctor" type="String" not-null="false" length="60" />

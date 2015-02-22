@@ -54,6 +54,32 @@ namespace DataAccess.Examination {
             return Result;
         }
 
+        /// <summary>
+        /// 返回团体正式体检数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="CheckDate">体检日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetFormalRegistrations(int pageIndex, int pageSize,
+            DateTime? CheckDate, String DeptName, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptID > 1);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            if (String.IsNullOrWhiteSpace(DeptName) && (CheckDate != null)) {
+                q = q.Where(p => p.CheckDate >= CheckDate);
+            }
+            q = q.OrderByDescending(p => p.RegisterNo);
+            List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
 
         /// <summary>
         /// 返回团体登记数据

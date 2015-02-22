@@ -37,6 +37,20 @@ namespace BusinessLogic.Examination {
         }
 
         /// <summary>
+        /// 返回团体正式体检数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="CheckDate">体检日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetFormalRegistrations(int pageIndex, int pageSize,
+            DateTime? CheckDate, String DeptName, out int RecordCount) {
+            return DataAccess.GetFormalRegistrations(pageIndex, pageSize, CheckDate, DeptName, out RecordCount);
+        }
+
+        /// <summary>
         /// 返回团体登记数据
         /// </summary>
         /// <param name="pageIndex">页号</param>

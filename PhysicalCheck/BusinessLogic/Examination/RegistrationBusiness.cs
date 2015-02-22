@@ -23,6 +23,33 @@ namespace BusinessLogic.Examination {
         #region 公共方法
 
         /// <summary>
+        /// 返回团体体检未预约数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetAppointments(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, out int RecordCount) {
+            return DataAccess.GetAppointments(pageIndex, pageSize, RegisterDate, DeptName, out RecordCount);
+        }
+
+        /// <summary>
+        /// 返回团体登记数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetGroupRegistrations(int pageIndex, int pageSize,
+            DateTime? RegisterDate, String DeptName, out int RecordCount) {
+            return DataAccess.GetGroupRegistrations(pageIndex, pageSize, RegisterDate, DeptName, out RecordCount);
+        }
+        /// <summary>
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
@@ -186,6 +213,25 @@ namespace BusinessLogic.Examination {
         public void SaveOverall(String RegisterNo, DateTime OverallDate, String OverallDoctor, String Summary,
                                 String Recommend, String Conclusion) {
             DataAccess.SaveOverall(RegisterNo, OverallDate, OverallDoctor, Summary, Recommend, Conclusion);
+        }
+
+        /// <summary>
+        /// 体检预约
+        /// </summary>
+        /// <param name="RegisterNo">档案号</param>
+        /// <param name="CheckDate">预约体检日期</param>
+        public void SaveCheckAppointment(String RegisterNo, DateTime CheckDate) {
+            DataAccess.SaveCheckAppointment(RegisterNo, CheckDate);
+        }
+
+        /// <summary>
+        /// 撤销总检
+        /// </summary>
+        /// <param name="RegisterNo">登记号</param>
+        /// <param name="Doctor">总检医生</param>
+        /// <returns></returns>
+        public int CancelOverallCheck(String RegisterNo, String Doctor) {
+            return DataAccess.CancelOverallCheck(RegisterNo, Doctor);
         }
 
         #endregion

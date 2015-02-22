@@ -70,12 +70,9 @@ namespace BusinessLogic.Examination {
                 CheckedResult = String.IsNullOrEmpty(p.CheckedResult) ? p.NormalTips : p.CheckedResult,
                 UpperLimit = p.UpperLimit,
                 LowerLimit = p.LowerLimit,
-                MeasureUnit = p.MeasureUnit
-               
-            });
-            
-            return q.ToList<ItemResultViewEntity>();
-           
+                MeasureUnit = p.MeasureUnit               
+            });            
+            return q.ToList<ItemResultViewEntity>();           
         }
 
 
@@ -84,8 +81,9 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetItemResult(RegisterNo, GroupID, ItemID);
         }
 
-        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult, String CheckDoctor) {
-            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult, CheckDoctor);
+        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult,
+            String QualitativeResult, String CheckDoctor) {
+            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult,QualitativeResult, CheckDoctor);
         }
 
         public void SaveItemResult(ItemResultEntity ItemResult) {

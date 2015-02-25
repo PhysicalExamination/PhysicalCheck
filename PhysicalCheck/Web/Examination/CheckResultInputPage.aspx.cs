@@ -41,7 +41,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private string RegisterNo {
         get {
-            if (ViewState["RegisterNo"] == null) return Request.QueryString["id"].ToString();
+            if (ViewState["RegisterNo"] == null) return Request.Params["id"];
             return (string)ViewState["RegisterNo"];
         }
         set {

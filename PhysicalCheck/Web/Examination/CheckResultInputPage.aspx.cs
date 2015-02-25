@@ -98,7 +98,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
              RegisterNo, Convert.ToInt32(GroupId));
         base.DataBind();
         GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
-        txtSummary.Text = GroupResult.Summary;
+        if(GroupResult!= null)    txtSummary.Text = GroupResult.Summary;
         TextBox txtCheckResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {

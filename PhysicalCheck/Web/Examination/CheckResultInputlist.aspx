@@ -9,7 +9,7 @@
             $("#dialogFrame").attr("src", src);
             $("#dialog").dialog({
                 resizable: false,
-                height: 450,
+                height: 545,
                 width: 750,
                 modal: true,
                 buttons: {

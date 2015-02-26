@@ -115,6 +115,6 @@
     </asp:UpdatePanel>
     <div id="dialog" title="体检结果录入" style="display: none;">
         <iframe id="dialogFrame" frameborder="0" width="720px" height="420px" marginheight="0"
-            marginwidth="0" scrolling="no" src="CheckResultInputPage.aspx"></iframe>
+            marginwidth="0" scrolling="yes" src="CheckResultInputPage.aspx"></iframe>
     </div>
 </asp:Content>

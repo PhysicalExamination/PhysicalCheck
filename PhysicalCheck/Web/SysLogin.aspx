@@ -1,82 +1,172 @@
-﻿<html>
-<head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>健康体检管理系统</title>
-    <link href="Styles/Logon/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="Scripts/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="Scripts/cloud.js"></script>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true"
+    CodeFile="SysLogin.aspx.cs" Inherits="SysLogin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .textBoxinputCss
+        {
+            line-height: 25px;
+            height: 25px;
+            width: 200px;
+            background-color: #FFF;
+            border: 1px solid #73A027;
+        }
+        
+        .textBoxinputCssAlt
+        {
+            line-height: 25px;
+            height: 25px;
+            width: 200px;
+            background-color: #FFFFCC;
+            border: 1px solid #3A9AC0;
+        }
+        
+        .labelCss
+        {
+            color: #73A027;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        #login_box
+        {
+            margin-top: 50px;
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+        
+        #Bar
+        {
+            background-image: url(images/login/Bar.png);
+            background-repeat: no-repeat;
+            width: 332px;
+            height: 222px;
+            border-width: 0px;
+        }
+        
+        #Container
+        {
+            width: 1001px;
+            height: 456px;
+        }
+        
+        #Footer
+        {
+            text-align: center;
+            color: #558B1C;
+            font-size: 14px;
+            line-height: 150%;
+            width: 1001px;
+        }
+        .Login
+        {
+            background: url(images/login/login_Button.png);
+            background-repeat: no-repeat;
+            border-width: 0;
+            line-height: 38px;
+            width:135px;
+            cursor: hand;
+        }
+        
+        .LoginAlt
+        {
+            background: url(images/login/login_Button_alt.png);
+            background-repeat: no-repeat;
+            border-width: 0;
+             width:135px;
+             height:38px;
+            line-height: 38px;
+            cursor: hand;
+        }
+    </style>
     <script type="text/javascript">
-        $(function () {
-            //云彩位移
-            $('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
-            $(window).resize(function () {
-                $('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
-            });
-            $("#loginbtn").bind("click", loginbtn_Click);
-            $("#UserPwd").keypress(function () {
-                if (event.keyCode == 13) $("#loginbtn").click();
-            });
-            $.ajaxSetup({ error: onError, cache: false });
+
+      $(function () {
+            $(window).bind("resize", windowResize);
+            //$("#btnLogin").bind(click,btnLogin_onclick);
+            $("input").hover(
+	          function () {
+	              $(this).addClass("textBoxinputCssAlt");
+                 
+	          },
+	          function () {
+	              $(this).removeClass("textBoxinputCssAlt");                 
+	          }
+	  );     
+      $("#btnLogin").hover(
+	      function () {
+	          //$(this).attr("src", "images/login/login_Button_alt.png");
+               $(this).addClass("Login");
+               $(this).removeClass("LoginAlt");
+	      },
+	      function () {
+	         // $(this).attr("src", "images/login/login_Button.png");            
+              $(this).addClass("LoginAlt");
+              $(this).removeClass("Login");
+	      }
+	);
+            windowResize();
         });
 
-        function loginbtn_Click() {
-            var data = new Object();
-            data.UserName = $("#UserName").val();
-            data.Password = $("#UserPwd").val();
-            var url = "Admin/Services.ashx?Action=UserLogin";
-            $.post(url, data, successCallback, "json");
+        function windowResize() {
+            var left = ($(window).width() - $("#Container").outerWidth()) / 2;
+            var top = ($(window).height() - $("#Container").outerHeight()) / 2;
+            $("#Container").css({
+                position: "absolute",
+                left: left,
+                top: top
+            });
+            $("#Bar").css({ position: "absolute", top: top, left: left + 600 });
+            $("#Footer").css({ position: "absolute", top: top + 460, left: left });
         }
 
-        function successCallback(data) {
-            if (data.Succeed) {
-                top.location = data.Message;
-                return;
-            }
-            alert(data.Message);
+         function btnLogin_onclick() {
+            var argument = $("#txtUsername").val() + "," + $("#txtPassword").val();
+            <%=ClientCallback %>; 
         }
-        function onError(XMLHttpRequest, textStatus, errorThrown) {
-            alert("服务器故障请稍后登录！");
+
+        function btnCancel_onclick(){
+           $("#txtUsername").val("");
+           $("#txtPassword").val("");
         }
+        
+        function processCallback(result,context){ 
+            if (result!="") top.location = result;
+            if (result =="") alert("用户名或密码不正确请重新输入！");             
+        }
+        
+        $(function(){
+            $("#txtPassword").keypress(function(){                
+                if(event.keyCode==13) $("#btnLogin").click();
+            });
+        });
     </script>
-
-</head>
-<body style="background-color: #1c77ac; background-image: url(images/light.png);
-    background-repeat: no-repeat; background-position: center top; overflow: hidden;">
-    <div id="mainBody">
-        <div id="cloud1" class="cloud">
-        </div>
-        <div id="cloud2" class="cloud">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server" ClientIDMode="Static">
+    <div id="Container" align="center">
+        <img src="images/login/bg.png" /></div>
+    <div id="Bar" align="center">
+        <div id="login_box">
+            <strong class="labelCss">用户名&nbsp;&nbsp;</strong>
+            <%--<input type="text" id="txtUsername" class="textBoxinputCss" />--%>
+            <asp:TextBox ID="txtUsername" CssClass="textBoxinputCss" runat="server" />
+            <br />
+            <br />
+            <strong class="labelCss">密&nbsp;&nbsp;码&nbsp;&nbsp;</strong>
+            <asp:TextBox ID="txtPassword" runat="server" CssClass="textBoxinputCss" TextMode="Password" />
+            <%--<input type="password" id="txtPassword" class="textBoxinputCss" />--%>
+            <br />
+            <br />
+            <asp:Button ID="btnLogin" CssClass="LoginAlt" Width="135" Height="38" 
+                runat="server" onclick="btnLogin_Click" />
+            <%--<img id="btnLogin" src="images/login/login_Button.png" style="cursor: hand;" alt="" onclick="btnLogin_onclick();" />--%>
         </div>
     </div>
-    <div class="loginbody">
-        <span class="systemlogo"></span>
-        <form action="/" method="post">
-        <div class="loginbox">
-            <ul>
-                <li>
-                    <input class="loginuser"  id="UserName" name="UserName"
-                        placeholder="请输入用户名" type="text" value="" />                   
-                    </li>
-                <li>
-                    <input class="loginpwd" id="UserPwd"
-                        name="UserPwd" placeholder="请输入密码" type="password" value="" />                  
-                    </li>
-                <li>
-                    <input type="button" id="loginbtn" class="loginbtn" name="slogin" value="登录" />
-                    <label>
-                        <input checked="checked" id="RememberMe"
-                            name="RememberMe" type="checkbox" value="true" />记住密码
-                    </label>
-                    <label>
-                        <a href="javascript:;">忘记密码？</a>
-                    </label>
-                </li>
-            </ul>
-        </div>
-        </form>
+    <div id="Footer" align="center">
+        Copyright © 2013 中国人民解放军第23医院<br />
+        系统维护：中国人民解放军第四军医大学流行病教研室
     </div>
-    <div class="loginbm">
-       Copyright © 2013 中国人民解放军第23医院&nbsp;&nbsp; 系统维护：中国人民解放军第四军医大学流行病教研室       
-    </div>
-</body>
-</html>
+    <script type="text/javascript">
+        windowResize();
+    </script>
+</asp:Content>

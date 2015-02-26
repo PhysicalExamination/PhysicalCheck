@@ -73,7 +73,7 @@ public class ReportUtility {
 
     public List<Package> GetPackageItems(String RegisterNo, int PackageID) {
         //0 检查科室 1 检验科室 2 功能科室
-        String[] Names = new String[] { "抽血及其它化验项目", "医生检查项目", "功能检查项目" };
+        String[] Names = new String[] { "医生检查项目", "抽血及其它化验项目", "功能检查项目" };
         GroupResultBusiness GroupResult = new GroupResultBusiness();
         DepartmentBusiness Department = new DepartmentBusiness();
         var q = from a in GroupResult.GetGroupResults(RegisterNo)
@@ -84,7 +84,16 @@ public class ReportUtility {
                     GroupID = Convert.ToInt32(g.Key),
                     PackageName = Names[Convert.ToInt32(g.Key)] + g.Count() + "项"
                 };
-        return q.ToList();
+        //return q.ToList();
+        //Added by pyf 2015-02-26 按23医院要求排序
+        List<Package> Groups = q.ToList();
+        List<Package> Result = new List<Package>();
+        List<Package> Temps = Groups.Where(p => p.GroupID == 1).ToList();
+        if (Temps.Count > 0) Result.AddRange(Temps);
+        Temps = Groups.Where(p =>( p.GroupID == 0 || p.GroupID==2)).ToList();
+        Result.AddRange(Temps);
+        //End of added
+        return Result;
     }
 
     public List<GroupItem> GetGroupItems(String RegisterNo, int PackageID) {
@@ -101,6 +110,7 @@ public class ReportUtility {
                     Clinical = b.Clinical,
                     Notice = b.Notice
                 };
+        q = q.OrderBy(p => p.GroupID);
         return q.ToList();
     }
 

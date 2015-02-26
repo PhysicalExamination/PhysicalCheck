@@ -85,7 +85,7 @@ public class ReportUtility {
                     PackageName = Names[Convert.ToInt32(g.Key)] + g.Count() + "项"
                 };
         //return q.ToList();
-        //Added by pyf 2015-02-26 按23医院要求排序
+        //Added by pyf 2015-02-26 按23医院要求排序（化验项目 医生检查项目 功能项目）
         List<Package> Groups = q.ToList();
         List<Package> Result = new List<Package>();
         List<Package> Temps = Groups.Where(p => p.GroupID == 1).ToList();

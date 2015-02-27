@@ -33,7 +33,7 @@ namespace DataAccess.Examination {
                     where p.ID.RegisterNo == RegisterNo && p.ID.GroupID == GroupID
                     select p;
             List<ItemResultViewEntity> Result = q.ToList<ItemResultViewEntity>();
-            CloseSession();           
+            CloseSession();
             return Result;
         }
 
@@ -41,11 +41,11 @@ namespace DataAccess.Examination {
         /// 获取所有一体检未从LIS返回结果信息
         /// </summary>
         /// <returns></returns>
-        public List<String> GetRegisterDataForLIS() {           
+        public List<String> GetRegisterDataForLIS() {
             var q = from p in Session.Query<ItemResultViewEntity>()
                     where p.CheckedResult == null || p.CheckedResult == ""
-                    group p by new {p.ID.RegisterNo } into g
-                    select  g.Key.RegisterNo;            
+                    group p by new { p.ID.RegisterNo } into g
+                    select g.Key.RegisterNo;
             List<String> Result = q.ToList();
             CloseSession();
             return Result;
@@ -55,8 +55,7 @@ namespace DataAccess.Examination {
         ///获取体检科室所有体检项目结论数据
         /// </summary>
         public IList<ItemResultViewEntity> GetDeptItemResults(int pageIndex, int pageSize,
-            string RegisterNo, int GroupId, out int RecordCount)
-        {
+            string RegisterNo, int GroupId, out int RecordCount) {
             String hql = @"select count(ItemID) from ItemResultViewEntity where RegisterNo=? and DeptID=? ";
             IQuery query = Session.CreateQuery(hql)
                 .SetString(0, RegisterNo)
@@ -77,15 +76,16 @@ namespace DataAccess.Examination {
         /// <summary>
         ///获取体检科室所有体检项目结论数据
         /// </summary>
-        public IList<ItemResultViewEntity> GetDeptItemResults(
-            string RegisterNo, int GroupId)
-        {
-           
-            String hql = @" from ItemResultViewEntity where RegisterNo=? and GroupId=? ";
-            IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
-                                                .SetString(0, RegisterNo)
-                                                .SetInt32(1, GroupId)           
-                                                .List<ItemResultViewEntity>();
+        public List<ItemResultViewEntity> GetDeptItemResults(
+            string RegisterNo, int GroupId) {
+            //String hql = @" from ItemResultViewEntity where RegisterNo=? and GroupId=? ";
+            //IList<ItemResultViewEntity> Result = Session.CreateQuery(hql)
+            //                                    .SetString(0, RegisterNo)
+            //                                    .SetInt32(1, GroupId)
+            //                                    .List<ItemResultViewEntity>();
+            var q = Session.Query<ItemResultViewEntity>();
+            q = q.Where(p => p.ID.RegisterNo == RegisterNo && p.ID.GroupID == GroupId);
+            List<ItemResultViewEntity> Result = q.ToList();
             CloseSession();
             return Result;
         }
@@ -107,17 +107,17 @@ namespace DataAccess.Examination {
             return Result;
         }
 
-        public void SaveItemResult(String RegisterNo,int ItemID,String CheckResult,
-                                   String QualitativeResult,String CheckDoctor) {
+        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult,
+                                   String QualitativeResult, String CheckDoctor) {
             String hql = @"update ItemResultViewEntity SET CheckedResult=?,CheckDoctor=?,CheckDate=?,
                            QualitativeResult=? WHERE RegisterNo=? AND ItemID=?";
             Session.CreateQuery(hql)
                 .SetString(0, CheckResult)
-                .SetString(1,CheckDoctor)
-                .SetDateTime(2,DateTime.Now.Date)
-                .SetString(3,QualitativeResult)
-                .SetString(4,RegisterNo)                
-                .SetInt32(5,ItemID)
+                .SetString(1, CheckDoctor)
+                .SetDateTime(2, DateTime.Now.Date)
+                .SetString(3, QualitativeResult)
+                .SetString(4, RegisterNo)
+                .SetInt32(5, ItemID)
                 .ExecuteUpdate();
             CloseSession();
         }
@@ -128,7 +128,7 @@ namespace DataAccess.Examination {
         /// <param name="ItemResult">体检项目结论实体</param>
         public void SaveItemResult(ItemResultEntity ItemResult) {
             ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
-            if(OldResult==null) {
+            if (OldResult == null) {
                 Session.SaveOrUpdate(ItemResult);
                 Session.Flush();
                 CloseSession();
@@ -142,7 +142,7 @@ namespace DataAccess.Examination {
                 Session.SaveOrUpdate(OldResult);
                 Session.Flush();
                 CloseSession();
-            }            
+            }
         }
 
         /// <summary>

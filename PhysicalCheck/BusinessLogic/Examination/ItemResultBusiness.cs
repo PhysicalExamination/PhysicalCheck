@@ -58,12 +58,10 @@ namespace BusinessLogic.Examination {
         /// <summary>
         ///获取体检科室组合所有体检项目结论数据
         /// </summary>
-        public IList<ItemResultViewEntity> GetDeptItemResults(
-            string RegisterNo,int GroupId )
-        {
-            IList<ItemResultViewEntity> List = DataAccess.GetDeptItemResults(
-                RegisterNo, GroupId);
-            var q = List.Select(p => new ItemResultViewEntity
+        public List<ItemResultViewEntity> GetDeptItemResults(
+            string RegisterNo, int GroupId) {
+            return DataAccess.GetDeptItemResults(RegisterNo, GroupId);
+            /*var q = List.Select(p => new ItemResultViewEntity
             {
                 ID = p.ID,
                 ItemName = p.ItemName,
@@ -71,8 +69,8 @@ namespace BusinessLogic.Examination {
                 UpperLimit = p.UpperLimit,
                 LowerLimit = p.LowerLimit,
                 MeasureUnit = p.MeasureUnit               
-            });            
-            return q.ToList<ItemResultViewEntity>();           
+            });          
+            return q.ToList<ItemResultViewEntity>();  */
         }
 
 
@@ -83,7 +81,7 @@ namespace BusinessLogic.Examination {
 
         public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult,
             String QualitativeResult, String CheckDoctor) {
-            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult,QualitativeResult, CheckDoctor);
+            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult, QualitativeResult, CheckDoctor);
         }
 
         public void SaveItemResult(ItemResultEntity ItemResult) {

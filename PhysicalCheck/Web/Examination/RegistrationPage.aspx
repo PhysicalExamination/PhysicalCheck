@@ -8,7 +8,7 @@
             $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft",
                 scroll: false, focusFirstField: true
             });
-             $("#GroupPanel").hide();
+            //$("#GroupPanel").hide();
             var Category = '<%=Request.Params["Category"]%>';
             if (Category=="2") $("#GroupPanel").show();
         });

@@ -184,6 +184,25 @@ namespace Maticsoft.DAL.chart
 
        #endregion
 
+       #region " 工种按年体检人数同比分析-chart3"
+
+       /// <summary>
+       /// 获得体检组合项目人数分布列表
+       /// </summary>
+       public DataSet GetList_TradePercent(string strWhere)
+       {
+           StringBuilder strSql = new StringBuilder();
+           strSql.Append(" Select  left (RegisterNo,4)as nian ,sum(1) as pointValue,B.tradecode from  registration AS A   ");
+
+           strSql.Append(" INNER JOIN checkperson as B on A.PersonID=B.PersonID  ");
+           if (strWhere.Trim() != "")
+           {
+               strSql.Append(" where " + strWhere);
+           }
+           strSql.Append("   GROUP BY LEFT(RegisterNo,4),B.tradecode");
+           return DbHelperMySQL.Query(strSql.ToString());
+       }
+        #endregion
 
     }
 }

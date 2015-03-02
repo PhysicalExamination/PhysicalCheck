@@ -41,12 +41,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{AABFABC2-11
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53295"
+		VWDPort = "3480"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 	ProjectSection(SvnOrigin) = preProject
-		@Keys = Enlist
+		@Keys = Enlist,Svn.Uri
 		Enlist = Required
+		Svn.Uri = Web/
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common\Common.csproj", "{F3AA2566-CB18-40FF-8CB1-DBA13D508BF1}"

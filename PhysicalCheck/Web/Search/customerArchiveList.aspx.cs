@@ -57,31 +57,47 @@ public partial class Examination_customerArchive : BasePage
     {
         Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
 
+        bool blDate = true;
+
         string sqlw = " 1=1 ";
 
         if (txtRegisterNo.Text != "")
+        {
             sqlw += string.Format("  And RegisterNo like '%{0}%' ", txtRegisterNo.Text);
-
+            blDate = false;
+        }
         if (txtDeptName.Text != "")
+        {
             sqlw += string.Format("  And DeptName like '%{0}%' ", txtDeptName.Text);
-
+            blDate = false;
+        }
         if (txtName.Text != "")
+        {
             sqlw += string.Format("  And Name like '%{0}%' ", txtName.Text);
-
+            blDate = false;
+        }
 
         if (txtIdNumber.Text != "")
+        {
             sqlw += string.Format("  And IdNumber like '{0}%' ", txtIdNumber.Text);
+            blDate = false;
+        }
 
         if (txtOverallDoctor.Text != "")
+        {
             sqlw += string.Format("  And OverallDoctor like '{0}%' ", txtOverallDoctor.Text);
+            blDate = false;
+        }
 
+        if (blDate)
+        {
+            if (txtStartDate.Text != "")
+                sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(txtStartDate.Text));
 
-        if (txtStartDate.Text != "")
-            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(txtStartDate.Text));
+            if (txtEndDate.Text != "")
+                sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
 
-        if (txtEndDate.Text != "")
-            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(txtEndDate.Text).AddDays(1));
-
+        }
 
         DataSet ds = bll.GetListByPage_Composed(sqlw, "", (Pager.CurrentPageIndex - 1) * Pager.PageSize, (Pager.CurrentPageIndex) * Pager.PageSize);
 

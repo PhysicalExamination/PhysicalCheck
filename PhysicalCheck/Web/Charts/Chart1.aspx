@@ -20,7 +20,7 @@
         <ContentTemplate>
             <asp:Chart ID="Chart1" runat="server" BorderlineColor="26, 59, 105" TextAntiAliasingQuality="Normal"
                 BorderLineStyle="Solid" BackGradientType="TopBottom" BackGradientEndColor="65, 140, 240"
-                Width="800px" Height="600px" runat="server">
+                Width="800px" Height="600px" runat="server" ImageLocation="<%=ApplicationPath %>/TempImages/ChartPic_#SEQ(300,3)" >
                 <Titles>
                     <asp:Title Name="Default" Font="宋体, 12pt" Text="" />
                 </Titles>

@@ -102,7 +102,7 @@
                                 <%# Eval("sex")%>
                             </td>
                             <td class="VLine" align="center">
-                                <%# Eval("CheckDate")%>
+                                <%#EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver ").ToString() == "False" ? "进行中" : "完成"%>
@@ -136,7 +136,7 @@
                                 <%# Eval("sex")%>
                             </td>
                             <td class="VLine" align="center">
-                                <%# Eval("CheckDate")%>
+                               <%#EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
                             </td>
                             <td class="VLine" align="center">
                                 <%# Eval("IsCheckOver").ToString()=="False" ? "进行中" : "完成"%>

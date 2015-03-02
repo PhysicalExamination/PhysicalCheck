@@ -71,6 +71,26 @@
             window.open(sURL, "_blank", "", true);
         }
 
+        function setBirthdaySex(event) {
+            var regex = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            var IDNumber = $("#<%=txtIDNumber.ClientID%>").val();
+            if (!regex.test(IDNumber)) return;
+            var birthday = IDNumber.substr(6, 4) + "年" +
+                           IDNumber.substr(10, 2) + "月" +
+                           IDNumber.substr(12, 2) + "日";
+            $("#<%=txtBirthday.ClientID%>").val(birthday);
+            $("#<%=drpSex.ClientID%>").val("男");
+            var sex = 1;
+            if (IDNumber.length == 18) sex = parseInt(IDNumber.substr(16, 1), 10);
+            if (IDNumber.length == 15) sex = parseInt(IDNumber.substr(13, 1), 10);
+            if (sex % 2 == 0) $("#<%=drpSex.ClientID%>").val("女");
+            var d = new Date();
+            var CurrentYear = d.getFullYear();
+            var BirthYear = parseInt(IDNumber.substr(6, 4), 10);
+            var age = CurrentYear - BirthYear;
+            $("#<%=txtAge.ClientID%>").val(age);
+        }
+
         var isInit = false;
         function readCard() {
             var CardReader = document.getElementById("CardReader1");
@@ -276,7 +296,7 @@
                                 身份证号<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox31 validate[required] validate[custom[chinaIdLoose]] "
+                                <asp:TextBox CssClass="textbox31 validate[required] validate[custom[chinaIdLoose]] " onchange="setBirthdaySex();"
                                     ID="txtIDNumber" runat="server" data-errormessage-value-missing="身份证号不能为空!" data-errormessage-custom-error="请您输入正确的15位或18位身份证号码。" />
                             </td>
                         </tr>

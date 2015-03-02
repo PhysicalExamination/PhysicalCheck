@@ -187,7 +187,7 @@ public partial class Reports_Default : BasePage {
 
     public void BuildBarCodeReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
-        WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");
+        WebReport1.Report.RegisterData(GetBarCodesForGuLang(RegisterNo), "BarCodes");
         WebReport1.Report.Prepare();
     }
 
@@ -260,6 +260,23 @@ public partial class Reports_Default : BasePage {
             var q = from p in Business.GetGroupResults(RegisterNo)
                     select new BarCode { RegisterNo = p.ID.RegisterNo, GroupName = p.GroupName };
             return q.ToList();
+        }
+    }
+
+    /// <summary>
+    /// 武威市古浪县条码打印
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    /// <returns></returns>
+    private List<BarCode> GetBarCodesForGuLang(String RegisterNo) {
+        List<BarCode> Result = new List<BarCode>();
+        using (RegistrationBusiness Business = new RegistrationBusiness()) {
+            RegistrationViewEntity RegInfo = Business.GetRegistration(RegisterNo);
+            Result.Add(new BarCode {
+                RegisterNo = RegInfo.RegisterNo,
+                GroupName = RegInfo.Name
+            });
+            return Result;
         }
     }
 

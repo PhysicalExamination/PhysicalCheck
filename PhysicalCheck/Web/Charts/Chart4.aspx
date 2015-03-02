@@ -9,7 +9,7 @@
             日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
             至<asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
             <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <asp:Repeater ID="ReportRepeater" runat="server" >
+            <asp:Repeater ID="ReportRepeater" runat="server">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>

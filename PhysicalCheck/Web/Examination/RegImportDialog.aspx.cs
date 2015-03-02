@@ -123,6 +123,7 @@ public partial class Examination_RegImportDialog : BasePage {
                     RegInfo.IDNumber = IDNumber;
                     RegInfo.Birthday = GetBirthday(IDNumber);
                     RegInfo.Age = GetAge(IDNumber);
+                    RegInfo.Sex = GetSex(IDNumber);
                 }
                 RegInfo.Marriage = Row[4] + "";
                 RegInfo.LinkTel = Row[6] + "";
@@ -144,6 +145,19 @@ public partial class Examination_RegImportDialog : BasePage {
         int Month = Convert.ToInt32(IDNumber.Substring(10, 2));
         int Day = Convert.ToInt32(IDNumber.Substring(12, 2));
         return new DateTime(Year, Month, Day);
+    }
+
+    private String GetSex(String IDNumber) {
+        string Value = "";
+        if (IDNumber.Length == 18) {
+            Value = IDNumber.Substring(16, 1);
+        }
+        if (IDNumber.Length == 15) {
+            Value = IDNumber.Substring(13, 1);
+        }
+        int Sex = Convert.ToInt32(Value);
+        if (Sex % 2 == 0) return "女";
+        return "男";
     }
 
     private int? GetPackage(String PackageName) {

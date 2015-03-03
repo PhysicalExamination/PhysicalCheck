@@ -87,7 +87,9 @@ public partial class Examination_OverallCheckedPage : BasePage {
     /// </summary>
     private void SetRegistrationUI() {
         RegistrationViewEntity Result = m_Registration.GetOverall(RegisterNo);
-        if (Result == null) return;      
+        if (Result == null) return;
+        drpHealthCondition.SelectedValue = Result.HealthCondition;
+        drpEvaluateResult.SelectedValue = drpEvaluateResult.SelectedValue;
         txtRegisterNo.Text = Result.RegisterNo;
         txtDeptName.Text = Result.DeptName;
         txtPackageName.Text = Result.PackageName;

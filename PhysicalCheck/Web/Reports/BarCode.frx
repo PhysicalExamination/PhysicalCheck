@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="03/02/2015 10:35:05" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="03/03/2015 14:40:34" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="BarCodes" ReferenceName="BarCodes" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
       <Column Name="GroupName" DataType="System.String"/>
     </BusinessObjectDataSource>
   </Dictionary>
-  <ReportPage Name="Page1" PaperWidth="50" PaperHeight="40" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" Guides="7.56,181.44,0,187.25">
-    <DataBand Name="Data1" Width="189" Height="94.5" Guides="7.56,54.81,56.7,75.6,94.5" DataSource="BarCodes">
-      <BarcodeObject Name="Barcode1" Left="7.56" Top="7.56" Width="173.88" Height="47.25" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="20141214000042" ShowText="false" Zoom="1.5" Barcode="2/5 Interleaved"/>
-      <TextObject Name="Text2" Top="56.7" Width="187.25" Height="18.9" Text="[BarCodes.RegisterNo]" HorzAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text1" Top="75.6" Width="187.25" Height="18.9" Text="[BarCodes.GroupName]" HorzAlign="Center" Font="宋体, 12pt"/>
+  <ReportPage Name="Page1" PaperWidth="50" PaperHeight="50" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="15" OtherPagesSource="15">
+    <DataBand Name="DataBand1" Width="189" Height="151.2" DataSource="BarCodes">
+      <BarcodeObject Name="Barcode1" Left="17.01" Top="41.58" Width="145.53" Height="47.25" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="201412140042" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text2" Left="17.01" Top="94.5" Width="140" Height="18.9" Text="[BarCodes.RegisterNo]" HorzAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text1" Left="17.01" Top="113.4" Width="140" Height="18.9" Text="[BarCodes.GroupName]" HorzAlign="Center" Font="宋体, 12pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="98.35" Width="189" Height="18.9"/>
   </ReportPage>
 </Report>

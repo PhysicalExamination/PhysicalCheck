@@ -38,7 +38,7 @@
     <PageHeaderBand Name="PageHeader1" Width="718.2" Height="226.8" Guides="151.2,189,207.9,28.35,66.15">
       <BarcodeObject Name="Barcode1" Left="434.7" Top="151.2" Width="275" Height="37.8" DataColumn="Registration.RegisterNo" Text="20141214000042" ShowText="false"/>
       <TextObject Name="Text14" Left="519.75" Top="189" Width="94.5" Height="18.9" Text="[Registration.RegisterNo]" AutoWidth="true" HorzAlign="Right" Font="宋体, 12pt"/>
-      <TextObject Name="Text15" Left="155.93" Top="28.35" Width="406.35" Height="37.8" Text="健康/从业体检管理体检表" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
+      <TextObject Name="Text15" Left="155.93" Top="28.35" Width="406.35" Height="37.8" Text="从业体检管理体检报告" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
     </PageHeaderBand>
     <DataBand Name="Data1" Top="230.65" Width="718.2" Height="406.35" Guides="56.7,75.6,103.95,122.85,151.2,170.1,198.45,217.35,245.7,264.6,292.95,311.85" DataSource="Registration">
       <TextObject Name="Text2" Left="170.1" Top="56.7" Width="94.5" Height="18.9" Text="档 案 号" Font="宋体, 16pt, style=Bold"/>

@@ -160,7 +160,7 @@ namespace DataAccess.Examination {
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("OverallDate", CheckDate));
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));

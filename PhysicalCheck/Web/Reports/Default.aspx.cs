@@ -12,6 +12,7 @@ using DataEntity.SysConfig;
 using DataEntity.Admin;
 using BusinessLogic.Admin;
 using System.Data;
+
 public partial class Reports_Default : BasePage {
 
     private RegistrationBusiness m_Registration;
@@ -37,6 +38,10 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);//引导单
+            if (ReportKind == "4") BuildHealthCard(RegisterNo);
+            //if (ReportKind == "5") BuildHealthCertificate(RegisterNo);//健康证
+            //if（ReportKind=="6") BuildTransfer(RegisterNo);//调离通知
+            //if (ReportKind =="7") BuildReviewNotice(RegisterNo);//复查通知
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
@@ -44,7 +49,6 @@ public partial class Reports_Default : BasePage {
     }
 
     #endregion
-
 
     #region "查询"
 
@@ -191,8 +195,6 @@ public partial class Reports_Default : BasePage {
 
     #endregion
 
-
-
     #region 私有方法
 
     public void BuildBarCodeReport(String RegisterNo) {
@@ -231,6 +233,15 @@ public partial class Reports_Default : BasePage {
         WebReport1.Report.RegisterData(Registrations, "Registration");
         WebReport1.Report.RegisterData(Packages, "Packages");
         WebReport1.Report.RegisterData(GroupItems, "ItemGroups");
+        WebReport1.Prepare();
+    }
+
+    public void BuildHealthCard(String RegisterNo) {
+        List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
+        var Registration = m_Registration.GetRegistration(RegisterNo);
+        Registrations.Add(Registration);
+        WebReport1.ReportFile = Server.MapPath("HealthCard.frx");
+        WebReport1.Report.RegisterData(Registrations, "CardData");      
         WebReport1.Prepare();
     }
 

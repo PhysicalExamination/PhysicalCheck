@@ -55,7 +55,7 @@
 
 <div id="mainshow">
             <div class="showdiv">
-                <a id="p5" style="margin-left: 650px; float: left;" href="Examination/OverallCheckedPage.aspx">
+                <a id="p5" style="margin-left: 650px; float: left;" href="Examination/CertificatePage.aspx">
                     <img alt="" src="images/home/5.png" /></a>
             </div>
             <div style="width: 200px; height: 60px; float: left; margin-left: 700px">

@@ -16,12 +16,14 @@ using System.Data;
 public partial class Reports_Default : BasePage {
 
     private RegistrationBusiness m_Registration;
+    private ReportUtility m_Util;
 
     #region 重写方法
 
     protected override void OnInit(EventArgs e) {
         base.OnInit(e);
         m_Registration = new RegistrationBusiness();
+        m_Util = new ReportUtility();
     }
 
     protected override void OnUnload(EventArgs e) {
@@ -199,7 +201,7 @@ public partial class Reports_Default : BasePage {
 
     public void BuildBarCodeReport(String RegisterNo) {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
-        WebReport1.Report.RegisterData(GetBarCodesForGuLang(RegisterNo), "BarCodes");
+        WebReport1.Report.RegisterData(m_Util.GetBarCodesForGuLang(RegisterNo), "BarCodes");
         WebReport1.Report.Prepare();
     }
 
@@ -209,10 +211,10 @@ public partial class Reports_Default : BasePage {
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
         Registrations.Add(Registration);
-        List<GroupItemResult> GroupItemResults = GetGroupResults(RegisterNo);
+        List<GroupItemResult> GroupItemResults = m_Util.GetGroupResults(RegisterNo);
         List<ItemResult> ItemResults = new List<ItemResult>();
         foreach (GroupItemResult GroupResult in GroupItemResults) {
-            ItemResults.AddRange(GetItemResults(RegisterNo, GroupResult.GroupID));
+            ItemResults.AddRange(m_Util.GetItemResults(RegisterNo, GroupResult.GroupID));
         }
         WebReport1.Report.RegisterData(Registrations, "Registration");
         WebReport1.Report.RegisterData(GroupItemResults, "ItemGroupResult");
@@ -228,294 +230,33 @@ public partial class Reports_Default : BasePage {
         using (PackageBusiness Business = new PackageBusiness()) {
             Business.GetPackageGroups(1);
         }
-        List<Package> Packages = GetPackageItems(Registration.PackageID.Value);
-        List<GroupItem> GroupItems = GetGroupItems(Registration.PackageID.Value);
+        List<Package> Packages = m_Util.GetPackageItems(Registration.PackageID.Value);
+        List<GroupItem> GroupItems = m_Util.GetGroupItems(Registration.PackageID.Value);
         WebReport1.Report.RegisterData(Registrations, "Registration");
         WebReport1.Report.RegisterData(Packages, "Packages");
         WebReport1.Report.RegisterData(GroupItems, "ItemGroups");
         WebReport1.Prepare();
     }
 
-    public void BuildHealthCard(String RegisterNo) {
-        List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
-        var Registration = m_Registration.GetRegistration(RegisterNo);
-        Registrations.Add(Registration);
+    public void BuildHealthCard(String RegisterNo) {        
+        List<HealthCardInfo> Registrations = new List<HealthCardInfo>();
+        var RegInfo = m_Registration.GetRegistration(RegisterNo);
+        Registrations.Add(new HealthCardInfo {
+            RegisterNo = RegInfo.RegisterNo,
+            CheckDate = RegInfo.CheckDate.Value,
+            LimitDate = RegInfo.CheckDate.Value.AddYears(1),
+            Name = RegInfo.Name,
+            Sex = RegInfo.Sex,
+            Photo = Convert.FromBase64String(RegInfo.Photo)
+        });
         WebReport1.ReportFile = Server.MapPath("HealthCard.frx");
         WebReport1.Report.RegisterData(Registrations, "CardData");      
         WebReport1.Prepare();
     }
 
-    private List<GroupItemResult> GetGroupResults(String RegisterNo) {
-        List<GroupResultViewEntity> GroupResults = m_Registration.GetGroupResults(RegisterNo);
-        var q = from p in GroupResults
-                select new GroupItemResult {
-                    GroupID = p.ID.GroupID.Value,
-                    GroupName = p.GroupName,
-                    DeptName = p.DeptName,
-                    CheckDoctor = p.CheckDoctor,
-                    CheckDate = p.CheckDate,
-                    Summary = p.Summary
-                };
-        return q.ToList();
-    }
-
-    private List<ItemResult> GetItemResults(String RegisterNo, int GroupID) {
-        List<ItemResultViewEntity> ItemResultList = m_Registration.GetItemResults(RegisterNo, GroupID);
-        var q = from p in ItemResultList
-                select new ItemResult {
-                    GroupID = p.ID.GroupID.Value,
-                    ItemName = p.ItemName,
-                    CheckedResult = p.CheckedResult,
-                    MeasureUnit = p.MeasureUnit,
-                    LowerLimit = p.LowerLimit,
-                    UpperLimit = p.UpperLimit,
-                    NormalTips = p.NormalTips,
-                    CheckDoctor = p.CheckDoctor,
-                    CheckDate = p.CheckDate
-                };
-        return q.ToList();
-    }
-
-    private List<BarCode> GetBarCodes(String RegisterNo) {
-        using (RegistrationBusiness Business = new RegistrationBusiness()) {
-            var q = from p in Business.GetGroupResults(RegisterNo)
-                    select new BarCode { RegisterNo = p.ID.RegisterNo, GroupName = p.GroupName };
-            return q.ToList();
-        }
-    }
-
-    /// <summary>
-    /// 武威市古浪县条码打印
-    /// </summary>
-    /// <param name="RegisterNo"></param>
-    /// <returns></returns>
-    private List<BarCode> GetBarCodesForGuLang(String RegisterNo) {
-        List<BarCode> Result = new List<BarCode>();
-        using (RegistrationBusiness Business = new RegistrationBusiness()) {
-            RegistrationViewEntity RegInfo = Business.GetRegistration(RegisterNo);
-            Result.Add(new BarCode {
-                RegisterNo = RegInfo.RegisterNo,
-                GroupName = RegInfo.Name
-            });
-            return Result;
-        }
-    }
-
-
-    private List<Package> GetPackageItems(int PackageID) {
-        //0 检查科室 1 检验科室 2 功能科室
-        String[] Names = new String[] { "医生检查项目", "抽血及其它化验项目", "功能检查项目" };
-        List<Package> List = new List<Package>();
-        List<DepartmentEntity> Departments;
-        List<PackageGroupViewEntity> Groups;
-        using (PackageBusiness Business = new PackageBusiness()) {
-            Groups = Business.GetPackageGroups(PackageID);
-        }
-        using (DepartmentBusiness Depart = new DepartmentBusiness()) {
-            Departments = Depart.GetDepartments();
-        }
-        var q = from a in Groups
-                join b in Departments on a.DeptID equals b.DeptID
-                group b by b.DeptKind into g
-                select new Package {
-                    GroupID = Convert.ToInt32(g.Key),
-                    PackageName = Names[Convert.ToInt32(g.Key)] + g.Count() + "项"
-                };
-        return q.ToList();
-    }
-
-    private List<GroupItem> GetGroupItems(int PackageID) {
-        List<DepartmentEntity> Departments;
-        List<PackageGroupViewEntity> Groups;
-        using (PackageBusiness Business = new PackageBusiness()) {
-            Groups = Business.GetPackageGroups(PackageID);
-        }
-        using (DepartmentBusiness Depart = new DepartmentBusiness()) {
-            Departments = Depart.GetDepartments();
-        }
-        var q = from a in Groups
-                join b in Departments on a.DeptID equals b.DeptID
-                select new GroupItem {
-                    GroupID = Convert.ToInt32(b.DeptKind),
-                    GroupName = a.GroupName,
-                    Clinical = a.Clinical,
-                    Notice = a.Notice
-                };
-        return q.ToList();
-    }
-
+    
 
 
     #endregion
 }
 
-public class BarCode {
-
-    public String RegisterNo {
-        get;
-        set;
-    }
-
-    public String GroupName {
-        get;
-        set;
-    }
-}
-
-public class GroupItemResult {
-
-    /// <summary>
-    /// 组合项目
-    /// </summary>		
-    public int GroupID {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 组合项目名称
-    /// </summary>		
-    public string GroupName {
-        get;
-        set;
-    }
-    /// <summary>
-    /// 检查科室名称
-    /// </summary>		
-    public string DeptName {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 检查医生
-    /// </summary>		
-    public string CheckDoctor {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 检查日期
-    /// </summary>		
-    public DateTime? CheckDate {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 小结
-    /// </summary>		
-    public string Summary {
-        get;
-        set;
-    }
-}
-
-public class ItemResult {
-
-    /// <summary>
-    /// 组合项目
-    /// </summary>		
-    public int GroupID {
-        get;
-        set;
-    }
-
-    public string ItemName {
-        get;
-        set;
-    }
-
-
-    /// <summary>
-    /// 检查结果
-    /// </summary>		
-    public string CheckedResult {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 检查医生
-    /// </summary>		
-    public string CheckDoctor {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 检查日期
-    /// </summary>		
-    public DateTime? CheckDate {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 计量单位
-    /// </summary>		
-    public string MeasureUnit {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 参考下限
-    /// </summary>		
-    public string LowerLimit {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 参考上限
-    /// </summary>		
-    public string UpperLimit {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// 正常提示
-    /// </summary>		
-    public string NormalTips {
-        get;
-        set;
-    }
-}
-
-public class Package {
-
-    public int GroupID {
-        get;
-        set;
-    }
-    public String PackageName {
-        get;
-        set;
-    }
-}
-
-public class GroupItem {
-
-    public int GroupID {
-        get;
-        set;
-    }
-
-    public String GroupName {
-        get;
-        set;
-    }
-
-    public String Clinical {
-        get;
-        set;
-    }
-
-    public String Notice {
-        get;
-        set;
-    }
-}

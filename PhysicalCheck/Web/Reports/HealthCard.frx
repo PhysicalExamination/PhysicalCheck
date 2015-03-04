@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/02/2015 10:43:21" ReportInfo.Modified="03/03/2015 13:57:16" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/02/2015 10:43:21" ReportInfo.Modified="03/04/2015 16:15:15" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="CardData" ReferenceName="CardData" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
       <Column Name="CheckDate" DataType="System.DateTime"/>
+      <Column Name="LimitDate" DataType="System.DateTime"/>
       <Column Name="Sex" DataType="System.String"/>
       <Column Name="Name" DataType="System.String"/>
-      <Column Name="Photo" DataType="System.String"/>
+      <Column Name="Photo" DataType="System.Byte[]"/>
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="120" PaperHeight="120" LeftMargin="34" TopMargin="12" RightMargin="0" BottomMargin="0" Guides="7.56,105.84,113.4,198.45,198.45,198.45,198.45,198.45,198.45" Watermark.ImageSize="Normal" Watermark.ShowTextOnTop="false">
@@ -17,15 +18,16 @@
       <TextObject Name="Text3" Left="113.4" Top="56.7" Width="79.38" Height="18.9" Text="体检单位：" Font="宋体, 9pt"/>
       <TextObject Name="Text4" Left="113.4" Top="75.6" Width="79.38" Height="18.9" Text="体检时间：" Font="宋体, 9pt"/>
       <TextObject Name="Text5" Left="113.4" Top="94.5" Width="79.38" Height="18.9" Text="体检结果：" Font="宋体, 9pt"/>
-      <TextObject Name="Text6" Left="113.4" Top="113.4" Width="79.38" Height="18.9" Text="有效期：" Font="宋体, 9pt"/>
+      <TextObject Name="Text6" Left="113.4" Top="113.4" Width="79.38" Height="18.9" Text="有效期至：" Font="宋体, 9pt"/>
       <TextObject Name="Text7" Left="189" Top="18.9" Width="113.4" Height="18.9" Text="[CardData.Name]" Font="宋体, 9pt"/>
       <TextObject Name="Text8" Left="189" Top="37.8" Width="113.4" Height="18.9" Text="[CardData.Sex]" Font="宋体, 9pt"/>
       <TextObject Name="Text9" Left="189" Top="56.7" Width="113.4" Height="18.9" CanGrow="true" Text="武威市疾病预防控制中心" Font="宋体, 9pt"/>
       <TextObject Name="Text10" Left="189" Top="75.6" Width="113.4" Height="18.9" Text="[CardData.CheckDate]" Format="Date" Format.Format="D" Font="宋体, 9pt"/>
       <TextObject Name="Text11" Left="189" Top="94.5" Width="113.4" Height="18.9" Text="合格" Font="宋体, 9pt"/>
-      <TextObject Name="Text12" Left="189" Top="113.4" Width="113.4" Height="18.9" Text="壹年" Font="宋体, 9pt"/>
-      <BarcodeObject Name="Barcode1" Left="7.56" Top="143.64" Width="98.28" Height="37.8" AutoSize="false" DataColumn="CardData.RegisterNo" Text="" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <TextObject Name="Text13" Left="113.4" Top="153.09" Width="207.9" Height="18.9" ShiftMode="Never" Text="甘肃省食品药品监督管理局监制" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="189" Top="113.4" Width="113.4" Height="18.9" Text="[CardData.LimitDate]" Format="Date" Format.Format="D" Font="宋体, 9pt"/>
+      <BarcodeObject Name="Barcode1" Left="7.56" Top="139.86" Width="98.28" Height="22.68" AutoSize="false" DataColumn="CardData.RegisterNo" Text="201503020001" ShowText="false" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text13" Left="113.4" Top="139.86" Width="207.9" Height="37.8" ShiftMode="Never" Text="甘肃省食品药品监督管理局监制" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="7.56" Top="158.76" Width="98.28" Height="18.9" Text="[CardData.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>

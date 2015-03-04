@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="03/03/2015 14:40:34" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="03/03/2015 15:27:47" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="BarCodes" ReferenceName="BarCodes" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -8,7 +8,7 @@
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="50" PaperHeight="50" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="15" OtherPagesSource="15">
     <DataBand Name="DataBand1" Width="189" Height="151.2" DataSource="BarCodes">
-      <BarcodeObject Name="Barcode1" Left="17.01" Top="41.58" Width="145.53" Height="47.25" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="201412140042" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode1" Left="17.01" Top="41.58" Width="145.53" Height="47.25" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="201412140042" ShowText="false" Barcode="Code128" Barcode.AutoEncode="true"/>
       <TextObject Name="Text2" Left="17.01" Top="94.5" Width="140" Height="18.9" Text="[BarCodes.RegisterNo]" HorzAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text1" Left="17.01" Top="113.4" Width="140" Height="18.9" Text="[BarCodes.GroupName]" HorzAlign="Center" Font="宋体, 12pt"/>
     </DataBand>

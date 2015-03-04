@@ -96,7 +96,7 @@
             var CardReader = document.getElementById("CardReader1");
 
             if (false == isInit) {
-                obj.setPortNum(0);
+                CardReader.setPortNum(0);
                 isInit = true;
             }
             CardReader.Flag = 0;

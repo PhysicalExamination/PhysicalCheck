@@ -28,7 +28,7 @@
       <TextObject Name="Text1" Left="170.1" Top="18.9" Width="378" Height="37.8" Text="体 检 指 引 单" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
     </ReportTitleBand>
     <PageHeaderBand Name="PageHeader1" Top="68.38" Width="718.2" Height="85.05" Guides="18.9,56.7,85.05">
-      <BarcodeObject Name="Barcode1" Left="378" Top="18.9" Width="274.25" Height="37.8" AutoSize="false" Text="20141214000043" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode1" Left="378" Top="18.9" Width="150.25" Height="37.8" AutoSize="false" Text="20141214000043" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
       <TextObject Name="Text2" Left="377.62" Top="56.7" Width="275" Height="28.35" Text="[Registration.RegisterNo]" AutoWidth="true" VertAlign="Center" Font="宋体, 12pt"/>
     </PageHeaderBand>
     <DataBand Name="Data1" Top="155.67" Width="718.2" Height="128.52" Guides="0,24.57,37.8,62.37,75.6,100.17" DataSource="Registration">

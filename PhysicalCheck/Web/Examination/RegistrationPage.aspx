@@ -240,7 +240,8 @@
                                 照片
                             </td>
                             <td class="HVLine" rowspan="5" align="center">
-                                <img src="<%=ApplicationPath%>/images/nopricture.jpg" alt="个人照片" id="Pricture" />
+                                <img src="<%=ApplicationPath%>/images/nopricture.jpg" alt="个人照片" id="Pricture"  
+                                    style="border-width:1px;border-style:solid"/>
                                 <asp:HiddenField ID="hPhoto" Value="" runat="server" />
                             </td>
                         </tr>

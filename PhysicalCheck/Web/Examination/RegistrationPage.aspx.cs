@@ -167,6 +167,11 @@ public partial class Examination_RegistrationPage : BasePage {
         drpIndustry.SelectedValue = Result.IndustryID+"";
         drpTrade.SelectedValue = Result.TradeCode;
         hPhoto.Value = Result.Photo;
+        if (!String.IsNullOrWhiteSpace(Result.Photo)) {
+            String js = "$(\"#Pricture\").attr(\"src\",\"data:image/png;base64," + Result.Photo + "\");";
+            ScriptManager.RegisterClientScriptBlock(this, GetType(), Guid.NewGuid() + "", js, true);
+        }
+
         //drpTrade.SelectedIndex
     }
 

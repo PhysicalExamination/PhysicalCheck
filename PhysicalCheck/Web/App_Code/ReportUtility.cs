@@ -53,7 +53,7 @@ public class ReportUtility {
                     MeasureUnit = p.MeasureUnit,
                     LowerLimit = p.LowerLimit,
                     UpperLimit = p.UpperLimit,
-                    NormalTips = p.NormalTips,
+                    NormalTips = p.QualitativeResult,
                     CheckDoctor = p.CheckDoctor,
                     CheckDate = p.CheckDate
                 };

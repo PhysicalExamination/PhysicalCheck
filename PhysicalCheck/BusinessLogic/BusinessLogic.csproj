@@ -71,6 +71,7 @@
     <Compile Include="SysConfig\HospitalBusiness.cs" />
     <Compile Include="SysConfig\IndustryBusiness.cs" />
     <Compile Include="SysConfig\ItemGroupBusiness.cs" />
+    <Compile Include="SysConfig\LISMapBusiness.cs" />
     <Compile Include="SysConfig\PackageBusiness.cs" />
     <Compile Include="SysConfig\SuggestionBusiness.cs" />
   </ItemGroup>

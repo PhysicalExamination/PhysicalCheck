@@ -46,6 +46,9 @@
                             <th>
                                 参考上限
                             </th>
+                            <th>
+                                检查提示
+                            </th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -67,6 +70,9 @@
                         <td class="VLine" align="center">
                             <%# Eval("UpperLimit")%>
                         </td>
+                         <td class="VLine" align="center">
+                            <%# Eval("QualitativeResult")%>
+                        </td>
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
@@ -87,6 +93,9 @@
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("UpperLimit")%>
+                        </td>
+                         <td class="VLine" align="center">
+                            <%# Eval("QualitativeResult")%>
                         </td>
                     </tr>
                 </AlternatingItemTemplate>
@@ -114,7 +123,7 @@
                         <asp:TextBox CssClass="inputCss" TextMode="MultiLine" ID="txtSummary" runat="server"
                             Height="80px" Width="99%" />
                     </td>
-                </tr>               
+                </tr>
             </table>
         </ContentTemplate>
         <Triggers>
@@ -123,6 +132,6 @@
     </asp:UpdatePanel>
     <div style="display: none;">
         <asp:Button ID="btnSave" runat="server" CssClass="buttonCss" Text="保存" OnClick="btnSave_Click" />
-         <input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />
+        <input type="button" class="buttonCss" value="导入小结" onclick="onSetSummary();" />
     </div>
 </asp:Content>

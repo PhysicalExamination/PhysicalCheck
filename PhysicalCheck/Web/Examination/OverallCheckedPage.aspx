@@ -366,7 +366,7 @@
                                                             参考上限
                                                         </th>
                                                         <th>
-                                                            正常提示
+                                                            检查提示
                                                         </th>
                                                     </tr>
                                             </HeaderTemplate>
@@ -388,7 +388,7 @@
                                                         <%# Eval("UpperLimit")%>
                                                     </td>
                                                     <td class="VLine" align="center">
-                                                        <%# Eval("NormalTips")%>
+                                                        <%# Eval("QualitativeResult")%>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -410,7 +410,7 @@
                                                         <%# Eval("UpperLimit")%>
                                                     </td>
                                                     <td class="VLine" align="center">
-                                                        <%# Eval("NormalTips")%>
+                                                        <%# Eval("QualitativeResult")%>
                                                     </td>
                                                 </tr>
                                             </AlternatingItemTemplate>

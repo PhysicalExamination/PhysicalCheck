@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.SysConfig" assembly="DataEntity">
+    <class name="LisMapEntity" table="lismap" >
+        <id name="Itemid" column="ITEMID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="LisItemId1" column="LIS_ITEM_ID1" type="String" not-null="false" length="150" /> 
+        <property name="LisItemId2" column="LIS_ITEM_ID2" type="String" not-null="false" length="150" /> 
+        <property name="ItemName" column="ITEM_NAME" type="String" not-null="false" length="300" /> 
+    </class>
+</hibernate-mapping>
+

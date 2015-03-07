@@ -93,6 +93,7 @@
     <Compile Include="SysConfig\IndustryDataAccess.cs" />
     <Compile Include="SysConfig\ItemGroupDataAccess.cs" />
     <Compile Include="SysConfig\ItemGroupDetailDataAccess.cs" />
+    <Compile Include="SysConfig\LISMapDataAccess.cs" />
     <Compile Include="SysConfig\PackageDataAccess.cs" />
     <Compile Include="SysConfig\PackageGroupDataAccess.cs" />
     <Compile Include="SysConfig\SuggestionDataAccess.cs" />

@@ -6,7 +6,7 @@ using DataEntity.SysConfig;
 using DataAccess.SysConfig;
 
 namespace BusinessLogic.SysConfig {
-    
+
 
     /// <summary>
     /// 业务逻辑类:CheckedItemBusiness
@@ -29,9 +29,9 @@ namespace BusinessLogic.SysConfig {
             return DataAccess.GetCheckedItems();
         }
 
-        public List<CheckedItemEntity> GetCheckedItems(int pageIndex, int pageSize, 
+        public List<CheckedItemEntity> GetCheckedItems(int pageIndex, int pageSize,
             int DeptID, out int RecordCount) {
-                return DataAccess.GetCheckedItems(pageIndex, pageSize, DeptID, out RecordCount);
+            return DataAccess.GetCheckedItems(pageIndex, pageSize, DeptID, out RecordCount);
         }
 
         public CheckedItemEntity GetCheckedItem(int ItemID) {
@@ -39,11 +39,26 @@ namespace BusinessLogic.SysConfig {
         }
 
         public void SaveCheckedItem(CheckedItemEntity CheckedItem) {
-             DataAccess.SaveCheckedItem(CheckedItem);
+            DataAccess.SaveCheckedItem(CheckedItem);
+            if (!String.IsNullOrWhiteSpace(CheckedItem.LISCode)) {
+                String[] LisCodes = CheckedItem.LISCode.Split(',');
+                using (LISMapDataAccess LISMapDataAccess = new LISMapDataAccess()) {
+                    LisMapEntity LisMap = new LisMapEntity {
+                        Itemid = CheckedItem.ItemID.Value,
+                        ItemName = CheckedItem.ItemName
+                    };
+                    if (LisCodes.Length == 1) LisMap.LisItemId1 = LisCodes[0];
+                    if (LisCodes.Length == 2) {
+                        LisMap.LisItemId1 = LisCodes[0];
+                        LisMap.LisItemId2 = LisCodes[1];
+                    }
+                    LISMapDataAccess.SaveLISMap(LisMap);
+                }
+            }
         }
 
         public void DeleteCheckedItem(CheckedItemEntity CheckedItem) {
-             DataAccess.DeleteCheckedItem(CheckedItem);
+            DataAccess.DeleteCheckedItem(CheckedItem);
         }
 
         #endregion

@@ -24,7 +24,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
 
     private int GroupID {
         get {
-            if (ViewState["GroupID"] == null) return -1;
+            if (ViewState["GroupID"] == null) return int.MinValue;
             return (int)ViewState["GroupID"];
         }
         set {

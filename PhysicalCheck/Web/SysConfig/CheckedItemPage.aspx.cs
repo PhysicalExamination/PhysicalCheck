@@ -163,8 +163,8 @@ public partial class SysConfig_CheckedItemPage : BasePage {
         txtLowerTips.Text = Result.LowerTips;
         txtUpperTips.Text = Result.UpperTips;
         drpSex.SelectedValue = Result.Sex;
-        txtPACSCode.Text = Result.LISCode;
-        txtLISCode.Text = Result.PACSCode;
+        txtPACSCode.Text = Result.PACSCode;
+        txtLISCode.Text = Result.LISCode;
         chkIsSummary.Checked = false;
         if (Result.IsSummary.HasValue) chkIsSummary.Checked = Result.IsSummary.Value;
     }

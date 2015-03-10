@@ -4,6 +4,7 @@
         <id name="RegisterNo" column="RegisterNo" type="String" length="60" >
             <generator class="assigned" />
         </id>
+		<property name="ChargeNo" column="ChargeNo" type="String" not-null="false" length="60"/>
         <property name="PersonID" column="PersonID" type="Int32" not-null="true" />
         <property name="RegisterDate" column="RegisterDate" type="DateTime" not-null="true" />
         <property name="PackageID" column="PackageID" type="Int32" not-null="true" />

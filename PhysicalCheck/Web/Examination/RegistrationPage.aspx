@@ -47,7 +47,7 @@
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sURL = "<%=ApplicationPath%>/Examination/ChargeDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
-            $("#<%=txtChargeID.ClientID%>").val(urlValue[0]);
+            $("#<%=txtChargeNo.ClientID%>").val(urlValue[0]);
             $("#<%=hPackageID.ClientID %>").val(urlValue[1]);
             $("#<%=txtPackageName.ClientID %>").val(urlValue[2]);
             $("#<%=hDeptID.ClientID %>").val(urlValue[3]);
@@ -232,8 +232,8 @@
                                 收费单
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtChargeID" runat="server" Enabled="false" />
-                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择收费单"
+                                <asp:TextBox CssClass="textbox31" ID="txtChargeNo" runat="server" Enabled="false" />
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: pointer;" alt="选择收费单"
                                     onclick="selectCharge();" align="middle" border="0" />
                             </td>
                             <td class="HVLine" rowspan="5">
@@ -268,7 +268,7 @@
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
-                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择体检单位"
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: p;" alt="选择体检单位"
                                     onclick="selectDept();" align="middle" border="0" />
                                 <asp:HiddenField ID="hDeptID" runat="server" Value="1" />
                             </td>
@@ -280,7 +280,7 @@
                             <td class="VLine">
                                 <asp:TextBox ID="txtPackageName" runat="server" CssClass="validate[required] textbox31"
                                     data-errormessage-value-missing="套餐不能为空!" />
-                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: hand;" alt="选择套餐"
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: pointer;" alt="选择套餐"
                                     onclick="selectPackage();" align="middle" border="0" />
                                 <asp:HiddenField ID="hPackageID" runat="server" />
                             </td>

@@ -19,6 +19,14 @@ namespace DataEntity.Examination {
         #region 属性
 
         /// <summary>
+        /// 缴费单号
+        /// </summary>
+        public virtual String ChargeNo {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 体检人
         /// </summary>		
         public virtual int? PersonID {

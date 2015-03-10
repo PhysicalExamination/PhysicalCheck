@@ -178,6 +178,7 @@ public partial class Examination_ChargePage : BasePage
         }
         ChargeEntity Result = GetChargeUI();
         m_Charge.SaveCharge(Result);
+        BillNo = Result.BillNo;
         ShowMessage("缴费信息数据保存成功!");
         //int Succeed = m_Charge.SaveCharge(Result);
         //if (Succeed > 0) ShowMessage("缴费信息数据保存成功!");

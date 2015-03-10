@@ -26,7 +26,7 @@
         function selectPackage() {
             var sURL = "<%=ApplicationPath%>/SysConfig/PackageDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
-//            console.log(urlValue);
+            //            console.log(urlValue);
             //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
             if (urlValue != null || urlValue != undefined) {
                 $("#<%=hPackageID.ClientID %>").val(urlValue[0]);
@@ -39,8 +39,8 @@
         function CalcCharge() {
             var price = parseFloat($("#hPackagePrice").val());
             var count = parseInt($("#<%=txtCheckNum.ClientID %>").val());
-//            console.log($("#<%=txtCheckNum.ClientID %>").val());
-//            console.log("price=" + price + "Count=" + count);
+            //            console.log($("#<%=txtCheckNum.ClientID %>").val());
+            //            console.log("price=" + price + "Count=" + count);
             var Charge = price * count;
             $("#<%=txtCharge.ClientID %>").val(Charge);
             $("#<%=txtActualCharge.ClientID %>").val(Charge);
@@ -64,23 +64,18 @@
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <th>
-                                        缴费单号
+                                    <th>缴费单号
                                     </th>
-                                    <th>
-                                        缴费人
+                                    <th>缴费人
                                     </th>
-                                    <th>
-                                        应收费用（元）
+                                    <th>体检人数</th>
+                                    <th>应收费用（元）
                                     </th>
-                                    <th>
-                                        实收费用（元）
+                                    <th>实收费用（元）
                                     </th>
-                                    <th>
-                                        缴费时间
+                                    <th>缴费时间
                                     </th>
-                                    <th>
-                                        操作
+                                    <th>操作
                                     </th>
                                 </tr>
                         </HeaderTemplate>
@@ -92,6 +87,7 @@
                                 <td class="VLine" align="center">
                                     <%# Eval("Payer") %>
                                 </td>
+                                <td class="VLine" align="center"> <%# Eval("CheckNum") %></td>
                                 <td class="VLine" align="center">
                                     <%# EnvShowFormater.GetNumberString(Eval("Charge")) %>
                                 </td>
@@ -115,6 +111,7 @@
                                 <td class="VLine" align="center">
                                     <%# Eval("Payer") %>
                                 </td>
+                                 <td class="VLine" align="center"> <%# Eval("CheckNum") %></td>
                                 <td class="VLine" align="center">
                                     <%# EnvShowFormater.GetNumberString(Eval("Charge")) %>
                                 </td>
@@ -152,8 +149,7 @@
                 <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td class="HVLine">
-                                缴费人
+                            <td class="HVLine">缴费人
                             </td>
                             <td class="HVLine" colspan="3">
                                 <asp:TextBox CssClass="textbox31" ID="txtPayer" runat="server" Width="90%" />
@@ -163,8 +159,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                体检套餐
+                            <td class="VLine">体检套餐
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtPackageName" runat="server" ReadOnly="true" />
@@ -172,30 +167,26 @@
                                     onclick="selectPackage();" align="middle" border="0" align="middle" />
                                 <asp:HiddenField ID="hPackageID" runat="server" />
                             </td>
-                            <td class="VLine">
-                                体检人数
+                            <td class="VLine">体检人数
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtCheckNum" runat="server" onchange="javascript:CalcCharge();" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                应收费用（元）
+                            <td class="VLine">应收费用（元）
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtCharge" runat="server" Enabled="false" />
                             </td>
-                            <td class="VLine">
-                                实收费用（元）
+                            <td class="VLine">实收费用（元）
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtActualCharge" runat="server" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                缴费方式
+                            <td class="VLine">缴费方式
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpPaymentMethod" runat="server">
@@ -207,8 +198,7 @@
                                     <asp:ListItem Value="6">托收</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            <td class="VLine">
-                                缴费时间
+                            <td class="VLine">缴费时间
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31 Wdate" ID="txtPaymentDate" runat="server" onfocus="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')"
@@ -216,16 +206,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                收费人
+                            <td class="VLine">收费人
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtChargePerson" runat="server" Enabled="false" />
                             </td>
-                            <td class="VLine">
-                            </td>
-                            <td class="VLine">
-                            </td>
+                            <td class="VLine"></td>
+                            <td class="VLine"></td>
                         </tr>
                         <tr>
                             <td colspan="4" align="center" class="VLine">

@@ -62,7 +62,7 @@ namespace DataAccess.Examination {
             if (RegisterDate != null) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
-
+            //Criteria.AddOrder(new Order("RegisterNo", false));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -80,6 +80,7 @@ namespace DataAccess.Examination {
             DateTime CheckDate, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver==false);
+            //q = q.OrderByDescending(p => p.RegisterNo);
             RecordCount = q.Count();
             return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
         }
@@ -132,6 +133,7 @@ namespace DataAccess.Examination {
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", false));
             }
+            //Criteria.AddOrder(new Order("RegisterNo", false));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -184,6 +186,7 @@ namespace DataAccess.Examination {
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));
             }
+            //Criteria.AddOrder(new Order("RegisterNo", false));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -212,6 +215,7 @@ namespace DataAccess.Examination {
             Criteria.SetFirstResult((pageIndex - 1) * pageSize)
                     .SetMaxResults(pageSize);
             Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate));
+            //Criteria.AddOrder(new Order("RegisterNo", false));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;

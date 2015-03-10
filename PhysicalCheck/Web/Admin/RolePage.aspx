@@ -63,7 +63,7 @@
 
         function btnSave_Click() {
             var moduleList = new Array();
-            debugger;
+            //debugger;
             var checkedNodes = $("#RoleModuleTree").tree("getCheckedExt");
             var parentNode;
             for (var index in checkedNodes) {

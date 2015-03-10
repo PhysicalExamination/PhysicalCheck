@@ -10,6 +10,9 @@
 <body>
     <script language="javascript" type="text/javascript">
 
+        function InitialInput() {
+        }
+
         function changedPassword() {
             var sFeatures = "dialogHeight:300px,dialogWidth:300px";
             var sURL = "Admin/UserChangePasswordPage.aspx?rand=" + Math.random()

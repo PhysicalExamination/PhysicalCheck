@@ -107,7 +107,7 @@ public partial class Examination_RegistrationPage : BasePage {
     /// 重置界面
     /// </summary>
     private void ClearcheckpersonUI() {
-        txtChargeID.Text = "";
+        txtChargeNo.Text = "";
         txtRegisterNo.Text = "";
         txtName.Text = "";
         drpSex.SelectedIndex = -1;
@@ -142,6 +142,7 @@ public partial class Examination_RegistrationPage : BasePage {
     private void SetRegistrationUI() {
         RegistrationViewEntity Result = m_Registration.GetRegistration(RegisterNo);
         if (Result == null) return;
+        txtChargeNo.Text = Result.ChargeNo;
         PersonID = Result.PersonID.Value;
         hDeptID.Value = Result.DeptID.Value+"";
         hPackageID.Value = Result.PackageID + "";
@@ -181,6 +182,7 @@ public partial class Examination_RegistrationPage : BasePage {
     /// <returns></returns>
     private RegistrationViewEntity GetRegistrationUI() {
         RegistrationViewEntity Result = new RegistrationViewEntity();
+        Result.ChargeNo = txtChargeNo.Text;
         Result.PersonID = PersonID;
         Result.RegisterNo = RegisterNo;
         Result.Name = txtName.Text;
@@ -251,7 +253,7 @@ public partial class Examination_RegistrationPage : BasePage {
             txtDeptName.Enabled = false;
             txtPackageName.Enabled = false;
         }
-        txtChargeID.Enabled = false;
+        txtChargeNo.Enabled = false;
         txtRegisterNo.Enabled = false;
         txtPackageName.Enabled = false;
         txtDeptName.Enabled = false;
@@ -264,6 +266,7 @@ public partial class Examination_RegistrationPage : BasePage {
     protected void btnSave_Click(object sender, EventArgs e) {
         RegistrationViewEntity Result = GetRegistrationUI();
         m_Registration.SaveRegistration(Result);
+        RegisterNo = Result.RegisterNo;
         ShowMessage("体检登记数据保存成功!");
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");

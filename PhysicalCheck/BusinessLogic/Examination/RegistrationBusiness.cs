@@ -144,6 +144,7 @@ namespace BusinessLogic.Examination {
             }
 
             RegistrationEntity RegEntity = new RegistrationEntity {
+                ChargeNo = Registration.ChargeNo,
                 RegisterNo = Registration.RegisterNo,
                 CheckDate = Registration.CheckDate,
                 RegisterDate = Registration.RegisterDate,

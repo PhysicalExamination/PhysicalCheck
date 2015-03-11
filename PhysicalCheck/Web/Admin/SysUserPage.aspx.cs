@@ -41,6 +41,16 @@ public partial class Admin_SysUserPage : BasePage {
 		}
 	}
 
+    private string UserPassWord {
+        get {
+            if (ViewState["UserPassWord"] == null) return "";
+            return (String)ViewState["UserPassWord"];
+        }
+        set {
+            ViewState["UserPassWord"] = value;
+        }
+    }
+
 	#endregion
 
 	#region 重写方法
@@ -138,6 +148,7 @@ public partial class Admin_SysUserPage : BasePage {
 		txtLinkTel.Text = "";
 		txtMobile.Text = "";
 		txtPassWord.Text = "";
+        UserPassWord = "";
 		//txtOrderNo.Text = "";
 	}
 	/// <summary>
@@ -155,6 +166,7 @@ public partial class Admin_SysUserPage : BasePage {
 		drpDeparts.SelectedValue = Result.DeptNo+"";
 		drpUserCategory.SelectedValue = Result.UserCategory;
 		txtPassWord.Text = Result.PassWord;
+        UserPassWord = Result.PassWord;
         //txtEmail.Text = Result.EMail;
 		//txtOrderNo.Text = Result.OrderNo + "";        
 	}
@@ -174,6 +186,9 @@ public partial class Admin_SysUserPage : BasePage {
 		Result.DeptNo = EnvConverter.ToInt32(drpDeparts.SelectedValue);
 		Result.UserCategory = drpUserCategory.SelectedValue;
 		Result.PassWord = FormsAuthentication.HashPasswordForStoringInConfigFile(txtPassWord.Text, "MD5");
+        if ((!String.IsNullOrEmpty(UserPassWord))&&(String.IsNullOrWhiteSpace(txtPassWord.Text))){
+            Result.PassWord = UserPassWord;
+        }
         //Result.EMail = txtEmail.Text;
 		Result.OrderNo = 1;// EnvConverter.ToInt32(txtOrderNo.Text);
 		return Result;

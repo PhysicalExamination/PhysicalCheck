@@ -48,7 +48,7 @@ namespace LISDataService.Job {
             }
         }
 
-        public void run() {
+        public void RunJob() {
             List<String> List = m_ItemResult.GetRegisterDataForLIS();
             List<LisEntity> CheckResults;
             using (LISBusiness LISBusiness = new LISBusiness()) {
@@ -98,6 +98,7 @@ namespace LISDataService.Job {
             foreach (LisEntity Result in CheckResults) {
                 m_ItemResult.SaveItemResult(Result.RegisterNo, GetCheckedItemID(Result.ItemID),
                     Result.QuantitativeResult, Result.QualitativeResult, Result.CheckPerson);
+                m_Logger.InfoFormat("档案号{0}检验项目{1}定性结论是{2}", Result.RegisterNo, Result.ItemID, Result.QualitativeResult);
             }
         }
 

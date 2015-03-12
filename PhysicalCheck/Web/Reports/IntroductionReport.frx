@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="03/11/2015 13:15:27" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="03/11/2015 15:40:55" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -8,7 +8,7 @@
       <Column Name="Age" DataType="System.Int32"/>
       <Column Name="DeptName" DataType="System.String"/>
       <Column Name="IDNumber" DataType="System.String"/>
-      <Column Name="LinkTel" DataType="System.String"/>
+      <Column Name="Mobile" DataType="System.String"/>
       <Column Name="PackageName" DataType="System.String"/>
     </BusinessObjectDataSource>
     <BusinessObjectDataSource Name="Packages" ReferenceName="Packages" DataType="System.Collections.Generic.List`1[]" Enabled="true">
@@ -24,14 +24,14 @@
     <Relation Name="Packages_ItemGroups" ParentDataSource="Packages" ChildDataSource="ItemGroups" ParentColumns="GroupID" ChildColumns="GroupID" Enabled="true"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" Guides="170.1,548.1,378,652.25,377.62,652.62,-9.45,94.5,274.05,349.65,472.5,567,718.2,576.45,727.65,207.9,538.65,737.1,330.75,689.85">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="151.2" Guides="18.9,56.7">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="75.6" Guides="18.9,56.7">
       <TextObject Name="Text1" Left="170.1" Top="18.9" Width="378" Height="37.8" Text="体 检 指 引 单" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="155.24" Width="718.2" Height="85.05" Guides="18.9,56.7,85.05">
-      <BarcodeObject Name="Barcode1" Left="378" Width="274.25" Height="56.7" AutoSize="false" Text="20141214000043" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
+    <PageHeaderBand Name="PageHeader1" Top="79.64" Width="718.2" Height="85.05" Guides="18.9,56.7,85.05">
       <TextObject Name="Text2" Left="378" Top="56.7" Width="274.43" Height="28.35" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      <BarcodeObject Name="Barcode1" Left="378" Width="274.43" Height="56.7" AutoSize="false" DataColumn="Registration.RegisterNo" Text="201503090001" ShowText="false" Zoom="1.5" Barcode="Code128" Barcode.AutoEncode="true"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="244.33" Width="718.2" Height="128.52" Guides="0,24.57,37.8,62.37,75.6,100.17">
+    <DataBand Name="Data1" Top="168.73" Width="718.2" Height="128.52" Guides="0,24.57,37.8,62.37,75.6,100.17">
       <TextObject Name="Text3" Left="-9.45" Width="103.95" Height="24.57" Text="档 案 号：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text4" Left="94.5" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text5" Left="274.05" Width="75.6" Height="24.57" Text="姓 名 ：" VertAlign="Center" Font="宋体, 12pt"/>
@@ -43,17 +43,17 @@
       <TextObject Name="Text11" Left="-9.45" Top="37.8" Width="103.95" Height="24.57" Text="身份证号：" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text12" Left="94.5" Top="37.8" Width="179.55" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.IDNumber]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text13" Left="472.5" Top="37.8" Width="94.5" Height="24.57" Text="联系电话：" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text14" Left="567" Top="37.8" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.LinkTel]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text14" Left="567" Top="37.8" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.Mobile]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text15" Left="-9.45" Top="75.6" Width="103.95" Height="24.57" Text="工作单位：" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text16" Left="94.5" Top="75.6" Width="378" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text17" Left="472.5" Top="75.6" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
-      <TextObject Name="Text18" Left="576.45" Top="75.6" Width="151.2" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text16" Left="94.5" Top="75.6" Width="255.15" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text17" Left="349.65" Top="75.6" Width="103.95" Height="24.57" Text="分组/套餐： " VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text18" Left="453.6" Top="75.6" Width="274.05" Height="24.57" Border.Lines="Bottom" Border.Width="1.5" Text="[Registration.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
     </DataBand>
-    <DataBand Name="Data2" Top="376.89" Width="718.2" Height="232.47" Guides="0,24.57">
-      <TextObject Name="Text19" Left="19.47" Width="708.18" Height="137.97" Text="1、体检时间：星期一至星期五上午8：30-11：30。&#13;&#10;2、查体当日须空腹，穿宽松衣服，携带本人身份证。&#13;&#10;3、体检前几天，要注意饮食，不要吃过多油腻、不易消化的食物，不饮酒，不要吃对肝、肾功能有损害的药物。&#13;&#10;4、体检前一天要注意休息，避免剧烈运动和情绪激动，保证充足睡眠，以免影响体检结果。&#13;&#10;5、体检时不要穿戴金属拉链衣物、带金属扣内衣，以免影响放射检查。妊娠女性应避免X光的检查。" Font="Microsoft Sans Serif, 12pt"/>
-      <TextObject Name="Text20" Left="18.9" Top="151.2" Width="699.3" Height="66.15" Text="注意事项：&#13;&#10;    1.请务必按照体检流程体检完成所有项目后方可离开；&#13;&#10;    2.此卡请妥善保存，四个工作日后带此卡办理健康证。" Font="Microsoft Sans Serif, 12pt, style=Bold"/>
+    <DataBand Name="Data2" Top="301.29" Width="718.2" Height="232.47" Guides="0,24.57">
+      <TextObject Name="Text19" Left="19.47" Width="708.18" Height="137.97" Text="1、体检时间：星期一至星期五上午8：30-11：30。&#13;&#10;2、查体当日须空腹，穿宽松衣服，携带本人身份证。&#13;&#10;3、体检前几天，要注意饮食，不要吃过多油腻、不易消化的食物，不饮酒，不要吃对肝、肾功能有损害的药物。&#13;&#10;4、体检前一天要注意休息，避免剧烈运动和情绪激动，保证充足睡眠，以免影响体检结果。&#13;&#10;5、体检时不要穿戴金属拉链衣物、带金属扣内衣，以免影响放射检查。妊娠女性应避免X光的检查。" Font="宋体, 12pt"/>
+      <TextObject Name="Text20" Left="18.9" Top="151.2" Width="699.3" Height="66.15" Text="注意事项：&#13;&#10;    1.请务必按照体检流程体检完成所有项目后方可离开；&#13;&#10;    2.此卡请妥善保存，四个工作日后带此卡办理健康证。" Font="宋体, 12pt, style=Bold"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="613.4" Width="718.2" Height="213.57" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
+    <PageFooterBand Name="PageFooter1" Top="537.8" Width="718.2" Height="213.57" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
       <TextObject Name="Text25" Left="-9.45" Top="9.45" Width="727.65" Height="37.8" Border.Lines="Top, Bottom" Border.Width="1.5" Text="祝您身体健康！" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text26" Left="-9.45" Top="56.7" Width="737.1" Height="24.57" Text="地址：武威市古浪县建设路" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text27" Left="-9.45" Top="85.05" Width="340.2" Height="24.57" Text="联系电话：0935-5126041" VertAlign="Center" Font="宋体, 12pt"/>

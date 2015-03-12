@@ -24,7 +24,7 @@ public partial class Examination_ChargeDialog : BasePage {
         String PaymentMan = txtSearchKey.Text.Trim();
         int RecordCount = 0;
         using (ChargeBusiness Business = new ChargeBusiness()) {
-            ChargeRepeater.DataSource = Business.GetCharges(Pager.CurrentPageIndex,
+            ChargeRepeater.DataSource = Business.GetChargesForRegister(Pager.CurrentPageIndex,
                 Pager.PageSize, PaymentMan, out RecordCount);
             Pager.RecordCount = RecordCount;
         }

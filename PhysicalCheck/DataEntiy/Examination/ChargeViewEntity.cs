@@ -74,6 +74,15 @@ namespace DataEntity.Examination {
         }
 
         /// <summary>
+        /// 已体检人数
+        /// </summary>
+        [Description("CheckedCount")]
+        public virtual int CheckedCount {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 应收费用
         /// </summary>
         [Description("Charge")]

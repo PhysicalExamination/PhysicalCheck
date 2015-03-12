@@ -154,6 +154,7 @@ namespace BusinessLogic.Examination {
             };
             DataAccess.SaveRegistration(RegEntity);
             SaveCheckedGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value, Registration.Groups);
+            IncreaseCheckedCount(Registration.ChargeNo);
         }
 
         /// <summary>
@@ -227,6 +228,16 @@ namespace BusinessLogic.Examination {
         #endregion
 
         #region 私有方法
+
+        /// <summary>
+        /// 已体检人数加1
+        /// </summary>
+        /// <param name="BillNo"></param>
+        private void IncreaseCheckedCount(string BillNo) {
+            using (ChargeDataAccess Charge = new ChargeDataAccess()) {
+                Charge.IncreaseCheckedCount(BillNo);
+            }
+        }
 
         private void SaveCheckedGroups(String RegisterNo, int PackageID, List<int> ItemGroups) {
             //自定义套餐保存体检组合项

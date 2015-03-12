@@ -39,6 +39,22 @@ namespace DataAccess.Examination {
             return Result;
         }
 
+        public List<ChargeViewEntity> GetChargesForRegister(int pageIndex, int pageSize,
+            String DeptName, out int RecordCount) {
+            var q = Session.Query<ChargeViewEntity>();
+            q = q.Where(p => p.Enabled == true &&p.CheckedCount<p.CheckNum);
+            if (String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.PaymentDate == DateTime.Now.Date);
+            }
+            else {
+                q = q.Where(p => p.Payer.Contains(DeptName));
+            }
+            List<ChargeViewEntity> Result = q.ToPagedList<ChargeViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
         public IList<ChargeViewEntity> GetCharges(int pageIndex, int pageSize,
             String DeptName, out int RecordCount) {
             var q = Session.Query<ChargeViewEntity>();
@@ -88,9 +104,19 @@ namespace DataAccess.Examination {
             ChargeViewEntity Result = Session.Get<ChargeViewEntity>(BillNo);
             CloseSession();
             return Result;
-
         }
 
+        /// <summary>
+        /// 已体检人数加1
+        /// </summary>
+        /// <param name="BillNo"></param>
+        public void IncreaseCheckedCount(string BillNo) {
+            String hqlText = @"update ChargeEntity set CheckedCount= CheckedCount + 1 where BillNo=?";
+            Session.CreateQuery(hqlText)
+                .SetAnsiString(0, BillNo)
+                .ExecuteUpdate();
+            CloseSession();
+        }
         /// <summary>
         /// 保存数据
         /// </summary>

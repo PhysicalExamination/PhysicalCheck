@@ -9,6 +9,7 @@
         <property name="PackageID" column="PackageID" type="Int32" not-null="true" />
         <property name="PackageName" column="PackageName" type="String" not-null="false" length="200"/>
         <property name="CheckNum" column="CheckNum" type="Int32" not-null="false" />
+		<property name="CheckedCount" column="CheckedCount" type="Int32" not-null="false"/>
         <property name="Charge" column="Charge" type="Decimal" not-null="true" />
         <property name="ActualCharge" column="ActualCharge" type="Decimal" not-null="true" />
         <property name="PaymentMethod" column="PaymentMethod" type="String" not-null="false" length="9" />

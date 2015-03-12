@@ -32,6 +32,19 @@ public partial class Examination_ChargePage : BasePage
         }
     }
 
+    /// <summary>
+    /// 已体检人数
+    /// </summary>
+    private int CheckedCount {
+        get {
+            if (ViewState["CheckedCount"] == null) return 0;
+            return (int)ViewState["CheckedCount"];
+        }
+        set {
+            ViewState["CheckedCount"] = value;
+        }
+    }
+
     #endregion
 
     #region 重写方法
@@ -126,7 +139,8 @@ public partial class Examination_ChargePage : BasePage
         txtActualCharge.Text = "";
         drpPaymentMethod.SelectedIndex =-1;
         txtPaymentDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
-        txtChargePerson.Text = UserName;        
+        txtChargePerson.Text = UserName;
+        CheckedCount = 0;
 
     }
     /// <summary>
@@ -145,6 +159,7 @@ public partial class Examination_ChargePage : BasePage
         drpPaymentMethod.SelectedValue = Result.PaymentMethod;
         txtPaymentDate.Text = EnvShowFormater.GetShortDate(Result.PaymentDate);
         txtChargePerson.Text = Result.ChargePerson;
+        CheckedCount = Result.CheckedCount;
     }
       
 
@@ -163,7 +178,8 @@ public partial class Examination_ChargePage : BasePage
         Result.ActualCharge = EnvConverter.ToDecimal(txtActualCharge.Text);
         Result.PaymentMethod = drpPaymentMethod.SelectedValue;
         Result.PaymentDate = EnvConverter.ToDateTime(txtPaymentDate.Text);
-        Result.ChargePerson = txtChargePerson.Text;       
+        Result.ChargePerson = txtChargePerson.Text;
+        Result.CheckedCount = CheckedCount;
         return Result;
     }
 
@@ -222,7 +238,6 @@ public partial class Examination_ChargePage : BasePage
             SetUIState("Default");
         }
     }
-
 
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();

@@ -23,7 +23,7 @@ public partial class Reports_Default : BasePage {
     protected override void OnInit(EventArgs e) {
         base.OnInit(e);
         m_Registration = new RegistrationBusiness();
-        m_Util = new ReportUtility();
+        m_Util = new ReportUtility();       
     }
 
     protected override void OnUnload(EventArgs e) {
@@ -206,7 +206,7 @@ public partial class Reports_Default : BasePage {
     }
 
     public void BuildCheckReport(String RegisterNo) {
-        WebReport1.ReportFile = Server.MapPath("CheckReport.frx");
+        WebReport1.ReportFile = Server.MapPath("CheckReport.frx");      
         //WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");            
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();

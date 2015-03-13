@@ -46,10 +46,10 @@ namespace LISDataService {
             job = JobBuilder.Create<GetCheckedResultJob>()
                     .WithIdentity("GetCheckedResultJob", "GetCheckedResultJobGroup")
                     .Build();
-            //每小时执行一次
+            //每10fe执行一次
             trigger = (ICronTrigger)TriggerBuilder.Create()
                       .WithIdentity("GetCheckedResultJobTrigger", "GetCheckedResultJobTriggerGroup")                    
-                      .WithCronSchedule("0 0/10 * * * ?")
+                      .WithCronSchedule("1 0/10 * * * ?")
                       .Build();
             m_Scheduler.ScheduleJob(job, trigger);            
         }

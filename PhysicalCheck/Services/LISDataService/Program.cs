@@ -19,8 +19,7 @@ namespace LISDataService {
                 new LISDataService() 
             };
             ServiceBase.Run(ServicesToRun);
-            LISDataService s = new LISDataService();
-
+            //LISDataService s = new LISDataService();
             //GetData();
         }
 

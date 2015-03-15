@@ -81,7 +81,8 @@ namespace BusinessLogic.Examination {
 
         public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult,
             String QualitativeResult, String CheckDoctor) {
-            DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult, QualitativeResult, CheckDoctor);
+                DataAccess.SaveItemResult(RegisterNo, ItemID, CheckResult, 
+                    GetQualitativeResult(QualitativeResult), CheckDoctor);
         }
 
         public void SaveItemResult(ItemResultEntity ItemResult) {
@@ -92,6 +93,13 @@ namespace BusinessLogic.Examination {
             DataAccess.DeleteItemResult(ItemResult);
         }
 
+
+        private String GetQualitativeResult(String CheckedResult) {
+            if (String.IsNullOrEmpty(CheckedResult)) return "";
+            if (CheckedResult == "h") return "↑";
+            if (CheckedResult == "l") return "↓";
+            return "";
+        }
         #endregion
     }
 }

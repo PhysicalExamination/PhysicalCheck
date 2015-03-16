@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="02/07/2015 10:33:38" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="03/10/2015 14:52:38" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -36,12 +36,12 @@
   </Dictionary>
   <ReportPage Name="Page1" Guides="434.7,709.7,519.75,614.25,155.93,562.28,170.1,264.6,321.3,529.2">
     <PageHeaderBand Name="PageHeader1" Width="718.2" Height="226.8" Guides="151.2,189,207.9,28.35,66.15">
+      <TextObject Name="Text15" Left="132.3" Top="28.35" Width="453.6" Height="85.05" Text="新疆军区二十三医院体检中心&#13;&#10;体检报告" HorzAlign="Center" Font="楷体, 24pt, style=Bold"/>
       <BarcodeObject Name="Barcode1" Left="476.95" Top="151.2" Width="223.3" Height="37.8" AutoSize="false" DataColumn="Registration.RegisterNo" Text="20141214000042" ShowText="false" Zoom="2" Barcode="Code128" Barcode.AutoEncode="true"/>
       <TextObject Name="Text14" Left="519.75" Top="189" Width="94.5" Height="18.9" Text="[Registration.RegisterNo]" AutoWidth="true" HorzAlign="Right" Font="宋体, 12pt"/>
-      <TextObject Name="Text15" Left="155.93" Top="28.35" Width="406.35" Height="37.8" Text="健康/从业体检管理体检表" HorzAlign="Center" Font="宋体, 24pt, style=Bold"/>
       <PictureObject Name="Picture1" Left="9.45" Top="75.6" Width="255.15" Height="75.6" ImageLocation="D:\健康体检软件\PhysicalCheck\images\self\logo.jpg"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="230.13" Width="718.2" Height="406.35" Guides="56.7,75.6,103.95,122.85,151.2,170.1,198.45,217.35,245.7,264.6,292.95,311.85" DataSource="Registration">
+    <DataBand Name="Data1" Top="229.1" Width="718.2" Height="406.35" Guides="56.7,75.6,103.95,122.85,151.2,170.1,198.45,217.35,245.7,264.6,292.95,311.85" DataSource="Registration">
       <TextObject Name="Text2" Left="170.1" Top="56.7" Width="94.5" Height="18.9" Text="档 案 号" Font="宋体, 16pt, style=Bold"/>
       <TextObject Name="Text3" Left="170.1" Top="103.95" Width="94.5" Height="18.9" Text="姓 名" Font="宋体, 16pt, style=Bold"/>
       <TextObject Name="Text4" Left="170.1" Top="151.2" Width="94.5" Height="18.9" Text="性 别" Font="宋体, 16pt, style=Bold"/>
@@ -55,7 +55,7 @@
       <TextObject Name="Text12" Left="321.3" Top="245.7" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.DeptName]" HorzAlign="Center" Font="宋体, 16pt"/>
       <TextObject Name="Text13" Left="321.3" Top="292.95" Width="207.9" Height="18.9" Border.Lines="Bottom" Text="[Registration.RegisterDate]" Format="Date" Format.Format="D" HorzAlign="Center" Font="宋体, 16pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="639.82" Width="718.2" Height="75.6"/>
+    <PageFooterBand Name="PageFooter1" Top="637.75" Width="718.2" Height="75.6"/>
   </ReportPage>
   <ReportPage Name="Page2" Guides="0,718.2,170.1,283.5,472.5,567,122.85,236.25,349.65,463.05,576.45">
     <PageHeaderBand Name="PageHeader2" Width="718.2" Height="37.8"/>
@@ -89,8 +89,8 @@
     </DataBand>
   </ReportPage>
   <ReportPage Name="Page3" Guides="0,718.2,94.5,434.7,529.2">
-    <PageHeaderBand Name="PageHeader3" Width="718.2" Height="37.8"/>
-    <DataBand Name="Data4" Top="41.65" Width="718.2" Height="463.05" Guides="0,37.8,47.25,75.6,85.05,245.7,247.7,285.5,283.5,387.45,396.9,415.8,434.7,453.6" DataSource="Registration">
+    <PageHeaderBand Name="PageHeader3" Width="718.2" Height="85.05"/>
+    <DataBand Name="Data4" Top="89.09" Width="718.2" Height="463.05" Guides="0,37.8,47.25,75.6,85.05,245.7,247.7,285.5,283.5,387.45,396.9,415.8,434.7,453.6" DataSource="Registration">
       <TextObject Name="Text22" Width="718.2" Height="37.8" Dock="Top" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="总检结论" Padding="0, 0, 0, 0" Font="宋体, 24pt" FirstTabOffset="18.9"/>
       <TextObject Name="Text34" Top="47.25" Width="94.5" Height="28.35" Text="综 述：" Font="宋体, 16pt"/>
       <TextObject Name="Text35" Top="85.05" Width="718.2" Height="160.65" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="[Registration.Conclusion]" Font="宋体, 16pt"/>
@@ -101,6 +101,6 @@
       <TextObject Name="Text40" Left="529.2" Top="396.9" Width="189" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="[Registration.OverallDoctor]" Font="宋体, 16pt"/>
       <TextObject Name="Text41" Left="529.2" Top="434.7" Width="189" Height="18.9" Border.Lines="Bottom" Border.Width="2" Text="[Registration.OverallDate]" Format="Date" Format.Format="D" Font="宋体, 16pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter3" Top="508.54" Width="718.2" Height="37.8"/>
+    <PageFooterBand Name="PageFooter3" Top="556.18" Width="718.2" Height="37.8"/>
   </ReportPage>
 </Report>

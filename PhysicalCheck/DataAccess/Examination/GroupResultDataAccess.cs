@@ -167,6 +167,31 @@ namespace DataAccess.Examination {
             }
         }
 
+        /// <summary>
+        /// 更新组合项小结
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <param name="GroupID"></param>
+        /// <param name="Summary"></param>
+        public void UpdateSummary(String RegisterNo, int GroupID, String Summary) {
+            String hql = @"UPDATE GroupResultEntity SET Summary=? WHERE ID.RegisterNo=? AND ID.GroupID=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(hql)
+                    .SetString(0, Summary)
+                    .SetString(1, RegisterNo)
+                    .SetInt32(2, GroupID)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
         #endregion
     }
 }

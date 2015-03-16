@@ -16,6 +16,7 @@ namespace LISDataService.Job {
     public class GetCheckedResultJob : IJob {
 
         private ILog m_Logger = LogHelper.Logger;
+        private GroupResultBusiness m_GroupResultBusiness = new GroupResultBusiness();
         private ItemResultBusiness m_ItemResult = new ItemResultBusiness();
         private CheckedItemBusiness m_CheckItem = new CheckedItemBusiness();
         private GroupResultBusiness m_GroupResult = new GroupResultBusiness();
@@ -38,6 +39,7 @@ namespace LISDataService.Job {
                         CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
                         UpdateCheckItem(CheckResults);
                         SaveItemResult(CheckResults);
+                        UpdateGroupSummary(RegisterNo);
                     }
                     catch (Exception ex) {
                         m_Logger.InfoFormat("档案号{0}" + ex.Message, RegisterNo);
@@ -57,7 +59,7 @@ namespace LISDataService.Job {
                     CheckResults = LISBusiness.GetLisDatas(RegisterNo);//从LIS中读取结果数据
                     UpdateCheckItem(CheckResults);
                     SaveItemResult(CheckResults);
-                    //SaveGroupResult(RegisterNo);
+                    UpdateGroupSummary(RegisterNo);
                     m_Logger.InfoFormat("档案号{0}的体检结果数据保存成功", RegisterNo);
                 }
             }
@@ -102,10 +104,33 @@ namespace LISDataService.Job {
             }
         }
 
-        private void SaveGroupResult(String RegisterNo) {
+        private void UpdateGroupSummary(String RegisterNo) {
+            try {
+                List<GroupResultViewEntity> Groups = m_GroupResultBusiness.GetGroupResults(RegisterNo);
+                List<ItemResultViewEntity> ItemResults;
+                String Summary = "";
+                List<string> Items;
+                foreach (GroupResultViewEntity Group in Groups) {
+                    ItemResults = m_ItemResult.GetItemResults(RegisterNo, Group.ID.GroupID);
+                    Items = ItemResults.Where(p => p.QualitativeResult == "↑").Select(p => p.ItemName).ToList();
+                    foreach (String Item in Items) {
+                        Summary += "【" + Item + "】偏高  ";
+                    }
+                    Items = ItemResults.Where(p => p.QualitativeResult == "↓").Select(p => p.ItemName).ToList();
+                    foreach (String Item in Items) {
+                        Summary += "【" + Item + "】偏低  ";
+                    }
+                    if (!String.IsNullOrWhiteSpace(Summary)) {
+                        m_GroupResultBusiness.UpdateSummary(RegisterNo, Group.ID.GroupID, Summary);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                m_Logger.InfoFormat("保存小结时发生了错误。" + ex.Message, RegisterNo);
+            }
 
         }
-       
+
 
         /// <summary>
         /// 根据LIS代码返回检验项代码

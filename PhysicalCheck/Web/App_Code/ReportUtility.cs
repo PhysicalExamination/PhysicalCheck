@@ -108,7 +108,8 @@ public class ReportUtility {
                     GroupID = Convert.ToInt32(c.DeptKind),
                     GroupName = a.GroupName,
                     Clinical = b.Clinical,
-                    Notice = b.Notice
+                    Notice = b.Notice,
+                    Price = b.Price.Value
                 };
         q = q.OrderBy(p => p.GroupID);
         return q.ToList();
@@ -295,6 +296,11 @@ public class GroupItem {
     }
 
     public String Notice {
+        get;
+        set;
+    }
+
+    public decimal Price {
         get;
         set;
     }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="02/20/2015 15:29:44" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="03/16/2015 15:44:25" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -22,6 +22,7 @@
       <Column Name="GroupName" DataType="System.String"/>
       <Column Name="Clinical" DataType="System.String"/>
       <Column Name="Notice" DataType="System.String"/>
+      <Column Name="Price" DataType="System.Decimal"/>
     </BusinessObjectDataSource>
     <Relation Name="Registration_Packages1" ParentDataSource="Registration" ChildDataSource="Packages" ParentColumns="RegisterNo" ChildColumns="RegisterNo" Enabled="true"/>
     <Relation Name="Packages_ItemGroups1" ParentDataSource="Packages" ChildDataSource="ItemGroups" ParentColumns="RegisterNo&#13;&#10;GroupID" ChildColumns="RegisterNo&#13;&#10;GroupID" Enabled="true"/>
@@ -50,18 +51,18 @@
       <TextObject Name="Text2" Left="18.9" Top="153.2" Width="53.25" Height="36.15" Text="温 馨&#13;&#10;提 示" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text29" Left="106.95" Top="151.2" Width="576.45" Height="43.8" Fill.Color="192, 255, 192" Text="1、抽血后请按压五分钟。&#13;&#10;2、体检当日肝、胆B超火血液检查，早晨须禁食水。&#13;&#10;3、男性前列腺彩超检查火女性子宫、附件彩超检查需憋尿，未婚女子勿做妇检。" HorzAlign="Justify" VertAlign="Center" Font="宋体, 12pt"/>
       <BarcodeObject Name="Barcode1" Left="452.65" Top="66.15" Width="427.15" Height="66.15" DataColumn="Registration.RegisterNo" Text="" Zoom="2" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <DataBand Name="Data2" Top="315.7" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="Packages">
+      <DataBand Name="Data2" Top="315.89" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="Packages">
         <TextObject Name="Text19" Left="-9.45" Width="217.35" Height="24.57" Fill.Color="Gainsboro" Text="[Packages.PackageName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
-        <TextObject Name="Text20" Left="207.9" Width="330.75" Height="24.57" Fill.Color="Gainsboro" Text="临床意义" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <TextObject Name="Text20" Left="207.9" Width="330.75" Height="24.57" Fill.Color="Gainsboro" Text="单价（元）" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
         <TextObject Name="Text21" Left="538.65" Width="198.45" Height="24.57" Fill.Color="Gainsboro" Text="检查提示" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
-        <DataBand Name="Data3" Top="344.11" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="ItemGroups">
+        <DataBand Name="Data3" Top="344.5" Width="718.2" Height="24.57" Guides="0,24.57" DataSource="ItemGroups">
           <TextObject Name="Text22" Left="-9.45" Width="217.35" Height="24.57" CanGrow="true" Text="[ItemGroups.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
-          <TextObject Name="Text23" Left="207.9" Width="330.75" Height="24.57" CanGrow="true" Text="[ItemGroups.Clinical]" VertAlign="Center" Font="宋体, 12pt"/>
+          <TextObject Name="Text23" Left="207.9" Width="330.75" Height="24.57" CanGrow="true" Text="[ItemGroups.Price]" VertAlign="Center" Font="宋体, 12pt"/>
           <TextObject Name="Text24" Left="538.65" Width="198.45" Height="24.57" CanGrow="true" Text="[ItemGroups.Notice]" VertAlign="Center" Font="宋体, 12pt"/>
         </DataBand>
       </DataBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="372.53" Width="718.2" Height="109.62" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
+    <PageFooterBand Name="PageFooter1" Top="373.11" Width="718.2" Height="109.62" Guides="9.45,47.25,56.7,81.27,85.05,109.62">
       <TextObject Name="Text25" Left="-9.45" Top="9.45" Width="727.65" Height="37.8" Border.Lines="Top, Bottom" Border.Width="1.5" Text="祝您身体健康！" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text26" Left="-9.45" Top="56.7" Width="737.1" Height="24.57" Text="医院地址：乌鲁木齐市天山区幸福路556号" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text27" Left="-9.45" Top="85.05" Width="340.2" Height="24.57" Text="联系电话： 0991-4974448" VertAlign="Center" Font="宋体, 12pt"/>

@@ -52,6 +52,16 @@ namespace BusinessLogic.Examination {
             return DataAccess.GetGroupSummary(RegisterNo);
         }
 
+        /// <summary>
+        /// 更新组合项小结
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        /// <param name="GroupID"></param>
+        /// <param name="Summary"></param>
+        public void UpdateSummary(String RegisterNo, int GroupID, String Summary) {
+            DataAccess.UpdateSummary(RegisterNo, GroupID, Summary);
+        }
+
         #endregion
     }
 }

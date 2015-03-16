@@ -233,6 +233,7 @@ public partial class Examination_RegistrationPage : BasePage {
     protected void btnSave_Click(object sender, EventArgs e) {
         RegistrationViewEntity Result = GetRegistrationUI();
         m_Registration.SaveRegistration(Result);
+        RegisterNo = Result.RegisterNo;
         ShowMessage("体检登记数据保存成功!");
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");

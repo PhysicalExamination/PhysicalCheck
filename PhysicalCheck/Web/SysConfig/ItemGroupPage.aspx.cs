@@ -230,7 +230,7 @@ public partial class SysConfig_ItemGroupPage : BasePage {
     protected void btnSaveItemGroup_Click(object sender, EventArgs e) {
         ItemGroupEntity Result = GetItemGroupUI();
         m_ItemGroup.SaveItemGroup(Result);
-       // GroupID = Result.GroupID.Value;
+        GroupID = Result.GroupID.Value;
         ShowMessage("组合项目数据保存成功!");
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");

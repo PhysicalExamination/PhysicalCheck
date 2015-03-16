@@ -15,13 +15,13 @@
         <property name="Conclusion" column="Conclusion" type="String" not-null="false" length="65535" /> 
         <property name="HealthCondition" column="HealthCondition" type="String" not-null="false" length="90" /> 
         <property name="EvaluateResult" column="EvaluateResult" type="String" not-null="false" length="90" /> 
-        <property name="IsCheckOver" column="IsCheckOver" type="Byte" not-null="false" /> 
+        <property name="IsCheckOver" column="IsCheckOver" type="Boolean" not-null="false" /> 
         <property name="PrintDate" column="PrintDate" type="DateTime" not-null="false" />
         <property name="ReviewDate" column="ReviewDate" type="DateTime" not-null="false" />
         <property name="ReviewSummary" column="ReviewSummary" type="String" not-null="false" length="1500" />
         <property name="InformPerson" column="InformPerson" type="String" not-null="false" length="600" />
         <property name="InformResult" column="InformResult" type="String" not-null="false" length="9" />
-        <property name="Enabled" column="Enabled" type="Byte" not-null="false" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="false" /> 
     </class>
 </hibernate-mapping>
 

@@ -322,6 +322,10 @@ namespace BusinessLogic.Examination {
             return new DateTime(Year, Month, Day);
         }
 
+        private String GetCheckedStatus(String RegisterNo) {
+            return "0";
+        }
+
         #endregion
     }
 }

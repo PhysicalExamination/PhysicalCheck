@@ -125,7 +125,7 @@ public partial class Examination_RegistrationPage : BasePage {
         txtRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         //txtCheckDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
         hDeptID.Value = "1";
-        hPackageID.Value = "-1";
+        hPackageID.Value = "51";
         hGroups.Value = "";
         hPhoto.Value = "";
         drpRegion.SelectedIndex = -1;
@@ -253,10 +253,11 @@ public partial class Examination_RegistrationPage : BasePage {
             txtDeptName.Enabled = false;
             txtPackageName.Enabled = false;
         }
-        txtChargeNo.Enabled = false;
-        txtRegisterNo.Enabled = false;
-        txtPackageName.Enabled = false;
-        txtDeptName.Enabled = false;
+        txtChargeNo.ReadOnly = true;
+        txtRegisterNo.ReadOnly = true;
+        txtPackageName.ReadOnly = true;
+        txtDeptName.ReadOnly = true;
+        btnDelete.Enabled = IsAdmin;       
     }
 
     #endregion

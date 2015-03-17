@@ -62,7 +62,7 @@ namespace DataAccess.Examination {
             if (RegisterDate != null) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
-            //Criteria.AddOrder(new Order("RegisterNo", false));
+            Criteria.AddOrder(new Order("RegisterNo", true));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -79,8 +79,8 @@ namespace DataAccess.Examination {
         public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
             DateTime CheckDate, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
-            q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver==false);
-            //q = q.OrderByDescending(p => p.RegisterNo);
+            q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver == false);
+            q = q.OrderBy(p => p.RegisterNo);
             RecordCount = q.Count();
             return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
         }
@@ -96,45 +96,28 @@ namespace DataAccess.Examination {
         /// <param name="RegisterNo">登记号或身份证号</param>
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
-        public IList<RegistrationViewEntity> GetOveralls(int pageIndex, int pageSize,
+        public List<RegistrationViewEntity> GetOveralls(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-            ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
-            Criteria.SetProjection(Projections.RowCount());
-            Criteria.Add(Restrictions.Eq("Enabled", true));
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
-                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+                q = q.Where(p => p.DeptName.Contains(DeptName));
             }
             if (!String.IsNullOrWhiteSpace(RegisterNo)) {
-                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
-                    Restrictions.Eq("IDNumber", RegisterNo)));
+                q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
             }
             if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
+                q = q.Where(p => p.CheckDate == CheckDate);
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
-                Criteria.Add(Restrictions.Eq("IsCheckOver", false));
+                q = q.Where(p => p.IsCheckOver == false);
             }
-            RecordCount = Convert.ToInt32(Criteria.UniqueResult());
-
-            Criteria = Session.CreateCriteria<RegistrationViewEntity>();
-            Criteria.Add(Restrictions.Eq("Enabled", true));
-            Criteria.SetFirstResult((pageIndex - 1) * pageSize)
-                    .SetMaxResults(pageSize);
-            if (!String.IsNullOrWhiteSpace(DeptName)) {
-                Criteria.Add(Restrictions.Like("DeptName", DeptName, MatchMode.Anywhere));
+            q = q.OrderBy(p => p.RegisterNo);          
+            List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            foreach (var Registration in Result) {
+                Registration.Status = GetCheckedStatus(Registration.RegisterNo);
             }
-            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
-                Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
-                    Restrictions.Eq("IDNumber", RegisterNo)));
-            }
-            if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
-            }
-            if (String.IsNullOrWhiteSpace(RegisterNo)) {
-                Criteria.Add(Restrictions.Eq("IsCheckOver", false));
-            }
-            //Criteria.AddOrder(new Order("RegisterNo", false));
-            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
+            RecordCount = q.Count();
             CloseSession();
             return Result;
         }
@@ -186,7 +169,7 @@ namespace DataAccess.Examination {
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));
             }
-            //Criteria.AddOrder(new Order("RegisterNo", false));
+            Criteria.AddOrder(new Order("RegisterNo", true));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -215,7 +198,7 @@ namespace DataAccess.Examination {
             Criteria.SetFirstResult((pageIndex - 1) * pageSize)
                     .SetMaxResults(pageSize);
             Criteria.Add(Restrictions.Between("ReviewDate", StartDate, EndDate));
-            //Criteria.AddOrder(new Order("RegisterNo", false));
+            Criteria.AddOrder(new Order("RegisterNo", true));
             IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
             CloseSession();
             return Result;
@@ -280,6 +263,21 @@ namespace DataAccess.Examination {
             finally {
                 CloseSession();
             }
+        }
+
+        #endregion
+
+        #region 私有成员
+
+        /// <summary>
+        /// 返回体检状态 0待检、1合格 、2不合格
+        /// </summary>
+        private String GetCheckedStatus(String RegisterNo) {
+            var q = Session.Query<GroupResultEntity>();
+            q = q.Where(p => p.ID.RegisterNo == RegisterNo);
+            if (q.Count(p => p.IsOver == false) > 0) return "0";//待检
+            if (q.Count(p => p.IsOver == true && p.IsPassed == false) > 0) return "2";//不合格
+            return "1";//合格
         }
 
         #endregion

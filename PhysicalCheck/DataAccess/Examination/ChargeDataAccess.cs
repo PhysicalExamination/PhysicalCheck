@@ -49,6 +49,7 @@ namespace DataAccess.Examination {
             else {
                 q = q.Where(p => p.Payer.Contains(DeptName));
             }
+            q = q.OrderByDescending(p => p.BillNo);
             List<ChargeViewEntity> Result = q.ToPagedList<ChargeViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
             CloseSession();
@@ -65,7 +66,7 @@ namespace DataAccess.Examination {
             else {
                 q = q.Where(p => p.Payer.Contains(DeptName));
             }
-            //q = q.OrderByDescending(p => p.BillNo);
+            q = q.OrderBy(p => p.BillNo);
             List<ChargeViewEntity> Result = q.ToPagedList<ChargeViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();                     
             /*ICriteria Criteria = Session.CreateCriteria<ChargeViewEntity>();

@@ -81,7 +81,7 @@ public partial class SysConfig_SuggestionPage : BasePage {
             SetUIStatus(false);
             btnNew.Enabled = CanEditData;
             btnEdit.Enabled = CanEditData;
-            btnDelete.Enabled = CanEditData;
+            btnDelete.Enabled = IsAdmin;
             btnSave.Enabled = false;
         }
         if (State == "New") {

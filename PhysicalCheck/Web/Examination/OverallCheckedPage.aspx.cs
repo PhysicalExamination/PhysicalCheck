@@ -62,6 +62,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             RegisterDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
+        ScriptManager.RegisterClientScriptBlock(this, GetType(), "setCheckedStatus", "setCheckedStatus();", true);
     }
 
     #endregion
@@ -184,6 +185,9 @@ public partial class Examination_OverallCheckedPage : BasePage {
         DataBind();
     }
 
+
+    protected void btnBatch_Click(object source, EventArgs e) {
+    }
 
     #endregion
 }

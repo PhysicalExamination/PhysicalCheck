@@ -47,6 +47,7 @@
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sURL = "<%=ApplicationPath%>/Examination/ChargeDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', sFeatures);
+            if ((urlValue===undefined) ||(urlValue == null))return;
             $("#<%=txtChargeNo.ClientID%>").val(urlValue[0]);
             $("#<%=hPackageID.ClientID %>").val(urlValue[1]);
             $("#<%=txtPackageName.ClientID %>").val(urlValue[2]);
@@ -229,10 +230,10 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="HVLine">
-                                收费单
+                                收费单<font color="red">*</font>
                             </td>
                             <td class="HVLine">
-                                <asp:TextBox CssClass="textbox31" ID="txtChargeNo" runat="server" Enabled="false" />
+                                <asp:TextBox CssClass="textbox31  validate[required]" ID="txtChargeNo" runat="server" data-errormessage-value-missing="收费单号不能为空!"/>
                                 <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: pointer;" alt="选择收费单"
                                     onclick="selectCharge();" align="middle" border="0" />
                             </td>
@@ -258,7 +259,7 @@
                                 登记日期<font color="red">*</font>
                             </td>
                             <td class="VLine">
-                                <asp:TextBox CssClass="validate[required] textbox31  Wdate" ID="txtRegisterDate"
+                                <asp:TextBox CssClass="textbox31  validate[required]  Wdate" ID="txtRegisterDate"
                                     runat="server" data-errormessage-value-missing="登记日期不能为空!" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                             </td>
                         </tr>

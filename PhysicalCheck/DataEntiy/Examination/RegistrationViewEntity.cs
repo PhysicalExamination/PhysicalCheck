@@ -201,6 +201,14 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 体检状态0待检、1合格 、2不合格
+        /// </summary>
+        public virtual String Status {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 个人信息

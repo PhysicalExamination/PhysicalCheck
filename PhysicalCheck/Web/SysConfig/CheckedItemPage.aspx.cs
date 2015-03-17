@@ -102,14 +102,14 @@ public partial class SysConfig_CheckedItemPage : BasePage {
             SetUIStatus(false);
             btnNew.Enabled = CanEditData;
             btnEdit.Enabled = CanEditData;
-            btnDelete.Enabled = CanEditData;
+            btnDelete.Enabled = IsAdmin;
             btnSave.Enabled = false;
         }
         if (State == "New") {
             SetUIStatus(true);
             btnNew.Enabled = false;
             btnEdit.Enabled = false;
-            btnDelete.Enabled = false;
+            btnDelete.Enabled = IsAdmin;
             btnSave.Enabled = true;
         }
 
@@ -117,7 +117,7 @@ public partial class SysConfig_CheckedItemPage : BasePage {
             SetUIStatus(true);
             btnNew.Enabled = false;
             btnEdit.Enabled = false;
-            btnDelete.Enabled = false;
+            btnDelete.Enabled = IsAdmin;
             btnSave.Enabled = true;
         }
     }

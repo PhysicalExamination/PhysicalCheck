@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Survey" assembly="DataEntity">
+    <class name="SurveyQuestionEntity" table="surveyquestion" >
+        <id name="QID" column="QID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="Title" column="Title" type="String" not-null="true" length="900" /> 
+        <property name="Description" column="Description" type="String" not-null="false" length="900" /> 
+        <property name="Required" column="Required" type="Boolean" not-null="true" /> 
+        <property name="QType" column="QType" type="String" not-null="true" length="30" /> 
+        <property name="Multipe" column="Multipe" type="Boolean" not-null="true" /> 
+        <property name="NormalLower" column="NormalLower" type="String" not-null="false" length="90" /> 
+        <property name="NormalUpper" column="NormalUpper" type="String" not-null="false" length="90" /> 
+        <property name="ValidLower" column="ValidLower" type="String" not-null="false" length="90" /> 
+        <property name="ValidUpper" column="ValidUpper" type="String" not-null="false" length="90" /> 
+        <property name="Unit" column="Unit" type="String" not-null="false" length="150" /> 
+        <property name="Enabled" column="Enabled" type="Boolean" not-null="true" /> 
+    </class>
+</hibernate-mapping>
+

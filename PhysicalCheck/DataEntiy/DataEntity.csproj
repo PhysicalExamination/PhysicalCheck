@@ -71,6 +71,11 @@
     <Compile Include="messages\messages_type.cs" />
     <Compile Include="Norecordor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Survey\EvaluateFactorEntity.cs" />
+    <Compile Include="Survey\EvaluateModelEntity.cs" />
+    <Compile Include="Survey\QuestionOptionEntity.cs" />
+    <Compile Include="Survey\SurveyListEntity.cs" />
+    <Compile Include="Survey\SurveyQuestionEntity.cs" />
     <Compile Include="SysConfig\CheckedItemEntity.cs" />
     <Compile Include="SysConfig\CheckedItemViewEntity.cs" />
     <Compile Include="SysConfig\CommonCodeEntity.cs" />
@@ -174,6 +179,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\CheckedItemView.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Evaluatefactor.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Evaluatemodel.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Questionoption.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Surveylist.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Surveyquestion.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

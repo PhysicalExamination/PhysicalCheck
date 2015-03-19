@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="DataEntity.Survey" assembly="DataEntity">
+    <class name="EvaluateModelEntity" table="evaluatemodel" >
+        <id name="ModelID" column="ModelID" type="Int32" >
+            <generator class="assigned" />
+        </id>
+        <property name="ModelName" column="ModelName" type="String" not-null="false" length="300" /> 
+        <property name="Disease" column="Disease" type="String" not-null="false" length="900" /> 
+        <property name="CriticalValue" column="CriticalValue" type="Int32" not-null="false" /> 
+    </class>
+</hibernate-mapping>
+

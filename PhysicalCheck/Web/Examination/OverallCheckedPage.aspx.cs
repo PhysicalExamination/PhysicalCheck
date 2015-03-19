@@ -111,6 +111,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         if (drpHealthCondition.SelectedValue == "04") IsCheckOver = false;
         RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegisterNo);
         RegistrationEntity Result = new RegistrationEntity {
+            ChargeNo = RegInfo.ChargeNo,
             RegisterNo = RegInfo.RegisterNo,
             RegisterDate = RegInfo.RegisterDate,
             CheckDate = RegInfo.CheckDate,
@@ -125,6 +126,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             ReviewSummary = txtReviewSummary.Text,
             EvaluateResult = drpEvaluateResult.SelectedValue,
             HealthCondition = drpHealthCondition.SelectedValue,
+            Enabled = RegInfo.Enabled
         };  
         return Result;
     }

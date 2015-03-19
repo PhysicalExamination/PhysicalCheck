@@ -9,6 +9,16 @@
         });
 
         function checkForm() {
+            var ChargeNo = $("#<%=txtChargeNo.ClientID%>").val();
+            var Package = $("#<%=txtPackageName.ClientID%>").val();
+            if ((ChargeNo ===undefined) ||(ChargeNo==null) ||(ChargeNo=="")){
+                alert("缴费单号不能为空！");
+                return false;
+            }
+            if ((Package ===undefined) ||(Package==null) ||(Package=="")){
+                alert("体检套餐不能为空！");
+                return false;
+            }
             return $("#<%=Form.ClientID%>").validationEngine("validate");
         }
 
@@ -58,7 +68,7 @@
         function btnDataImport() {
             var sURL = " RegImportDialog.aspx?rand=" + Math.random();
             var vArguments = "";
-            var sFeatures = "dialogHeight=600px;dialogWidth=800px;center:yes;help:no;status:no;rsizable:yes";
+            var sFeatures = "dialogHeight=300px;dialogWidth=400px;center:yes;help:no;status:no;rsizable:yes";
             window.showModalDialog(sURL, vArguments, sFeatures);
         }
 

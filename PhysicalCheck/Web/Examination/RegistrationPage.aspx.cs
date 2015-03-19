@@ -253,10 +253,10 @@ public partial class Examination_RegistrationPage : BasePage {
             txtDeptName.Enabled = false;
             txtPackageName.Enabled = false;
         }
-        txtChargeNo.ReadOnly = true;
-        txtRegisterNo.ReadOnly = true;
-        txtPackageName.ReadOnly = true;
-        txtDeptName.ReadOnly = true;
+        txtChargeNo.Enabled = false;
+        txtRegisterNo.Enabled = false;
+        txtPackageName.Enabled = false;
+        txtDeptName.Enabled = false;
         btnDelete.Enabled = IsAdmin;       
     }
 
@@ -268,6 +268,8 @@ public partial class Examination_RegistrationPage : BasePage {
         RegistrationViewEntity Result = GetRegistrationUI();
         m_Registration.SaveRegistration(Result);
         RegisterNo = Result.RegisterNo;
+        txtRegisterNo.Text = RegisterNo;
+        PersonID = Result.PersonID.Value;
         ShowMessage("体检登记数据保存成功!");
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");

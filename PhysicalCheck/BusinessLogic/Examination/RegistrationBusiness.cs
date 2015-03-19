@@ -142,7 +142,7 @@ namespace BusinessLogic.Examination {
             using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
                 CheckPerson.SaveCheckPerson(PersonInfo);
             }
-
+            Registration.PersonID = PersonInfo.PersonID;
             RegistrationEntity RegEntity = new RegistrationEntity {
                 ChargeNo = Registration.ChargeNo,
                 RegisterNo = Registration.RegisterNo,
@@ -153,6 +153,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
+            Registration.RegisterNo = RegEntity.RegisterNo;           
             SaveCheckedGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value, Registration.Groups);
             IncreaseCheckedCount(Registration.ChargeNo);
         }

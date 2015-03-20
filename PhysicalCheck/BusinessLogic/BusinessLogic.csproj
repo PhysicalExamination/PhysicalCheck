@@ -64,6 +64,11 @@
     <Compile Include="messages\messagesSend.cs" />
     <Compile Include="messages\messages_type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Survey\EvaluateFactorBusiness.cs" />
+    <Compile Include="Survey\EvaluateModelBusiness.cs" />
+    <Compile Include="Survey\QuestionOptionBusiness.cs" />
+    <Compile Include="Survey\SurveyListBusiness.cs" />
+    <Compile Include="Survey\SurveyQuestionBusiness.cs" />
     <Compile Include="SysConfig\CheckedItemBusiness.cs" />
     <Compile Include="SysConfig\CommonCodeBusiness.cs" />
     <Compile Include="SysConfig\CommonResultBusiness.cs" />

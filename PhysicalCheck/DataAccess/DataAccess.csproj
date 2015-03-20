@@ -88,6 +88,11 @@
     <Compile Include="messages\messages_type.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Survey\EvaluateFactorDataAccess.cs" />
+    <Compile Include="Survey\EvaluateModelDataAccess.cs" />
+    <Compile Include="Survey\QuestionOptionDataAccess.cs" />
+    <Compile Include="Survey\SurveyListDataAccess.cs" />
+    <Compile Include="Survey\SurveyQuestionDataAccess.cs" />
     <Compile Include="SysConfig\CheckedItemDataAccess.cs" />
     <Compile Include="SysConfig\CommonCodeDataAccess.cs" />
     <Compile Include="SysConfig\CommonResultDataAccess.cs" />

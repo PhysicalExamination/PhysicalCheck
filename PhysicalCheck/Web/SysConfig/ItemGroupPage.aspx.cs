@@ -185,8 +185,8 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         drpSpecimen.SelectedValue = Result.Specimen;
         drpResultMode.SelectedValue = Result.ResultMode;
         chkHasBarCode.Checked = Result.HasBarCode;
-        txtLisCode.Text = Result.lisCode;
-        txtPacsCode.Text = Result.pacsCode;
+        txtLisCode.Text = Result.LISCode;
+        txtPacsCode.Text = Result.PACSCode;
         //txtDisplayOrder.Text = Result.DisplayOrder + "";
     }
 
@@ -208,8 +208,8 @@ public partial class SysConfig_ItemGroupPage : BasePage {
         Result.Specimen = drpSpecimen.SelectedValue;
         Result.ResultMode = drpResultMode.SelectedValue;
         Result.HasBarCode = chkHasBarCode.Checked;
-        Result.lisCode = txtLisCode.Text;
-        Result.pacsCode = txtPacsCode.Text;
+        Result.LISCode = txtLisCode.Text;
+        Result.PACSCode = txtPacsCode.Text;
 
         //Result.DisplayOrder = EnvConverter.ToInt32(txtDisplayOrder.Text);
         return Result;

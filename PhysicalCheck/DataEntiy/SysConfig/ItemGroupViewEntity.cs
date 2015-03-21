@@ -150,7 +150,7 @@ namespace DataEntity.SysConfig {
         /// <summary>
         /// lisCode
         /// </summary>		
-        public virtual string lisCode
+        public virtual string LISCode
         {
             get;
             set;
@@ -158,7 +158,7 @@ namespace DataEntity.SysConfig {
         /// <summary>
         /// pacsCode
         /// </summary>		
-        public virtual string pacsCode
+        public virtual string PACSCode
         {
             get;
             set;

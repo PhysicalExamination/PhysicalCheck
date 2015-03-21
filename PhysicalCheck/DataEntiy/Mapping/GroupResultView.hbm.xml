@@ -14,6 +14,9 @@
         <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" />
         <property name="Summary" column="Summary" type="String" not-null="false" length="65535" />
         <property name="IsOver" column="IsOver" type="Boolean" not-null="false" />
+        <property name="ResultMode" column="ResultMode" type="String" not-null="false" length="9" />
+        <property name="LISCode" column="lisCode" type="String" not-null="false" length="30" />
+        <property name="PACSCode" column="pacsCode" type="String" not-null="false" length="30" />
     </class>
 </hibernate-mapping>
 

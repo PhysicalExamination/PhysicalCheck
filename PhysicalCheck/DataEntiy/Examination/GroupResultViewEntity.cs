@@ -68,7 +68,7 @@ namespace DataEntity.Examination {
         /// <summary>
         /// 体检科室
         /// </summary>		
-        public virtual int? DeptID {
+        public virtual int DeptID {
             get;
             set;
         }
@@ -109,6 +109,30 @@ namespace DataEntity.Examination {
         /// 是否检查结束
         /// </summary>		
         public virtual bool IsOver {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 结果获取方式
+        /// </summary>
+        public virtual String ResultMode {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// LIS代码
+        /// </summary>
+        public virtual String LISCode {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// PACS代码
+        /// </summary>
+        public virtual String PACSCode {
             get;
             set;
         }

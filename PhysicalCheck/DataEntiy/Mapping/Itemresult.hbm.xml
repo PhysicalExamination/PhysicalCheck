@@ -10,7 +10,11 @@
         <property name="QualitativeResult" column="QualitativeResult" type="String" not-null="false" length="1500"/>
         <property name="DeptID" column="DeptID" type="Int32" not-null="false" /> 
         <property name="CheckDoctor" column="CheckDoctor" type="String" not-null="false" length="60" /> 
-        <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" /> 
+        <property name="CheckDate" column="CheckDate" type="DateTime" not-null="false" />
+        <property name="ItemName" column="ItemName" type="String" not-null="false" length="600" />
+        <property name="MeasureUnit" column="MeasureUnit" type="String" not-null="false" length="60" />
+        <property name="LowerLimit" column="LowerLimit" type="String" not-null="false" length="30" />
+        <property name="UpperLimit" column="UpperLimit" type="String" not-null="false" length="30" />
     </class>
 </hibernate-mapping>
 

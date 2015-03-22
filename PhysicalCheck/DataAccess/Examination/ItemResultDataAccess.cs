@@ -105,29 +105,17 @@ namespace DataAccess.Examination {
             ItemResultViewEntity Result = Session.Get<ItemResultViewEntity>(ID);
             CloseSession();
             return Result;
-        }
-
-        public void SaveItemResult(String RegisterNo, int ItemID, String CheckResult,
-                                   String QualitativeResult, String CheckDoctor) {
-            String hql = @"update ItemResultViewEntity SET CheckedResult=?,CheckDoctor=?,CheckDate=?,
-                           QualitativeResult=? WHERE RegisterNo=? AND ItemID=?";
-            Session.CreateQuery(hql)
-                .SetString(0, CheckResult)
-                .SetString(1, CheckDoctor)
-                .SetDateTime(2, DateTime.Now.Date)
-                .SetString(3, QualitativeResult)
-                .SetString(4, RegisterNo)
-                .SetInt32(5, ItemID)
-                .ExecuteUpdate();
-            CloseSession();
-        }
+        }        
 
         /// <summary>
         /// 保存体检项目结论数据
         /// </summary>
         /// <param name="ItemResult">体检项目结论实体</param>
         public void SaveItemResult(ItemResultEntity ItemResult) {
-            ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
+            Session.SaveOrUpdate(ItemResult);
+            Session.Flush();
+            CloseSession();
+            /*ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
             if (OldResult == null) {
                 Session.SaveOrUpdate(ItemResult);
                 Session.Flush();
@@ -142,7 +130,7 @@ namespace DataAccess.Examination {
                 Session.SaveOrUpdate(OldResult);
                 Session.Flush();
                 CloseSession();
-            }
+            }*/
         }
 
         /// <summary>

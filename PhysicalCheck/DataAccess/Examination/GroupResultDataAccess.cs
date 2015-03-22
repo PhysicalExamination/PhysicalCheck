@@ -92,11 +92,25 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
+        /// 返回需要从LIS中返回结果的体检信息
+        /// </summary>
+        /// <returns></returns>
+        public List<GroupResultViewEntity> GetGroupInfo4LIS() {            
+            var q = from A in Session.Query<GroupResultViewEntity>() 
+                    join B in Session.Query<RegistrationEntity>() on A.ID.RegisterNo equals B.RegisterNo
+                    where A.ResultMode =="1" && B.Enabled==true && A.IsOver== false
+                    select A;          
+            List<GroupResultViewEntity> Result = q.ToList();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
         /// 保存体检组合项目结论数据
         /// </summary>
         /// <param name="GroupResult">体检组合项目结论实体</param>
         public void SaveGroupResult(GroupResultEntity GroupResult) {
-            GroupResultEntity OldGroupResult = Session.Get<GroupResultEntity>(GroupResult.ID);
+            /*GroupResultEntity OldGroupResult = Session.Get<GroupResultEntity>(GroupResult.ID);
             if (OldGroupResult != null) {
                 OldGroupResult.CheckDate = GroupResult.CheckDate;
                 OldGroupResult.CheckDoctor = GroupResult.CheckDoctor;
@@ -106,7 +120,7 @@ namespace DataAccess.Examination {
                 Session.Flush();
                 CloseSession();
                 return;
-            }
+            }*/
             Session.SaveOrUpdate(GroupResult);
             Session.Flush();
             CloseSession();
@@ -194,4 +208,5 @@ namespace DataAccess.Examination {
 
         #endregion
     }
+   
 }

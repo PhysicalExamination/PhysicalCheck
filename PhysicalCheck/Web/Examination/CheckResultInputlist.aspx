@@ -11,14 +11,16 @@
                 resizable: false,
                 height: 545,
                 width: 750,
-                modal: true,
+                modal: false,
                 buttons: {
                     "导入小结": function () {
-                        window.frames["dialogFrame"].onSetSummary();
+                        var ifr = document.getElementById("dialogFrame");
+                        var win = ifr.window || ifr.contentWindow;
+                        win.SetSummary();
                     },
                     "确定": function () {
                         window.frames["dialogFrame"].saveData();
-                        $(this).dialog("close");                       
+                        $(this).dialog("close");
                     },
                     "取消": function () {
                         $(this).dialog("close");
@@ -76,7 +78,7 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                           <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');";
+                            <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -99,8 +101,7 @@
                             <%# Eval("summary")%>
                         </td>
                         <td class="VLine" align="center">
-                        <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');";
-                            
+                            <input type="button" class="buttonCss" value="详情" onclick="InputCheckResult('<%# Eval("ID.RegisterNo") %>','<%# Eval("ID.GroupID") %>','<%# Eval("DeptID") %>');" />
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

@@ -25,7 +25,7 @@ namespace LISDataService {
 
         internal static void GetData() {
             GetCheckedResultJob job = new GetCheckedResultJob();
-            job.RunJob();
+            //job.RunJob();
         }
     }
 }

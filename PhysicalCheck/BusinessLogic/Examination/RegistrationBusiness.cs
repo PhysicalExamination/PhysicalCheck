@@ -173,7 +173,8 @@ namespace BusinessLogic.Examination {
             };
             using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
                 CheckPerson.SaveCheckPerson(PersonInfo);
-            }
+                Registration.PersonID = PersonInfo.PersonID;
+            }            
 
             RegistrationEntity RegEntity = new RegistrationEntity {
                 RegisterNo = Registration.RegisterNo,
@@ -182,8 +183,9 @@ namespace BusinessLogic.Examination {
                 IsCheckOver = false,
                 PersonID = PersonInfo.PersonID,
                 PackageID = Registration.PackageID
-            };
+            };            
             DataAccess.SaveRegistration(RegEntity);
+            Registration.RegisterNo = RegEntity.RegisterNo;
             SaveCheckedGroups(RegEntity.RegisterNo, Registration.PackageID.Value, Registration.Groups);
         }
 
@@ -207,12 +209,12 @@ namespace BusinessLogic.Examination {
         /// <param name="Registration">体检登记实体</param>
         public void DeleteRegistration(String RegisterNo) {
             DataAccess.DeleteRegistration(RegisterNo);
-            /*using (GroupResultDataAccess GroupResult = new GroupResultDataAccess()) {
-                GroupResult.DeleteGroupResults(Registration.RegisterNo);
+            using (GroupResultDataAccess GroupResult = new GroupResultDataAccess()) {
+                GroupResult.DeleteGroupResults(RegisterNo);
             }
             using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
-                ItemResult.DeleteItemResults(Registration.RegisterNo);
-            }*/
+                ItemResult.DeleteItemResults(RegisterNo);
+            }
         }
 
         /// <summary>
@@ -358,8 +360,10 @@ namespace BusinessLogic.Examination {
         }
 
         private void SaveCheckItems(String RegisterNo, int GroupID) {
-            ItemResultDataAccess ResultDataAccess = new ItemResultDataAccess();
-            using (ItemGroupBusiness ItemGroups = new ItemGroupBusiness()) {
+            ItemGroupBusiness ItemGroups = new ItemGroupBusiness();
+            ItemGroupViewEntity ItemGroup =  ItemGroups.GetItemGroup(GroupID);
+            if ((ItemGroup!= null)&&(ItemGroup.ResultMode == "1")) return;
+            using (ItemResultDataAccess ResultDataAccess = new ItemResultDataAccess()) {
                 List<ItemGroupDetailViewEntity> Items = ItemGroups.GetItemGroupDetails(GroupID);
                 foreach (ItemGroupDetailViewEntity Item in Items) {
                     ItemResultEntity ItemResult = new ItemResultEntity {

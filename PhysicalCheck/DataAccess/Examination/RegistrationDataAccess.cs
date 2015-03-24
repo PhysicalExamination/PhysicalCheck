@@ -312,9 +312,9 @@ namespace DataAccess.Examination {
         /// <summary>
         /// 返回体检结果录入时的树形数据
         /// </summary>
-        /// <param name="CheckedDate"></param>
-        /// <param name="DeptName"></param>
-        /// <param name="RegisterNo"></param>
+        /// <param name="CheckedDate">体检日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RegisterNo">登记号或身份证号</param>
         /// <returns></returns>
         public List<RegisterTreeData> GetRegistrationTree(DateTime? CheckedDate,
             String DeptName, String RegisterNo) {

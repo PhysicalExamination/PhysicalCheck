@@ -2,43 +2,43 @@
 
 using System;
 using System.Web;
-using BarcodeLib;
-using Drawing = System.Drawing;
 using System.IO;
-using Imaging = System.Drawing.Imaging;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using BusinessLogic.Examination;
+using DataEntity.Examination;
 
 public class GenerateBarcode : IHttpHandler {
+    
+    private RegistrationBusiness m_Registration;
 
     public void ProcessRequest(HttpContext context) {
-        PDFReport report = new PDFReport();
-        report.Print(context, "");
-        /*HttpResponse Response = context.Response;
-        HttpRequest Request = context.Request;
-        String Data = "2014122200001";//Request.Params["Data"];
-        Response.ContentType = "application/pdf";
-        Response.Charset = "utf-8";
-        //Response.AppendHeader("Content-Disposition", "attachment;filename=" + Data);
-        //Response.ContentType = "image/png";
-
-        BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-        b.IncludeLabel = true;
-        //b.AlternateLabel = "庞永飞";       
-        b.Encode(TYPE.CODE128, Data, 300, 100);
-        Document doc = new Document();      
-        PdfWriter.GetInstance(doc, Response.OutputStream);
-        doc.Open();
-        Rectangle pagesize = new Rectangle(3,4);
-        doc.SetPageSize(pagesize);
-        iTextSharp.text.Image gif = iTextSharp.text.Image.GetInstance(b.Encoded_Image_Bytes);
-        doc.Add(gif);       
-        doc.Close();
-        Response.Flush();       
-        Response.End();*/
-        //doc.Close(); 
+        m_Registration = new RegistrationBusiness();
+        context.Response.ContentType = "application/json";
+        String Action = context.Request.Params["Action"];
+        if (Action == "BuildRegisterTree") BuildRegisterTree(context);
     }
 
+    #region 体检结果录入
+
+    /// <summary>
+    /// 生成体检人员与检查项树
+    /// </summary>
+    /// <param name="context"></param>
+    private void BuildRegisterTree(HttpContext context) {
+        HttpResponse Response = context.Response;
+        HttpRequest Request = context.Request;
+        String DeptName = Request.Params["DeptName"];
+        String RegisterNo = Request.Params["RegisterNo"];
+        DateTime? CheckDate = null;
+        if (!String.IsNullOrWhiteSpace(Request.Params["CheckDate"])) {
+            CheckDate = Convert.ToDateTime(Request.Params["CheckDate"]);
+        }
+        List<RegisterTreeData> Nodes = m_Registration.GetRegistrationTree(CheckDate, DeptName, RegisterNo);
+        Response.Write(JsonConvert.SerializeObject(Nodes));
+    }
+
+    #endregion
     public bool IsReusable {
         get {
             return false;

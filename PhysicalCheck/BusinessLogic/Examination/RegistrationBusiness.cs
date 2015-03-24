@@ -149,6 +149,18 @@ namespace BusinessLogic.Examination {
         }
 
         /// <summary>
+        /// 返回体检结果录入时的树形数据
+        /// </summary>
+        /// <param name="CheckedDate">体检日期</param>
+        /// <param name="DeptName">体检单位</param>
+        /// <param name="RegisterNo">登记号或身份证号</param>
+        /// <returns></returns>
+        public List<RegisterTreeData> GetRegistrationTree(DateTime? CheckedDate,
+            String DeptName, String RegisterNo) {
+                return DataAccess.GetRegistrationTree(CheckedDate, DeptName, RegisterNo);
+        }
+
+        /// <summary>
         /// 保存体检登记数据
         /// </summary>
         /// <param name="Registration">体检登记实体</param>

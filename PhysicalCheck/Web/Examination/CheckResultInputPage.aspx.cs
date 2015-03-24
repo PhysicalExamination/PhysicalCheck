@@ -94,17 +94,17 @@ public partial class Examination_CheckResultInputPage : BasePage {
         //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
         //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
         //Pager.RecordCount = RecordCount;
-        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
-             RegisterNo, Convert.ToInt32(GroupId));
+        /*ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
+            RegisterNo, Convert.ToInt32(GroupId));
         base.DataBind();
         GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
-        if(GroupResult!= null)    txtSummary.Text = GroupResult.Summary;
+        if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
         TextBox txtCheckResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             txtCheckResult.Enabled = InputEnabled;
-        }
+        }*/
     }
 
     #endregion
@@ -112,6 +112,8 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
+        RegisterNo = hRegisterNo.Value;
+        GroupId = hGroupID.Value;
         if (String.IsNullOrWhiteSpace(RegisterNo)) {
             ShowMessage("数据保存失败，请输入体检登记号。");
             return;
@@ -157,8 +159,24 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected void Pager_PageChanged(object source, EventArgs e) {
         DataBind();
     }
+
+    protected void btnGetItemResult_Click(object sender, EventArgs e) {
+        ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
+            hRegisterNo.Value, Convert.ToInt32(hGroupID.Value));
+        base.DataBind();
+        GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
+        if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
+        TextBox txtCheckResult;
+        RepeaterItemCollection Items = ItemResultRepeater.Items;
+        foreach (RepeaterItem Item in Items) {
+            txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
+            txtCheckResult.Enabled = InputEnabled;
+        }
+
+    }
     #endregion
 
 
 
+   
 }

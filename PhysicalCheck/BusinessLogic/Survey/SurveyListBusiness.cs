@@ -23,27 +23,27 @@ namespace BusinessLogic.Survey {
 
         #region 公共方法
 
-        public List<SurveyListEntity> Getsurveylists() {
-            return DataAccess.Getsurveylists();
+        public List<SurveyListEntity> GetSurveyLists() {
+            return DataAccess.GetSurveyLists();
         }
 
         /// <summary>
         ///分页获取所有调查问卷模板数据
         /// </summary>
-        public List<SurveyListEntity> Getsurveylists(int pageIndex, int pageSize, out int RecordCount) {
-            return DataAccess.Getsurveylists(pageIndex, pageSize,out RecordCount);
+        public List<SurveyListEntity> GetSurveyLists(int pageIndex, int pageSize, out int RecordCount) {
+            return DataAccess.GetSurveyLists(pageIndex, pageSize,out RecordCount);
         }
 
-        public SurveyListEntity Getsurveylist(int SID) {
-            return DataAccess.Getsurveylist(SID);
+        public SurveyListEntity GetSurveyList(int SID) {
+            return DataAccess.GetSurveyList(SID);
         }
 
-        public void Savesurveylist(SurveyListEntity surveylist) {
-            DataAccess.Savesurveylist(surveylist);
+        public void SaveSurveyList(SurveyListEntity SurveyList) {
+            DataAccess.SaveSurveyList(SurveyList);
         }
 
-        public void Deletesurveylist(SurveyListEntity surveylist) {
-            DataAccess.Deletesurveylist(surveylist);
+        public void DeleteSurveyList(SurveyListEntity SurveyList) {
+            DataAccess.DeleteSurveyList(SurveyList);
         }
 
         #endregion

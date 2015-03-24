@@ -71,6 +71,7 @@ namespace DataAccess.Survey {
         /// <param name="evaluatefactor">评估因素实体</param>
         public void SaveEvaluateFactor(EvaluateFactorEntity evaluatefactor) {
             if (evaluatefactor.EID == int.MinValue) evaluatefactor.EID = GetLineID("evaluatefactor");
+            evaluatefactor.Enabled = true;
             Session.SaveOrUpdate(evaluatefactor);
             Session.Flush();
             CloseSession();
@@ -81,7 +82,8 @@ namespace DataAccess.Survey {
         /// </summary>
         /// <param name="evaluatefactor">评估因素实体</param>
         public void DeleteEvaluateFactor(EvaluateFactorEntity evaluatefactor) {
-            Session.Delete(evaluatefactor);
+            evaluatefactor.Enabled = false;
+            Session.SaveOrUpdate(evaluatefactor);
             Session.Flush();
             CloseSession();
         }

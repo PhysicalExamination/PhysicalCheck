@@ -28,7 +28,7 @@ namespace DataAccess.Survey {
         /// <summary>
         ///获取所有调查问卷模板数据
         /// </summary>
-        public List<SurveyListEntity> Getsurveylists() {
+        public List<SurveyListEntity> GetSurveyLists() {
             var q = from p in Session.Query<SurveyListEntity>()
                     where p.Enabled == true
                     select p;
@@ -40,7 +40,7 @@ namespace DataAccess.Survey {
         /// <summary>
         ///分页获取所有调查问卷模板数据
         /// </summary>
-        public List<SurveyListEntity> Getsurveylists(int pageIndex, int pageSize,out int RecordCount) {
+        public List<SurveyListEntity> GetSurveyLists(int pageIndex, int pageSize, out int RecordCount) {
             var q = from p in Session.Query<SurveyListEntity>()
                     where p.Enabled == true
                     select p;
@@ -55,7 +55,7 @@ namespace DataAccess.Survey {
         /// </summary>
         /// <param name="SID"></param> 
         /// <returns>调查问卷模板实体</returns>
-        public SurveyListEntity Getsurveylist(int SID) {
+        public SurveyListEntity GetSurveyList(int SID) {
             SurveyListEntity Result = Session.Get<SurveyListEntity>(SID);
             CloseSession();
             return Result;
@@ -66,8 +66,9 @@ namespace DataAccess.Survey {
         /// 保存调查问卷模板数据
         /// </summary>
         /// <param name="surveylist">调查问卷模板实体</param>
-        public void Savesurveylist(SurveyListEntity surveylist) {
+        public void SaveSurveyList(SurveyListEntity surveylist) {
             if (surveylist.SID == int.MinValue) surveylist.SID = GetLineID("surveylist");
+            surveylist.Enabled = true;
             Session.SaveOrUpdate(surveylist);
             Session.Flush();
             CloseSession();
@@ -77,8 +78,9 @@ namespace DataAccess.Survey {
         /// 删除调查问卷模板数据
         /// </summary>
         /// <param name="surveylist">调查问卷模板实体</param>
-        public void Deletesurveylist(SurveyListEntity surveylist) {
-            Session.Delete(surveylist);
+        public void DeleteSurveyList(SurveyListEntity surveylist) {
+            surveylist.Enabled = false;
+            Session.SaveOrUpdate(surveylist);
             Session.Flush();
             CloseSession();
         }

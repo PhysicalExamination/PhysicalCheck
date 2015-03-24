@@ -23,7 +23,7 @@ namespace BusinessLogic.Survey {
 
         #region 公共方法
 
-        public List<SurveyQuestionEntity> Getsurveyquestions() {
+        public List<SurveyQuestionEntity> GetSurveyQuestions() {
             return DataAccess.GetSurveyQuestions();
         }
 
@@ -38,15 +38,15 @@ namespace BusinessLogic.Survey {
                 return DataAccess.GetSurveyQuestions(pageIndex, pageSize, out RecordCount);
         }
 
-        public SurveyQuestionEntity Getsurveyquestion(int QID) {
+        public SurveyQuestionEntity GetSurveyQuestion(int QID) {
             return DataAccess.GetSurveyQuestion(QID);
         }
 
-        public void Savesurveyquestion(SurveyQuestionEntity surveyquestion) {
+        public void SaveSurveyQuestion(SurveyQuestionEntity surveyquestion) {
             DataAccess.SaveSurveyQuestion(surveyquestion);
         }
 
-        public void Deletesurveyquestion(SurveyQuestionEntity surveyquestion) {
+        public void DeleteSurveyQuestion(SurveyQuestionEntity surveyquestion) {
             DataAccess.DeleteSurveyQuestion(surveyquestion);
         }
 

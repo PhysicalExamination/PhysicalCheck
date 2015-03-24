@@ -42,7 +42,7 @@ namespace BusinessLogic.Survey {
             return DataAccess.GetEvaluateModel(ModelID);
         }
 
-        public void Saveevaluatemodel(EvaluateModelEntity evaluatemodel) {
+        public void SaveEvaluateModel(EvaluateModelEntity evaluatemodel) {
             DataAccess.SaveEvaluateModel(evaluatemodel);
         }
 

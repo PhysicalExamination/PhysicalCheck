@@ -38,7 +38,7 @@ namespace BusinessLogic.Survey {
             return DataAccess.GetEvaluateFactors(pageIndex, pageSize, out RecordCount);
         }
 
-        public EvaluateFactorEntity Getevaluatefactor(int EID) {
+        public EvaluateFactorEntity GetEvaluateFactor(int EID) {
             return DataAccess.GetEvaluateFactor(EID);
         }
 

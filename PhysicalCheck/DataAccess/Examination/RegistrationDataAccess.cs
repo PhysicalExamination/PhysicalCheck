@@ -338,7 +338,7 @@ namespace DataAccess.Examination {
             IQueryable<GroupResultViewEntity> g;
             foreach (RegisterTreeData Node in Nodes) {
                 g = Session.Query<GroupResultViewEntity>();
-                g = g.Where(p => p.RegisterNo == Node.GroupID);
+                g = g.Where(p => p.ID.RegisterNo == Node.GroupID);
                 Node.CheckedGroups = g.Select(p => new RegisterTreeData {
                     GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
                     GroupName = p.GroupName

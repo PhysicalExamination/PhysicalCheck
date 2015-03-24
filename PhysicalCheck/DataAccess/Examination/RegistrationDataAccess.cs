@@ -310,6 +310,45 @@ namespace DataAccess.Examination {
         }
 
         /// <summary>
+        /// 返回体检结果录入时的树形数据
+        /// </summary>
+        /// <param name="CheckedDate"></param>
+        /// <param name="DeptName"></param>
+        /// <param name="RegisterNo"></param>
+        /// <returns></returns>
+        public List<RegisterTreeData> GetRegistrationTree(DateTime? CheckedDate,
+            String DeptName, String RegisterNo) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo) && String.IsNullOrWhiteSpace(DeptName) && (CheckedDate != null)) {
+                q = q.Where(p => p.CheckDate == CheckedDate);
+            }
+            q = q.OrderByDescending(p => p.RegisterNo);
+            var m = q.Select(p => new RegisterTreeData {
+                GroupID = p.RegisterNo,
+                GroupName = p.Name
+            });
+            List<RegisterTreeData> Nodes = m.ToList<RegisterTreeData>();
+            IQueryable<GroupResultViewEntity> g;
+            foreach (RegisterTreeData Node in Nodes) {
+                g = Session.Query<GroupResultViewEntity>();
+                g = g.Where(p => p.RegisterNo == Node.GroupID);
+                Node.CheckedGroups = g.Select(p => new RegisterTreeData {
+                    GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
+                    GroupName = p.GroupName
+                }).ToList<RegisterTreeData>();
+            }
+            CloseSession();
+            return Nodes;
+        }
+
+        /// <summary>
         /// 获取体检登记数据
         /// </summary>
         /// <param name="PersonID"></param> 
@@ -436,7 +475,7 @@ namespace DataAccess.Examination {
         public int CancelOverallCheck(String RegisterNo, String Doctor) {
             int Result = 0;
             String HQL = @"Update RegistrationEntity set OverallDate =null,OverallDoctor='',IsCheckOver=0
-                           WHERE RegisterNo=? AND OverallDoctor=?";            
+                           WHERE RegisterNo=? AND OverallDoctor=?";
             ITransaction tx = Session.BeginTransaction();
             try {
                 Result = Session.CreateQuery(HQL)

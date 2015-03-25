@@ -15,13 +15,18 @@ namespace BusinessLogic.SysConfig {
         ///<param name="pageSize">页面大小</param>
         ///<param name="RecordCount">总记录数据</param>
         /// </summary>
-        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
             return DataAccess.GetSuggestions(pageIndex, pageSize, out RecordCount);
         }
 
-        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, int DeptID,
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, int DeptID,
             out int RecordCount) {
             return DataAccess.GetSuggestions(pageIndex, pageSize, DeptID, out RecordCount);
+        }
+
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, String searchKey,
+            out int RecordCount) {
+                return DataAccess.GetSuggestions(pageIndex, pageSize, searchKey, out RecordCount);
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PagedList;
 using NHibernate;
 using NHibernate.Linq;
 using DataEntity.SysConfig;
@@ -31,32 +32,37 @@ namespace DataAccess.SysConfig {
         ///<param name="pageSize">页面大小</param>
         ///<param name="RecordCount">总记录数据</param>
         /// </summary>
-        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
-            String hql = @"select count(SNO) from SuggestionViewEntity order by DisplayOrder";
-            IQuery query = Session.CreateQuery(hql);
-            object obj = query.UniqueResult();
-            int.TryParse(obj.ToString(), out RecordCount);
-            hql = @" from SuggestionViewEntity order by DisplayOrder";
-            IList<SuggestionViewEntity> Result = Session.CreateQuery(hql)
-                                                .SetFirstResult((pageIndex - 1) * pageSize)
-                                                .SetMaxResults(pageSize)
-                                                .List<SuggestionViewEntity>();
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, out int RecordCount) {
+            var q = Session.Query<SuggestionViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            q = q.OrderBy(p => p.DisplayOrder);
+            List<SuggestionViewEntity> Result = q.ToPagedList<SuggestionViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
             CloseSession();
             return Result;
         }
 
-        public IList<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize,int DeptID,
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, int DeptID,
             out int RecordCount) {
-                String hql = @"select count(SNO) from SuggestionViewEntity where DeptID=? order by DisplayOrder";
-            IQuery query = Session.CreateQuery(hql).SetInt32(0,DeptID);
-            object obj = query.UniqueResult();
-            int.TryParse(obj.ToString(), out RecordCount);
-            hql = @" from SuggestionViewEntity where DeptID=? order by DisplayOrder";
-            IList<SuggestionViewEntity> Result = Session.CreateQuery(hql)
-                                                .SetInt32(0,DeptID)
-                                                .SetFirstResult((pageIndex - 1) * pageSize)
-                                                .SetMaxResults(pageSize)
-                                                .List<SuggestionViewEntity>();
+            var q = Session.Query<SuggestionViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.DeptID == DeptID);
+            q = q.OrderBy(p => p.DisplayOrder);
+            List<SuggestionViewEntity> Result = q.ToPagedList<SuggestionViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+        }
+
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, String searchKey,
+            out int RecordCount) {
+            var q = Session.Query<SuggestionViewEntity>();
+            q = q.Where(p => p.Enabled == true);
+            if (!String.IsNullOrWhiteSpace(searchKey)) {
+                q = q.Where(p=>p.KeyWord.Contains(searchKey) ||(p.Name.Contains(searchKey)));
+            }
+            q = q.OrderBy(p => p.DisplayOrder);
+            List<SuggestionViewEntity> Result = q.ToPagedList<SuggestionViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
             CloseSession();
             return Result;
         }

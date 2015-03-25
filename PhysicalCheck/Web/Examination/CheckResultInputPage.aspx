@@ -66,10 +66,11 @@
         function onSetSummary() {
             var GroupID = $("#<%=hGroupID.ClientID%>").val();           
             if ((GroupID == "") || (GroupID == undefined) || (GroupID == null)) return;
-            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random() + "&DeptID=" + GroupID;
+            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random();
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sResult = window.showModalDialog(sURL, null, sFeatures);
-            $("#<%=txtSummary.ClientID %>").val(sResult);
+            var Summary = $("#<%=txtSummary.ClientID %>").val() + sResult;
+            $("#<%=txtSummary.ClientID %>").val(Summary);
         }
 
         function saveData() {
@@ -78,6 +79,8 @@
         function closeWindow() {
             open("CheckResultInputlist.aspx", "_self", "", false);
         }
+        /*onBeforeExpand:function(node,param){                         
+        $('#taskTree').tree('options').url = ctx + "/rims/rescue/loadRescueTaskTreeRootNodes.do?parentId="+node.id;    */
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">

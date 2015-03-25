@@ -24,6 +24,8 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="Server">
+    关键字：<asp:TextBox ID="txtSearchKey" runat="server" CssClass="textbox31" />
+    <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
             <asp:Repeater ID="SuggestionRepeater" runat="server">

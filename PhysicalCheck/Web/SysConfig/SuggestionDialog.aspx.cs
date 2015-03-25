@@ -20,9 +20,9 @@ public partial class SysConfig_SuggestionDialog : BasePage {
     public override void DataBind() {
         using (SuggestionBusiness Suggestion = new SuggestionBusiness()) {
             int RecordCount = 0;
-            int DeptID = Convert.ToInt32(Request.Params["DeptID"]);
+            String SearchKey = txtSearchKey.Text;
             SuggestionRepeater.DataSource = Suggestion.GetSuggestions(Pager.CurrentPageIndex,
-                Pager.PageSize, DeptID, out RecordCount);
+                Pager.PageSize, SearchKey, out RecordCount);
             Pager.RecordCount = RecordCount;
         }
         base.DataBind();
@@ -36,6 +36,11 @@ public partial class SysConfig_SuggestionDialog : BasePage {
         DataBind();
     }
 
+    protected void btnSearch_Click(object sender, EventArgs e) {
+        DataBind();
+    }
+
     #endregion
 
+   
 }

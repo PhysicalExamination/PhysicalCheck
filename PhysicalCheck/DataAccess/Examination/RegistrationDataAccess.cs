@@ -335,15 +335,18 @@ namespace DataAccess.Examination {
                 GroupName = p.Name
             });
             List<RegisterTreeData> Nodes = m.ToList<RegisterTreeData>();
-            IQueryable<GroupResultViewEntity> g;
+            var g = from A in q
+                    join B in Session.Query<GroupResultViewEntity>() on A.RegisterNo equals B.ID.RegisterNo
+                    select B;
+            List<GroupResultViewEntity> GroupResults = g.ToList();
             foreach (RegisterTreeData Node in Nodes) {
-                g = Session.Query<GroupResultViewEntity>();
-                g = g.Where(p => p.ID.RegisterNo == Node.GroupID);
-                Node.CheckedGroups = g.Select(p => new RegisterTreeData {
-                    GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
-                    GroupName = p.GroupName
-                }).ToList<RegisterTreeData>();
+                Node.CheckedGroups = GroupResults.Where(p => p.ID.RegisterNo == Node.GroupID)
+                                                 .Select(p => new RegisterTreeData {
+                                                      GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
+                                                      GroupName = p.GroupName
+                                                 }).ToList<RegisterTreeData>();
             }
+            GroupResults.Clear();
             CloseSession();
             return Nodes;
         }

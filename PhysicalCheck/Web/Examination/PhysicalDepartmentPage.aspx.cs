@@ -180,6 +180,7 @@ public partial class Examination_PhysicalDepartmentPage :BasePage {
     protected void btnSavePhysicalDepartment_Click(object sender, EventArgs e) {
         PhysicalDepartmentEntity Result = GetPhysicalDepartmentUI();
         m_PhysicalDepartment.SavePhysicalDepartment(Result);
+        DeptID = Result.DeptID;
         ShowMessage("体检单位数据保存成功!");
         DataBind();
         SetUIState("Default");

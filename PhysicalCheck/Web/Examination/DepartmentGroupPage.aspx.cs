@@ -73,7 +73,7 @@ public partial class Examination_DepartmentGroupPage : BasePage {
                  Pager.PageSize, DeptName, out RecordCount);            
             DepartmentRepeater.DataSource = DataSource;
             Pager.RecordCount = RecordCount;
-            if (DataSource.Count > 0) BindDepartmentGroup(DataSource[0].DeptID.Value);
+            if (DataSource.Count > 0) BindDepartmentGroup(DataSource[0].DeptID);
             if (DataSource.Count <= 0) BindDepartmentGroup(DeptID);
         }
         base.DataBind();        

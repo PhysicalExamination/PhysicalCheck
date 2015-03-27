@@ -328,8 +328,7 @@ public partial class Reports_Default : BasePage {
     }
 
     private void BuildIntroductionsReport() {
-        List<String> List = (List<String>)Session["Registrations"];
-        Session.Remove("Registrations");
+        List<String> List = (List<String>)Session["Registrations"];        
         if (List == null) return;
         WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");       
          List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
@@ -346,6 +345,7 @@ public partial class Reports_Default : BasePage {
         WebReport1.Report.RegisterData(Packages, "Packages");
         WebReport1.Report.RegisterData(GroupItems, "ItemGroups");
         WebReport1.Prepare();
+        Session.Remove("Registrations");
     }
 
     #endregion

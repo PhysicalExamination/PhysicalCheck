@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="01/24/2015 15:10:25" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/25/2014 10:35:53" ReportInfo.Modified="03/11/2015 13:16:20" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="BarCodes" ReferenceName="BarCodes" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -9,7 +9,7 @@
   <ReportPage Name="Page1" PaperWidth="40" PaperHeight="30" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" Guides="7.56,143.64,0,140">
     <DataBand Name="Data1" Width="151.2" Height="103.95" Guides="9.45,75.6,94.5" DataSource="BarCodes">
       <BarcodeObject Name="Barcode1" Left="7.56" Top="9.45" Width="136.08" Height="66.15" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <TextObject Name="Text1" Top="75.6" Width="140" Height="18.9" Text="[BarCodes.GroupName]" HorzAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text1" Top="75.6" Width="140" Height="18.9" Text="[BarCodes.GroupName]" HorzAlign="Center" Font="宋体, 12pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>

@@ -101,7 +101,7 @@ namespace DataAccess.Examination {
             var q = Session.Query<PhysicalDepartmentEntity>();
             q = q.Where(p => p.Enabled == true && p.DeptName.Contains(DeptName));
            List<PhysicalDepartmentEntity> Depts = q.ToList();
-           if (Depts.Count > 0) return Depts.First().DeptID.Value;
+           if (Depts.Count > 0) return Depts.First().DeptID;
            return int.MinValue;
         }
 

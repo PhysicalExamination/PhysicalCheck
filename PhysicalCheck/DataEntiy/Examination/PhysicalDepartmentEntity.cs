@@ -22,7 +22,7 @@ namespace DataEntity.Examination {
         /// <summary>
         /// 单位编号
         /// </summary>		
-        public virtual int? DeptID {
+        public virtual int DeptID {
             get;
             set;
         }

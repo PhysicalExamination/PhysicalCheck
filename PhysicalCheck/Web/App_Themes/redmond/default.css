@@ -107,6 +107,12 @@ th
     height: 30px;
 }
 
+.Selected {
+    background: #6AA4D1;       
+    color:#FFF;   
+    font-weight:bold;
+}
+
 .divmore
 {
     background-color: #f5f8fd;

@@ -89,22 +89,36 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// <summary>
     /// 数据绑定
     /// </summary>
+    // public override void DataBind() {
+    //int RecordCount = 0;       
+    //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
+    //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
+    //Pager.RecordCount = RecordCount;
+    /*ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
+        RegisterNo, Convert.ToInt32(GroupId));
+    base.DataBind();
+    GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
+    if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
+    TextBox txtCheckResult;
+    RepeaterItemCollection Items = ItemResultRepeater.Items;
+    foreach (RepeaterItem Item in Items) {
+        txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
+        txtCheckResult.Enabled = InputEnabled;
+    }*/
+    //}
+
+    /// <summary>
+    /// 数据绑定体检登记
+    /// </summary>
     public override void DataBind() {
-        //int RecordCount = 0;       
-        //ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(Pager.CurrentPageIndex,
-        //    Pager.PageSize, RegisterNo, Convert.ToInt32( GroupId), out RecordCount);
-        //Pager.RecordCount = RecordCount;
-        /*ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
-            RegisterNo, Convert.ToInt32(GroupId));
+        int RecordCount = 0;
+        DateTime? CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
+        String DeptName = txtDeptName.Text.Trim();
+        String RegisterNo = txtRegisterNo.Text.Trim();
+        Registrations.DataSource = m_Regist.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
+            CheckDate, DeptName, RegisterNo, out RecordCount);
+        Pager.RecordCount = RecordCount;
         base.DataBind();
-        GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
-        if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
-        TextBox txtCheckResult;
-        RepeaterItemCollection Items = ItemResultRepeater.Items;
-        foreach (RepeaterItem Item in Items) {
-            txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
-            txtCheckResult.Enabled = InputEnabled;
-        }*/
     }
 
     #endregion
@@ -129,7 +143,11 @@ public partial class Examination_CheckResultInputPage : BasePage {
             ItemID = Convert.ToInt32(lblItemID.Text);
             //ItemResult = m_ItemResult.GetItemResult(RegisterNo, GroupID, ItemID);
             ItemResult = new ItemResultEntity {
-                ID = new ItemResultPK { ItemID = ItemID, GroupID = GroupID, RegisterNo = RegisterNo },
+                ID = new ItemResultPK {
+                    ItemID = ItemID,
+                    GroupID = GroupID,
+                    RegisterNo = RegisterNo
+                },
                 DeptID = DepartNo,
                 CheckDate = DateTime.Now.Date,
                 CheckDoctor = UserName,
@@ -139,7 +157,10 @@ public partial class Examination_CheckResultInputPage : BasePage {
         }
 
         GroupResultEntity Group = new GroupResultEntity {
-            ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
+            ID = new GroupResultPK {
+                GroupID = GroupID,
+                RegisterNo = RegisterNo
+            },
             DeptID = DepartNo,
             CheckDate = DateTime.Now.Date,
             CheckDoctor = UserName,
@@ -152,7 +173,6 @@ public partial class Examination_CheckResultInputPage : BasePage {
     }
 
     protected void btnSearch_Click(object sender, EventArgs e) {
-
         DataBind();
     }
 
@@ -161,6 +181,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     }
 
     protected void btnGetItemResult_Click(object sender, EventArgs e) {
+        DataBind();
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
             hRegisterNo.Value, Convert.ToInt32(hGroupID.Value));
         base.DataBind();
@@ -172,11 +193,9 @@ public partial class Examination_CheckResultInputPage : BasePage {
             txtCheckResult = (TextBox)Item.FindControl("txtCheckResult");
             txtCheckResult.Enabled = InputEnabled;
         }
+        ScriptManager.RegisterClientScriptBlock(this, GetType(), "setUIStatus", "setUIStatus();", true);
 
     }
     #endregion
 
-
-
-   
 }

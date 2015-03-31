@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
+using DataEntity.SysConfig;
 
 public class GenerateBarcode : IHttpHandler {
     
@@ -17,6 +18,7 @@ public class GenerateBarcode : IHttpHandler {
         context.Response.ContentType = "application/json";
         String Action = context.Request.Params["Action"];
         if (Action == "BuildRegisterTree") BuildRegisterTree(context);
+        if (Action == "GetCheckedGroup") GetCheckedGroup(context);
     }
 
     #region 体检结果录入
@@ -36,6 +38,14 @@ public class GenerateBarcode : IHttpHandler {
         }
         List<RegisterTreeData> Nodes = m_Registration.GetRegistrationTree(CheckDate, DeptName, RegisterNo);
         Response.Write(JsonConvert.SerializeObject(Nodes));
+    }
+
+    private void GetCheckedGroup(HttpContext context) {
+        HttpResponse Response = context.Response;
+        HttpRequest Request = context.Request;       
+        String RegisterNo = Request.Params["RegisterNo"];
+        List<ItemGroupViewEntity> Groups = m_Registration.GetCheckedGroups(RegisterNo);
+        Response.Write(JsonConvert.SerializeObject(Groups));
     }
 
     #endregion

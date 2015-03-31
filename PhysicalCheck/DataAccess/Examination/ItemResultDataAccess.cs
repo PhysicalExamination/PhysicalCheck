@@ -112,10 +112,10 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="ItemResult">体检项目结论实体</param>
         public void SaveItemResult(ItemResultEntity ItemResult) {
-            Session.SaveOrUpdate(ItemResult);
-            Session.Flush();
-            CloseSession();
-            /*ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
+            //Session.SaveOrUpdate(ItemResult);
+            //Session.Flush();
+            //CloseSession();
+           ItemResultEntity OldResult = Session.Get<ItemResultEntity>(ItemResult.ID);
             if (OldResult == null) {
                 Session.SaveOrUpdate(ItemResult);
                 Session.Flush();
@@ -130,7 +130,7 @@ namespace DataAccess.Examination {
                 Session.SaveOrUpdate(OldResult);
                 Session.Flush();
                 CloseSession();
-            }*/
+            }
         }
 
         /// <summary>

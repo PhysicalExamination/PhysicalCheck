@@ -5,15 +5,21 @@
     <script type="text/javascript">
 
         function SaveReturn() {
-            var sReturnValues = "";           
+            var sReturnValues = new Array();                
+            var list = new Array();
+            var summary = "";
             var $parent;
-            $(":checked").each(function (index, item) {              
+            $(":checked").each(function (index, item) {               
+                list.push($(item).attr("id"));                        
                 $parent = $(item).parent().parent();
-                sReturnValues += "\n" + trim($parent.children().eq(1).text()) + "\n";                
-                sReturnValues += trim($parent.children().eq(2).text());
+                summary += "\n" + trim($parent.children().eq(1).text()) + "\n";
+                summary += trim($parent.children().eq(2).text());
             });
+            alert(list);
+            sReturnValues.push(summary);
+            sReturnValues.push(list);
             window.returnValue = sReturnValues;
-            window.close();
+            //window.close();
         }
 
         function trim(sValue) {
@@ -45,7 +51,7 @@
                 <ItemTemplate>
                     <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
                         <td class="VLine" align="center">
-                            <input type="checkbox" />
+                            <input type="checkbox" id="<%#Eval("SNO") %>" />
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("KeyWord") %>
@@ -58,7 +64,7 @@
                 <AlternatingItemTemplate>
                     <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
                         <td class="VLine" align="center">
-                            <input type="checkbox" />
+                           <input type="checkbox" id="<%#Eval("SNO") %>"  />
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("KeyWord") %>

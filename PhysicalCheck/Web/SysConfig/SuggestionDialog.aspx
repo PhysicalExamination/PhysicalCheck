@@ -14,12 +14,11 @@
                 $parent = $(item).parent().parent();
                 summary += "\n" + trim($parent.children().eq(1).text()) + "\n";
                 summary += trim($parent.children().eq(2).text());
-            });
-            alert(list);
+            });           
             sReturnValues.push(summary);
             sReturnValues.push(list);
             window.returnValue = sReturnValues;
-            //window.close();
+            window.close();
         }
 
         function trim(sValue) {

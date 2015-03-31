@@ -53,7 +53,8 @@
             $("#<%=hRegisterNo.ClientID%>").val(registerNo);
             $("#<%=hGroupID.ClientID%>").val(groupID);
             $("#<%=btnGetItemResult.ClientID%>").click();
-            $("#hSelected").val(registerNo);           
+            $("#hSelected").val(registerNo);
+            $("#<%=txtSummary.ClientID %>").val("");
         }
 
         function onSetSummary() {

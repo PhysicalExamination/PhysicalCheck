@@ -67,6 +67,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            txtCheckDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
             DataBind();
         }
     }

@@ -187,6 +187,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
             hRegisterNo.Value, Convert.ToInt32(hGroupID.Value));
         base.DataBind();
         GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
+        txtSummary.Text = "";
         if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
         TextBox txtCheckResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;

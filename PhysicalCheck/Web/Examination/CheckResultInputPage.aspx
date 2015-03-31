@@ -53,8 +53,7 @@
             $("#<%=hRegisterNo.ClientID%>").val(registerNo);
             $("#<%=hGroupID.ClientID%>").val(groupID);
             $("#<%=btnGetItemResult.ClientID%>").click();
-            $("#hSelected").val(registerNo);
-            $("#<%=txtSummary.ClientID %>").val("");
+            $("#hSelected").val(registerNo);          
         }
 
         function onSetSummary() {
@@ -64,7 +63,7 @@
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sResult = window.showModalDialog(sURL, null, sFeatures);
             if ((sResult == undefined) || (sResult == null)) return;
-            var Summary = $("#<%=txtSummary.ClientID %>").val() + sResult;
+            var Summary = $("#<%=txtSummary.ClientID %>").val() + sResult[0];
             $("#<%=txtSummary.ClientID %>").val(Summary);
         }
 
@@ -255,7 +254,7 @@
             </Triggers>
         </asp:UpdatePanel>
 
-        <asp:UpdatePanel ID="UP2" runat="Server">
+        <asp:UpdatePanel ID="UP2" runat="Server" UpdateMode="Always">
             <ContentTemplate>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
@@ -274,9 +273,9 @@
                     </tr>
                 </table>
             </ContentTemplate>
-            <%-- <Triggers>
+             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnSave" />
-            </Triggers>--%>
+            </Triggers>
         </asp:UpdatePanel>
     </div>
     <div style="display: none;">

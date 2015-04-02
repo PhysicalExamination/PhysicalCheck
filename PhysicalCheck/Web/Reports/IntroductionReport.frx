@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="04/02/2015 15:49:57" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/27/2014 16:10:19" ReportInfo.Modified="04/02/2015 16:14:23" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -61,7 +61,7 @@
       <DataBand Name="Data3" Top="319.08" Width="718.2" Height="28.35" Guides="0,24.57" DataSource="ItemGroups">
         <TextObject Name="Text22" Left="20.9" Top="1" Width="193.45" Height="24.57" CanGrow="true" Text="[ItemGroups.GroupName]" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text23" Left="213.9" Width="94.5" Height="24.57" CanGrow="true" Text="[ItemGroups.Price]" Format="Currency" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text24" Left="302.4" Width="415.8" Height="24.57" CanGrow="true" Text="[ItemGroups.Notice]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text24" Left="302.4" Width="415.8" Height="24.57" CanGrow="true" Text="[ItemGroups.Notice]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text42" Left="2" Top="1.67" Width="18.9" Height="18.9" Border.Lines="All" Font="宋体, 9pt"/>
       </DataBand>
     </DataBand>

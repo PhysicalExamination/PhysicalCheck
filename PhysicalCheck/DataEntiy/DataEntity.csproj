@@ -60,6 +60,7 @@
     <Compile Include="Examination\DepartmentPackageViewEntity.cs" />
     <Compile Include="Examination\GroupResultEntity.cs" />
     <Compile Include="Examination\GroupResultViewEntity.cs" />
+    <Compile Include="Examination\GroupSummaryEntity.cs" />
     <Compile Include="Examination\ItemResultEntity.cs" />
     <Compile Include="Examination\ItemResultViewEntity.cs" />
     <Compile Include="Examination\PhysicalDepartmentEntity.cs" />
@@ -176,6 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Lismap.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mapping\GroupSummary.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

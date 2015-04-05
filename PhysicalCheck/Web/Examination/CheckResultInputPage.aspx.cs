@@ -170,6 +170,22 @@ public partial class Examination_CheckResultInputPage : BasePage {
             PackageID = PackageID
         };
         m_GroupResut.SaveGroupResult(Group);
+
+        using (GroupSummaryBusiness GroupSummary = new GroupSummaryBusiness()) {
+            String S = hGroupSummary.Value;
+            if (!String.IsNullOrWhiteSpace(S)) {
+                GroupSummary.DeleteGroupSummary(RegisterNo, GroupID);
+                String[] Summarys = S.Split(',');
+                foreach (String Summary in Summarys) {
+                    GroupSummaryEntity Entity = new GroupSummaryEntity {
+                        RegisterNo = RegisterNo,
+                        GroupID = GroupID,
+                        SummaryID = Convert.ToInt32(Summary)
+                    };
+                    GroupSummary.SaveGroupSummary(Entity);
+                }
+            }
+        }
         ShowMessage("数据保存成功！");
     }
 

@@ -53,7 +53,8 @@
             $("#<%=hRegisterNo.ClientID%>").val(registerNo);
             $("#<%=hGroupID.ClientID%>").val(groupID);
             $("#<%=btnGetItemResult.ClientID%>").click();
-            $("#hSelected").val(registerNo);          
+            $("#hSelected").val(registerNo);
+            $("#<%=hGroupSummary.ClientID%>").val("");
         }
 
         function onSetSummary() {
@@ -65,6 +66,7 @@
             if ((sResult == undefined) || (sResult == null)) return;
             var Summary = $("#<%=txtSummary.ClientID %>").val() + sResult[0];
             $("#<%=txtSummary.ClientID %>").val(Summary);
+            $("#<%=hGroupSummary.ClientID%>").val(sResult[1]);
         }
 
         function setUIStatus() {
@@ -283,5 +285,6 @@
         <asp:HiddenField ID="hGroupID" runat="server" />
         <asp:Button ID="btnGetItemResult" runat="server" Text="获取结果明细" OnClick="btnGetItemResult_Click" />
         <input type="hidden" id="hSelected" />
+        <asp:HiddenField ID="hGroupSummary" runat="server" />
      </div>
 </asp:Content>

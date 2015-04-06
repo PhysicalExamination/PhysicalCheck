@@ -93,10 +93,10 @@ public class BasePage : System.Web.UI.Page {
 	#region 重写方法
 
 	protected override void OnLoad(EventArgs e) {
-        //if (!Request.IsAuthenticated) {
-        //    Response.Redirect(FormsAuthentication.LoginUrl);
-        //    return;
-        //}
+        if (!Request.IsAuthenticated) {
+            Response.Redirect(FormsAuthentication.LoginUrl);
+            return;
+        }
 		ScriptManager.RegisterStartupScript(this, GetType(), "InitialInput", "InitialInput();", true);        
 		base.OnLoad(e);
 	}

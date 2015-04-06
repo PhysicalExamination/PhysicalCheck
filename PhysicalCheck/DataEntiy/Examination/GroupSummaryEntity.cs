@@ -38,5 +38,19 @@ namespace DataEntity.Examination {
             set;
         }
         #endregion
+
+        public override bool Equals(object obj) {
+            if (obj is GroupSummaryEntity) {
+                GroupSummaryEntity pk = obj as GroupSummaryEntity;
+                if (this.RegisterNo == pk.RegisterNo && this.GroupID == pk.GroupID&&this.SummaryID==pk.SummaryID) {
+                    return true;
+                }
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
+        }
     }
 }

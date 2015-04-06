@@ -41,23 +41,24 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private string RegisterNo {
         get {
-            if (ViewState["RegisterNo"] == null) return Request.Params["id"];
-            return (string)ViewState["RegisterNo"];
+            //if (ViewState["RegisterNo"] == null) return Request.Params["id"];
+            //return (string)ViewState["RegisterNo"];
+            return hRegisterNo.Value;
         }
-        set {
-            ViewState["RegisterNo"] = value;
-        }
+        //set {
+        //    ViewState["RegisterNo"] = value;
+        //}
     }
 
-    private string GroupId {
-        get {
-            if (ViewState["GroupId"] == null) return Request.Params["GroupId"];
-            return (string)ViewState["GroupId"];
-        }
-        set {
-            ViewState["GroupId"] = value;
-        }
-    }
+    //private string GroupId {
+    //    get {
+    //        if (ViewState["GroupId"] == null) return Request.Params["GroupId"];
+    //        return (string)ViewState["GroupId"];
+    //    }
+    //    set {
+    //        ViewState["GroupId"] = value;
+    //    }
+    //}
 
 
     #endregion
@@ -127,15 +128,15 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 事件
 
     protected void btnSave_Click(object Source, EventArgs e) {
-        RegisterNo = hRegisterNo.Value;
-        GroupId = hGroupID.Value;
+        //RegisterNo = hRegisterNo.Value;
+        //GroupId = hGroupID.Value;
         if (String.IsNullOrWhiteSpace(RegisterNo)) {
             ShowMessage("数据保存失败，请输入体检登记号。");
             return;
         }
         Literal lblItemID;
         TextBox txtCheckResult;
-        int GroupID = Convert.ToInt32(GroupId), ItemID;
+        int GroupID = Convert.ToInt32(hGroupID.Value), ItemID;
         ItemResultEntity ItemResult;
         RepeaterItemCollection Items = ItemResultRepeater.Items;
         foreach (RepeaterItem Item in Items) {
@@ -202,7 +203,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
         ItemResultRepeater.DataSource = m_ItemResult.GetDeptItemResults(
             hRegisterNo.Value, Convert.ToInt32(hGroupID.Value));
         base.DataBind();
-        GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(GroupId));
+        GroupResultViewEntity GroupResult = m_GroupResut.GetGroupResult(RegisterNo, Convert.ToInt32(hGroupID.Value));
         txtSummary.Text = "";
         if (GroupResult != null) txtSummary.Text = GroupResult.Summary;
         TextBox txtCheckResult;

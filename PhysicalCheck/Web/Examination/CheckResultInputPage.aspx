@@ -7,6 +7,11 @@
     <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.droppable.js"></script>
     <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.tree.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({               
+                cache: false
+            });
+        });
         function onSelected(el, registerNo) {
             $("#datagrid tr").removeClass("Selected");
             $(el).addClass("Selected");

@@ -1,11 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true"
     CodeFile="CheckResultInputPage.aspx.cs" Inherits="Examination_CheckResultInputPage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link type="text/css" rel="stylesheet" href="<%=ApplicationPath%>/Styles/jquery-easyui-1.2.3/tree.css" />
-    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.draggable.js"></script>
-    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.droppable.js"></script>
-    <script type="text/javascript" src="<%=ApplicationPath%>/Scripts/jquery-easyui-1.2.3/jquery.tree.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">   
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({               

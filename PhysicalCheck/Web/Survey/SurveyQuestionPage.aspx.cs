@@ -21,7 +21,7 @@ public partial class Survey_SurveyQuestionPage : BasePage {
 
     #region 属性
 
-    private int QID {
+    protected int QID {
         get {
             if (ViewState["QID"] == null) return int.MinValue;
             return (int)ViewState["QID"];

@@ -23,8 +23,8 @@ namespace BusinessLogic.Survey {
 
         #region 公共方法
 
-        public List<QuestionOptionEntity> GetQuestionOptions() {
-            return DataAccess.GetQuestionOptions();
+        public List<QuestionOptionEntity> GetQuestionOptions(int QuestionID) {
+            return DataAccess.GetQuestionOptions(QuestionID);
         }
 
         ///<summary>

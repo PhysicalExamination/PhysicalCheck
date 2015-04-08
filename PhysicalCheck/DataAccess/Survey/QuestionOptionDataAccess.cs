@@ -28,8 +28,9 @@ namespace DataAccess.Survey {
         /// <summary>
         ///获取所有问题选项数据
         /// </summary>
-        public List<QuestionOptionEntity> GetQuestionOptions() {
-            var q = Session.Query<QuestionOptionEntity>();                  
+        public List<QuestionOptionEntity> GetQuestionOptions(int QuestionID) {
+            var q = Session.Query<QuestionOptionEntity>();
+            q = q.Where(p => p.ID.QID == QuestionID).OrderBy(p=>p.ID.SN);
             List<QuestionOptionEntity> Result = q.ToList<QuestionOptionEntity>();
             CloseSession();
             return Result;

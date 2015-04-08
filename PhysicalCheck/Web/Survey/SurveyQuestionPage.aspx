@@ -3,11 +3,36 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         $(function () {
+            $("#Options").hide();
             $("#tabs").tabs();
         });
 
         function onSelected(index) {
             $("#tabs").tabs("option", "active", index);
+        }
+        function setQuestionOptions() {
+            var QType = $("#<%=drpQTypes.ClientID%>").val();
+            if (QType == "1") return;
+            var QuestionID = "<%=QID%>";
+            var sURL = "QuestionOptionPage.aspx?QuestionID=" + QuestionID + "&rand=" + Math.random();
+            var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
+            window.showModalDialog(sURL, null, sFeatures);           
+        }        
+
+        function onRowClick(questionID) {
+            var url = "Services.ashx?Action=GetQuestionOption&QuestionID=" + questionID;
+            var html = "";
+            $.get(url, "", function (data) {
+                data.each(function (index, item) {
+                    html += "<tr>";
+                    html += "<td class=\"VLine\" align=\"center\">" + item.ID.SN + "</td>";
+                    html += "<td class=\"VLine\" align=\"center\">" + item.OptionTitle + "</td>";
+                    html += "<td class=\"VLine\" align=\"center\">" + item.OptionValue + "</td>";
+                    html += "</tr>";
+                });
+                $("#Options tbody").html(html);
+                $("#Options").show();
+            }, "json");
         }
 
     </script>
@@ -36,7 +61,7 @@
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                            <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'" onclick='onRowClick("<%# Eval("QID") %>");' >
                                 <td class="VLine" align="center">
                                     <%# Container.ItemIndex + 1%>
                                 </td>
@@ -62,7 +87,7 @@
                             </tr>
                         </ItemTemplate>
                         <AlternatingItemTemplate>
-                            <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                            <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'" onclick='onRowClick("<%# Eval("QID") %>");'>
                                 <td class="VLine" align="center">
                                     <%# Container.ItemIndex + 1%>
                                 </td>
@@ -153,6 +178,7 @@
                                     OnClientClick="javascript:return confirm('你确定要删除该数据吗？')" />
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSaveSurveyQuestion_Click" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancelSurveyQuestion_Click" />
+                                <input type="button" value="设置选项" class="buttonCss" onclick="setQuestionOptions();" />
                             </td>
                         </tr>
                     </table>
@@ -160,5 +186,18 @@
             </asp:UpdatePanel>
         </div>
     </div>
+    <p></p>
+    <table id="Options" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>选项标题</th>
+                <th>选项值</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
 </asp:Content>
 

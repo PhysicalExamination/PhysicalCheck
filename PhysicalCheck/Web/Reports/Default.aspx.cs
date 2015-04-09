@@ -9,29 +9,34 @@ using BusinessLogic.Examination;
 using System.Data;
 using DataEntity.Examination;
 
-public partial class Reports_Default : BasePage {
+public partial class Reports_Default : BasePage
+{
 
     private ReportUtility m_ReportUtil;
     private RegistrationBusiness m_Registration;
 
     #region 重写方法
 
-    protected override void OnInit(EventArgs e) {
+    protected override void OnInit(EventArgs e)
+    {
         base.OnInit(e);
         m_Registration = new RegistrationBusiness();
         m_ReportUtil = new ReportUtility();
     }
 
-    protected override void OnUnload(EventArgs e) {
+    protected override void OnUnload(EventArgs e)
+    {
         base.OnUnload(e);
         m_Registration.Dispose();
         m_Registration = null;
         m_ReportUtil = null;
     }
 
-    protected override void OnLoad(EventArgs e) {
+    protected override void OnLoad(EventArgs e)
+    {
         base.OnLoad(e);
-        if (!IsPostBack) {
+        if (!IsPostBack)
+        {
             String RegisterNo = Request.Params["RegisterNo"];//"20141214000043"
             String ReportKind = Request.Params["ReportKind"];
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
@@ -44,7 +49,53 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
             if (ReportKind == "64") BuildSearch_workload_ItemGroup();//查询-检查组合项目工作量
+
+            if (ReportKind == "71") BuildUnit_Disease_sum();//体检单位-体检疾病统计表（汇总）
+
+
         }
+    }
+
+    #endregion
+
+    #region 单位体检报告
+
+    /// <summary>
+    /// 体检单位-体检疾病统计表（汇总）
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    private void BuildUnit_Disease_sum()
+    {
+        //WebReport1.ReportFile = Server.MapPath("unit_disease_sum.frx");
+
+        Maticsoft.BLL.UnitReport.UnitReport bll = new Maticsoft.BLL.UnitReport.UnitReport();
+        
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptName"] != "")
+        {
+            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
+            
+        }
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+
+        DataSet ds1 = bll.GetUnitDiseasesumMain(sqlw);
+        DataSet ds2 = bll.GetUnitDiseasesumSub(sqlw);
+
+        Report a = new Report();
+        a.Load(Server.MapPath("unit_disease_sum.frx"));
+        a.SetParameterValue("DateS", Request.Params["StartDate"]);
+        a.SetParameterValue("DateE", Request.Params["EndDate"]);
+        a.RegisterData(ds1, "unit");
+        a.RegisterData(ds2, "disease");
+        WebReport1.Report = a;          
+        WebReport1.Prepare();
     }
 
     #endregion
@@ -52,7 +103,8 @@ public partial class Reports_Default : BasePage {
     #region "查询"
 
     //组合查询
-    public void BuildSearch_Composed() {
+    public void BuildSearch_Composed()
+    {
 
         Report a = new Report();
 
@@ -64,30 +116,36 @@ public partial class Reports_Default : BasePage {
         bool blDate = true;
         string sqlw = " 1=1 ";
 
-        if (Request.Params["RegisterNo"] != "") {
+        if (Request.Params["RegisterNo"] != "")
+        {
             sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
             blDate = false;
         }
 
-        if (Request.Params["DeptName"] != "") {
+        if (Request.Params["DeptName"] != "")
+        {
             sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
             blDate = false;
         }
-        if (Request.Params["Name"] != "") {
+        if (Request.Params["Name"] != "")
+        {
             sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
             blDate = false;
         }
 
-        if (Request.Params["IdNumber"] != "") {
+        if (Request.Params["IdNumber"] != "")
+        {
             sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
             blDate = false;
         }
-        if (Request.Params["OverallDoctor"] != "") {
+        if (Request.Params["OverallDoctor"] != "")
+        {
             sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
             blDate = false;
         }
 
-        if (blDate) {
+        if (blDate)
+        {
             if (Request.Params["StartDate"] != "")
                 sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
 
@@ -118,7 +176,8 @@ public partial class Reports_Default : BasePage {
     }
 
     //科室工作量查询
-    public void BuildSearch_workload_package() {
+    public void BuildSearch_workload_package()
+    {
 
         Report a = new Report();
 
@@ -151,7 +210,8 @@ public partial class Reports_Default : BasePage {
     }
 
     //科室医生工作量查询
-    public void BuildSearch_workload_checkItem() {
+    public void BuildSearch_workload_checkItem()
+    {
 
         Report a = new Report();
 
@@ -204,7 +264,7 @@ public partial class Reports_Default : BasePage {
 
         if (Request.Params["DeptID"] != "")
             sqlw += string.Format("  And A.DeptID = '{0}' ", Request.Params["DeptID"]);
-       
+
         if (Request.Params["StartDate"] != "")
             sqlw += string.Format(" And  A.CheckDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
 
@@ -234,7 +294,8 @@ public partial class Reports_Default : BasePage {
     /// 个人条码打印
     /// </summary>
     /// <param name="RegisterNo"></param>
-    private void BuildBarCodeReport(String RegisterNo) {
+    private void BuildBarCodeReport(String RegisterNo)
+    {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
         WebReport1.Report.RegisterData(m_ReportUtil.GetBarCodes(RegisterNo), "BarCodes");
         WebReport1.Report.Prepare();
@@ -244,16 +305,19 @@ public partial class Reports_Default : BasePage {
     /// <summary>
     /// 条码批量打印
     /// </summary>
-    private void BuildBarCodeListReport() {
+    private void BuildBarCodeListReport()
+    {
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
         DateTime? RegisterDate = null;
-        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"])) {
+        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"]))
+        {
             RegisterDate = Convert.ToDateTime(Request.Params["RegisterDate"]);
         }
         String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
         List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrationForReport(RegisterDate, DeptName);
         List<BarCode> BarCodes = new List<BarCode>();
-        foreach (RegistrationViewEntity Registration in Registrations) {
+        foreach (RegistrationViewEntity Registration in Registrations)
+        {
             BarCodes.AddRange(m_ReportUtil.GetBarCodes(Registration.RegisterNo));
         }
         WebReport1.Report.RegisterData(BarCodes, "BarCodes");
@@ -264,7 +328,8 @@ public partial class Reports_Default : BasePage {
     /// 体检报告打印
     /// </summary>
     /// <param name="RegisterNo"></param>
-    private void BuildCheckReport(String RegisterNo) {
+    private void BuildCheckReport(String RegisterNo)
+    {
         WebReport1.ReportFile = Server.MapPath("CheckReport.frx");
         //WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");            
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
@@ -272,7 +337,8 @@ public partial class Reports_Default : BasePage {
         Registrations.Add(Registration);
         List<GroupItemResult> GroupItemResults = m_ReportUtil.GetGroupResults(RegisterNo);
         List<ItemResult> ItemResults = new List<ItemResult>();
-        foreach (GroupItemResult GroupResult in GroupItemResults) {
+        foreach (GroupItemResult GroupResult in GroupItemResults)
+        {
             ItemResults.AddRange(m_ReportUtil.GetItemResults(RegisterNo, GroupResult.GroupID));
         }
         WebReport1.Report.RegisterData(Registrations, "Registration");
@@ -285,7 +351,8 @@ public partial class Reports_Default : BasePage {
     /// 个人体检引导单打印
     /// </summary>
     /// <param name="RegisterNo"></param>
-    private void BuildIntroductionReport(String RegisterNo) {
+    private void BuildIntroductionReport(String RegisterNo)
+    {
         WebReport1.ReportFile = Server.MapPath("IntroductionReport.frx");
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
@@ -301,10 +368,12 @@ public partial class Reports_Default : BasePage {
     /// <summary>
     /// 引导单批量打印
     /// </summary>
-    private void BuildIntroductionListReport() {
+    private void BuildIntroductionListReport()
+    {
         WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");
         DateTime? RegisterDate = null;
-        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"])) {
+        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"]))
+        {
             RegisterDate = Convert.ToDateTime(Request.Params["RegisterDate"]);
         }
         String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
@@ -312,7 +381,8 @@ public partial class Reports_Default : BasePage {
         //Registrations.Add(Registration);
         List<Package> Packages = new List<Package>();
         List<GroupItem> GroupItems = new List<GroupItem>();
-        foreach (RegistrationViewEntity Registration in Registrations) {
+        foreach (RegistrationViewEntity Registration in Registrations)
+        {
             Packages.AddRange(m_ReportUtil.GetPackageItems(Registration.RegisterNo, Registration.PackageID.Value));
             GroupItems.AddRange(m_ReportUtil.GetGroupItems(Registration.RegisterNo, Registration.PackageID.Value));
         }
@@ -324,23 +394,26 @@ public partial class Reports_Default : BasePage {
         WebReport1.Prepare();
         //WebReport1.Report.PrintSettings.ShowDialog = false;
         //WebReport1.Report.Print();
-       
+
     }
 
-    private void BuildIntroductionsReport() {
-        List<String> List = (List<String>)Session["Registrations"];        
+    private void BuildIntroductionsReport()
+    {
+        List<String> List = (List<String>)Session["Registrations"];
         if (List == null) return;
-        WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");       
-         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
-        foreach(String RegisterNo in List){
+        WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");
+        List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
+        foreach (String RegisterNo in List)
+        {
             Registrations.Add(m_Registration.GetRegistration(RegisterNo));
-        }             
+        }
         List<Package> Packages = new List<Package>();
         List<GroupItem> GroupItems = new List<GroupItem>();
-        foreach (RegistrationViewEntity Registration in Registrations) {
+        foreach (RegistrationViewEntity Registration in Registrations)
+        {
             Packages.AddRange(m_ReportUtil.GetPackageItems(Registration.RegisterNo, Registration.PackageID.Value));
             GroupItems.AddRange(m_ReportUtil.GetGroupItems(Registration.RegisterNo, Registration.PackageID.Value));
-        }     
+        }
         WebReport1.Report.RegisterData(Registrations, "Registration");
         WebReport1.Report.RegisterData(Packages, "Packages");
         WebReport1.Report.RegisterData(GroupItems, "ItemGroups");

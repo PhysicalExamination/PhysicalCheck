@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/08/2015 22:34:06" ReportInfo.Modified="04/09/2015 17:30:14" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="disease" ReferenceName="disease" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="diseaseName" DataType="System.String"/>
+      <Column Name="num" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Unit" ReferenceName="Unit" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="DeptName" DataType="System.String"/>
+      <Column Name="RenNum" Enabled="false" DataType="System.Int32"/>
+      <Column Name="NanNum" DataType="System.Int32"/>
+      <Column Name="NvNum" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <Parameter Name="dates" DataType="System.String"/>
+    <Parameter Name="dateE" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9"/>
+    <PageHeaderBand Name="PageHeader1" Top="22.23" Width="718.2" Height="113.4">
+      <TextObject Name="Text1" Left="85.05" Top="9.45" Width="585.9" Height="28.35" Text="[Unit.DeptName]体检疾病统计表（汇总）" HorzAlign="Center" Font="宋体, 18pt, style=Bold"/>
+      <TextObject Name="Text2" Left="4.9" Top="66.15" Width="94.5" Height="18.9" Text="[dates]" Font="宋体, 9pt"/>
+      <TextObject Name="Text3" Left="137.2" Top="66.15" Width="94.5" Height="18.9" Text="[dateE]" Font="宋体, 9pt"/>
+      <LineObject Name="Line1" Left="100.95" Top="75.6" Width="28.35" Diagonal="true"/>
+      <TextObject Name="Text4" Left="236.25" Top="66.15" Width="359.1" Height="18.9" Text="参加体检共计[Unit.NanNum]+[Unit.NvNum]人，其中男[Unit.NanNum]人，女人[Unit.NvNum]" Font="宋体, 9pt"/>
+      <TextObject Name="Text5" Left="18.9" Top="94.5" Width="28.35" Height="18.9" Border.Lines="All" Font="宋体, 10pt"/>
+      <TextObject Name="Text6" Left="47.25" Top="94.5" Width="425.25" Height="18.9" Border.Lines="All" Text="疾病诊断" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="472.5" Top="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="人数" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="567" Top="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="比例" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="595.35" Top="66.15" Width="103.95" Height="18.9" Text="第[Page]页/共[TotalPages]页" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text17" Left="670.95" Width="94.5" Height="18.9" Text="num" Font="宋体, 10pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="138.97" Width="718.2" Height="18.9" Border.Lines="All" DataSource="disease">
+      <TextObject Name="Text9" Left="18.9" Width="28.35" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text10" Left="47.25" Width="425.25" Height="18.9" Border.Lines="All" Text="[disease.diseaseName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text11" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[disease.num]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text12" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="[disease.num]/([Unit.NanNum]+[Unit.NvNum])*100" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="161.2" Width="718.2" Height="9.45">
+      <ChildBand Name="Child1" Top="173.98" Width="718.2" Height="189">
+        <TextObject Name="Text14" Left="18.9" Top="9.45" Width="680.4" Height="151.2" Text="以上检查结果、诊治意见和注意事项均已在体检包公众详细记载，现令附表给您，并建议：&#13;&#10;&#13;&#10;1、高血压、高血脂和脂肪肝产生的原因是复杂的，但均注意饮食，节制烟酒，以配合治疗和防止并发症发生。&#13;&#10;&#13;&#10;2、请督促乙肝炎免疫功能的员工到体检科注释乙肝疫苗。&#13;&#10;&#13;&#10;3、希望有上述疾病的员工来我院相关科室进一步诊治。&#13;&#10;&#13;&#10; 对于贵单位能到我院体检，是对我院的高度信任，也是对我部门工作的的极大支持，再此，我部门全部医护人员表示衷心的感谢，希望你们多提宝贵意见以便我们改进工作，更好的为您们服务！&#13;&#10;" Font="宋体, 10pt"/>
+        <TextObject Name="Text15" Left="453.6" Top="170.1" Width="207.9" Height="18.9" Text="解放军第二十三医院体检中心" Font="宋体, 10pt"/>
+      </ChildBand>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

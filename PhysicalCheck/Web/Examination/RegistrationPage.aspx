@@ -77,6 +77,11 @@
             window.open(sURL, "_blank", "", true);
         }
 
+        function PrintBarcode(RegisterNo){
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=1";
+            window.open(sURL, "_blank", "", true);
+        }
+
         function downLoadTemplate() {
             var sURL = "<%=ApplicationPath%>/DownLoad/团体数据填报模板.zip";
             window.open(sURL, "_blank", "", true);
@@ -126,14 +131,14 @@
             } else {
                 alert("身份证信息读取失败！");
             }
-        }
+        }        
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">浏览</a></li>
-            <li><a href="#tabs-2">编辑</a></li>
+            <li><a href="#tabs-2">登记</a></li>
         </ul>
         <div id="tabs-1">
             登记日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
@@ -141,7 +146,7 @@
             体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
             登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();" />
+            <input type="button" class="buttonCss" value="批量登记" onclick="btnDataImport();" />
             <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
@@ -279,7 +284,7 @@
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
-                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor: p;" alt="选择体检单位"
+                                <img src="<%=ApplicationPath%>/images/Distract.gif" style="cursor:pointer;" alt="选择体检单位"
                                     onclick="selectDept();" align="middle" border="0" />
                                 <asp:HiddenField ID="hDeptID" runat="server" Value="1" />
                             </td>
@@ -434,7 +439,9 @@
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click"
                                     OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />
+                                <input type="button" id="btnReadCard" value="读身份证" onclick="readCard();" />
+                                <input type="button" value="打印条码" class="buttonCss" onclick="PrintBarcode('<%=RegisterNo%>');" />
+                                <input type="button" value="打印导引单" class="buttonCss" onclick="PrintIntroduction('<%=RegisterNo%>');" />
                             </td>
                         </tr>
                     </table>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" SmoothGraphics="true" ReportInfo.Created="03/02/2015 10:43:21" ReportInfo.Modified="04/09/2015 15:04:20" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="BarCodes" ReferenceName="BarCodes" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="GroupName" DataType="System.String"/>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="40" PaperHeight="25" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="256" OtherPagesSource="256">
+    <DataBand Name="DataBand1" Width="151.2" Height="85.05" DataSource="BarCodes">
+      <BarcodeObject Name="Barcode1" Left="9.45" Top="11.34" Width="128.52" Height="39.69" AutoSize="false" DataColumn="BarCodes.RegisterNo" Text="201504090001" ShowText="false" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text1" Left="9.45" Top="51.03" Width="128.52" Height="18.9" Text="[BarCodes.RegisterNo]" HorzAlign="Center" Font="微软雅黑, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

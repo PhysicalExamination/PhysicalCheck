@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head1" runat="server">
-    <title>健康体检管理系统</title>
+    <title>从业体检管理系统</title>
     <base target="_self">
     <%--<link href="~/css/Default.css" rel="stylesheet" type="text/css" />--%>
     <link href="~/css/template.css" rel="stylesheet" type="text/css" />

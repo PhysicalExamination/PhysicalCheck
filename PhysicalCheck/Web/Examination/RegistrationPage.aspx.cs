@@ -19,7 +19,7 @@ public partial class Examination_RegistrationPage : BasePage {
 
     #region 属性
 
-    private string RegisterNo {
+    protected string RegisterNo {
         get {
             if (ViewState["RegisterNo"] == null) return string.Empty;
             return (string)ViewState["RegisterNo"];

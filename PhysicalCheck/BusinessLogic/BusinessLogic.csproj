@@ -50,6 +50,7 @@
     <Compile Include="BaseBusiness.cs" />
     <Compile Include="chart\BaseInfo.cs" />
     <Compile Include="chart\chart.cs" />
+    <Compile Include="chart\UnitReport.cs" />
     <Compile Include="chart\Search.cs" />
     <Compile Include="Examination\advise.cs" />
     <Compile Include="Examination\ChargeBusiness.cs" />

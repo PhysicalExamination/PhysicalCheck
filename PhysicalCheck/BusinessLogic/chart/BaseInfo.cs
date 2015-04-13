@@ -12,6 +12,14 @@ namespace Maticsoft.BLL.BaseInfo
     {
         private readonly Maticsoft.DAL.BaseInfo.BaseInfo dal = new DAL.BaseInfo.BaseInfo();
 
+          /// <summary>
+        /// 获得表信息列表
+        /// </summary>
+        public DataSet GetList_Table(string tableName, string strWhere)
+        {
+            return dal.GetList_Table(tableName, strWhere);
+        }
+
         /// <summary>
         /// 获得科室列表
         /// </summary>
@@ -38,5 +46,12 @@ namespace Maticsoft.BLL.BaseInfo
 
         }
 
+           /// <summary>
+        /// 获得体检单位列表
+        /// </summary>
+        public DataSet GetList_physicaldepartment(string strWhere)
+        {
+            return dal.GetList_physicaldepartment(strWhere);
+        }
     }
 }

@@ -51,7 +51,8 @@ public partial class Reports_Default : BasePage
             if (ReportKind == "64") BuildSearch_workload_ItemGroup();//查询-检查组合项目工作量
 
             if (ReportKind == "71") BuildUnit_Disease_sum();//体检单位-体检疾病统计表（汇总）
-
+            if (ReportKind == "72") BuildUnit_jieguozhongshu();//体检单位-体检结果综述（汇总）
+           
 
         }
     }
@@ -61,22 +62,24 @@ public partial class Reports_Default : BasePage
     #region 单位体检报告
 
     /// <summary>
-    /// 体检单位-体检疾病统计表（汇总）
+    /// 体检单位-体检结果综述（汇总）
     /// </summary>
     /// <param name="RegisterNo"></param>
-    private void BuildUnit_Disease_sum()
+    public void BuildUnit_jieguozhongshu()
     {
-        //WebReport1.ReportFile = Server.MapPath("unit_disease_sum.frx");
+        Report a = new Report();
+        a.Load(Server.MapPath("unit_Jieguozhongshu.frx"));
 
-        Maticsoft.BLL.UnitReport.UnitReport bll = new Maticsoft.BLL.UnitReport.UnitReport();
-        
+        Maticsoft.BLL.BaseInfo.BaseInfo bll = new Maticsoft.BLL.BaseInfo.BaseInfo(); 
+       
         string sqlw = " 1=1 ";
 
         if (Request.Params["DeptName"] != "")
         {
-            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
-            
+            sqlw += string.Format("  And DeptName like '{0}%' ", Request.Params["DeptName"]);
+
         }
+
 
         if (Request.Params["StartDate"] != "")
             sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
@@ -85,15 +88,72 @@ public partial class Reports_Default : BasePage
             sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
 
 
-        DataSet ds1 = bll.GetUnitDiseasesumMain(sqlw);
-        DataSet ds2 = bll.GetUnitDiseasesumSub(sqlw);
+        DataTable dt = bll.GetList_Table("registrationview", sqlw).Tables[0];
 
+        a.SetParameterValue("RowsCunt", dt.Rows.Count);
+
+        a.RegisterData(dt, "Main");
+
+        WebReport1.Report = a;
+        WebReport1.Prepare();
+    }
+
+
+    /// <summary>
+    /// 体检单位-体检疾病统计表（汇总）
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    public void BuildUnit_Disease_sum()
+    {
         Report a = new Report();
         a.Load(Server.MapPath("unit_disease_sum.frx"));
-        a.SetParameterValue("DateS", Request.Params["StartDate"]);
-        a.SetParameterValue("DateE", Request.Params["EndDate"]);
-        a.RegisterData(ds1, "unit");
-        a.RegisterData(ds2, "disease");
+
+        Maticsoft.BLL.UnitReport.UnitReport bll = new Maticsoft.BLL.UnitReport.UnitReport();
+        
+        string sqlw = " 1=1 ";
+
+        if (Request.Params["DeptName"] != "")
+        {
+            sqlw += string.Format("  And DeptName like '{0}%' ", Request.Params["DeptName"]);
+            
+        }
+
+
+        if (Request.Params["StartDate"] != "")
+            sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
+
+        if (Request.Params["EndDate"] != "")
+            sqlw += string.Format("  And RegisterDate<'{0}' ", Convert.ToDateTime(Request.Params["EndDate"]).AddDays(1));
+
+
+        DataTable dt1 = bll.GetUnitDiseasesumMain(sqlw).Tables[0];
+        DataTable dt2 = bll.GetUnitDiseasesumSub(sqlw).Tables[0];
+
+        dt2.Columns.Add(new DataColumn("DeptName", typeof(string)));
+        dt2.Columns.Add(new DataColumn("NanNum", typeof(int)));
+        dt2.Columns.Add(new DataColumn("NvNum", typeof(int)));
+        dt2.Columns.Add(new DataColumn("RenNum", typeof(int)));
+        dt2.Columns.Add(new DataColumn("Bili", typeof(string)));
+
+        if (dt1.Rows.Count>0)
+        for (int i = 0; i < dt2.Rows.Count;i++ )
+        {
+            dt2.Rows[i]["DeptName"] = dt1.Rows[0]["DeptName"];
+            dt2.Rows[i]["NanNum"] = dt1.Rows[0]["NanNum"];
+            dt2.Rows[i]["NvNum"] = dt1.Rows[0]["NvNum"];
+            dt2.Rows[i]["RenNum"] = Convert.ToInt32( dt1.Rows[0]["NvNum"]) + Convert.ToInt32( dt1.Rows[0]["NanNum"]);
+
+            if (Convert.ToInt32(dt2.Rows[i]["num"]) != 0)
+                dt2.Rows[i]["Bili"] = (Convert.ToInt32(dt2.Rows[i]["num"]) / Convert.ToDecimal(dt2.Rows[i]["RenNum"]) * 100).ToString("##.##") + '%';
+            else
+                dt2.Rows[i]["Bili"] = "";
+        }
+        a.SetParameterValue("dates", Request.Params["StartDate"]);
+
+        a.SetParameterValue("dateE", Request.Params["EndDate"]);
+       
+        a.RegisterData(dt2, "disease");
+
         WebReport1.Report = a;          
         WebReport1.Prepare();
     }

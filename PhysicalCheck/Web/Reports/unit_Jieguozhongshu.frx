@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/12/2015 16:45:57" ReportInfo.Modified="04/12/2015 17:51:09" ReportInfo.CreatorVersion="2013.2.5.0">
+  <ScriptText>
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Windows.Forms;
+    using System.Drawing;
+    using System.Data;
+    using FastReport;
+    using FastReport.Data;
+    using FastReport.Dialog;
+    using FastReport.Barcode;
+    using FastReport.Table;
+    using FastReport.Utils;
+
+    namespace FastReport
+    {
+    public class ReportScript
+    {
+
+    }
+    }
+  </ScriptText>
+  <Dictionary>
+    <TableDataSource Name="Main" ReferenceName="Main" DataType="System.Int32" Enabled="true" TableName="disease">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="Name" DataType="System.Int32"/>
+      <Column Name="Age" DataType="System.String"/>
+      <Column Name="Sex" DataType="System.Int32"/>
+      <Column Name="Conclusion" DataType="System.String"/>
+    </TableDataSource>
+    <Parameter Name="RowsCunt" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2"/>
+    <PageHeaderBand Name="PageHeader1" Top="3.33" Width="718.2" Height="103.95">
+      <TextObject Name="Text1" Left="18.9" Top="9.45" Width="680.4" Height="28.35" Text="体检结果综述（汇总）" HorzAlign="Center" VertAlign="Center" Font="宋体, 18pt, style=Bold"/>
+      <TextObject Name="Text2" Left="18.9" Top="56.7" Width="94.5" Height="18.9" Text="总人数：[RowsCunt]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text3" Left="519.75" Top="56.7" Width="179.55" Height="18.9" Text="打印日期：[Date]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text4" Left="9.45" Top="85.05" Width="56.7" Height="18.9" Border.Lines="All" Text="序号" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text5" Left="66.15" Top="85.05" Width="113.4" Height="18.9" Border.Lines="All" Text="登记号" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text6" Left="179.55" Top="85.05" Width="66.15" Height="18.9" Border.Lines="All" Text="姓名" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text7" Left="245.7" Top="85.05" Width="47.25" Height="18.9" Border.Lines="All" Text="性别" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text8" Left="292.95" Top="85.05" Width="66.15" Height="18.9" Border.Lines="All" Text="年龄" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text9" Left="359.1" Top="85.05" Width="340.2" Height="18.9" Border.Lines="All" Text="综      述" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="110.62" Width="718.2" Height="18.9" DataSource="Main">
+      <TextObject Name="Text14" Left="292.95" Width="66.15" Height="18.9" Border.Lines="All" Text="[Main.Age]" Font="宋体, 9pt"/>
+      <TextObject Name="Text13" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" Text="[Main.Sex]" Font="宋体, 9pt"/>
+      <TextObject Name="Text12" Left="179.55" Width="66.15" Height="18.9" Border.Lines="All" Text="[Main.Name]" Font="宋体, 9pt"/>
+      <TextObject Name="Text11" Left="66.15" Width="113.4" Height="18.9" Border.Lines="All" Text="[Main.RegisterNo]" Font="宋体, 9pt"/>
+      <TextObject Name="Text15" Left="359.1" Width="340.2" Height="18.9" Border.Lines="All" Text="[Main.Conclusion]" Font="宋体, 9pt"/>
+      <TextObject Name="Text16" Left="9.45" Width="56.7" Height="18.9" Border.Lines="All" Text="[Row#]" Font="宋体, 9pt"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="132.85" Width="718.2"/>
+    <PageFooterBand Name="PageFooter1" Top="136.18" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

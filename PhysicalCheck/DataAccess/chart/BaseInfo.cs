@@ -62,5 +62,39 @@ namespace Maticsoft.DAL.BaseInfo
             return DbHelperMySQL.Query(strSql.ToString());
         }
 
+        /// <summary>
+        /// 获得体检单位列表
+        /// </summary>
+        public DataSet GetList_physicaldepartment(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from physicaldepartment   ");
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            //WHERE DeptID<>1
+
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得表信息列表
+        /// </summary>
+        public DataSet GetList_Table(string tableName, string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from "+tableName  );
+
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }         
+            return DbHelperMySQL.Query(strSql.ToString());
+        }
+
+
+
     }
 }

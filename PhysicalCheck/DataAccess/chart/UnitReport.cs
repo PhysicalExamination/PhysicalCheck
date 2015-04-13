@@ -20,7 +20,7 @@ namespace Maticsoft.DAL.UintReport
         public DataSet GetUnitDiseasesumMain(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(" select DeptName, SUM(CASE when Sex='男'then 1 else 0 end )as 'nan' ,sum( CASE when Sex='女' then 1 else 0 end) as 'nv'  ");
+            strSql.Append(" select DeptName, SUM(CASE when Sex='男'then 1 else 0 end )as 'NanNum' ,sum( CASE when Sex='女' then 1 else 0 end) as 'NvNum'  ");
             strSql.Append(" from registrationview  ");
 
             if (strWhere.Trim() != "")
@@ -38,7 +38,7 @@ namespace Maticsoft.DAL.UintReport
         public DataSet GetUnitDiseasesumSub(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(" select F.`Name`,SUM(1) from  groupsummary AS E   ");
+            strSql.Append(" select F.`Name` as diseaseName,SUM(1)as num from  groupsummary AS E   ");
             strSql.Append(" INNER JOIN suggestion AS F ON E.SummaryID=F.SNo ");
             strSql.Append(" INNER JOIN registrationview as G ON E.RegisterNo=G.RegisterNo  ");
             

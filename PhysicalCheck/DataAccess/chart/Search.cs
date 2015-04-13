@@ -21,7 +21,7 @@ namespace Maticsoft.DAL.Search
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT A.*,B.DeptName,C.PackageName,D.GroupName from groupresult  as A  ");
-            strSql.Append(" INNER JOIN department as B on A.DeptID=B.DeptID  ");
+            strSql.Append(" left JOIN department as B on A.DeptID=B.DeptID  ");
             strSql.Append(" INNER JOIN package as C on C.PackageID=A.PackageID  ");
             strSql.Append(" INNER JOIN itemgroup as D on D.GroupID=A.GroupID   ");
             

@@ -186,6 +186,13 @@ namespace BusinessLogic.Examination {
             }*/
         }
 
+        public void UpdatePhoto(String RegisterNo,String Photo){
+            //RegistrationViewEntity RegInfo = DataAccess.GetRegistration(RegisterNo);
+            //using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
+            //    CheckPerson.GetCheckPerson(RegInfo.PersonID.Value);
+            //}
+        }
+
         #endregion
 
         #region 检查结果

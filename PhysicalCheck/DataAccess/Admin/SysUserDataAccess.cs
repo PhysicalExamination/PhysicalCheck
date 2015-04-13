@@ -99,6 +99,18 @@ namespace DataAccess.Admin {
 			return Result;
 		}
 
+        public bool HasModulePermit(String UserAccount, String ModuleNo) {
+            var q = (from a in Session.Query<RoleMemberEntity>()
+                                         join b in Session.Query<SysUserEntity>() on a.UserNo equals b.UserNo
+                                         join c in Session.Query<RolePermissionEntity>() on a.RoleNo equals c.RoleNo
+                                         join d in Session.Query<ModuleEntity>() on c.ModuleNo equals d.ModuleNo
+                                         where b.UserAccount == UserAccount && d.ModuleNo == ModuleNo
+                                         orderby d.OrderNo
+                                         select d).ToList<ModuleEntity>();
+            CloseSession();
+            return q.Count>0;
+        }
+
 		/// <summary>
 		/// 检查用户是否存在不存在返回false否则返回true
 		/// </summary>

@@ -7,6 +7,13 @@
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=4";
             window.open(sURL, "_blank", "", true);
         }
+        function BatchPrintReport(){
+            var CheckDate=$("#<%=txtSRegisterDate.ClientID%>").val();
+            var DeptName = $("#<%=txtsDeptName.ClientID%>").val();
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?CheckDate=" + 
+                       CheckDate +"&DeptName=" + DeptName + "&ReportKind=5";
+            window.open(sURL, "_blank", "", true);
+        }
 
     </script>
 </asp:Content>
@@ -14,10 +21,11 @@
     <div class="blank5">
     </div>
     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtSRegisterDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
     体检单位<asp:TextBox CssClass="textbox31" ID="txtsDeptName" runat="server" />
     登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtsRegisterNo" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+    <input type="button" class="buttonCss" value="批量打印" onclick="BatchPrintReport();" />
     <div class="blank5">
     </div>
     <asp:UpdatePanel ID="UP1" runat="Server">

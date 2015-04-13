@@ -82,6 +82,7 @@ public partial class Examination_RegistrationPage : BasePage {
     #region 私有成员
 
     private void ClientInitial() {
+        btnUploadPhoto.Visible = IsAdmin;
         txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         using (RegionBusiness Region = new RegionBusiness()) {
             drpRegion.DataSource = Region.GetRegions("620600000");

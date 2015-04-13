@@ -69,7 +69,7 @@ public partial class Examination_CertificatePage :BasePage {
     #region 私有成员
 
     private void ClientInitial() {
-        txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        txtSRegisterDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
     }
 
     protected string GetHealthCondition(object HealthCondition) {

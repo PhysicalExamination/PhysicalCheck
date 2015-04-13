@@ -55,39 +55,39 @@
 
 <div id="mainshow">
             <div class="showdiv">
-                <a id="p5" style="margin-left: 650px; float: left;" href="Examination/CertificatePage.aspx">
+                <a id="p5" style="margin-left: 650px; float: left;" href="<%=CertificatePage%>">
                     <img alt="" src="images/home/5.png" /></a>
             </div>
             <div style="width: 200px; height: 60px; float: left; margin-left: 700px">
                 <img src="images/home/21.png" alt="" />
             </div>
             <div style="width: 1037px">
-                <a id="p1" style="margin-left: 47px; float: left;" href="Examination/ChargePage.aspx">
+                <a id="p1" style="margin-left: 47px; float: left;" href="<%=ChargePage%>">
                     <img alt="" src="images/home/1.png" /></a>
                 <div class="splitimgdiv">
                 </div>
-                <a id="p2" style="float: left" href="Examination/RegistrationPage.aspx">
+                <a id="p2" style="float: left" href="<%=RegistrationPage%>">
                     <img alt="" src="images/home/2.png" /></a>
                 <div class="splitimgdiv">
                 </div>
-                <a id="p3" style="float: left" href="Examination/CheckResultInputPage.aspx">
+                <a id="p3" style="float: left" href="<%=CheckResultInputPage%>">
                     <img alt="" src="images/home/3.png" /></a>
                 <div class="splitimgdiv">
                 </div>
-                <a id="p4" style="float: left" href="Examination/OverallCheckedPage.aspx">
+                <a id="p4" style="float: left" href="<%=CertificatePage%>">
                     <img alt="" src="images/home/4.png" /></a>
                 <div class="splitimgdiv">
                 </div>
-                <a id="p6" style="float: left" href="search/customerArchiveList.aspx">
+                <a id="p6" style="float: left" href="<%=IntegratedSearch%>">
                     <img alt="" src="images/home/6.png" /></a>
             </div>
             <div style="width: 200px; height: 60px; float: left; margin-left: 690px">
                 <img src="images/home/22.png" alt="" />
             </div>
             <div style="width: 1037px">
-                <a id="p7" style="margin-left: 550px; float: left" href="Examination/ReviewPage.aspx">
+                <a id="p7" style="margin-left: 550px; float: left" href="#">
                     <img alt="" src="images/home/7.png" /></a> <a id="p8" style="margin-left: 47px; float: left"
-                        href="Examination/OverallCheckedPage.aspx">
+                        href="<%=OverallCheckedPage%>">
                         <img alt="" src="images/home/8.png" /></a>
             </div>
         </div>

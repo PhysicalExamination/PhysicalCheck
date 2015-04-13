@@ -99,6 +99,9 @@ namespace BusinessLogic.Admin {
 			return DataAccess.GetUserModules(UserAccount, ParentModuleNo);
 		}
 
+        public bool HasModulePermit(String UserAccount, String ModuleNo) {
+            return DataAccess.HasModulePermit(UserAccount, ModuleNo);
+        }
 		#endregion
 	}
 }

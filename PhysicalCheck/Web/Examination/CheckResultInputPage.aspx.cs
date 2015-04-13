@@ -9,6 +9,7 @@ using Common.FormatProvider;
 using DataEntity.Examination;
 using BusinessLogic.SysConfig;
 using BusinessLogic.Admin;
+using DataEntity.SysConfig;
 
 public partial class Examination_CheckResultInputPage : BasePage {
 
@@ -151,8 +152,10 @@ public partial class Examination_CheckResultInputPage : BasePage {
 
     private void ClientInitial() {
         txtCheckedDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        //m_GroupResut.GetGroupResults( DepartNo
         using (ItemGroupBusiness Business = new ItemGroupBusiness()) {
-            drpGroups.DataSource = Business.GetItemGroups();
+            List<ItemGroupViewEntity> ItemGroups = Business.GetItemGroups();
+            drpGroups.DataSource = ItemGroups.Where(p => p.DeptID == DepartNo);
             drpGroups.DataValueField = "GroupID";
             drpGroups.DataTextField = "GroupName";
             drpGroups.DataBind();
@@ -166,6 +169,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
         Pager1.RecordCount = DataSource.Count;
         ItemResultRepeater.DataBind();       
         GroupResultViewEntity Result = m_GroupResut.GetGroupResult(RegisterNo, GroupID);
+        if (Result == null) return;
         //txtSummary.Text = Result.Summary;
         chkIsPassed.Checked = Result.IsPassed;
     }

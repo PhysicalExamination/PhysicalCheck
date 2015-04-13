@@ -144,7 +144,7 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if (CheckDate != null) {
+            if (String.IsNullOrWhiteSpace(RegisterNo)&&(CheckDate != null)) {
                 Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
@@ -163,8 +163,8 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if (CheckDate != null) {
-                Criteria.Add(Restrictions.Eq("OverallDate", CheckDate));
+            if (String.IsNullOrWhiteSpace(RegisterNo) && (CheckDate != null)) {
+                Criteria.Add(Restrictions.Eq("CheckDate", CheckDate));
             }
             if (String.IsNullOrWhiteSpace(RegisterNo)) {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));

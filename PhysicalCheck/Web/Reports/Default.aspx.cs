@@ -12,6 +12,7 @@ using DataEntity.SysConfig;
 using DataEntity.Admin;
 using BusinessLogic.Admin;
 using System.Data;
+using Common.FormatProvider;
 
 public partial class Reports_Default : BasePage {
 
@@ -23,7 +24,7 @@ public partial class Reports_Default : BasePage {
     protected override void OnInit(EventArgs e) {
         base.OnInit(e);
         m_Registration = new RegistrationBusiness();
-        m_Util = new ReportUtility();       
+        m_Util = new ReportUtility();
     }
 
     protected override void OnUnload(EventArgs e) {
@@ -40,8 +41,8 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "1") BuildBarCodeReport(RegisterNo);// 条码
             if (ReportKind == "2") BuildCheckReport(RegisterNo);//体检报告
             if (ReportKind == "3") BuildIntroductionReport(RegisterNo);//引导单
-            if (ReportKind == "4") BuildHealthCard(RegisterNo);
-            //if (ReportKind == "5") BuildHealthCertificate(RegisterNo);//健康证
+            if (ReportKind == "4") BuildHealthCard(RegisterNo);//健康证
+            if (ReportKind == "5") BuildHealthCardBatch();//健康证批量
             //if（ReportKind=="6") BuildTransfer(RegisterNo);//调离通知
             //if (ReportKind =="7") BuildReviewNotice(RegisterNo);//复查通知
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
@@ -55,8 +56,7 @@ public partial class Reports_Default : BasePage {
     #region "查询"
 
     //组合查询
-    public void BuildSearch_Composed()
-    {
+    public void BuildSearch_Composed() {
 
         Report a = new Report();
 
@@ -68,32 +68,30 @@ public partial class Reports_Default : BasePage {
         bool blDate = true;
         string sqlw = " 1=1 ";
 
-        if (Request.Params["RegisterNo"] != "")
-        {
+        if (Request.Params["RegisterNo"] != "") {
             sqlw += string.Format("  And RegisterNo like '%{0}%' ", Request.Params["RegisterNo"]);
             blDate = false;
         }
 
-        if (Request.Params["DeptName"] != "")
-        {sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
-        blDate = false;
+        if (Request.Params["DeptName"] != "") {
+            sqlw += string.Format("  And DeptName like '%{0}%' ", Request.Params["DeptName"]);
+            blDate = false;
         }
-        if (Request.Params["Name"] != "")
-        {   sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
-        blDate = false;
-        }
-
-        if (Request.Params["IdNumber"] != "")
-        {   sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
-        blDate = false;
-        }
-        if (Request.Params["OverallDoctor"] != "")
-        {   sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
-        blDate = false;
+        if (Request.Params["Name"] != "") {
+            sqlw += string.Format("  And Name like '%{0}%' ", Request.Params["Name"]);
+            blDate = false;
         }
 
-        if (blDate)
-        {
+        if (Request.Params["IdNumber"] != "") {
+            sqlw += string.Format("  And IdNumber like '{0}%' ", Request.Params["IdNumber"]);
+            blDate = false;
+        }
+        if (Request.Params["OverallDoctor"] != "") {
+            sqlw += string.Format("  And OverallDoctor like '{0}%' ", Request.Params["OverallDoctor"]);
+            blDate = false;
+        }
+
+        if (blDate) {
             if (Request.Params["StartDate"] != "")
                 sqlw += string.Format(" And  RegisterDate>='{0}' ", Convert.ToDateTime(Request.Params["StartDate"]));
 
@@ -123,8 +121,7 @@ public partial class Reports_Default : BasePage {
     }
 
     //科室工作量查询
-    public void BuildSearch_workload_package()
-    {
+    public void BuildSearch_workload_package() {
 
         Report a = new Report();
 
@@ -157,8 +154,7 @@ public partial class Reports_Default : BasePage {
     }
 
     //科室医生工作量查询
-    public void BuildSearch_workload_checkItem()
-    {
+    public void BuildSearch_workload_checkItem() {
 
         Report a = new Report();
 
@@ -207,7 +203,7 @@ public partial class Reports_Default : BasePage {
     }
 
     public void BuildCheckReport(String RegisterNo) {
-        WebReport1.ReportFile = Server.MapPath("CheckReport.frx");      
+        WebReport1.ReportFile = Server.MapPath("CheckReport.frx");
         //WebReport1.Report.RegisterData(GetBarCodes(RegisterNo), "BarCodes");            
         RegistrationViewEntity Registration = m_Registration.GetRegistration(RegisterNo);
         List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
@@ -253,11 +249,32 @@ public partial class Reports_Default : BasePage {
             Photo = Convert.FromBase64String(RegInfo.Photo)
         });
         WebReport1.ReportFile = Server.MapPath("HealthCard.frx");
-        WebReport1.Report.RegisterData(Registrations, "CardData");      
+        WebReport1.Report.RegisterData(Registrations, "CardData");
         WebReport1.Prepare();
     }
 
-    
+    private void BuildHealthCardBatch() {
+        String DeptName = Request.Params["DeptName"];
+        String sCheckDate = Request.Params["CheckDate"];
+        if (String.IsNullOrWhiteSpace(DeptName)) return;
+        if (String.IsNullOrWhiteSpace(sCheckDate)) return;
+        DateTime? CheckDate = Convert.ToDateTime(sCheckDate);
+        
+        int RecordCount = 0;
+        var RegInfo = m_Registration.GetCheckReports(1, 2000, CheckDate, DeptName, "", out RecordCount);
+        List<HealthCardInfo> Registrations = (from p in RegInfo
+                                              select new HealthCardInfo {
+                                                  RegisterNo = p.RegisterNo,
+                                                  CheckDate = p.CheckDate.Value,
+                                                  LimitDate = p.CheckDate.Value.AddYears(1),
+                                                  Name = p.Name,
+                                                  Sex = p.Sex,
+                                                  Photo = Convert.FromBase64String(p.Photo)
+                                              }).ToList();
+        WebReport1.ReportFile = Server.MapPath("HealthCardList.frx");
+        WebReport1.Report.RegisterData(Registrations, "CardData");
+        WebReport1.Prepare();
+    }
 
 
     #endregion

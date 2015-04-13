@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         $(function () {
-            $("#tabs").tabs();
+            $("#tabs").tabs();           
             $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft", scroll: false, focusFirstField: true });
         });
 
@@ -66,7 +66,7 @@
         }
 
         function btnDataImport() {
-            var sURL = " RegImportDialog.aspx?rand=" + Math.random();
+            var sURL = "RegImportDialog.aspx?rand=" + Math.random();
             var vArguments = "";
             var sFeatures = "dialogHeight=300px;dialogWidth=400px;center:yes;help:no;status:no;rsizable:yes";
             window.showModalDialog(sURL, vArguments, sFeatures);
@@ -80,6 +80,18 @@
         function PrintBarcode(RegisterNo){
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=1";
             window.open(sURL, "_blank", "", true);
+        }
+
+        function uploadPhoto(){
+            var sURL = "PhotoUpload.aspx?rand=" + Math.random();
+            var vArguments = "";
+            var sFeatures = "dialogHeight=300px;dialogWidth=400px;center:yes;help:no;status:no;rsizable:yes";
+            var sReturnValues = window.showModalDialog(sURL, vArguments, sFeatures);
+            if((sReturnValues != undefined)&&(sReturnValues != null)){
+                $("#<%=hPhoto.ClientID%>").val(sReturnValues);
+                var img = "data:image/png;base64," +sReturnValues;
+                $("#Pricture").attr("src", img);
+            }
         }
 
         function downLoadTemplate() {
@@ -255,10 +267,12 @@
                             <td class="HVLine" rowspan="5">
                                 照片
                             </td>
-                            <td class="HVLine" rowspan="5" align="center">
+                            <td class="HVLine" rowspan="5" align="center" >
                                 <img src="<%=ApplicationPath%>/images/nopricture.jpg" alt="个人照片" id="Pricture"  
-                                    style="border-width:1px;border-style:solid"/>
-                                <asp:HiddenField ID="hPhoto" Value="" runat="server" />
+                                    style="border-width:1px;border-style:solid" align="middle"/>
+                                <asp:HiddenField ID="hPhoto" Value="" runat="server" />                                  
+                                <input type="button" ID="btnUploadPhoto"  value="上传照片" class="buttonCss" onclick="uploadPhoto();"  runat="server" />                         
+                                
                             </td>
                         </tr>
                         <tr>

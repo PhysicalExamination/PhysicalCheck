@@ -87,6 +87,6 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <p align="center">
-        <input type="button" class="buttonCss" value="保存返回" onclick="SaveReturn();" />
+        <input type="button" class="buttonCss" value="确定" onclick="SaveReturn();" />
     </p>
 </asp:Content>

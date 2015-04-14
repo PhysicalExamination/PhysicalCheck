@@ -21,8 +21,10 @@ public partial class SysConfig_SuggestionDialog : BasePage {
         using (SuggestionBusiness Suggestion = new SuggestionBusiness()) {
             int RecordCount = 0;
             String SearchKey = txtSearchKey.Text;
+            int GroupID = 1;
+            if (!String.IsNullOrWhiteSpace(Request.Params["GroupID"])) GroupID = Convert.ToInt32(Request.Params["GroupID"]);
             SuggestionRepeater.DataSource = Suggestion.GetSuggestions(Pager.CurrentPageIndex,
-                Pager.PageSize, SearchKey, out RecordCount);
+                Pager.PageSize, GroupID,SearchKey, out RecordCount);
             Pager.RecordCount = RecordCount;
         }
         base.DataBind();

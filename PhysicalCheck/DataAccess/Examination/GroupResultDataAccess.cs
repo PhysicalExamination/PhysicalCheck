@@ -110,7 +110,7 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="GroupResult">体检组合项目结论实体</param>
         public void SaveGroupResult(GroupResultEntity GroupResult) {
-            /*GroupResultEntity OldGroupResult = Session.Get<GroupResultEntity>(GroupResult.ID);
+            GroupResultEntity OldGroupResult = Session.Get<GroupResultEntity>(GroupResult.ID);
             if (OldGroupResult != null) {
                 OldGroupResult.CheckDate = GroupResult.CheckDate;
                 OldGroupResult.CheckDoctor = GroupResult.CheckDoctor;
@@ -120,7 +120,7 @@ namespace DataAccess.Examination {
                 Session.Flush();
                 CloseSession();
                 return;
-            }*/
+            }
             Session.SaveOrUpdate(GroupResult);
             Session.Flush();
             CloseSession();

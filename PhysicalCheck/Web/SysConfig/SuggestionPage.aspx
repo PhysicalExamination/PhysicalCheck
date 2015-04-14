@@ -12,7 +12,7 @@
         }
 
         function selectDept() {
-            var sURL = "<%=ApplicationPath%>/Admin/DepartmentDialog.aspx?rand=" + Math.random();
+            var sURL = "<%=ApplicationPath%>/SysConfig/GroupDialog.aspx?rand=" + Math.random();
             var urlValue = window.showModalDialog(sURL, '', "center:yes;help:no;status:no;rsizable:yes");
             //var urlValue = window.showModalDialog(sURL, null, "dialogHeight=" + height + "px;dialogWidth=" + width + "px");
             if (urlValue != null || urlValue != undefined) {
@@ -40,7 +40,7 @@
                                         关键字
                                     </th>
                                     <th>
-                                        检查科室
+                                        检查项目
                                     </th>
                                     <th>
                                         建议
@@ -120,7 +120,7 @@
                         </tr>
                         <tr>
                             <td class="VLine">
-                                检查科室
+                                检查项目
                             </td>
                             <td class="VLine" colspan="3">
                                 <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />

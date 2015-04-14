@@ -43,7 +43,7 @@
         function onSetSummary() {
             var GroupID = $("#<%=hGroupID.ClientID%>").val();
             if ((GroupID == "") || (GroupID == undefined) || (GroupID == null)) return;
-            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random();
+            var sURL = "<%=ApplicationPath%>/SysConfig/SuggestionDialog.aspx?rand=" + Math.random() + "&GroupID=" + $("#<%=hGroupID.ClientID%>").val();
             var sFeatures = "dialogWidth:800px;dialogHeight:600px;center:yes;help:no;status:no;rsizable:yes";
             var sResult = window.showModalDialog(sURL, null, sFeatures);
             if ((sResult == undefined) || (sResult == null)) return;

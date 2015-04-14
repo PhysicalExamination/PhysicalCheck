@@ -24,9 +24,9 @@ namespace BusinessLogic.SysConfig {
             return DataAccess.GetSuggestions(pageIndex, pageSize, DeptID, out RecordCount);
         }
 
-        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, String searchKey,
-            out int RecordCount) {
-                return DataAccess.GetSuggestions(pageIndex, pageSize, searchKey, out RecordCount);
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, int GroupID, 
+            String searchKey,out int RecordCount) {
+                return DataAccess.GetSuggestions(pageIndex, pageSize,GroupID, searchKey, out RecordCount);
         }
 
         /// <summary>

@@ -53,10 +53,10 @@ namespace DataAccess.SysConfig {
             return Result;
         }
 
-        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize, String searchKey,
-            out int RecordCount) {
+        public List<SuggestionViewEntity> GetSuggestions(int pageIndex, int pageSize,int GroupID,
+            String searchKey,out int RecordCount) {
             var q = Session.Query<SuggestionViewEntity>();
-            q = q.Where(p => p.Enabled == true);
+            q = q.Where(p => p.Enabled == true && p.DeptID == GroupID);
             if (!String.IsNullOrWhiteSpace(searchKey)) {
                 q = q.Where(p=>p.KeyWord.Contains(searchKey) ||(p.Name.Contains(searchKey)));
             }

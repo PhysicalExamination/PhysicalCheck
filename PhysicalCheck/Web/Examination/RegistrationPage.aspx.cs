@@ -67,12 +67,21 @@ public partial class Examination_RegistrationPage : BasePage {
     /// </summary>
     public override void DataBind() {
         int RecordCount = 0;
-        DateTime StartDate = EnvConverter.ToDateTime(txtStartDate.Text).Value;
-        DateTime EndDate = EnvConverter.ToDateTime(txtEndDate.Text).Value;
+        DateTime StartDate = DateTime.Now.Date;
+        DateTime EndDate = StartDate.AddDays(-7);        
+        if (!String.IsNullOrWhiteSpace(txtStartDate.Text)) StartDate= EnvConverter.ToDateTime(txtStartDate.Text).Value;
+        if (!String.IsNullOrWhiteSpace(txtEndDate.Text))  EndDate = EnvConverter.ToDateTime(txtEndDate.Text).Value;
         String DeptName = txtsDeptName.Text.Trim();
         String RegisterNo = txtsRegisterNo.Text.Trim();
-        RegistrationRepeater.DataSource = m_Registration.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
-            StartDate,EndDate, DeptName, RegisterNo, out RecordCount);
+        String Category = Request.Params["Category"];
+        if ((!String.IsNullOrWhiteSpace(Category)) && (Category == "2")) {
+            RegistrationRepeater.DataSource = m_Registration.GetGroupRegistrations(Pager.CurrentPageIndex,
+                Pager.PageSize,StartDate, EndDate, DeptName,  out RecordCount);
+        }
+        if ((String.IsNullOrWhiteSpace(Category)) || (Category != "2")) {
+            RegistrationRepeater.DataSource = m_Registration.GetIndividualRegistrations(
+                Pager.CurrentPageIndex, Pager.PageSize, StartDate, EndDate, RegisterNo, out RecordCount);
+        }
         Pager.RecordCount = RecordCount;
         base.DataBind();
     }

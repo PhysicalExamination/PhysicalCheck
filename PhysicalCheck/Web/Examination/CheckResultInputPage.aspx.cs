@@ -114,11 +114,11 @@ public partial class Examination_CheckResultInputPage : BasePage {
     /// </summary>
     public override void DataBind() {
         int RecordCount = 0;
-        DateTime CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text).Value;
+        DateTime? CheckDate = EnvConverter.ToDateTime(txtCheckDate.Text);
         String DeptName = txtDeptName.Text.Trim();
         String RegisterNo = txtRegisterNo.Text.Trim();
         Registrations.DataSource = m_Regist.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
-            CheckDate,CheckDate, DeptName, RegisterNo, out RecordCount);
+            CheckDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
     }

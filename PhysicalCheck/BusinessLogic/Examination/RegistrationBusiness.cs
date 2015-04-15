@@ -55,28 +55,47 @@ namespace BusinessLogic.Examination {
         /// </summary>
         /// <param name="pageIndex">页号</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="StartDate">登记起始日期</param>
+        /// <param name="EndDate">登记截止日期</param>
         /// <param name="DeptName">体检单位</param>
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetGroupRegistrations(int pageIndex, int pageSize,
-            DateTime? RegisterDate, String DeptName, out int RecordCount) {
-            return DataAccess.GetGroupRegistrations(pageIndex, pageSize, RegisterDate, DeptName, out RecordCount);
+           DateTime StartDate, DateTime EndDate, String DeptName, out int RecordCount) {
+            return DataAccess.GetGroupRegistrations(pageIndex, pageSize, StartDate, EndDate,
+                DeptName, out RecordCount);
+        }
+
+        /// <summary>
+        /// 返回个体登记数据
+        /// </summary>
+        /// <param name="pageIndex">页号</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="StartDate">登记起始日期</param>
+        /// <param name="EndDate">登记截止日期</param>
+        /// <param name="RegisterNo">身份证号/档案号</param>
+        /// <param name="RecordCount">总记录数</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetIndividualRegistrations(int pageIndex, int pageSize,
+             DateTime StartDate, DateTime EndDate, String RegisterNo, out int RecordCount) {
+            return DataAccess.GetIndividualRegistrations(pageIndex, pageSize, StartDate, EndDate,
+                   RegisterNo, out RecordCount);
         }
         /// <summary>
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime StartDate, DateTime EndDate, String DeptName, String RegisterNo, out int RecordCount) {
-                return DataAccess.GetRegistrations(pageIndex, pageSize, StartDate, EndDate,DeptName,
-            RegisterNo, out RecordCount);
+            DateTime? RegisterDate, DateTime EndDate, String DeptName, String RegisterNo, out int RecordCount) {
+            return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
+        RegisterNo, out RecordCount);
         }
 
 
         /// <summary>
         ///获取某天或体检单位的所有体检登记数据
         /// </summary>
-        public List<RegistrationViewEntity> GetRegistrationForReport(DateTime? RegisterDate, String DeptName) {
+        public List<RegistrationViewEntity> GetRegistrationForReport(DateTime? RegisterDate, 
+            String DeptName) {
             return DataAccess.GetRegistrationForReport(RegisterDate, DeptName);
         }
         /// <summary>
@@ -157,7 +176,7 @@ namespace BusinessLogic.Examination {
         /// <returns></returns>
         public List<RegisterTreeData> GetRegistrationTree(DateTime? CheckedDate,
             String DeptName, String RegisterNo) {
-                return DataAccess.GetRegistrationTree(CheckedDate, DeptName, RegisterNo);
+            return DataAccess.GetRegistrationTree(CheckedDate, DeptName, RegisterNo);
         }
 
         /// <summary>
@@ -186,7 +205,7 @@ namespace BusinessLogic.Examination {
             using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
                 CheckPerson.SaveCheckPerson(PersonInfo);
                 Registration.PersonID = PersonInfo.PersonID;
-            }            
+            }
 
             RegistrationEntity RegEntity = new RegistrationEntity {
                 RegisterNo = Registration.RegisterNo,
@@ -195,7 +214,7 @@ namespace BusinessLogic.Examination {
                 IsCheckOver = false,
                 PersonID = PersonInfo.PersonID,
                 PackageID = Registration.PackageID
-            };            
+            };
             DataAccess.SaveRegistration(RegEntity);
             Registration.RegisterNo = RegEntity.RegisterNo;
             SaveCheckedGroups(RegEntity.RegisterNo, Registration.PackageID.Value, Registration.Groups);
@@ -342,7 +361,10 @@ namespace BusinessLogic.Examination {
                 List<PackageGroupViewEntity> Groups = Package.GetPackageGroups(PackageID);
                 foreach (PackageGroupViewEntity Group in Groups) {
                     GroupResultEntity GroupResult = new GroupResultEntity {
-                        ID = new GroupResultPK { GroupID = Group.ID.GroupID, RegisterNo = RegisterNo },
+                        ID = new GroupResultPK {
+                            GroupID = Group.ID.GroupID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = Group.DeptID,
                         IsOver = false,
                         PackageID = PackageID
@@ -360,7 +382,10 @@ namespace BusinessLogic.Examination {
                 foreach (int GroupID in Groups) {
                     ItemGroup = ItemGroupDA.GetItemGroup(GroupID);
                     GroupResultEntity GroupResult = new GroupResultEntity {
-                        ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
+                        ID = new GroupResultPK {
+                            GroupID = GroupID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = ItemGroup.DeptID,
                         IsOver = false,
                         PackageID = -1
@@ -373,13 +398,17 @@ namespace BusinessLogic.Examination {
 
         private void SaveCheckItems(String RegisterNo, int GroupID) {
             ItemGroupBusiness ItemGroups = new ItemGroupBusiness();
-            ItemGroupViewEntity ItemGroup =  ItemGroups.GetItemGroup(GroupID);
-            if ((ItemGroup!= null)&&(ItemGroup.ResultMode == "1")) return;
+            ItemGroupViewEntity ItemGroup = ItemGroups.GetItemGroup(GroupID);
+            if ((ItemGroup != null) && (ItemGroup.ResultMode == "1")) return;
             using (ItemResultDataAccess ResultDataAccess = new ItemResultDataAccess()) {
                 List<ItemGroupDetailViewEntity> Items = ItemGroups.GetItemGroupDetails(GroupID);
                 foreach (ItemGroupDetailViewEntity Item in Items) {
                     ItemResultEntity ItemResult = new ItemResultEntity {
-                        ID = new ItemResultPK { GroupID = GroupID, ItemID = Item.ID.ItemID, RegisterNo = RegisterNo },
+                        ID = new ItemResultPK {
+                            GroupID = GroupID,
+                            ItemID = Item.ID.ItemID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = Item.DeptID
                     };
                     ResultDataAccess.SaveItemResult(ItemResult);

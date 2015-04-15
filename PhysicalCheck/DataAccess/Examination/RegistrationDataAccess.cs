@@ -139,7 +139,7 @@ namespace DataAccess.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
+            DateTime StartDate,DateTime EndDate, String DeptName, String RegisterNo, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => p.Enabled == true);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
@@ -148,9 +148,7 @@ namespace DataAccess.Examination {
             if (!String.IsNullOrWhiteSpace(RegisterNo)) {
                 q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
             }
-            if (String.IsNullOrWhiteSpace(RegisterNo) && String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
-                q = q.Where(p => p.RegisterDate == RegisterDate);
-            }
+            q = q.Where(p => p.RegisterDate >= StartDate && p.RegisterDate <= EndDate);
             q = q.OrderByDescending(p => p.RegisterNo);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();

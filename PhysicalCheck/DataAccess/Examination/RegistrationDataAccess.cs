@@ -86,7 +86,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="pageIndex">页号</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="StartDate">登记起始日期</param>
+        /// <param name="EndDate">登记截止日期</param>
         /// <param name="DeptName">体检单位</param>
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
@@ -110,7 +111,8 @@ namespace DataAccess.Examination {
         /// </summary>
         /// <param name="pageIndex">页号</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="RegisterDate">登记日期</param>
+        /// <param name="StartDate">登记起始日期</param>
+        /// <param name="EndDate">登记截止日期</param>
         /// <param name="RegisterNo">身份证号/档案号</param>
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>

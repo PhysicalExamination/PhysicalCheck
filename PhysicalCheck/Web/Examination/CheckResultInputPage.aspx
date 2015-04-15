@@ -8,6 +8,27 @@
                 cache: false
             });
         });
+
+        function onGroupClick(el, registerNo, groupID) {
+            $("#Groups tr").removeClass("Selected");
+            $(el).addClass("Selected");
+            $("#<%=hRegisterNo.ClientID%>").val(registerNo);
+            $("#<%=hGroupID.ClientID%>").val(groupID);
+            $("#<%=btnGetItemResult.ClientID%>").click();
+            $("#hSelected").val(registerNo);
+            $("#<%=hGroupSummary.ClientID%>").val("");
+        }
+
+        function GroupClick(el, registerNo, groupID) {
+            $("#Groups tr").removeClass("Selected");
+            $(el).addClass("Selected");
+            $("#<%=hRegisterNo.ClientID%>").val(registerNo);
+            $("#<%=hGroupID.ClientID%>").val(groupID);
+            $("#<%=btnGetItemResult.ClientID%>").click();
+            $("#hSelected").val(registerNo);
+            $("#<%=hGroupSummary.ClientID%>").val("");
+        }
+
         function onSelected(el, registerNo) {
             $("#datagrid tr").removeClass("Selected");
             $(el).addClass("Selected");
@@ -16,6 +37,7 @@
                 var html = "";
                 var onGroupClick = "";
                 var index = 1;
+                if ((data == null) || (data.length <= 0)) return;
                 $.each(data, function (i, item) {
                     index = parseInt(i, 10) + 1;
                     onGroupClick = "onGroupClick(this,'" + registerNo + "'," + item.GroupID + ");";
@@ -27,18 +49,11 @@
                 $("#Groups").html(html);
                 $("#Groups tr:even").addClass("tr1");
                 $("#Groups tr:odd").addClass("tr2");
-            }, "json");
-        }
-
-        function onGroupClick(el, registerNo, groupID) {          
-            $("#Groups tr").removeClass("Selected");
-            $(el).addClass("Selected");
-            $("#<%=hRegisterNo.ClientID%>").val(registerNo);
-            $("#<%=hGroupID.ClientID%>").val(groupID);
-            $("#<%=btnGetItemResult.ClientID%>").click();
-            $("#hSelected").val(registerNo);
-            $("#<%=hGroupSummary.ClientID%>").val("");
-        }
+                var el = $("#Groups tr:eq(0)")[0];
+                var GroupID = data[0].GroupID;
+                GroupClick(el, registerNo, GroupID);
+            }, "json");            
+        }        
 
         function onSetSummary() {
             var GroupID = $("#<%=hGroupID.ClientID%>").val();
@@ -80,8 +95,7 @@
             <asp:Repeater ID="Registrations" runat="server">
                 <HeaderTemplate>
                     <table id="datagrid" width="100%" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <th>序号</th>
+                        <tr>                            
                             <th>登记号
                             </th>
                             <th>姓名
@@ -98,10 +112,8 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr class="tr1" id='<%# Eval("RegisterNo") %>' onclick='onSelected(this,"<%# Eval("RegisterNo") %>")' style="cursor:pointer">
-                        <td class="VLine" align="center"><%#Container.ItemIndex + 1 %></td>
-                        <td class="VLine" align="center"><%# Eval("RegisterNo") %></td>
-                        <td class="VLine" align="center"><%# Eval("Name") %></td>
-                        
+                       <td class="VLine" align="center"><%# Eval("RegisterNo") %></td>
+                        <td class="VLine" align="center"><%# Eval("Name") %></td>                        
                         <td class="VLine" align="center">
                             <%# EnvShowFormater.GetNumberString(Eval("Age")) %>
                         </td>
@@ -115,8 +127,7 @@
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
-                    <tr class="tr2" id='<%# Eval("RegisterNo") %>' onclick='onSelected(this,"<%# Eval("RegisterNo") %>")' style="cursor:pointer">
-                        <td class="VLine" align="center"><%#Container.ItemIndex + 1 %></td>
+                    <tr class="tr2" id='<%# Eval("RegisterNo") %>' onclick='onSelected(this,"<%# Eval("RegisterNo") %>")' style="cursor:pointer">                        
                         <td class="VLine" align="center"><%# Eval("RegisterNo") %></td>
                         <td class="VLine" align="center"><%# Eval("Name") %></td>
                          <td class="VLine" align="center">

@@ -431,13 +431,19 @@ public partial class Reports_Default : BasePage
     private void BuildIntroductionListReport()
     {
         WebReport1.ReportFile = Server.MapPath("IntroductionListReport.frx");
-        DateTime? RegisterDate = null;
-        if (!String.IsNullOrWhiteSpace(Request.Params["RegisterDate"]))
+        DateTime StartDate = DateTime.Now.Date;
+        DateTime EndDate = DateTime.Now.Date;
+        if (!String.IsNullOrWhiteSpace(Request.Params["StartDate"]))
         {
-            RegisterDate = Convert.ToDateTime(Request.Params["RegisterDate"]);
+            StartDate = Convert.ToDateTime(Request.Params["StartDate"]);
+        }
+        if (!String.IsNullOrWhiteSpace(Request.Params["EndDate"])) {
+            EndDate = Convert.ToDateTime(Request.Params["EndDate"]);
         }
         String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
-        List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrationForReport(RegisterDate, DeptName);
+        int RecordCount = 0;
+        List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrations(1, 1000,
+            StartDate, EndDate, DeptName, null, out RecordCount);
         //Registrations.Add(Registration);
         List<Package> Packages = new List<Package>();
         List<GroupItem> GroupItems = new List<GroupItem>();

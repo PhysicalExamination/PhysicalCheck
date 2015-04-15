@@ -48,11 +48,11 @@ public partial class Examination_IntroductionPage : BasePage {
     /// </summary>
     public override void DataBind() {
         int RecordCount = 0;
-        DateTime? RegisterDate = EnvConverter.ToDateTime(txtSRegisterDate.Text);
+        DateTime RegisterDate = EnvConverter.ToDateTime(txtSRegisterDate.Text).Value;
         String DeptName = txtsDeptName.Text.Trim();
         String RegisterNo = txtsRegisterNo.Text.Trim();
         RegistrationRepeater.DataSource = m_Registration.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
-            RegisterDate, DeptName, RegisterNo, out RecordCount);
+            RegisterDate,RegisterDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
     }

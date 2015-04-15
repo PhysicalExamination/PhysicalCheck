@@ -8,7 +8,7 @@
             $("#<%=Form.ClientID%>").validationEngine({ promptPosition: "topLeft",
                 scroll: false, focusFirstField: true
             });
-            //$("#GroupPanel").hide();
+            $("#GroupPanel").hide();          
             var Category = '<%=Request.Params["Category"]%>';
             if (Category=="2") $("#GroupPanel").show();
         });
@@ -68,9 +68,11 @@
         }
 
         function PrintIntroductions() {
-            var RegisterDate = $("#<%=txtSRegisterDate.ClientID %>").val();
+            var StartDate = $("#<%=txtStartDate.ClientID %>").val();
+            var EndDate = $("#<%=txtEndDate.ClientID %>").val();
             var DeptName = encodeURI($("#<%=txtsDeptName.ClientID %>").val());
-            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterDate=" + RegisterDate + "&DeptName=" + DeptName + "&ReportKind=4";
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?StartDate=" + StartDate + 
+                       "&EndDate=" + EndDate + "&DeptName=" + DeptName + "&ReportKind=4";
             window.open(sURL, "_blank", "", true);
         }
 
@@ -140,46 +142,39 @@
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">浏览</a></li>
-            <li><a href="#tabs-2">编辑</a></li>
+            <li><a href="#tabs-2">体检登记</a></li>
             <li><a href="#tabs-3">检查项目</a></li>
         </ul>
         <div id="tabs-1">
-            登记日期<asp:TextBox CssClass="textbox21  Wdate" ID="txtSRegisterDate" runat="server"
-                onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
-            体检单位<asp:TextBox CssClass="textbox21" ID="txtsDeptName" runat="server" />
-            登记号/身份证号<asp:TextBox CssClass="textbox21" ID="txtsRegisterNo" runat="server" />
+            起始日期<asp:TextBox CssClass="textbox21  Wdate" ID="txtStartDate" runat="server"
+                onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
+            截止日期<asp:TextBox CssClass="textbox21  Wdate" ID="txtEndDate" runat="server"
+                onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
+            <asp:Literal ID="lblDept" Text="体检单位" runat="server" />
+            <asp:TextBox CssClass="textbox21" ID="txtsDeptName" runat="server" />
+            <asp:Literal ID="lblRegisterNo" Text="登记号/身份证号" runat="server" />
+            <asp:TextBox CssClass="textbox21" ID="txtsRegisterNo" runat="server" />
             <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-            <span id="GroupPanel">
-                <input type="button" class="buttonCss" value="批量导入" onclick="btnDataImport();" />
-                <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
-                <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
-            </span>
+
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <th>
-                                        登记号
+                                    <th>登记号
                                     </th>
-                                    <th>
-                                        体检单位
+                                    <th>体检单位
                                     </th>
-                                    <th>
-                                        姓名
+                                    <th>姓名
                                     </th>
-                                    <th>
-                                        年龄
+                                    <th>年龄
                                     </th>
-                                    <th>
-                                        登记日期
+                                    <th>登记日期
                                     </th>
-                                    <th>
-                                        体检日期
+                                    <th>体检日期
                                     </th>
-                                    <th>
-                                        操作
+                                    <th>操作
                                     </th>
                                 </tr>
                         </HeaderTemplate>
@@ -206,7 +201,7 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
-                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
+                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>    ');" />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -233,7 +228,7 @@
                                 <td class="VLine" align="center">
                                     <asp:Button ID="btnDetail1" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
                                         OnClientClick="onSelected(1)" />
-                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>');" />
+                                    <input type="button" class="buttonCss" value="打印" onclick="PrintIntroduction('<%# Eval("RegisterNo")%>    ');" />
                                 </td>
                             </tr>
                         </AlternatingItemTemplate>
@@ -259,14 +254,12 @@
                 <ContentTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td class="HVLine">
-                                登记号
+                            <td class="HVLine">登记号
                             </td>
                             <td class="HVLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtRegisterNo" runat="server" Enabled="false" />
                             </td>
-                            <td class="HVLine">
-                                登记日期<font color="red">*</font>
+                            <td class="HVLine">登记日期<font color="red">*</font>
                             </td>
                             <td class="HVLine">
                                 <asp:TextBox CssClass="validate[required] textbox31  Wdate" ID="txtRegisterDate"
@@ -274,8 +267,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                体检单位
+                            <td class="VLine">体检单位
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtDeptName" runat="server" ReadOnly="true" />
@@ -283,8 +275,7 @@
                                     onclick="selectDept();" align="middle" border="0" />
                                 <asp:HiddenField ID="hDeptID" runat="server" Value="1" />
                             </td>
-                            <td class="VLine">
-                                套 餐<font color="red">*</font>
+                            <td class="VLine">套 餐<font color="red">*</font>
                             </td>
                             <td class="VLine">
                                 <asp:TextBox ID="txtPackageName" runat="server" CssClass="validate[required] textbox31"
@@ -295,15 +286,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                体检日期<font color="red">*</font>
+                            <td class="VLine">体检日期<font color="red">*</font>
                             </td>
                             <td class="VLine">
                                 <asp:TextBox ID="txtCheckDate" runat="server" CssClass="validate[required] textbox31 Wdate"
                                     onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" data-errormessage-value-missing="体检日期不能为空!" />
                             </td>
-                            <td class="VLine">
-                                姓 名<font color="red">*</font>
+                            <td class="VLine">姓 名<font color="red">*</font>
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="validate[required] textbox31" ID="txtName" runat="server"
@@ -311,8 +300,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                性 别
+                            <td class="VLine">性 别
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpSex" runat="server">
@@ -321,36 +309,31 @@
                                     <asp:ListItem Value="儿童">儿童</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            <td class="VLine">
-                                民 族
+                            <td class="VLine">民 族
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtNation" runat="server" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                身份证号
+                            <td class="VLine">身份证号
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtIDNumber" runat="server" onchange="setBirthdaySex();" />
                             </td>
-                            <td class="VLine">
-                                出生日期
+                            <td class="VLine">出生日期
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31  Wdate" ID="txtBirthday" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                年 龄
+                            <td class="VLine">年 龄
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtAge" runat="server" />
                             </td>
-                            <td class="VLine">
-                                婚姻状况
+                            <td class="VLine">婚姻状况
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpMarriage" runat="server">
@@ -361,14 +344,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                职 业
+                            <td class="VLine">职 业
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtJob" runat="server" />
                             </td>
-                            <td class="VLine">
-                                学 历
+                            <td class="VLine">学 历
                             </td>
                             <td class="VLine">
                                 <asp:DropDownList ID="drpEducation" runat="server">
@@ -383,28 +364,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                联系电话
+                            <td class="VLine">联系电话
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtLinkTel" runat="server" />
                             </td>
-                            <td class="VLine">
-                                联系地址
+                            <td class="VLine">联系地址
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtAddress" runat="server" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="VLine">
-                                手 机
+                            <td class="VLine">手 机
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtMobile" runat="server" />
                             </td>
-                            <td class="VLine">
-                                电子邮件
+                            <td class="VLine">电子邮件
                             </td>
                             <td class="VLine">
                                 <asp:TextBox CssClass="textbox31" ID="txtEMail" runat="server" />
@@ -419,7 +396,13 @@
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click"
                                     OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />
+
+                                <span id="GroupPanel">
+                                    <input type="button" class="buttonCss" value="批量登记" onclick="btnDataImport();" />
+                                    <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
+                                    <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
+                                </span>
+                                <%--<input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />--%>
                             </td>
                         </tr>
                     </table>
@@ -438,17 +421,13 @@
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <th>
-                                        组合名称
+                                    <th>组合名称
                                     </th>
-                                    <th>
-                                        检查科室
+                                    <th>检查科室
                                     </th>
-                                    <th>
-                                        单价（元）
+                                    <th>单价（元）
                                     </th>
-                                    <th>
-                                        操作
+                                    <th>操作
                                     </th>
                                 </tr>
                         </HeaderTemplate>

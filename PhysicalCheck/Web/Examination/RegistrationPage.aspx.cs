@@ -67,11 +67,12 @@ public partial class Examination_RegistrationPage : BasePage {
     /// </summary>
     public override void DataBind() {
         int RecordCount = 0;
-        DateTime? RegisterDate = EnvConverter.ToDateTime(txtSRegisterDate.Text);
+        DateTime StartDate = EnvConverter.ToDateTime(txtStartDate.Text).Value;
+        DateTime EndDate = EnvConverter.ToDateTime(txtEndDate.Text).Value;
         String DeptName = txtsDeptName.Text.Trim();
         String RegisterNo = txtsRegisterNo.Text.Trim();
         RegistrationRepeater.DataSource = m_Registration.GetRegistrations(Pager.CurrentPageIndex, Pager.PageSize,
-            RegisterDate, DeptName, RegisterNo, out RecordCount);
+            StartDate,EndDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
     }
@@ -81,7 +82,27 @@ public partial class Examination_RegistrationPage : BasePage {
     #region 私有成员
 
     private void ClientInitial() {
-        txtSRegisterDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
+        DateTime CurrentDate = DateTime.Now.Date;
+        txtEndDate.Text = CurrentDate.ToString("yyyy-MM-dd");
+        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy-MM-dd");        
+        lblDept.Visible = false;
+        txtsDeptName.Visible = false;
+        lblRegisterNo.Visible = true;
+        txtsRegisterNo.Visible = true;
+        String Category = Request.Params["Category"];
+        if ((!String.IsNullOrWhiteSpace(Category)) && (Category == "2")) {
+            String js = ";$(\"#GroupPanel\").show();";
+            lblDept.Visible = true;
+            txtsDeptName.Visible = true;
+            lblRegisterNo.Visible = false;
+            txtsRegisterNo.Visible = false;
+            btnCancel.Visible = false;
+            btnDelete.Visible = false;
+            btnNew.Visible = false;
+            btnEdit.Visible = false;
+            btnSave.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this, GetType(), "Group", js, true);
+        }
     }
 
     /// <summary>

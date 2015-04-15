@@ -46,7 +46,7 @@
                 <asp:TextBox ID="txtOverallDoctor" runat="server"></asp:TextBox>
                 登记日期：<asp:TextBox CssClass="inputCss Wdate" ID="txtStartDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
                 到<asp:TextBox CssClass="inputCss Wdate" ID="txtEndDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
-                <asp:Button ID="Button2" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
                 <input type="button" class="buttonCss" value="打印" onclick="Printrpt();" />
                 <asp:Repeater ID="ReportRepeater" runat="server">
                     <HeaderTemplate>

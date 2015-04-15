@@ -85,7 +85,7 @@ namespace BusinessLogic.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime? RegisterDate, DateTime EndDate, String DeptName, String RegisterNo, out int RecordCount) {
+            DateTime? RegisterDate,String DeptName, String RegisterNo, out int RecordCount) {
             return DataAccess.GetRegistrations(pageIndex, pageSize, RegisterDate, DeptName,
         RegisterNo, out RecordCount);
         }

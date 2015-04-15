@@ -91,14 +91,12 @@ namespace DataAccess.Examination {
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetGroupRegistrations(int pageIndex, int pageSize,
-            DateTime? RegisterDate, String DeptName, out int RecordCount) {
+            DateTime StartDate, DateTime EndDate, String DeptName, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
-            q = q.Where(p => p.Enabled == true && p.DeptID > 1);
+            q = q.Where(p => p.Enabled == true && p.DeptID > 1
+                && p.RegisterDate >= StartDate && p.RegisterDate <= EndDate);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
                 q = q.Where(p => p.DeptName.Contains(DeptName));
-            }
-            if (String.IsNullOrWhiteSpace(DeptName) && (RegisterDate != null)) {
-                q = q.Where(p => p.RegisterDate >= RegisterDate);
             }
             q = q.OrderByDescending(p => p.RegisterNo);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
@@ -117,16 +115,14 @@ namespace DataAccess.Examination {
         /// <param name="RecordCount">总记录数</param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetIndividualRegistrations(int pageIndex, int pageSize,
-            DateTime? RegisterDate, String RegisterNo, out int RecordCount) {
+             DateTime StartDate, DateTime EndDate, String RegisterNo, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
-            q = q.Where(p => p.Enabled == true && p.DeptID == 1);
+            q = q.Where(p => p.Enabled == true && p.DeptID == 1 &&
+                        p.RegisterDate >= StartDate && p.RegisterDate <= EndDate);
 
             if (!String.IsNullOrWhiteSpace(RegisterNo)) {
                 q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
-            }
-            if (String.IsNullOrWhiteSpace(RegisterNo) && (RegisterDate != null)) {
-                q = q.Where(p => p.RegisterDate >= RegisterDate);
-            }
+            }            
             q = q.OrderByDescending(p => p.RegisterNo);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
@@ -139,7 +135,7 @@ namespace DataAccess.Examination {
         ///获取所有体检登记数据
         /// </summary>
         public List<RegistrationViewEntity> GetRegistrations(int pageIndex, int pageSize,
-            DateTime StartDate,DateTime EndDate, String DeptName, String RegisterNo, out int RecordCount) {
+            DateTime? RegisterDate, String DeptName, String RegisterNo, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => p.Enabled == true);
             if (!String.IsNullOrWhiteSpace(DeptName)) {
@@ -148,7 +144,9 @@ namespace DataAccess.Examination {
             if (!String.IsNullOrWhiteSpace(RegisterNo)) {
                 q = q.Where(p => p.RegisterNo == RegisterNo || p.IDNumber == RegisterNo);
             }
-            q = q.Where(p => p.RegisterDate >= StartDate && p.RegisterDate <= EndDate);
+            if (String.IsNullOrWhiteSpace(RegisterNo) && RegisterDate!= null) {
+                q = q.Where(p => p.RegisterDate == RegisterDate);
+            }           
             q = q.OrderByDescending(p => p.RegisterNo);
             List<RegistrationViewEntity> Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();
@@ -340,8 +338,8 @@ namespace DataAccess.Examination {
             foreach (RegisterTreeData Node in Nodes) {
                 Node.CheckedGroups = GroupResults.Where(p => p.ID.RegisterNo == Node.GroupID)
                                                  .Select(p => new RegisterTreeData {
-                                                      GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
-                                                      GroupName = p.GroupName
+                                                     GroupID = p.ID.RegisterNo + "," + p.ID.GroupID,
+                                                     GroupName = p.GroupName
                                                  }).ToList<RegisterTreeData>();
             }
             GroupResults.Clear();

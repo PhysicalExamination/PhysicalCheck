@@ -442,8 +442,8 @@ public partial class Reports_Default : BasePage
         }
         String DeptName = HttpUtility.UrlDecode(Request.Params["DeptName"]);
         int RecordCount = 0;
-        List<RegistrationViewEntity> Registrations = m_Registration.GetRegistrations(1, 1000,
-            StartDate, EndDate, DeptName, null, out RecordCount);
+        List<RegistrationViewEntity> Registrations = m_Registration.GetGroupRegistrations(1, 1000, 
+            StartDate, EndDate, DeptName, out RecordCount);
         //Registrations.Add(Registration);
         List<Package> Packages = new List<Package>();
         List<GroupItem> GroupItems = new List<GroupItem>();

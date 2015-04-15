@@ -59,7 +59,7 @@ public partial class Examination_customerArchive : BasePage
 
         bool blDate = true;
 
-        string sqlw = " 1=1 ";
+        string sqlw = " 1=1  And  Enabled='1' ";
 
         if (txtRegisterNo.Text != "")
         {
@@ -69,12 +69,12 @@ public partial class Examination_customerArchive : BasePage
         if (txtDeptName.Text != "")
         {
             sqlw += string.Format("  And DeptName like '%{0}%' ", txtDeptName.Text);
-            blDate = false;
+            //blDate = false;
         }
         if (txtName.Text != "")
         {
             sqlw += string.Format("  And Name like '%{0}%' ", txtName.Text);
-            blDate = false;
+            //blDate = false;
         }
 
         if (txtIdNumber.Text != "")
@@ -86,7 +86,7 @@ public partial class Examination_customerArchive : BasePage
         if (txtOverallDoctor.Text != "")
         {
             sqlw += string.Format("  And OverallDoctor like '{0}%' ", txtOverallDoctor.Text);
-            blDate = false;
+            //blDate = false;
         }
 
         if (blDate)

@@ -165,6 +165,9 @@
                     PageSize="15">
                 </asp:AspNetPager>
             </ContentTemplate>
+             <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnSearch" />
+                </Triggers>
         </asp:UpdatePanel>
     </div>
 </asp:Content>

@@ -19,6 +19,8 @@ public class GenerateBarcode : IHttpHandler {
         String Action = context.Request.Params["Action"];
         if (Action == "BuildRegisterTree") BuildRegisterTree(context);
         if (Action == "GetCheckedGroup") GetCheckedGroup(context);
+        if (Action == "GetGroupResult") GetGroupResult(context);
+        if (Action == "GetItemResult") GetItemResult(context);
     }
 
     #region 体检结果录入
@@ -48,7 +50,25 @@ public class GenerateBarcode : IHttpHandler {
         Response.Write(JsonConvert.SerializeObject(Groups));
     }
 
+    private void GetGroupResult(HttpContext context) {
+        HttpResponse Response = context.Response;
+        HttpRequest Request = context.Request;
+        String RegisterNo = Request.Params["RegisterNo"];       
+        List<GroupResultViewEntity> GroupResults= m_Registration.GetGroupResults(RegisterNo);        
+        Response.Write(JsonConvert.SerializeObject(GroupResults));
+    }
+
+    private void GetItemResult(HttpContext context) {
+        HttpResponse Response = context.Response;
+        HttpRequest Request = context.Request;
+        String RegisterNo = Request.Params["RegisterNo"];
+        int GroupID = Convert.ToInt32(Request.Params["GroupID"]);
+        var ItemResults = m_Registration.GetItemResults(RegisterNo, GroupID);
+        Response.Write(JsonConvert.SerializeObject(ItemResults));
+    }
+    
     #endregion
+    
     public bool IsReusable {
         get {
             return false;

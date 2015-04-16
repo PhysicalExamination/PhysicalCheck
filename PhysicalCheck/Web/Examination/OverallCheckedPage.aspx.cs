@@ -65,6 +65,12 @@ public partial class Examination_OverallCheckedPage : BasePage {
             RegisterDate, DeptName, RegisterNo, out RecordCount);
         Pager.RecordCount = RecordCount;
         base.DataBind();
+        RepeaterItemCollection Items = RegistrationRepeater.Items;
+        Button btnDetail;
+        foreach (RepeaterItem Item in Items) {
+            btnDetail = (Button)Item.FindControl("btnDetail");
+            btnDetail.OnClientClick = "onSelected(1, \"" + btnDetail.CommandArgument + "\")";
+        }
     }
 
     #endregion
@@ -99,7 +105,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         txtSummary.Text = Result.Summary;
         txtConclusion.Text = Result.Conclusion;
         txtRecommend.Text = Result.Recommend;
-        BindCheckedGroups(RegisterNo);
+        //BindCheckedGroups(RegisterNo);
     }
 
     /// <summary>
@@ -210,9 +216,8 @@ public partial class Examination_OverallCheckedPage : BasePage {
     }
 
     protected void ItemCommand(object source, RepeaterCommandEventArgs e) {
-        if (e.CommandName.ToLower() == "select") {
-            Literal lblRegisterNo = (Literal)e.Item.FindControl("lblRegisterNo");
-            RegisterNo = lblRegisterNo.Text;
+        if (e.CommandName.ToLower() == "select") {           
+            RegisterNo = (String)e.CommandArgument;
             SetRegistrationUI();
             SetUIState("Default");
         }
@@ -225,11 +230,13 @@ public partial class Examination_OverallCheckedPage : BasePage {
     protected void btnBatch_Click(object source, EventArgs e) {
         RepeaterItemCollection Items = RegistrationRepeater.Items;
         GroupResultBusiness GroupResult = new GroupResultBusiness();
-        Literal lblRegisterNo;
+        Button btnDetail;
+        String RegisterNo = "";
         foreach (RepeaterItem Item in Items) {
-            lblRegisterNo = (Literal)Item.FindControl("lblRegisterNo");
-            String Summary = String.Join(Environment.NewLine, GroupResult.GetGroupSummary(lblRegisterNo.Text).ToArray());
-            m_Registration.SaveOverall(lblRegisterNo.Text, DateTime.Now.Date, UserName, Summary, "", "");
+            btnDetail = (Button)Item.FindControl("btnDetail");
+            RegisterNo = btnDetail.CommandArgument + "";
+            String Summary = String.Join(Environment.NewLine, GroupResult.GetGroupSummary(RegisterNo).ToArray());
+            m_Registration.SaveOverall(RegisterNo, DateTime.Now.Date, UserName, Summary, "", "");
         }
         ShowMessage("操作成功！");
     }

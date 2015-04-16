@@ -4,6 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         $(function () {
+            $.ajax({
+                cache: false               
+            });
             $("#tabs").tabs();
         });
 
@@ -13,7 +16,7 @@
                 loadData(registerNo);
             }
         }
-        function loadData(registerNo) {           
+        function loadData(registerNo) {            
             var url = "Services.ashx?Action=GetCheckedGroup&RegisterNo=" + registerNo;
             $.get(url, "", function (data, statusText) {
                 var html = "";
@@ -40,35 +43,35 @@
                     html += "</th>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "	<td class=\"VLine\" align=\"center\">" + item.GroupName +"</td>";                   
-                    html += "	<td class=\"VLine\" align=\"center\">检查医生</td>";                  
+                    html += "	<td class=\"VLine\" align=\"center\">" + item.GroupName + "</td>";
+                    html += "	<td class=\"VLine\" align=\"center\">检查医生</td>";
                     html += "	<td class=\"VLine\" align=\"center\">" + (item.CheckDoctor === null ? "&nbsp;" : item.CheckDoctor) + "</td>";
-                    html += "	<td class=\"VLine\" align=\"center\">检查时间</td>";                   
-                    html += "	<td class=\"VLine\" align=\"center\">" + (item.CheckDate === null ? "&nbsp;" : item.CheckDate) + "</td>";                   
+                    html += "	<td class=\"VLine\" align=\"center\">检查时间</td>";
+                    html += "	<td class=\"VLine\" align=\"center\">" + (item.CheckDate === null ? "&nbsp;" : item.CheckDate) + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "  <td colspan=\"5\" RegisterNo=\"" + registerNo + "\"  GroupID="+ item.ID.GroupID +">";
+                    html += "  <td colspan=\"5\" RegisterNo=\"" + registerNo + "\"  GroupID=" + item.ID.GroupID + ">";
                     //html += GetItemResult(registerNo,item.ID.GroupID);
                     html += "  </td>";
                     html += "<tr>";
-                    html += "	<td class=\"VLine\" align=\"center\">小结</td>";                  
+                    html += "	<td class=\"VLine\" align=\"center\">小结</td>";
                     html += "	<td class=\"VLine\" align=\"center\" colspan=\"4\">" + (item.Summary === null ? "&nbsp;" : item.Summary) + "</td>";
                     html += "</tr>";
                 });
                 $("#GroupResult").empty();
                 $("#GroupResult").html(html);
-                var Groups = $("#GroupResult tr td[GroupID]");
+                var Groups = $("#GroupResult tr td[GroupID]");                
                 $.each(Groups, function (i, item) {
                     var RegisterNo = $(this).attr("RegisterNo");
                     var GroupID = $(this).attr("GroupID");
-                    GetItemResult(RegisterNo, GroupID);
+                    //GetItemResult(RegisterNo, GroupID);
                 });
             }, "json");
         }
 
-        function GetItemResult(registerNo, groupID) {           
+        function GetItemResult(registerNo, groupID) {
             url = "Services.ashx?Action=GetItemResult&RegisterNo=" + registerNo + "&GroupID=" + groupID;
-            $.get(url, "", function (data, statusText) {              
+            $.get(url, "", function (data, statusText) {
                 var html = "";
                 html += " <table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
                 html += " 	<tr>"
@@ -78,10 +81,10 @@
                 html += " 		<th>参考下限</th>";
                 html += " 		<th>参考上限</th>";
                 html += "        <th>检查提示</th>";
-                html += " 	</tr>";                
-                $.each(data, function (i, item) {                 
+                html += " 	</tr>";
+                $.each(data, function (i, item) {
                     html += " 	<tr>";
-                    html += " 		<td class=\"VLine\" align=\"center\">" +   (item.ItemName === null ? "&nbsp;" : item.ItemName) + "</td>";
+                    html += " 		<td class=\"VLine\" align=\"center\">" + (item.ItemName === null ? "&nbsp;" : item.ItemName) + "</td>";
                     html += " 		<td class=\"VLine\" align=\"center\">" + (item.CheckedResult === null ? "&nbsp;" : item.CheckedResult) + "</td>";
                     html += " 		<td class=\"VLine\" align=\"center\">" + (item.MeasureUnit === null ? "&nbsp;" : item.MeasureUnit) + "</td>";
                     html += " 		<td class=\"VLine\" align=\"center\">" + (item.LowerLimit === null ? "&nbsp;" : item.LowerLimit) + "</td>";
@@ -90,8 +93,8 @@
                     html += " 	</tr>";
                 });
                 html += "</table>";
-                $("#GroupResult tr td[GroupID=" + groupID + "]").html(html);              
-            }, "json");           
+                $("#GroupResult tr td[GroupID=" + groupID + "]").html(html);
+            }, "json");
         }
     </script>
 </asp:Content>
@@ -112,7 +115,7 @@
             <asp:Button ID="btnBatch" runat="server" CssClass="buttonCss" Text="批量总检" OnClick="btnBatch_Click" />
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
-                    <asp:Repeater ID="RegistrationRepeater" runat="server">
+                    <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                         <HeaderTemplate>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
@@ -135,9 +138,8 @@
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <tr class="tr1" onmouseover="javascript:this.className='tr3';" 
-                                onmouseout="javascript:this.className='tr1'" 
-                                onclick='onSelected(1,"<%# Eval("RegisterNo") %>")'>
+                            <tr class="tr1" onmouseover="javascript:this.className='tr3';"
+                                onmouseout="javascript:this.className='tr1'">
                                 <td class="VLine" align="center">
                                     <%# Eval("RegisterNo") %>
                                 </td>
@@ -160,17 +162,15 @@
                                     <%# Eval("UncheckedItems")%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
-                                         OnClientClick='onSelected(1,<%# Eval("RegisterNo") %>)' />
+                                    <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss" CommandArgument='<%# Eval("RegisterNo") %>' />
                                 </td>
                             </tr>
                         </ItemTemplate>
                         <AlternatingItemTemplate>
-                            <tr class="tr2" onmouseover="javascript:this.className='tr3';" 
-                                onmouseout="javascript:this.className='tr2'"
-                                onclick='onSelected(1,"<%# Eval("RegisterNo") %>")'>
+                            <tr class="tr2" onmouseover="javascript:this.className='tr3';"
+                                onmouseout="javascript:this.className='tr2'">
                                 <td class="VLine" align="center">
-                                   <%# Eval("RegisterNo") %>
+                                    <%# Eval("RegisterNo") %>
                                 </td>
                                 <td class="VLine" align="center">
                                     <%# Eval("DeptName") %>
@@ -191,8 +191,7 @@
                                     <%# Eval("UncheckedItems")%>
                                 </td>
                                 <td class="VLine" align="center">
-                                    <asp:Button ID="btnDetail1" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss"
-                                        OnClientClick='onSelected(1,<%# Eval("RegisterNo") %>)' />
+                                    <asp:Button ID="btnDetail" runat="server" Text="查看" CommandName="Select" CssClass="buttonCss" CommandArgument='<%# Eval("RegisterNo") %>' />
                                 </td>
                             </tr>
                         </AlternatingItemTemplate>
@@ -348,7 +347,7 @@
         </div>
         <div id="tabs-4">
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tbody id="GroupResult">                        
+                <tbody id="GroupResult">
                 </tbody>
             </table>
         </div>

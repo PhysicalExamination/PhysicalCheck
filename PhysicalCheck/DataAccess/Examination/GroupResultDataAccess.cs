@@ -72,7 +72,7 @@ namespace DataAccess.Examination {
         public List<String> GetGroupSummary(String RegisterNo) {
             var q = from p in Session.Query<GroupResultViewEntity>()
                     where p.ID.RegisterNo == RegisterNo && p.IsOver == true
-                    select p.Summary;
+                    select p.GroupName + ":"+ p.Summary;
             List<String> Result = q.ToList<String>();
             CloseSession();
             return Result;

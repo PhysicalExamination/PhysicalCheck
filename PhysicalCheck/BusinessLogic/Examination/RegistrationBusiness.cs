@@ -341,7 +341,7 @@ namespace BusinessLogic.Examination {
         }
 
         public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
-            using (ItemResultBusiness ItemResult = new ItemResultBusiness()) {
+            using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
                 return ItemResult.GetItemResults(RegisterNo, GroupID);
             }
         }

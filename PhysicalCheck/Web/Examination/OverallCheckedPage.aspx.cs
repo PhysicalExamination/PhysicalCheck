@@ -10,6 +10,7 @@ using DataEntity.Examination;
 using System.Data;
 
 public partial class Examination_OverallCheckedPage : BasePage {
+
     #region 私有成员
 
     private RegistrationBusiness m_Registration;
@@ -168,10 +169,10 @@ public partial class Examination_OverallCheckedPage : BasePage {
     }
 
     private void BindCheckedGroups(String RegisterNo) {
-        GroupsRepeater.DataSource = m_Registration.GetCheckedGroups(RegisterNo);
-        GroupsRepeater.DataBind();
-        rptMain.DataSource = m_Registration.GetGroupResults(RegisterNo);// bll.GetList_GroupResult(sql);
-        rptMain.DataBind();
+        //GroupsRepeater.DataSource = m_Registration.GetCheckedGroups(RegisterNo);
+        //GroupsRepeater.DataBind();
+        //rptMain.DataSource = m_Registration.GetGroupResults(RegisterNo);// bll.GetList_GroupResult(sql);
+        //rptMain.DataBind();
     }
 
     #endregion

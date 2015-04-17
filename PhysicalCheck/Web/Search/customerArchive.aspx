@@ -19,8 +19,7 @@
     <div class="l-navigationbars">
         <div class="l-navigationbars-l">
             <a href="#" style="left: 100px; text-decoration: none;">组合查询</a></div>
-        <div class="l-navigationbars-r">
-            <a href="customerArchiveList.aspx" target="_self">返回</a></div>
+        
     </div>
     <div id="tabs">
         <ul>

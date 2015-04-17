@@ -62,13 +62,7 @@ public partial class Examination_customerArchive : BasePage
     /// 数据绑定
     /// </summary>
     public override void DataBind()
-    {
-        //using (ChargeBusiness Charge = new ChargeBusiness())
-        //{
-        //    int RecordCount = 0;
-        //    ChargeRepeater.DataSource = Charge.GetCharges(Pager.CurrentPageIndex, Pager.PageSize, "", out RecordCount);
-        //    Pager.RecordCount = RecordCount;
-        //}
+    {        
         Maticsoft.BLL.Search.Search bll = new Maticsoft.BLL.Search.Search();
 
         string sql = "";

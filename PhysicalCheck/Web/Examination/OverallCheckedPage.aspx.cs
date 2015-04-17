@@ -171,7 +171,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         txtCheckDate.Enabled = false;
         txtName.Enabled = false;
         drpSex.Enabled = false;
-        txtSummary.Enabled = false;
+        //txtSummary.Enabled = false;
     }
 
     private void BindCheckedGroups(String RegisterNo) {

@@ -14,6 +14,12 @@
             $("#tabs").tabs("option", "active", index);
         }
 
+        function btnSub(RegisterNo) {
+            var sURL = "customerArchive.aspx?id=" + RegisterNo;
+            var vArguments = "";
+            var sFeatures = "dialogHeight=600px;dialogWidth=800px;center:yes;help:no;status:no;rsizable:yes";
+            window.showModalDialog(sURL, vArguments, sFeatures);
+        }
 
         function Printrpt() {
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + $("#<%=txtRegisterNo.ClientID%>").val() + "&ReportKind=61";
@@ -115,7 +121,8 @@
                                 <%# Eval("noDo")%>
                             </td>
                             <td class="VLine" align="center">
-                                <a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>" target="_self">详情</a>
+                                <%--<a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>"  target="_self">详情</a>--%>
+                                <a href="#" onclick="btnSub(<%# Eval("RegisterNo") %>);" >详情</a>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -149,7 +156,7 @@
                                 <%# Eval("noDo")%>
                             </td>
                             <td class="VLine" align="center">
-                                <a href="customerArchive.aspx?id=<%# Eval("RegisterNo") %>" target="_self">详情</a>
+                               <a href="#" onclick="btnSub(<%# Eval("RegisterNo") %>);" >详情</a>
                             </td>
                         </tr>
                     </AlternatingItemTemplate>

@@ -178,7 +178,8 @@ public partial class Examination_RegImportDialog : BasePage {
     }
 
     private int GetDeptID(String DeptName) {
-        int DeptID = 0;
+        int DeptID = int.MinValue;
+        if (String.IsNullOrWhiteSpace(DeptName)) return DeptID;
         using (PhysicalDepartmentBusiness Business = new PhysicalDepartmentBusiness()){
             DeptID = Business.GetPhysicalDepartmentID(DeptName);
         }

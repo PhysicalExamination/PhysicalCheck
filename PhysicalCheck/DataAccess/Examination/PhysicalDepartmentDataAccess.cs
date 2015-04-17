@@ -99,7 +99,7 @@ namespace DataAccess.Examination {
         /// <returns></returns>
         public int GetPhysicalDepartmentID(String DeptName) {
             var q = Session.Query<PhysicalDepartmentEntity>();
-            q = q.Where(p => p.Enabled == true && p.DeptName.Contains(DeptName));
+            q = q.Where(p => p.Enabled == true && p.DeptName ==DeptName);
            List<PhysicalDepartmentEntity> Depts = q.ToList();
            if (Depts.Count > 0) return Depts.First().DeptID;
            return -1;

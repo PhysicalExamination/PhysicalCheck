@@ -102,7 +102,7 @@ namespace DataAccess.Examination {
             q = q.Where(p => p.Enabled == true && p.DeptName.Contains(DeptName));
            List<PhysicalDepartmentEntity> Depts = q.ToList();
            if (Depts.Count > 0) return Depts.First().DeptID;
-           return int.MinValue;
+           return -1;
         }
 
         /// <summary>

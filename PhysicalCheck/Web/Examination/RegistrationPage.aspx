@@ -396,13 +396,13 @@
                                 <asp:Button CssClass="buttonCss" ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click"
                                     OnClientClick="return checkForm();" />
                                 <asp:Button CssClass="buttonCss" ID="btnCancel" runat="server" Text="取消" OnClick="btnCancel_Click" />
-
+                                <input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />
                                 <span id="GroupPanel">
                                     <input type="button" class="buttonCss" value="批量登记" onclick="btnDataImport();" />
                                     <input type="button" class="buttonCss" value="批量打印" onclick="PrintIntroductions();" />
                                     <input type="button" class="buttonCss" value="模板下载" onclick="downLoadTemplate();" />
                                 </span>
-                                <%--<input type="button" id="btnReadCard" value="读取身份证" onclick="readCard();" />--%>
+                                
                             </td>
                         </tr>
                     </table>

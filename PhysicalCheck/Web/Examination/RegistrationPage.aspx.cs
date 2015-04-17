@@ -105,11 +105,11 @@ public partial class Examination_RegistrationPage : BasePage {
             txtsDeptName.Visible = true;
             lblRegisterNo.Visible = false;
             txtsRegisterNo.Visible = false;
-            btnCancel.Visible = false;
-            btnDelete.Visible = false;
-            btnNew.Visible = false;
-            btnEdit.Visible = false;
-            btnSave.Visible = false;
+            //btnCancel.Visible = false;
+            //btnDelete.Visible = false;
+            //btnNew.Visible = false;
+            //btnEdit.Visible = false;
+            //btnSave.Visible = false;
             ScriptManager.RegisterClientScriptBlock(this, GetType(), "Group", js, true);
         }
     }

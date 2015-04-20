@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="04/16/2015 12:19:03" ReportInfo.CreatorVersion="2013.2.5.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/24/2014 16:54:55" ReportInfo.Modified="04/17/2015 16:43:29" ReportInfo.CreatorVersion="2013.2.5.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" Enabled="true">
       <Column Name="RegisterNo" DataType="System.String"/>
@@ -67,9 +67,9 @@
     <DataBand Name="Data4" Top="32.58" Width="718.2" Height="730.35" FirstRowStartsNewPage="true" Guides="0,37.8,47.25,75.6,85.05,245.7,247.7,283.5,396.9,415.8,434.7,453.6" DataSource="Registration">
       <TextObject Name="Text22" Width="718.2" Height="37.8" Dock="Top" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="总检结论" Padding="0, 0, 0, 0" Font="宋体, 24pt" FirstTabOffset="18.9"/>
       <TextObject Name="Text34" Top="47.25" Width="94.5" Height="28.35" Text="综 述：" Font="宋体, 16pt"/>
-      <TextObject Name="Text35" Top="76.5" Width="718.2" Height="320.4" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="[Registration.Conclusion]" Font="宋体, 12pt"/>
-      <TextObject Name="Text36" Top="398.45" Width="718.2" Height="28.35" Text="建议：" VertAlign="Center" Font="宋体, 16pt"/>
-      <TextObject Name="Text37" Top="421.8" Width="718.2" Height="307.5" Text="[Registration.Recommend]" Font="宋体, 12pt"/>
+      <TextObject Name="Text35" Top="76.5" Width="718.2" Height="446.85" Anchor="Top, Left, Right" Border.Lines="Bottom" Border.Width="2" Text="[Registration.Conclusion]" Font="宋体, 10pt"/>
+      <TextObject Name="Text36" Top="530.75" Width="718.2" Height="28.35" Text="建议：" VertAlign="Center" Font="宋体, 16pt"/>
+      <TextObject Name="Text37" Top="567" Width="718.2" Height="162.3" Text="[Registration.Recommend]" Font="宋体, 12pt"/>
     </DataBand>
     <PageFooterBand Name="PageFooter3" Top="766.27" Width="718.2" Height="87.95">
       <TextObject Name="Text39" Left="415.8" Top="41.8" Width="94.5" Height="18.9" Text="总检日期：" Font="宋体, 12pt"/>

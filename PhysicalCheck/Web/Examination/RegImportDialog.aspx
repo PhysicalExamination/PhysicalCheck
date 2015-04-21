@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="Server">
 <asp:FileUpload ID="FileUpload1" runat="server" />
-    <asp:Button ID="btnDataImport" runat="server" Text="导入" OnClick="btnDataImport_Click" />
+    <asp:Button ID="btnDataImport" runat="server" Text="登记" OnClick="btnDataImport_Click" />
     <input type="button" value="关闭" onclick="window.close();" />
     <%--<p>
         <strong>重要提示：</strong></p>

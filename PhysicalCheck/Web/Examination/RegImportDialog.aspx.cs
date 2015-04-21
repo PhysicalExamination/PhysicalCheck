@@ -136,7 +136,11 @@ public partial class Examination_RegImportDialog : BasePage {
                 }
                 RegInfo.Marriage = Row[4] + "";
                 RegInfo.LinkTel = Row[6] + "";
-                RegInfo.PackageID = GetPackage(PackageName);
+                RegInfo.PackageID = GetPackage(PackageName, RegInfo.Sex, RegInfo.Marriage);
+                if (RegInfo.PackageID == null) {
+                    ShowMessage(String.Format("该套餐{0}在系统中不存在，请在套餐设置中录入该套餐！",PackageName));
+                    continue;
+                }
                 RegInfo.Mobile = RegInfo.LinkTel;
                 Registration.SaveRegistration(RegInfo);
             }
@@ -168,9 +172,14 @@ public partial class Examination_RegImportDialog : BasePage {
         return "男";
     }
 
-    private int? GetPackage(String PackageName) {
+    private int? GetPackage(String PackageName,String Sex,String Marital ) {
+        String Gender = "0";
+        if (Sex == "男") Gender = "1";
+        if (Sex == "女") Gender = "2";
+        if (Marital == "儿童") Gender = "3";
+        if ((Sex == "女") && (Marital == "未婚")) Gender = "4";
         var q = from p in m_Packages
-                where p.PackageName == PackageName
+                where p.PackageName == PackageName && (p.Category == "0" || p.Category == Gender)
                 select p.PackageID;
         List<int?> List = q.ToList<int?>();
         if (List.Count > 0) return List[0];

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic.Examination;
 using DataEntity.Examination;
 using Common.FormatProvider;
+using BusinessLogic.SysConfig;
 
 
 /// <summary>
@@ -52,6 +53,7 @@ public partial class Examination_ChargePage : BasePage
     protected override void OnLoad(EventArgs e) {
         base.OnLoad(e);
         if (!IsPostBack) {
+            ClientInitial();
             DataBind();
             SetUIState("Default");
         }
@@ -123,6 +125,19 @@ public partial class Examination_ChargePage : BasePage
 
     #endregion
 
+    #region 私有方法
+
+    private void ClientInitial() {
+        using (RegionBusiness Region = new RegionBusiness()) {
+            drpRegions.DataSource = Region.GetRegions("620600000");
+            drpRegions.DataTextField = "RegionName";
+            drpRegions.DataValueField = "RegionCode";
+            drpRegions.DataBind();
+        }
+    }
+
+    #endregion
+
     #region 私有成员
 
     /// <summary>
@@ -141,6 +156,8 @@ public partial class Examination_ChargePage : BasePage
         txtPaymentDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
         txtChargePerson.Text = UserName;
         CheckedCount = 0;
+        drpRegions.SelectedIndex = -1;
+        txtAddress.Text = "";
 
     }
     /// <summary>
@@ -160,6 +177,8 @@ public partial class Examination_ChargePage : BasePage
         txtPaymentDate.Text = EnvShowFormater.GetShortDate(Result.PaymentDate);
         txtChargePerson.Text = Result.ChargePerson;
         CheckedCount = Result.CheckedCount;
+        drpRegions.SelectedValue = Result.RegionCode;
+        txtAddress.Text = Result.Address;
     }
       
 
@@ -180,6 +199,8 @@ public partial class Examination_ChargePage : BasePage
         Result.PaymentDate = EnvConverter.ToDateTime(txtPaymentDate.Text);
         Result.ChargePerson = txtChargePerson.Text;
         Result.CheckedCount = CheckedCount;
+        Result.RegionCode = drpRegions.SelectedValue;
+        Result.Address = txtAddress.Text;
         return Result;
     }
 

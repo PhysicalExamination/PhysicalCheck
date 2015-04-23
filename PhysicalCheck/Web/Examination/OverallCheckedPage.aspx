@@ -17,6 +17,11 @@
             $("tr[status='2'").attr("style", "color:red");//不合格
         }
 
+        function selectedAll(el) {
+            var checked = $(el).get(0).checked;
+            $("tbody tr input[type='checkbox']").attr("checked", checked);
+        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -36,8 +41,11 @@
                 <ContentTemplate>
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                         <HeaderTemplate>
-                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">                               
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" id="chkSelectedAll" onclick="selectedAll(this)" />
+                                    </th>
                                     <th>
                                         登记号
                                     </th>
@@ -63,10 +71,14 @@
                                         操作
                                     </th>
                                 </tr>
+                                <tbody>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr class="tr1" onmouseover="javascript:this.className='tr3';" 
                                 onmouseout="javascript:this.className='tr1'" status="<%# Eval("Status") %>" >
+                                <td class="VLine" align="center">
+                                    <asp:CheckBox ID="chkSelected" runat="server" Checked="false" />
+                                </td>
                                 <td class="VLine" align="center">
                                     <asp:Literal runat="server" ID="lblRegisterNo" Text='<%# Eval("RegisterNo") %>' />
                                     <asp:Literal runat="server" ID="lblCheckedStatus" Text='<%# Eval("Status") %>' Visible="false" />
@@ -99,6 +111,9 @@
                             <tr class="tr2" onmouseover="javascript:this.className='tr3';" 
                                 onmouseout="javascript:this.className='tr2'" status="<%# Eval("Status") %>">
                                 <td class="VLine" align="center">
+                                    <asp:CheckBox ID="chkSelected" runat="server" Checked="false" />
+                                </td>
+                                <td class="VLine" align="center">
                                     <asp:Literal runat="server" ID="lblRegisterNo" Text='<%# Eval("RegisterNo") %>' />
                                     <asp:Literal runat="server" ID="Literal1" Text='<%# Eval("Status") %>' Visible="false" />
                                 </td>
@@ -127,7 +142,7 @@
                             </tr>
                         </AlternatingItemTemplate>
                         <FooterTemplate>
-                            </table>
+                            </tbody></table>
                         </FooterTemplate>
                     </asp:Repeater>
                     <asp:AspNetPager ID="Pager" runat="server" PageAlign="center" PageIndexBox="DropDownList"

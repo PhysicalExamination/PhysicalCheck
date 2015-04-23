@@ -40,8 +40,8 @@ namespace BusinessLogic.Examination {
         /// <param name="RecordCount"></param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
-            DateTime CheckDate, out int RecordCount) {
-            return DataAccess.GetCheckedList(pageIndex, pageSize, CheckDate, out RecordCount);
+            DateTime CheckDate, String RegisterNo, out int RecordCount) {
+            return DataAccess.GetCheckedList(pageIndex, pageSize, CheckDate,RegisterNo, out RecordCount);
         }
 
         /// <summary>

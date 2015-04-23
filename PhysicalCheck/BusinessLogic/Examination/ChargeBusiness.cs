@@ -28,8 +28,9 @@ namespace BusinessLogic.Examination {
         }
 
         public List<ChargeViewEntity> GetChargesForRegister(int pageIndex, int pageSize,
-            String DeptName, out int RecordCount) {
-                return DataAccess.GetChargesForRegister(pageIndex, pageSize, DeptName, out RecordCount);
+            String DeptName, DateTime StartDate, DateTime EndDate, out int RecordCount) {
+                return DataAccess.GetChargesForRegister(pageIndex, pageSize, 
+                    DeptName, StartDate,EndDate,out RecordCount);
         }
 
         public IList<ChargeViewEntity> GetCharges(int pageIndex, int pageSize,

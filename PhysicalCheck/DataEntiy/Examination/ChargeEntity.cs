@@ -127,6 +127,22 @@ namespace DataEntity.Examination {
             set;
         }
 
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public virtual String Address {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 所在地区
+        /// </summary>
+        public virtual String RegionCode {
+            get;
+            set;
+        }
+
         #endregion
     }
 }

@@ -7,6 +7,7 @@ using NHibernate.Linq;
 using DataEntity.SysConfig;
 
 namespace DataAccess.SysConfig {
+
     /// <summary>
     /// 数据访问类:CommonCodeDataAccess
     /// 文  件  名:CommonCodeDataAccess.cs

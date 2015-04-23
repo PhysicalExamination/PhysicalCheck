@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/23/2015 14:56:44" ReportInfo.Modified="04/23/2015 16:44:52" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary/>
+  <ReportPage Name="Page1">
+    <DataBand Name="Data1" Width="718.2" Height="1039.5">
+      <TextObject Name="Text8" Left="28.35" Top="179.55" Width="56.7" Height="18.9" Text="单位" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text9" Left="87.15" Top="179.55" Width="614.25" Height="18.9" Border.Lines="Bottom" Text="精神分析是伪科学，因为其从业人员不做科学研究。" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text10" Left="28.35" Top="207.9" Width="56.7" Height="18.9" Text="姓名" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text11" Left="68.25" Top="207.9" Width="94.5" Height="18.9" Border.Lines="Bottom" Text="庞永飞" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text12" Left="164.85" Top="207.9" Width="47.25" Height="18.9" Text="性别" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text13" Left="214.2" Top="207.9" Width="37.8" Height="18.9" Border.Lines="Bottom" Text="男" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text14" Left="254.1" Top="207.9" Width="47.25" Height="18.9" Text="年龄" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text15" Left="303.45" Top="207.9" Width="47.25" Height="18.9" Border.Lines="Bottom" Text="30" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text16" Left="352.8" Top="207.9" Width="47.25" Height="18.9" Text="民族" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text17" Left="402.15" Top="207.9" Width="103.95" Height="18.9" Border.Lines="Bottom" Text="汉族" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text18" Left="508.2" Top="207.9" Width="47.25" Height="18.9" Text="工种" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text19" Left="557.55" Top="207.9" Width="141.75" Height="18.9" Border.Lines="Bottom" Text="餐饮服务人员" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text20" Left="28.35" Top="236.25" Width="94.5" Height="75.6" Border.Lines="Top, Bottom" Border.TopLine.Width="1.5" Text="既往病史" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text21" Left="122.85" Top="236.25" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="病名" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text22" Left="198.45" Top="236.25" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="肝炎" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text23" Left="283.5" Top="236.25" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="痢疾" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text24" Left="368.55" Top="236.25" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="伤寒" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text25" Left="453.6" Top="236.25" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="肺结核" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text26" Left="538.65" Top="236.25" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="皮肤病" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text27" Left="623.7" Top="236.25" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" Border.TopLine.Width="1.5" Text="其他" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text28" Left="122.85" Top="274.05" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" Text="患病时间" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text29" Left="198.45" Top="274.05" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text30" Left="283.5" Top="274.05" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text31" Left="368.55" Top="274.05" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text32" Left="453.6" Top="274.05" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text33" Left="538.65" Top="274.05" Width="85.05" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text34" Left="623.7" Top="274.05" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <LineObject Name="Line1" Left="28.35" Top="160.65" Width="670.95" Border.Width="1.5"/>
+      <TextObject Name="Text35" Left="28.35" Top="311.85" Width="94.5" Height="151.2" Border.Lines="Top, Bottom" Text="体&#13;&#10;征" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text36" Left="122.85" Top="311.85" Width="75.6" Height="37.8" Border.Lines="Left" Border.TopLine.Width="1.5" Text="心" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text37" Left="122.85" Top="349.65" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" Text="脾" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text38" Left="122.85" Top="387.45" Width="75.6" Height="37.8" Border.Lines="Left" Border.TopLine.Width="1.5" Text="皮肤" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text39" Left="122.85" Top="425.25" Width="75.6" Height="37.8" Border.Lines="Left, Top, Bottom" Text="其他" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text40" Left="198.45" Top="311.85" Width="255.15" Height="37.8" Border.Lines="Left" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text41" Left="198.45" Top="349.65" Width="255.15" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text42" Left="198.45" Top="387.45" Width="500.85" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text43" Left="198.45" Top="425.25" Width="255.15" Height="37.8" Border.Lines="Left, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text44" Left="453.6" Top="311.85" Width="85.05" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" Text="肝" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text45" Left="453.6" Top="349.65" Width="85.05" Height="37.8" Border.Lines="Left, Bottom" Text="肺" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text46" Left="538.65" Top="311.85" Width="160.65" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text47" Left="538.65" Top="349.65" Width="160.65" Height="37.8" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text48" Left="453.6" Top="387.45" Width="245.7" Height="37.8" Border.Lines="Left, Top, Bottom" Text="医师签名" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text49" Left="28.35" Top="463.05" Width="94.5" Height="113.4" Border.Lines="Top, Bottom" Text="X线胸透或&#13;&#10;胸部拍片" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text50" Left="122.85" Top="463.05" Width="444.15" Height="113.4" Border.Lines="Left, Top, Bottom" HorzAlign="Right" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text51" Left="567" Top="463.05" Width="132.3" Height="113.4" Border.Lines="Top, Bottom" Text="医师签名" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text53" Left="122.85" Top="576.45" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" Text="检查项目" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text54" Left="349.65" Top="576.45" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" Text="检查结果" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text55" Left="576.45" Top="576.45" Width="122.85" Height="37.8" Border.Lines="Left, Top, Bottom" Text="检验医师签名" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text56" Left="122.85" Top="614.25" Width="75.6" Height="75.6" Border.Lines="Left, Bottom" Text="其他" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text57" Left="198.45" Top="614.25" Width="151.2" Height="37.8" Border.Lines="Left, Bottom" Text="痢疾杆菌" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text58" Left="198.45" Top="652.05" Width="151.2" Height="37.8" Border.Lines="Left, Bottom" Text="伤寒或副伤寒" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text59" Left="122.85" Top="689.85" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Text="HAV  IgM" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text60" Left="122.85" Top="727.65" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Text="HEV  IgM" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text62" Left="349.65" Top="614.25" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text63" Left="349.65" Top="652.05" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text64" Left="349.65" Top="689.85" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text65" Left="349.65" Top="727.65" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text67" Left="576.45" Top="614.25" Width="122.85" Height="75.6" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text68" Left="576.45" Top="689.85" Width="122.85" Height="75.6" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text52" Left="28.35" Top="576.45" Width="94.5" Height="226.8" Border.Lines="Top, Bottom" Border.BottomLine.Width="1.5" Text="实&#13;&#10;验&#13;&#10;室&#13;&#10;检&#13;&#10;查" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text1" Left="198.45" Top="66.15" Width="321.3" Height="37.8" Text="从业人员健康检查表" Font="宋体, 24pt, style=Bold"/>
+      <TextObject Name="Text2" Left="160.65" Top="28.35" Width="37.8" Height="18.9" Text="编号" Font="宋体, 10pt"/>
+      <TextObject Name="Text3" Left="198.45" Top="28.35" Width="122.85" Height="18.9" Border.Lines="Bottom" Text="2015040100023" HorzAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text4" Left="321.3" Top="28.35" Width="236.25" Height="18.9" Text="中华人民共和国预防性健康检查用表" Font="宋体, 10pt"/>
+      <TextObject Name="Text5" Left="576.45" Width="113.4" Height="132.3" Border.Lines="All" Text="照&#13;&#10;片" HorzAlign="Center" VertAlign="Center" Font="宋体, 14pt"/>
+      <TextObject Name="Text6" Left="28.35" Top="132.3" Width="94.5" Height="18.9" Text="体检日期" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text7" Left="122.85" Top="132.3" Width="132.3" Height="18.9" Text="2015年04月23日" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text61" Left="122.85" Top="765.45" Width="226.8" Height="37.8" Border.Lines="Left, Bottom" Border.BottomLine.Width="1.5" Text="其他" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text66" Left="349.65" Top="765.45" Width="349.65" Height="37.8" Border.Lines="Left, Bottom" Border.TopLine.Width="1.5" Border.BottomLine.Width="1.5" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text69" Left="28.35" Top="812.7" Width="94.5" Height="18.9" Text="检查结论：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text72" Left="548.1" Top="897.75" Width="94.5" Height="18.9" Text="（盖章）" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text70" Left="311.85" Top="954.45" Width="94.5" Height="18.9" Text="经办人：" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text71" Left="529.2" Top="954.45" Width="122.85" Height="18.9" Text="2014年4月23日" VertAlign="Center" Font="宋体, 12pt"/>
+      <LineObject Name="Line2" Left="28.35" Top="982.8" Width="670.95" Border.Width="1.5"/>
+      <TextObject Name="Text73" Left="28.35" Top="992.25" Width="670.95" Height="47.25" Text="注：此表用于公共场所、食品生产经营、化妆品生产和供水从业人员的预防性健康检查无体检结论、体检专用章无效。" VertAlign="Center" Font="宋体, 12pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

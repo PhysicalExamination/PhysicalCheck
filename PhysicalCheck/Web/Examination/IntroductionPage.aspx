@@ -10,6 +10,8 @@
             window.open(sURL, "_blank", "", true);
         }
 
+        
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
@@ -46,6 +48,7 @@
                                 操作
                             </th>
                         </tr>
+                        <tbody>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">

@@ -71,8 +71,8 @@ public partial class Examination_CheckResultInputPage : BasePage {
         using (RegistrationBusiness Registration = new RegistrationBusiness()) {
             int RecordCount = 0;
             DateTime CheckDate = Convert.ToDateTime(txtCheckedDate.Text);
-            RegistrationRepeater.DataSource = Registration.GetCheckedList(Pager.CurrentPageIndex, Pager.PageSize,
-            CheckDate, out RecordCount);
+            RegistrationRepeater.DataSource = Registration.GetCheckedList(Pager.CurrentPageIndex, 
+                Pager.PageSize,CheckDate,txtRegisterNo.Text, out RecordCount);
             Pager.RecordCount = RecordCount;
         }
         base.DataBind();
@@ -151,8 +151,7 @@ public partial class Examination_CheckResultInputPage : BasePage {
     #region 私有方法
 
     private void ClientInitial() {
-        txtCheckedDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
-        //m_GroupResut.GetGroupResults( DepartNo
+        txtCheckedDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");       
         using (ItemGroupBusiness Business = new ItemGroupBusiness()) {
             List<ItemGroupViewEntity> ItemGroups = Business.GetItemGroups();
             drpGroups.DataSource = ItemGroups.Where(p => p.DeptID == DepartNo);

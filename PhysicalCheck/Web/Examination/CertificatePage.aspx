@@ -44,7 +44,8 @@
                             </th>
                             <th>体检日期
                             </th>
-                            <th>办理健康证条件
+                            <th>套餐</th>
+                            <th>体检结论
                             </th>
                             <th>操作
                             </th>
@@ -66,6 +67,9 @@
                         </td>
                         <td class="VLine" align="center">
                             <%# EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                        </td>
+                        <td class="VLine" align="center">
+                            <%#Eval("PackageName") %>
                         </td>
                         <td class="VLine" align="center">
                              <%#GetHealthCondition(Eval("HealthCondition"))%>
@@ -91,6 +95,9 @@
                         </td>
                         <td class="VLine" align="center">
                             <%#EnvShowFormater.GetShortDate(Eval("CheckDate"))%>
+                        </td>
+                        <td class="VLine" align="center">
+                            <%#Eval("PackageName") %>
                         </td>
                         <td class="VLine" align="center">
                             <%#GetHealthCondition(Eval("HealthCondition"))%>

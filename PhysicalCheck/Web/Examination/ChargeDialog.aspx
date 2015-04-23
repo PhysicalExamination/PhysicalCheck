@@ -16,7 +16,10 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="Server">
-    缴费人/单位<asp:TextBox ID="txtSearchKey" runat="server" CssClass="textbox31" />
+   <%-- 缴费人/单位<asp:TextBox ID="txtSearchKey" runat="server" CssClass="textbox31" />--%>
+    起始日期<asp:TextBox ID="txtStartDate" CssClass="textbox31" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+    截止日期<asp:TextBox ID="txtEndDate" CssClass="textbox31" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+
     <asp:Button ID="btnSearch" runat="server" Text="检索" CssClass="buttonCss" OnClick="btnSearch_Click" />
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>
@@ -24,25 +27,20 @@
                 <HeaderTemplate>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <th>
-                                缴费单号
+                            <th>缴费单号
                             </th>
-                            <th>
-                                缴费人
+                            <th>缴费人
                             </th>
-                            <th>
-                                体检人数
+                            <th>体检人数
                             </th>
-                            <th>
-                                体检套餐
-                            </th>
-                            <th>
-                                操作
-                            </th>
+                            <th>体检套餐
+                            </th>                         
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr class="tr1" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr1'">
+                    <tr class="tr1" onmouseover="javascript:this.className='tr3';" 
+                        onmouseout="javascript:this.className='tr1'"
+                        onclick="onSelected('<%# Eval("BillNo")%>    ', <%# Eval("PackageID") %>,'<%#Eval("PackageName")%>    ',<%#Eval("ChargeDeptID")%>,'<%#Eval("Payer")%>    ')">
                         <td class="VLine" align="center">
                             <%# Eval("BillNo") %>
                         </td>
@@ -55,13 +53,13 @@
                         <td class="VLine" align="center">
                             <%# Eval("PackageName")%>
                         </td>
-                        <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="选择" onclick="onSelected('<%# Eval("BillNo")%>', <%# Eval("PackageID") %>,'<%#Eval("PackageName")%>',<%#Eval("ChargeDeptID")%>,'<%#Eval("Payer")%>')" />
-                        </td>
+                       
                     </tr>
                 </ItemTemplate>
                 <AlternatingItemTemplate>
-                    <tr class="tr2" onmouseover="javascript:this.className='tr3';" onmouseout="javascript:this.className='tr2'">
+                    <tr class="tr2" onmouseover="javascript:this.className='tr3';" 
+                        onmouseout="javascript:this.className='tr2'"
+                        onclick="onSelected('<%# Eval("BillNo")%>    ', <%# Eval("PackageID") %>,'<%#Eval("PackageName")%>    ',<%#Eval("ChargeDeptID")%>,'<%#Eval("Payer")%>    ')">
                         <td class="VLine" align="center">
                             <%# Eval("BillNo") %>
                         </td>
@@ -73,10 +71,7 @@
                         </td>
                         <td class="VLine" align="center">
                             <%# Eval("PackageName")%>
-                        </td>
-                        <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="选择" onclick="onSelected('<%# Eval("BillNo")%>', <%# Eval("PackageID") %>,'<%#Eval("PackageName")%>',<%#Eval("ChargeDeptID")%>,'<%#Eval("Payer")%>')" />
-                        </td>
+                        </td>                       
                     </tr>
                 </AlternatingItemTemplate>
                 <FooterTemplate>

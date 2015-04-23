@@ -40,15 +40,13 @@ namespace DataAccess.Examination {
         }
 
         public List<ChargeViewEntity> GetChargesForRegister(int pageIndex, int pageSize,
-            String DeptName, out int RecordCount) {
+            String DeptName, DateTime StartDate,DateTime EndDate, out int RecordCount) {
             var q = Session.Query<ChargeViewEntity>();
             q = q.Where(p => p.Enabled == true &&p.CheckedCount<p.CheckNum);
-            if (String.IsNullOrWhiteSpace(DeptName)) {
-                q = q.Where(p => p.PaymentDate == DateTime.Now.Date);
-            }
-            else {
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
                 q = q.Where(p => p.Payer.Contains(DeptName));
             }
+            q = q.Where(p => p.PaymentDate >= StartDate && p.PaymentDate <= EndDate);
             q = q.OrderByDescending(p => p.BillNo);
             List<ChargeViewEntity> Result = q.ToPagedList<ChargeViewEntity>(pageIndex, pageSize).ToList();
             RecordCount = q.Count();

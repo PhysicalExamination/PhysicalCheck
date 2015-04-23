@@ -29,6 +29,7 @@
             <asp:UpdatePanel ID="UP1" runat="Server">
                 <ContentTemplate>
                     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtCheckedDate" runat="server" onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+                     登记号/身份证号<asp:TextBox CssClass="textbox31" ID="txtRegisterNo" runat="server" />
                     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
                     <asp:Repeater ID="RegistrationRepeater" runat="server" OnItemCommand="ItemCommand">
                         <HeaderTemplate>

@@ -9,6 +9,7 @@ using BusinessLogic.Examination;
 using DataEntity.Examination;
 
 public partial class Examination_OverallCheckedPage : BasePage {
+
     #region 私有成员
 
     private RegistrationBusiness m_Registration;
@@ -35,7 +36,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         base.OnLoad(e);
         if (!IsPostBack) {
             ClientInitial();
-            DataBind();           
+            DataBind();
         }
     }
 
@@ -83,6 +84,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         txtRecommend.Text = "";
         txtSummary.Text = "";
     }
+
     /// <summary>
     /// 填充界面
     /// </summary>
@@ -97,9 +99,9 @@ public partial class Examination_OverallCheckedPage : BasePage {
         txtCheckDate.Text = EnvShowFormater.GetShortDate(Result.CheckDate);
         txtName.Text = Result.Name;
         drpSex.SelectedValue = Result.Sex;
-        txtSummary.Text= Result.Summary;
+        txtSummary.Text = Result.Summary;
         txtConclusion.Text = Result.Conclusion;
-        txtRecommend.Text = Result.Recommend;       
+        txtRecommend.Text = Result.Recommend;
     }
 
     /// <summary>
@@ -116,7 +118,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
             RegisterDate = RegInfo.RegisterDate,
             CheckDate = RegInfo.CheckDate,
             PersonID = RegInfo.PersonID,
-            PackageID=  RegInfo.PackageID,
+            PackageID = RegInfo.PackageID,
             IsCheckOver = IsCheckOver,
             Conclusion = txtConclusion.Text,
             Recommend = txtRecommend.Text,
@@ -127,7 +129,32 @@ public partial class Examination_OverallCheckedPage : BasePage {
             EvaluateResult = drpEvaluateResult.SelectedValue,
             HealthCondition = drpHealthCondition.SelectedValue,
             Enabled = RegInfo.Enabled
-        };  
+        };
+        return Result;
+    }
+
+    private RegistrationEntity GetRegistrationForChecked(String RegNo, bool IsPassed) {
+        RegistrationViewEntity RegInfo = m_Registration.GetRegistration(RegNo);
+        RegistrationEntity Result = new RegistrationEntity {
+            ChargeNo = RegInfo.ChargeNo,
+            RegisterNo = RegInfo.RegisterNo,
+            RegisterDate = RegInfo.RegisterDate,
+            CheckDate = RegInfo.CheckDate,
+            PersonID = RegInfo.PersonID,
+            PackageID = RegInfo.PackageID,
+            IsCheckOver = true,
+            Conclusion = "总检合格",          
+            OverallDate = DateTime.Now.Date,
+            OverallDoctor = UserName,  
+            EvaluateResult = "01",
+            HealthCondition = "02",
+            Enabled = RegInfo.Enabled
+        };
+        if (!IsPassed) {
+            Result.Conclusion = "总检不合格";
+            Result.EvaluateResult = "02";
+            Result.HealthCondition = "";
+        }
         return Result;
     }
 
@@ -140,7 +167,7 @@ public partial class Examination_OverallCheckedPage : BasePage {
         foreach (Control ctrl in Controls) {
             if (ctrl is WebControl) ((WebControl)ctrl).Enabled = Enabled;
         }
-    }    
+    }
 
     #endregion
 
@@ -154,20 +181,20 @@ public partial class Examination_OverallCheckedPage : BasePage {
         //int Succeed = m_Registration.SaveRegistration(Result);
         //if (Succeed > 0) ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
-        DataBind();       
+        DataBind();
     }
 
     protected void btnNew_Click(object sender, EventArgs e) {
         ClearUI();
-        btnSave.Enabled = CanEditData;       
+        btnSave.Enabled = CanEditData;
     }
-   
+
     protected void btnEdit_Click(object sender, EventArgs e) {
-     
+
     }
 
     protected void btnCancel_Click(object sender, EventArgs e) {
-        ClearUI();       
+        ClearUI();
     }
 
     protected void btnSearch_Click(object sender, EventArgs e) {
@@ -189,6 +216,24 @@ public partial class Examination_OverallCheckedPage : BasePage {
 
 
     protected void btnBatch_Click(object source, EventArgs e) {
+        RepeaterItemCollection Items = RegistrationRepeater.Items;
+        CheckBox chkSelected;
+        Literal lblRegisterNo, lblCheckedStatus;
+        foreach (RepeaterItem Item in Items) {
+            chkSelected = (CheckBox)Item.FindControl("chkSelected");
+            lblRegisterNo = (Literal)Item.FindControl("lblRegisterNo");
+            lblCheckedStatus = (Literal)Item.FindControl("lblCheckedStatus");
+            //合格
+            if ((chkSelected.Checked) && (lblCheckedStatus.Text == "1")) {
+                var RegInfo = GetRegistrationForChecked(lblRegisterNo.Text, true);
+                m_Registration.SaveOverallChecked(RegInfo);
+            }
+            //不合格
+            if ((chkSelected.Checked) && (lblCheckedStatus.Text == "2")) {
+                var RegInfo = GetRegistrationForChecked(lblRegisterNo.Text, false);
+                m_Registration.SaveOverallChecked(RegInfo);
+            }
+        }
     }
 
     #endregion

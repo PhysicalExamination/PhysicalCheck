@@ -77,9 +77,10 @@ namespace DataAccess.Examination {
         /// <param name="RecordCount"></param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
-            DateTime CheckDate, out int RecordCount) {
+            DateTime CheckDate,String RegisterNo, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver == false);
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) q = q.Where(p => p.RegisterNo == RegisterNo);
             q = q.OrderBy(p => p.RegisterNo);
             RecordCount = q.Count();
             return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();

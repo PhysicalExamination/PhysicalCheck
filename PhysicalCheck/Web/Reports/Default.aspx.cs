@@ -198,7 +198,7 @@ public partial class Reports_Default : BasePage {
     public void BuildBarCodeReport(String RegisterNo) {
         if (String.IsNullOrWhiteSpace(RegisterNo)) return;
         WebReport1.ReportFile = Server.MapPath("BarCode.frx");
-        WebReport1.Report.RegisterData(m_Util.GetBarCodesForGuLang(RegisterNo), "BarCodes");
+        WebReport1.Report.RegisterData(m_Util.GetBarCodesForGuLang(RegisterNo), "BarCodes");   
         WebReport1.Report.Prepare();
     }
 

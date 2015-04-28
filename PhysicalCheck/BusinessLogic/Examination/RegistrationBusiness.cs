@@ -193,6 +193,10 @@ namespace BusinessLogic.Examination {
             //}
         }
 
+        public List<DataGroupEntity> GetDataByGroup(String YearMonth, String Category) {
+            return DataAccess.GetDataByGroup(YearMonth, Category);
+        }
+
         #endregion
 
         #region 检查结果

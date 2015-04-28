@@ -53,6 +53,7 @@
     <Compile Include="Examination\ChargeViewEntity.cs" />
     <Compile Include="Examination\CheckPersonEntity.cs" />
     <Compile Include="Examination\CheckPersonViewEntity.cs" />
+    <Compile Include="Examination\DataGroupEntity.cs" />
     <Compile Include="Examination\DepartmentGroupEntity.cs" />
     <Compile Include="Examination\DepartmentGroupViewEntity.cs" />
     <Compile Include="Examination\DepartmentPackageEntity.cs" />

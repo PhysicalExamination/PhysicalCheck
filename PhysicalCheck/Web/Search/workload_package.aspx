@@ -36,12 +36,10 @@
                 <HeaderTemplate>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-
                             <th>套餐
                             </th>
                             <th>工作量
                             </th>
-
                             <th>合计价格
                             </th>
                         </tr>

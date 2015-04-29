@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/29/2015 10:13:31" ReportInfo.Modified="04/29/2015 11:16:20" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="GroupData" ReferenceName="GroupData" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="GroupName" DataType="System.String"/>
+      <Column Name="PassedCount" DataType="System.Int32"/>
+      <Column Name="UnpassedCount" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <Parameter Name="YearMonth" DataType="System.String" Expression="0" Description="统计年月"/>
+    <Total Name="PassedSum" Expression="[GroupData.PassedCount]" Evaluator="Data1"/>
+    <Total Name="UnpassedSum" Expression="[GroupData.UnpassedCount]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="75.6">
+      <TextObject Name="Text7" Left="198.45" Top="9.45" Width="321.3" Height="47.25" Text="武威市从业体检统计" HorzAlign="Center" VertAlign="Center" Font="黑体, 24pt, style=Bold"/>
+      <TextObject Name="Text8" Left="519.75" Top="56.7" Width="198.45" Height="18.9" Text="统计年月：[YearMonth]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="119.65" Width="718.2" Height="37.8" DataSource="GroupData">
+      <TextObject Name="Text4" Width="207.9" Height="37.8" Border.Lines="All" Border.LeftLine.Width="1.5" Text="[GroupData.GroupName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text5" Left="207.9" Width="283.5" Height="37.8" Border.Lines="All" Text="[GroupData.PassedCount]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <TextObject Name="Text6" Left="491.4" Width="226.8" Height="37.8" Border.Lines="All" Border.RightLine.Width="1.5" Text="[GroupData.UnpassedCount]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="78.72" Width="718.2" Height="37.8">
+        <TextObject Name="Text1" Width="207.9" Height="37.8" Border.Lines="All" Border.LeftLine.Width="1.5" Border.TopLine.Width="1.5" Text="分组名称" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <TextObject Name="Text2" Left="207.9" Width="283.5" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="合格人数（人）" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+        <TextObject Name="Text3" Left="491.4" Width="226.8" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Border.RightLine.Width="1.5" Text="不合格人数（人）" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt, style=Bold"/>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="160.57" Width="718.2" Height="37.8">
+        <TextObject Name="Text9" Width="207.9" Height="37.8" Border.Lines="All" Border.LeftLine.Width="1.5" Border.BottomLine.Width="1.5" Text="合计" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text10" Left="207.9" Width="283.5" Height="37.8" Border.Lines="All" Border.BottomLine.Width="1.5" Text="[PassedSum]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text11" Left="491.4" Width="226.8" Height="37.8" Border.Lines="All" Border.RightLine.Width="1.5" Border.BottomLine.Width="1.5" Text="[UnpassedSum]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+      </DataFooterBand>
+    </DataBand>
+  </ReportPage>
+</Report>

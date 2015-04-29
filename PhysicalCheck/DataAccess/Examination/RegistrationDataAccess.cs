@@ -272,8 +272,13 @@ namespace DataAccess.Examination {
         }
 
         public List<DataGroupEntity> GetDataByGroup(String YearMonth, String Category) {
-            var q = Session.Query<RegistrationViewEntity>()
-                    .Where(p => p.CheckDate.Value.ToString("yyyy-MM") == YearMonth);
+            if (String.IsNullOrWhiteSpace(YearMonth)) return null;
+            int Year = Convert.ToInt32(YearMonth.Substring(0, 4));
+            int Month = Convert.ToInt32(YearMonth.Substring(5, 2));
+            DateTime StartDate = new DateTime(Year, Month, 1);
+            DateTime EndDate = StartDate.AddMonths(1).AddDays(-1);
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate));
             //返回结果
             List<DataGroupEntity> Result = new List<DataGroupEntity>();
             //体检合格人数
@@ -313,32 +318,35 @@ namespace DataAccess.Examination {
 
             if (Category == "2") {
                 var Industry = Session.Query<IndustryEntity>();
-                PassedList = q.Where(p => p.HealthCondition == "01").GroupBy(p => new {
-                    GroupID = p.IndustryID.Value
-                }).Join(Industry, a => a.Key.GroupID, b => b.IndustryID, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.IndustryName,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
-                    YearMonth = YearMonth,
-                    GroupID = p.GroupID,
-                    GroupName = p.GroupName,
-                    PassedCount = p.Count,
-                    UnpassedCount = 0
-                }).ToList();
+                PassedList = q.Where(p => p.HealthCondition == "01")
+                    .Join(Industry, a => a.IndustryID, b => b.IndustryID, (a, b) => new {
+                        GroupID = a.IndustryID,
+                        GroupName = b.IndustryName
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID.Value,
+                        GroupName = p.GroupName
+                    }).Select(p => new DataGroupEntity {
+                        YearMonth = YearMonth,
+                        GroupID = p.Key.GroupID,
+                        GroupName = p.Key.GroupName,
+                        PassedCount = p.Count(),
+                        UnpassedCount = 0
+                    }).ToList();
                 //体检不合格人数
-                UnpassedList = q.Where(p => p.HealthCondition == "02").GroupBy(p => new {
-                    GroupID = p.IndustryID.Value
-                }).Join(Industry, a => a.Key.GroupID, b => b.IndustryID, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.IndustryName,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
+                UnpassedList = q.Where(p => p.HealthCondition == "02")
+                    .Join(Industry, a => a.IndustryID, b => b.IndustryID, (a, b) => new {
+                        GroupID = a.IndustryID,
+                        GroupName = b.IndustryName
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID,
+                        GroupName = p.GroupName
+                    })
+                .Select(p => new DataGroupEntity {
                     YearMonth = YearMonth,
-                    GroupID = p.GroupID,
-                    GroupName = p.GroupName,
+                    GroupID = p.Key.GroupID.Value,
+                    GroupName = p.Key.GroupName,
                     PassedCount = 0,
-                    UnpassedCount = p.Count
+                    UnpassedCount = p.Count()
                 }).ToList();
             }
 
@@ -347,68 +355,72 @@ namespace DataAccess.Examination {
             #region 按工种分组
 
             if (Category == "3") {
-                var Trades = Session.Query<CommonCodeEntity>().Where(p => p.Category == "003");
-                PassedList = q.Where(p => p.HealthCondition == "01").GroupBy(p => new {
-                    GroupID = p.TradeCode
-                }).Join(Trades, a => a.Key.GroupID, b => b.Code, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.Name,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
-                    YearMonth = YearMonth,
-                    GroupID = Convert.ToInt32(p.GroupID),
-                    GroupName = p.GroupName,
-                    PassedCount = p.Count,
-                    UnpassedCount = 0
-                }).ToList();
+                var Trades = Session.Query<CommonCodeEntity>();//.Where(p => p.Category == "003");
+                PassedList = q.Where(p => p.HealthCondition == "01")
+                    .Join(Trades, a => a.TradeCode, b => b.Code, (a, b) => new {
+                        GroupID = a.TradeCode,
+                        GroupName = b.Name
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID,
+                        GroupName = p.GroupName
+                    }).Select(p => new DataGroupEntity {
+                        YearMonth = YearMonth,
+                        GroupID = Convert.ToInt32(p.Key.GroupID),
+                        GroupName = p.Key.GroupName,
+                        PassedCount = p.Count(),
+                        UnpassedCount = 0
+                    }).ToList();
                 //体检不合格人数
-                UnpassedList = q.Where(p => p.HealthCondition == "02").GroupBy(p => new {
-                    GroupID = p.TradeCode
-                }).Join(Trades, a => a.Key.GroupID, b => b.Code, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.Name,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
-                    YearMonth = YearMonth,
-                    GroupID = Convert.ToInt32(p.GroupID),
-                    GroupName = p.GroupName,
-                    PassedCount = 0,
-                    UnpassedCount = p.Count
-                }).ToList();
+                UnpassedList = q.Where(p => p.HealthCondition == "02")
+                    .Join(Trades, a => a.TradeCode, b => b.Code, (a, b) => new {
+                        GroupID = a.TradeCode,
+                        GroupName = b.Name
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID,
+                        GroupName = p.GroupName
+                    }).Select(p => new DataGroupEntity {
+                        YearMonth = YearMonth,
+                        GroupID = Convert.ToInt32(p.Key.GroupID),
+                        GroupName = p.Key.GroupName,
+                        PassedCount = 0,
+                        UnpassedCount = p.Count()
+                    }).ToList();
             }
 
             #endregion
 
             #region 按地区分组
-            var Regions = Session.Query<RegionEntity>().Where(p => p.RegionCode == "620600000");
+            var Regions = Session.Query<RegionEntity>();
             if (Category == "4") {
-                PassedList = q.Where(p => p.HealthCondition == "01").GroupBy(p => new {
-                    GroupID = p.RegionCode
-                }).Join(Regions, a => a.Key.GroupID, b => b.RegionCode, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.RegionName,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
-                    YearMonth = YearMonth,
-                    GroupID = Convert.ToInt32(p.GroupID),
-                    GroupName = p.GroupName,
-                    PassedCount = p.Count,
-                    UnpassedCount = 0
-                }).ToList();
+                PassedList = q.Where(p => p.HealthCondition == "01")
+                    .Join(Regions, a => a.RegionCode, b => b.RegionCode, (a, b) => new {
+                        GroupID = a.RegionCode,
+                        GroupName = b.RegionName
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID,
+                        GroupName = p.GroupName
+                    }).Select(p => new DataGroupEntity {
+                        YearMonth = YearMonth,
+                        GroupID = Convert.ToInt32(p.Key.GroupID),
+                        GroupName = p.Key.GroupName,
+                        PassedCount = p.Count(),
+                        UnpassedCount = 0
+                    }).ToList();
                 //体检不合格人数
-                UnpassedList = q.Where(p => p.HealthCondition == "02").GroupBy(p => new {
-                    GroupID = p.RegionCode
-                }).Join(Regions, a => a.Key.GroupID, b => b.RegionCode, (a, b) => new {
-                    GroupID = a.Key.GroupID,
-                    GroupName = b.RegionName,
-                    Count = a.Count()
-                }).Select(p => new DataGroupEntity {
-                    YearMonth = YearMonth,
-                    GroupID = Convert.ToInt32(p.GroupID),
-                    GroupName = p.GroupName,
-                    PassedCount = 0,
-                    UnpassedCount = p.Count
-                }).ToList();
+                UnpassedList = q.Where(p => p.HealthCondition == "02")
+                    .Join(Regions, a => a.RegionCode, b => b.RegionCode, (a, b) => new {
+                        GroupID = a.RegionCode,
+                        GroupName = b.RegionName
+                    }).GroupBy(p => new {
+                        GroupID = p.GroupID,
+                        GroupName=p.GroupName
+                    }).Select(p => new DataGroupEntity {
+                        YearMonth = YearMonth,
+                        GroupID = Convert.ToInt32(p.Key.GroupID),
+                        GroupName = p.Key.GroupName,
+                        PassedCount = 0,
+                        UnpassedCount = p.Count()
+                    }).ToList();
             }
 
             #endregion

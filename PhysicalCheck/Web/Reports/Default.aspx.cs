@@ -48,6 +48,7 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
+            if (ReportKind == "64") BuildIntegrateSearch();//组合查询
         }
     }
 
@@ -276,6 +277,30 @@ public partial class Reports_Default : BasePage {
         WebReport1.Prepare();
     }
 
+
+    private void BuildIntegrateSearch() {
+        String YearMonth = Request.Params["YearMonth"];
+        String Category = Request.Params["Category"];
+        if (String.IsNullOrWhiteSpace(YearMonth)) return;
+        if (String.IsNullOrWhiteSpace(Category)) return;
+        String Year = YearMonth.Substring(0, 4);
+        String Month = YearMonth.Substring(5, 2);
+        String ParaValue = Year + "年" + Month + "月";
+        using (RegistrationBusiness Business = new RegistrationBusiness()) {
+            var GroupData = Business.GetDataByGroup(YearMonth, Category);
+            Report report = new Report();
+            report.Load(Server.MapPath("IntegrateSearchReport.frx"));
+            report.SetParameterValue("YearMonth", ParaValue);
+            report.RegisterData(GroupData, "GroupData");
+            WebReport1.Report = report;
+            report.Prepare();
+            //WebReport1.ReportFile = Server.MapPath("IntegrateSearchReport.frx");
+            //WebReport1.Report.SetParameterValue("YearMonth", "2015年4月");
+            //WebReport1.Report.RegisterData(GroupData, "GroupData");
+            //WebReport1.Prepare();
+        }
+
+    }
 
     #endregion
 }

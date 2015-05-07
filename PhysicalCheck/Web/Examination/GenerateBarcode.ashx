@@ -2,12 +2,10 @@
 
 using System;
 using System.Web;
-using BarcodeLib;
 using Drawing = System.Drawing;
 using System.IO;
 using Imaging = System.Drawing.Imaging;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 public class GenerateBarcode : IHttpHandler {
 

@@ -45,6 +45,7 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "5") BuildHealthCardBatch();//健康证批量
             //if（ReportKind=="6") BuildTransfer(RegisterNo);//调离通知
             //if (ReportKind =="7") BuildReviewNotice(RegisterNo);//复查通知
+            if (ReportKind == "8") BuildPractitionerReport(RegisterNo);//复查通知
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
             if (ReportKind == "63") BuildSearch_workload_checkItem();//查询-检查医生工作量
@@ -195,6 +196,15 @@ public partial class Reports_Default : BasePage {
     #endregion
 
     #region 私有方法
+
+    private void BuildPractitionerReport(String RegisterNo) {
+        if (String.IsNullOrWhiteSpace(RegisterNo)) return;
+        WebReport1.ReportFile = Server.MapPath("PractitionerReport.frx");
+        List<PractitionerReport> ReportData = new List<PractitionerReport>();  
+        ReportData.Add(m_Registration.GetPractitionerReport(RegisterNo));
+        WebReport1.Report.RegisterData(ReportData, "ReportData");
+        WebReport1.Report.Prepare();
+    }
 
     public void BuildBarCodeReport(String RegisterNo) {
         if (String.IsNullOrWhiteSpace(RegisterNo)) return;

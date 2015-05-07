@@ -41,7 +41,7 @@ namespace BusinessLogic.Examination {
         /// <returns></returns>
         public List<RegistrationViewEntity> GetCheckedList(int pageIndex, int pageSize,
             DateTime CheckDate, String RegisterNo, out int RecordCount) {
-            return DataAccess.GetCheckedList(pageIndex, pageSize, CheckDate,RegisterNo, out RecordCount);
+            return DataAccess.GetCheckedList(pageIndex, pageSize, CheckDate, RegisterNo, out RecordCount);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace BusinessLogic.Examination {
             using (GroupResultDataAccess Group = new GroupResultDataAccess()) {
                 //Result.Summary=  String.Join(Environment.NewLine, Group.GetGroupSummary(RegisterNo).ToArray());
                 Result.Summary = String.Join("     ", Group.GetGroupSummary(RegisterNo).ToArray());
-            } 
+            }
             return Result;
         }
 
@@ -153,7 +153,7 @@ namespace BusinessLogic.Examination {
                 PackageID = Registration.PackageID
             };
             DataAccess.SaveRegistration(RegEntity);
-            Registration.RegisterNo = RegEntity.RegisterNo;           
+            Registration.RegisterNo = RegEntity.RegisterNo;
             SaveCheckedGroups(RegEntity.RegisterNo, RegEntity.PackageID.Value, Registration.Groups);
             IncreaseCheckedCount(Registration.ChargeNo);
         }
@@ -186,7 +186,7 @@ namespace BusinessLogic.Examination {
             }*/
         }
 
-        public void UpdatePhoto(String RegisterNo,String Photo){
+        public void UpdatePhoto(String RegisterNo, String Photo) {
             //RegistrationViewEntity RegInfo = DataAccess.GetRegistration(RegisterNo);
             //using (CheckPersonDataAccess CheckPerson = new CheckPersonDataAccess()) {
             //    CheckPerson.GetCheckPerson(RegInfo.PersonID.Value);
@@ -195,6 +195,48 @@ namespace BusinessLogic.Examination {
 
         public List<DataGroupEntity> GetDataByGroup(String YearMonth, String Category) {
             return DataAccess.GetDataByGroup(YearMonth, Category);
+        }
+
+        #endregion
+
+        #region 体检报告
+
+        public PractitionerReport GetPractitionerReport(String RegisterNo) {
+            RegistrationViewEntity RegInfo = DataAccess.GetRegistration(RegisterNo);
+            List<ItemResultViewEntity> ItemResults = GetItemResults(RegisterNo);
+            PractitionerReport Report = new PractitionerReport {
+                RegisterNo = RegInfo.RegisterNo,
+                CheckDate = RegInfo.CheckDate.Value,
+                CheckDoctor = RegInfo.OverallDoctor,
+                OverCheckedDate = RegInfo.OverallDate,
+                Name = RegInfo.Name,
+                Sex = RegInfo.Sex,
+                Nation = RegInfo.Name,
+                TradeName = RegInfo.TradeCode,
+                Age = RegInfo.Age,
+                Conclusion = RegInfo.Conclusion,
+                DysenteryBacillus = "无",
+                LibTyphoidFever = "无"
+            };
+            foreach (ItemResultViewEntity ItemResult in ItemResults) {
+                if (ItemResult.ID.ItemID == 17) Report.SignSkin = ItemResult.CheckedResult;//皮肤
+                if (ItemResult.ID.ItemID == 18) Report.Spleen = ItemResult.CheckedResult;//脾
+                if (ItemResult.ID.ItemID == 19) Report.Lung = ItemResult.CheckedResult;//肺
+                if (ItemResult.ID.ItemID == 20) Report.Liver = ItemResult.CheckedResult;//肝
+                if (ItemResult.ID.ItemID == 21) Report.Heart = ItemResult.CheckedResult;//心
+
+                if (ItemResult.ID.ItemID == 22) Report.Skin = ItemResult.CheckedResult;//既往病史皮肤
+                if (ItemResult.ID.ItemID == 23) Report.Pulmonary = ItemResult.CheckedResult;//既往病史肺结核
+                if (ItemResult.ID.ItemID == 24) Report.TyphoidFever = ItemResult.CheckedResult;//既往病史伤寒
+                if (ItemResult.ID.ItemID == 25) Report.Dysentery = ItemResult.CheckedResult;//既往病史痢疾
+                if (ItemResult.ID.ItemID == 26) Report.Hepatitis = ItemResult.CheckedResult;//既往病史肝炎
+
+                if (ItemResult.ID.ItemID == 27) Report.XLine = ItemResult.CheckedResult;//X线胸透
+
+                if (ItemResult.ID.ItemID == 30) Report.HAV = ItemResult.CheckedResult;//X线胸透
+                if (ItemResult.ID.ItemID == 31) Report.HEV = ItemResult.CheckedResult;//X线胸透
+            }
+            return Report;
         }
 
         #endregion
@@ -232,8 +274,14 @@ namespace BusinessLogic.Examination {
         }
 
         public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
-            using (ItemResultBusiness ItemResult = new ItemResultBusiness()) {
+            using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
                 return ItemResult.GetItemResults(RegisterNo, GroupID);
+            }
+        }
+
+        public List<ItemResultViewEntity> GetItemResults(string RegisterNo) {
+            using (ItemResultDataAccess ItemResult = new ItemResultDataAccess()) {
+                return ItemResult.GetItemResults(RegisterNo);
             }
         }
 
@@ -262,7 +310,10 @@ namespace BusinessLogic.Examination {
                 List<PackageGroupViewEntity> Groups = Package.GetPackageGroups(PackageID);
                 foreach (PackageGroupViewEntity Group in Groups) {
                     GroupResultEntity GroupResult = new GroupResultEntity {
-                        ID = new GroupResultPK { GroupID = Group.ID.GroupID, RegisterNo = RegisterNo },
+                        ID = new GroupResultPK {
+                            GroupID = Group.ID.GroupID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = Group.DeptID,
                         IsOver = false,
                         PackageID = PackageID
@@ -280,7 +331,10 @@ namespace BusinessLogic.Examination {
                 foreach (int GroupID in Groups) {
                     ItemGroup = ItemGroupDA.GetItemGroup(GroupID);
                     GroupResultEntity GroupResult = new GroupResultEntity {
-                        ID = new GroupResultPK { GroupID = GroupID, RegisterNo = RegisterNo },
+                        ID = new GroupResultPK {
+                            GroupID = GroupID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = ItemGroup.DeptID,
                         IsOver = false,
                         PackageID = -1
@@ -297,7 +351,11 @@ namespace BusinessLogic.Examination {
                 List<ItemGroupDetailViewEntity> Items = ItemGroups.GetItemGroupDetails(GroupID);
                 foreach (ItemGroupDetailViewEntity Item in Items) {
                     ItemResultEntity ItemResult = new ItemResultEntity {
-                        ID = new ItemResultPK { GroupID = GroupID, ItemID = Item.ID.ItemID, RegisterNo = RegisterNo },
+                        ID = new ItemResultPK {
+                            GroupID = GroupID,
+                            ItemID = Item.ID.ItemID,
+                            RegisterNo = RegisterNo
+                        },
                         DeptID = Item.DeptID
                     };
                     ResultDataAccess.SaveItemResult(ItemResult);

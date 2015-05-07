@@ -28,6 +28,18 @@ namespace DataAccess.Examination {
         /// <summary>
         ///获取所有体检项目结论数据
         /// </summary>
+        public List<ItemResultViewEntity> GetItemResults(string RegisterNo) {
+            var q = from p in Session.Query<ItemResultViewEntity>()
+                    where p.ID.RegisterNo == RegisterNo
+                    select p;
+            List<ItemResultViewEntity> Result = q.ToList<ItemResultViewEntity>();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        ///获取所有体检项目结论数据
+        /// </summary>
         public List<ItemResultViewEntity> GetItemResults(string RegisterNo, int GroupID) {
             var q = from p in Session.Query<ItemResultViewEntity>()
                     where p.ID.RegisterNo == RegisterNo && p.ID.GroupID == GroupID

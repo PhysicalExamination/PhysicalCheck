@@ -440,8 +440,7 @@ namespace DataAccess.Examination {
                         UnpassedCount = g.Sum(p => p.UnpassedCount)
                     };
             return R.ToList();
-        }
-
+        }        
 
         #endregion
 

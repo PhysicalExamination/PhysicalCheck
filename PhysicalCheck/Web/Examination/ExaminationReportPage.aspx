@@ -5,7 +5,7 @@
     <script type="text/javascript">
 
         function PrintCheckReport(RegisterNo) {
-            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=2";
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=8";
             window.open(sURL, "_blank", "", true);
         }
 

@@ -84,6 +84,48 @@ public partial class ContentPage : BasePage {
         }
     }
 
+    /// <summary>
+    /// 体检报告
+    /// </summary>
+    protected String CheckReport {
+        get {
+            if (ViewState["CheckReport"] == null) return "#";
+            return (String)ViewState["CheckReport"];
+        }
+        set {
+            ViewState["CheckReport"] = value;
+        }
+    }
+
+    /// <summary>
+    /// 条码打印
+    /// </summary>
+    protected String BarCodePrint {
+        get {
+            if (ViewState["BarCodePrint"] == null) return "#";
+            return (String)ViewState["BarCodePrint"];
+        }
+        set {
+            ViewState["BarCodePrint"] = value;
+        }
+    }
+
+    /// <summary>
+    /// 指引单打印
+    /// </summary>
+    protected String IntroductionPrint {
+        get {
+            if (ViewState["IntroductionPrint"] == null) return "#";
+            return (String)ViewState["IntroductionPrint"];
+        }
+        set {
+            ViewState["IntroductionPrint"] = value;
+        }
+    }
+
+    
+    
+
     #endregion
 
     #region 重写方法
@@ -103,6 +145,9 @@ public partial class ContentPage : BasePage {
             OverallCheckedPage = "Examination/OverallCheckedPage.aspx";
             CertificatePage = " Examination/CertificatePage.aspx";
             IntegratedSearch = "search/customerArchiveList.aspx";
+            CheckReport = "Examination/ExaminationReportPage.aspx";
+            BarCodePrint = "Examination/BarCodePrintPage.aspx";
+            IntroductionPrint = "Examination/IntroductionPage.aspx";
             return;
         }
         using (SysUserBusiness SysUser = new SysUserBusiness()) {           
@@ -111,7 +156,10 @@ public partial class ContentPage : BasePage {
             if (SysUser.HasModulePermit(UserAccount, "00042")) CheckResultInputPage = "Examination/CheckResultInputPage.aspx";
             if (SysUser.HasModulePermit(UserAccount, "00049")) OverallCheckedPage = "Examination/OverallCheckedPage.aspx";
             if (SysUser.HasModulePermit(UserAccount, "00045")) CertificatePage = " Examination/CertificatePage.aspx";
-            if (SysUser.HasModulePermit(UserAccount, "6")) IntegratedSearch = "search/customerArchiveList.aspx";     
+            if (SysUser.HasModulePermit(UserAccount, "6")) IntegratedSearch = "search/customerArchiveList.aspx";
+            if (SysUser.HasModulePermit(UserAccount, "00043")) CheckReport = "Examination/ExaminationReportPage.aspx";
+            if (SysUser.HasModulePermit(UserAccount, "00048")) BarCodePrint = "Examination/BarCodePrintPage.aspx";
+            if (SysUser.HasModulePermit(UserAccount, "00044")) IntroductionPrint = "Examination/IntroductionPage.aspx";          
         }
     }
 

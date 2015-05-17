@@ -287,6 +287,35 @@ namespace BusinessLogic.Examination {
 
         #endregion
 
+        #region 查询统计
+
+        public List<RegistrationViewEntity> GetDataByRegions(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, String RegionCode, out int RecordCount) {
+                return DataAccess.GetDataByRegions(PageIndex, PageSize, StartDate, EndDate, 
+                    RegionCode, out RecordCount);
+        }
+
+        public List<RegistrationViewEntity> GetDataByPackages(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, int PackageID, out int RecordCount) {
+                return DataAccess.GetDataByPackages(PageIndex, PageSize, StartDate, EndDate,
+                    PackageID, out RecordCount);
+        }
+
+        public List<RegistrationViewEntity> GetDataByTrades(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, String TradeCode, out int RecordCount) {
+                return DataAccess.GetDataByTrades(PageIndex, PageSize, StartDate, EndDate,
+                    TradeCode, out RecordCount);
+        }
+
+        public List<RegistrationViewEntity> GetDataByIndustrys(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, int IndustryID, out int RecordCount) {
+                return DataAccess.GetDataByIndustrys(PageIndex, PageSize, StartDate, EndDate,
+                    IndustryID, out RecordCount);
+        }
+
+
+        #endregion
+
         #region 私有方法
 
         /// <summary>

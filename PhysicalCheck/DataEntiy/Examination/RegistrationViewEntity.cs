@@ -350,10 +350,20 @@ namespace DataEntity.Examination {
             set;
         }
 
+        public virtual String TradeName {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 行业
         /// </summary>
         public virtual int? IndustryID {
+            get;
+            set;
+        }
+
+        public virtual String IndustryName {
             get;
             set;
         }

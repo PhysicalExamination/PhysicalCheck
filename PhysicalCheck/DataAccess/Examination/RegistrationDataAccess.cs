@@ -413,7 +413,7 @@ namespace DataAccess.Examination {
                         GroupName = b.RegionName
                     }).GroupBy(p => new {
                         GroupID = p.GroupID,
-                        GroupName=p.GroupName
+                        GroupName = p.GroupName
                     }).Select(p => new DataGroupEntity {
                         YearMonth = YearMonth,
                         GroupID = Convert.ToInt32(p.Key.GroupID),
@@ -440,7 +440,91 @@ namespace DataAccess.Examination {
                         UnpassedCount = g.Sum(p => p.UnpassedCount)
                     };
             return R.ToList();
-        }        
+        }
+
+        #region 查询统计
+
+        /// <summary>
+        /// 按地区统计体检信息
+        /// </summary>
+        /// <param name="PageIndex">起始页号</param>
+        /// <param name="PageSize">页面大小</param>
+        /// <param name="StartDate">起始日期</param>
+        /// <param name="EndDate">结束日期</param>
+        /// <param name="RegionCode">地区代码</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetDataByRegions(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, String RegionCode,out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.RegionCode == RegionCode);
+            q = q.OrderBy(p => p.OverallDate);
+            RecordCount = q.Count();
+            var Result = q.ToPagedList<RegistrationViewEntity>(PageIndex, PageSize).ToList();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 按套餐统计体检信息
+        /// </summary>
+        /// <param name="PageIndex">起始页号</param>
+        /// <param name="PageSize">页面大小</param>
+        /// <param name="StartDate">起始日期</param>
+        /// <param name="EndDate">结束日期</param>
+        /// <param name="RegionCode">套餐代码</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetDataByPackages(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, int PackageID,out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.PackageID == PackageID);
+            q = q.OrderBy(p => p.OverallDate);
+            RecordCount = q.Count();
+            var Result = q.ToPagedList<RegistrationViewEntity>(PageIndex, PageSize).ToList();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 按工种统计体检信息
+        /// </summary>
+        /// <param name="PageIndex">起始页号</param>
+        /// <param name="PageSize">页面大小</param>
+        /// <param name="StartDate">起始日期</param>
+        /// <param name="EndDate">结束日期</param>
+        /// <param name="RegionCode">套餐代码</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetDataByTrades(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, String TradeCode, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.TradeCode == TradeCode);
+            q = q.OrderBy(p => p.OverallDate);
+            RecordCount = q.Count();
+            var Result = q.ToPagedList<RegistrationViewEntity>(PageIndex, PageSize).ToList();
+            CloseSession();
+            return Result;
+        }
+
+        /// <summary>
+        /// 按行业统计体检信息
+        /// </summary>
+        /// <param name="PageIndex">起始页号</param>
+        /// <param name="PageSize">页面大小</param>
+        /// <param name="StartDate">起始日期</param>
+        /// <param name="EndDate">结束日期</param>
+        /// <param name="RegionCode">套餐代码</param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetDataByIndustrys(int PageIndex, int PageSize,
+            DateTime StartDate, DateTime EndDate, int IndustryID, out int RecordCount) {
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.IndustryID == IndustryID);
+            q = q.OrderBy(p => p.CheckDate);
+            RecordCount = q.Count();
+            var Result = q.ToPagedList<RegistrationViewEntity>(PageIndex, PageSize).ToList();
+            CloseSession();
+            return Result;
+        }
+
+        #endregion
 
         #endregion
 

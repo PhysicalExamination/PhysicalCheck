@@ -44,6 +44,8 @@
         <property name="TradeCode" column="TradeCode" type="String" not-null="false" length="6"/>
         <property name="IndustryID" column="IndustryID" type="Int32" not-null="false"/>
         <property name="RegionCode" column="RegionCode" type="String" not-null="false" length="20"/>
-    </class>
+		<property name="IndustryName" column="industryName" type="String" not-null="false" length="600" />
+		<property name="TradeName" column="TradeName" type="String" not-null="true" length="150" />
+	</class>
 </hibernate-mapping>
 

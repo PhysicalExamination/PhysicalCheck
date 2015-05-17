@@ -517,7 +517,7 @@ namespace DataAccess.Examination {
             DateTime StartDate, DateTime EndDate, int IndustryID, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.IndustryID == IndustryID);
-            q = q.OrderBy(p => p.CheckDate);
+            q = q.OrderBy(p => p.OverallDate);
             RecordCount = q.Count();
             var Result = q.ToPagedList<RegistrationViewEntity>(PageIndex, PageSize).ToList();
             CloseSession();

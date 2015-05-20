@@ -108,7 +108,7 @@ public partial class SysConfig_IndustryPage : BasePage {
     private void ClearIndustryUI() {
         IndustryID = -1;
         txtIndustryName.Text = "";
-        txtValidity.Text = "";      
+        txtValidity.Text = "1";      
     }
     /// <summary>
     /// 填充界面
@@ -141,7 +141,7 @@ public partial class SysConfig_IndustryPage : BasePage {
     protected void btnSaveIndustry_Click(object sender, EventArgs e) {
         IndustryEntity Result = GetIndustryUI();
         m_Industry.SaveIndustry(Result);        
-        //if (Succeed > 0) ShowMessage("数据保存成功!");
+        ShowMessage("数据保存成功!");
         //if (Succeed < 0) ShowMessage("数据保存失败!");
         DataBind();
         SetUIState("Default");
@@ -156,7 +156,7 @@ public partial class SysConfig_IndustryPage : BasePage {
     protected void btnDeleteIndustry_Click(object sender, EventArgs e) {
         m_Industry.DeleteIndustry(GetIndustryUI());
         //int Succeed = m_Industry.DeleteIndustry(GetIndustryUI());
-        //if (Succeed > 0) ShowMessage("数据删除成功!");
+        ShowMessage("数据删除成功!");
         //if (Succeed < 0) ShowMessage("数据删除失败!");
         DataBind();
         SetUIState("Default");

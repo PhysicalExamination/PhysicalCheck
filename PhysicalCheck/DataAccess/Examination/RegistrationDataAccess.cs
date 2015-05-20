@@ -44,7 +44,7 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if (RegisterDate != null) {
+            if ((String.IsNullOrWhiteSpace(RegisterNo)) &&(RegisterDate != null)) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
@@ -60,7 +60,7 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if (RegisterDate != null) {
+            if ((String.IsNullOrWhiteSpace(RegisterNo)) &&(RegisterDate != null)) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
             Criteria.AddOrder(new Order("RegisterNo", true));

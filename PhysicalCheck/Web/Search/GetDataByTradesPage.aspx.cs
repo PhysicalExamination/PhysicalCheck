@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Search_GetDataByTradesPage : System.Web.UI.Page {
+public partial class Search_GetDataByTradesPage : BasePage {
     protected override void OnLoad(EventArgs e) {
         if (!IsPostBack) {
             ClientInitial();

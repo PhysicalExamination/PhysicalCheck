@@ -1,6 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true" CodeFile="GetDataByRegionsPage.aspx.cs" Inherits="Search_GetDataByRegionsPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        function PrintReport() {
+            var StartDate = $("#<%=txtStartDate.ClientID%>").val();
+            var EndDate = $("#<%=txtEndDate.ClientID%>").val();
+            var RegionCode = $("#<%=drpRegions.ClientID%>").val();
+            var RegionName = $("#<%=drpRegions.ClientID%>").find("option:selected").text();
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegionCode=" + RegionCode +
+                       "&RegionName=" + RegionName + "&StartDate=" + StartDate +
+                       "&EndDate=" + EndDate + "&ReportKind=68";
+            window.open(sURL, "_blank", "", true);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
@@ -9,7 +21,7 @@
         onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
     所属区域<asp:DropDownList ID="drpRegions" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-    <input type="button" class="buttonCss" value="导出" />
+    <input type="button" class="buttonCss" value="导出" onclick="PrintReport();"/>
 
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>

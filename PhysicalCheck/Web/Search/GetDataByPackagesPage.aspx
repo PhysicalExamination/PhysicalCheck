@@ -1,15 +1,27 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/ContentMasterPage.master" AutoEventWireup="true" CodeFile="GetDataByPackagesPage.aspx.cs" Inherits="Search_GetDataByPackagesPage" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        function PrintReport() {
+            var StartDate = $("#<%=txtStartDate.ClientID%>").val();
+            var EndDate = $("#<%=txtEndDate.ClientID%>").val();
+            var PackageID = $("#<%=drpPackages.ClientID%>").val();
+            var PackageName = $("#<%=drpPackages.ClientID%>").find("option:selected").text();
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?PackageID=" + PackageID +
+                       "&PackageName=" + PackageName + "&StartDate=" + StartDate +
+                       "&EndDate=" + EndDate + "&ReportKind=66";
+            window.open(sURL, "_blank", "", true);
+        }
+    </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
         onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />至
     <asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server"
         onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
     体检套餐<asp:DropDownList ID="drpPackages" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
-    <input type="button" class="buttonCss" value="导出" />
+    <input type="button" class="buttonCss" value="导出" onclick="PrintReport();"/>
 
     <asp:UpdatePanel ID="UP1" runat="Server">
         <ContentTemplate>

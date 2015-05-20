@@ -51,6 +51,7 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="Industry">健康行业实体</param>
         public void SaveIndustry(IndustryEntity Industry) {
+            Industry.Enabled = true;
             if (Industry.IndustryID == int.MinValue) Industry.IndustryID = GetLineID("Industry");
             Session.SaveOrUpdate(Industry);
             Session.Flush();
@@ -62,7 +63,8 @@ namespace DataAccess.SysConfig {
         /// </summary>
         /// <param name="Industry">健康行业实体</param>
         public void DeleteIndustry(IndustryEntity Industry) {
-            Session.Delete(Industry);
+            Industry.Enabled = false;
+            Session.SaveOrUpdate(Industry);
             Session.Flush();
             CloseSession();
         }

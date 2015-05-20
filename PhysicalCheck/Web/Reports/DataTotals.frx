@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/20/2015 11:00:33" ReportInfo.Modified="05/20/2015 13:10:32" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="GroupData" ReferenceName="GroupData" DataType="System.Collections.Generic.List`1[]" Enabled="true">
+      <Column Name="RegisterNo" DataType="System.String"/>
+      <Column Name="Name" DataType="System.String"/>
+      <Column Name="IDNumber" DataType="System.String"/>
+      <Column Name="Sex" DataType="System.String"/>
+      <Column Name="Age" DataType="System.Int32"/>
+      <Column Name="TradeName" DataType="System.String"/>
+      <Column Name="IndustryName" DataType="System.String"/>
+      <Column Name="DeptName" DataType="System.String"/>
+      <Column Name="PackageName" DataType="System.String"/>
+      <Column Name="OverallDoctor" DataType="System.String"/>
+      <Column Name="HealthCondition" DataType="System.String"/>
+      <Column Name="OverallDate" DataType="System.DateTime"/>
+    </BusinessObjectDataSource>
+    <Parameter Name="ReportTitle" DataType="System.String"/>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="66.15">
+      <TextObject Name="Text1" Left="258.93" Top="9.45" Width="510.3" Height="28.35" Text="[ReportTitle]" AutoWidth="true" Font="黑体, 24pt"/>
+      <TextObject Name="Text24" Left="699.3" Top="47.25" Width="85.05" Height="18.9" Text="统计时间：" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="784.35" Top="47.25" Width="113.4" Height="18.9" Text="[StartDate]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text26" Left="897.75" Top="47.25" Width="28.35" Height="18.9" Text="至" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text27" Left="926.1" Top="47.25" Width="113.4" Height="18.9" Text="[EndDate]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="110.2" Width="1047.06" Height="37.8" DataSource="GroupData">
+      <TextObject Name="Text2" Left="-9.45" Width="113.4" Height="37.8" Border.Lines="All" Border.LeftLine.Width="1.5" Text="[GroupData.RegisterNo]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text4" Left="103.95" Width="75.6" Height="37.8" Border.Lines="All" Text="[GroupData.Name]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text6" Left="179.55" Width="151.2" Height="37.8" Border.Lines="All" Text="[GroupData.IDNumber]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text8" Left="330.75" Width="47.25" Height="37.8" Border.Lines="All" Text="[GroupData.Sex]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text10" Left="378" Width="47.25" Height="37.8" Border.Lines="All" Text="[GroupData.Age]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text12" Left="425.25" Width="113.4" Height="37.8" Border.Lines="All" Text="[GroupData.TradeName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text14" Left="538.65" Width="94.5" Height="37.8" Border.Lines="All" Text="[GroupData.IndustryName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text16" Left="633.15" Width="151.2" Height="37.8" Border.Lines="All" Text="[GroupData.DeptName]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text20" Left="784.35" Width="94.5" Height="37.8" Border.Lines="All" Text="[GroupData.OverallDoctor]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text22" Left="878.85" Width="94.5" Height="37.8" Border.Lines="All" Text="[GroupData.HealthCondition]" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text18" Left="973.35" Width="94.5" Height="37.8" Border.Lines="All" Border.RightLine.Width="1.5" Text="[GroupData.OverallDate]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="69.28" Width="1047.06" Height="37.8" PrintOn="FirstPage, LastPage, OddPages, EvenPages, RepeatedBand" Guides="0">
+        <TextObject Name="Text3" Left="-9.45" Width="113.4" Height="37.8" Border.Lines="All" Border.LeftLine.Width="1.5" Border.TopLine.Width="1.5" Text="体检编号" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text5" Left="103.95" Width="75.6" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="姓名" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text7" Left="179.55" Width="151.2" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="身份证号" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text9" Left="330.75" Width="47.25" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="性别" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text11" Left="378" Width="47.25" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="年龄" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text13" Left="425.25" Width="113.4" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="工种" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text15" Left="538.65" Width="94.5" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="行业" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text17" Left="633.15" Width="151.2" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="工作单位" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text21" Left="784.35" Width="94.5" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="主检医生" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text23" Left="878.85" Width="94.5" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Text="检查结论" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+        <TextObject Name="Text19" Left="973.35" Width="94.5" Height="37.8" Border.Lines="All" Border.TopLine.Width="1.5" Border.RightLine.Width="1.5" Text="报告日期" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt, style=Bold"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>

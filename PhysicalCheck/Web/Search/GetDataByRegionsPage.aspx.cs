@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Search_GetDataByRegionsPage : System.Web.UI.Page {
+public partial class Search_GetDataByRegionsPage : BasePage {
 
     protected override void OnLoad(EventArgs e) {
         if (!IsPostBack) {

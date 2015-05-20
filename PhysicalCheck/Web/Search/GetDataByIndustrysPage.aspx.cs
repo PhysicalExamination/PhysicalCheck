@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Search_GetDataByIndustrysPage : System.Web.UI.Page {
+public partial class Search_GetDataByIndustrysPage : BasePage {
 
     protected override void OnLoad(EventArgs e) {
         if (!IsPostBack) {
@@ -50,8 +50,8 @@ public partial class Search_GetDataByIndustrysPage : System.Web.UI.Page {
 
     private void ClientInitial() {
         DateTime CurrentDate = DateTime.Now.Date;
-        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy年MM月dd日");
-        txtEndDate.Text = CurrentDate.ToString("yyyy年MM月dd日");
+        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy-MM-dd");
+        txtEndDate.Text = CurrentDate.ToString("yyyy-MM-dd");
         using (IndustryBusiness Industry = new IndustryBusiness()) {
             drpIndustrys.DataSource = Industry.GetIndustrys();
             drpIndustrys.DataValueField = "IndustryID";

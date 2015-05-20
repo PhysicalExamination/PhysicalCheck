@@ -7,6 +7,12 @@
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=4";
             window.open(sURL, "_blank", "", true);
         }
+
+        function PrintCheckReport1(RegisterNo) {
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=9";
+            window.open(sURL, "_blank", "", true);
+        }
+
         function BatchPrintReport(){
             var CheckDate=$("#<%=txtSRegisterDate.ClientID%>").val();
             var DeptName = $("#<%=txtsDeptName.ClientID%>").val();
@@ -75,7 +81,8 @@
                              <%#GetHealthCondition(Eval("HealthCondition"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="食药证打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="健康证打印" onclick="PrintCheckReport1('<%# Eval("RegisterNo")%>    ');" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -103,7 +110,8 @@
                             <%#GetHealthCondition(Eval("HealthCondition"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="食药证打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="健康证打印" onclick="PrintCheckReport1('<%# Eval("RegisterNo")%>    ');" />
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

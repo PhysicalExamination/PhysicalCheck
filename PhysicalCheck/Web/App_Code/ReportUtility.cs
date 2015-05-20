@@ -117,6 +117,66 @@ public class ReportUtility {
                 };
         return q.ToList();
     }
+
+    public List<RegistrationViewEntity> GetIndustryDataTotals(int IndustryID,DateTime StartDate,
+        DateTime EndDate) {
+            int RecordCount = 0;
+         List<RegistrationViewEntity> Result = m_Registration.GetDataByIndustrys(1, 2000, StartDate, 
+             EndDate, IndustryID, out RecordCount);
+         Result.ForEach(p => {
+             if (p.HealthCondition == "") p.HealthCondition = "待检";
+             if (p.HealthCondition == "01") p.HealthCondition = "合格";
+             if (p.HealthCondition == "02") p.HealthCondition = "不合格";
+             if (p.HealthCondition == "03") p.HealthCondition = "缺项";
+             if (p.HealthCondition == "04") p.HealthCondition = "复查";
+         });
+         return Result;
+    }
+
+    public List<RegistrationViewEntity> GetPackageDataTotals(int PackageID, DateTime StartDate,
+        DateTime EndDate) {
+        int RecordCount = 0;
+        List<RegistrationViewEntity> Result = m_Registration.GetDataByPackages(1, 2000, StartDate,
+            EndDate, PackageID, out RecordCount);
+        Result.ForEach(p => {
+            if (p.HealthCondition == "") p.HealthCondition = "待检";
+            if (p.HealthCondition == "01") p.HealthCondition = "合格";
+            if (p.HealthCondition == "02") p.HealthCondition = "不合格";
+            if (p.HealthCondition == "03") p.HealthCondition = "缺项";
+            if (p.HealthCondition == "04") p.HealthCondition = "复查";
+        });
+        return Result;
+    }
+
+    public List<RegistrationViewEntity> GetRegionDataTotals(String RegionCode, DateTime StartDate,
+        DateTime EndDate) {
+        int RecordCount = 0;
+        List<RegistrationViewEntity> Result = m_Registration.GetDataByRegions(1, 2000, StartDate,
+            EndDate, RegionCode, out RecordCount);
+        Result.ForEach(p => {
+            if (p.HealthCondition == "") p.HealthCondition = "待检";
+            if (p.HealthCondition == "01") p.HealthCondition = "合格";
+            if (p.HealthCondition == "02") p.HealthCondition = "不合格";
+            if (p.HealthCondition == "03") p.HealthCondition = "缺项";
+            if (p.HealthCondition == "04") p.HealthCondition = "复查";
+        });
+        return Result;
+    }
+
+    public List<RegistrationViewEntity> GetTradeDataTotals(String TradeCode, DateTime StartDate,
+        DateTime EndDate) {
+        int RecordCount = 0;
+        List<RegistrationViewEntity> Result = m_Registration.GetDataByTrades(1, 2000, StartDate,
+            EndDate, TradeCode, out RecordCount);
+        Result.ForEach(p => {
+            if (p.HealthCondition == "") p.HealthCondition = "待检";
+            if (p.HealthCondition == "01") p.HealthCondition = "合格";
+            if (p.HealthCondition == "02") p.HealthCondition = "不合格";
+            if (p.HealthCondition == "03") p.HealthCondition = "缺项";
+            if (p.HealthCondition == "04") p.HealthCondition = "复查";
+        });
+        return Result;
+    }
 }
 
 public class BarCode {

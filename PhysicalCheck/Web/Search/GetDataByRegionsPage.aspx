@@ -6,7 +6,7 @@
             var StartDate = $("#<%=txtStartDate.ClientID%>").val();
             var EndDate = $("#<%=txtEndDate.ClientID%>").val();
             var RegionCode = $("#<%=drpRegions.ClientID%>").val();
-            var RegionName = $("#<%=drpRegions.ClientID%>").find("option:selected").text();
+            var RegionName = encodeURI($("#<%=drpRegions.ClientID%>").find("option:selected").text());
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegionCode=" + RegionCode +
                        "&RegionName=" + RegionName + "&StartDate=" + StartDate +
                        "&EndDate=" + EndDate + "&ReportKind=68";
@@ -16,9 +16,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />至
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />至
     <asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
     所属区域<asp:DropDownList ID="drpRegions" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <input type="button" class="buttonCss" value="导出" onclick="PrintReport();"/>

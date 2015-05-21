@@ -6,7 +6,7 @@
             var StartDate = $("#<%=txtStartDate.ClientID%>").val();
             var EndDate = $("#<%=txtEndDate.ClientID%>").val();
             var IndustryID = $("#<%=drpIndustrys.ClientID%>").val();
-            var IndustryName = $("#<%=drpIndustrys.ClientID%>").find("option:selected").text();
+            var IndustryName = encodeURI($("#<%=drpIndustrys.ClientID%>").find("option:selected").text());
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?IndustryID=" + IndustryID +
                        "&IndustryName=" + IndustryName + "&StartDate=" + StartDate +
                        "&EndDate=" + EndDate + "&ReportKind=65";

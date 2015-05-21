@@ -49,8 +49,8 @@ public partial class Search_GetDataByRegionsPage : BasePage {
 
     private void ClientInitial() {
         DateTime CurrentDate = DateTime.Now.Date;
-        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy年MM月dd日");
-        txtEndDate.Text = CurrentDate.ToString("yyyy年MM月dd日");
+        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy-MM-dd");
+        txtEndDate.Text = CurrentDate.ToString("yyyy-MM-dd");
         using (RegionBusiness Region = new RegionBusiness()) {
             drpRegions.DataSource = Region.GetRegions("620600000");
             drpRegions.DataValueField = "RegionCode";

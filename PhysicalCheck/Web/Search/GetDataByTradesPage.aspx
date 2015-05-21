@@ -6,7 +6,7 @@
             var StartDate = $("#<%=txtStartDate.ClientID%>").val();
             var EndDate = $("#<%=txtEndDate.ClientID%>").val();
             var TradeCode = $("#<%=drpTrades.ClientID%>").val();
-            var TradeName = $("#<%=drpTrades.ClientID%>").find("option:selected").text();
+            var TradeName = encodeURI($("#<%=drpTrades.ClientID%>").find("option:selected").text());
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?TradeCode=" + TradeCode +
                        "&TradeName=" + TradeName + "&StartDate=" + StartDate +
                        "&EndDate=" + EndDate + "&ReportKind=67";
@@ -15,10 +15,11 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-    体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />至
+    体检日期
+    <asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />至
     <asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
     工种<asp:DropDownList ID="drpTrades" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <input type="button" class="buttonCss" value="导出" onclick="PrintReport();"/>

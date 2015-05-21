@@ -48,8 +48,8 @@ public partial class Search_GetDataByTradesPage : BasePage {
 
     private void ClientInitial() {
         DateTime CurrentDate = DateTime.Now.Date;
-        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy年MM月dd日");
-        txtEndDate.Text = CurrentDate.ToString("yyyy年MM月dd日");
+        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy-MM-dd");
+        txtEndDate.Text = CurrentDate.ToString("yyyy-MM-dd");
         using (CommonCodeBusiness CommonCode = new CommonCodeBusiness()) {
             drpTrades.DataSource = CommonCode.GetCommonCodes("003");
             drpTrades.DataValueField = "Code";

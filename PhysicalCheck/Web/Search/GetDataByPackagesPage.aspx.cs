@@ -50,8 +50,8 @@ public partial class Search_GetDataByPackagesPage : BasePage {
 
     private void ClientInitial() {
         DateTime CurrentDate = DateTime.Now.Date;
-        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy年MM月dd日");
-        txtEndDate.Text = CurrentDate.ToString("yyyy年MM月dd日");
+        txtStartDate.Text = CurrentDate.AddDays(-7).ToString("yyyy-MM-dd");
+        txtEndDate.Text = CurrentDate.ToString("yyyy-MM-dd");
         using (PackageBusiness Package = new PackageBusiness()) {
             drpPackages.DataSource = Package.GetPackages();
             drpPackages.DataValueField = "PackageID";

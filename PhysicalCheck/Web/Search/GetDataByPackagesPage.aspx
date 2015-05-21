@@ -6,7 +6,7 @@
             var StartDate = $("#<%=txtStartDate.ClientID%>").val();
             var EndDate = $("#<%=txtEndDate.ClientID%>").val();
             var PackageID = $("#<%=drpPackages.ClientID%>").val();
-            var PackageName = $("#<%=drpPackages.ClientID%>").find("option:selected").text();
+            var PackageName = encodeURI($("#<%=drpPackages.ClientID%>").find("option:selected").text());
             var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?PackageID=" + PackageID +
                        "&PackageName=" + PackageName + "&StartDate=" + StartDate +
                        "&EndDate=" + EndDate + "&ReportKind=66";
@@ -16,9 +16,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
     体检日期<asp:TextBox CssClass="textbox31  Wdate" ID="txtStartDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />至
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />至
     <asp:TextBox CssClass="textbox31  Wdate" ID="txtEndDate" runat="server"
-        onclick="new WdatePicker(this,'%Y年%M月%D日',false,'whyGreen')" />
+        onclick="new WdatePicker(this,'%Y-%M-%D',false,'whyGreen')" />
     体检套餐<asp:DropDownList ID="drpPackages" runat="server" />
     <asp:Button ID="btnSearch" runat="server" CssClass="buttonCss" Text="检索" OnClick="btnSearch_Click" />
     <input type="button" class="buttonCss" value="导出" onclick="PrintReport();"/>

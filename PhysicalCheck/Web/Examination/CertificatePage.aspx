@@ -13,6 +13,11 @@
             window.open(sURL, "_blank", "", true);
         }
 
+        function printHealthCertificate(RegisterNo){
+            var sURL = "<%=ApplicationPath%>/Reports/Default.aspx?RegisterNo=" + RegisterNo + "&ReportKind=10";
+            window.open(sURL, "_blank", "", true);
+        }
+
         function BatchPrintReport(){
             var CheckDate=$("#<%=txtSRegisterDate.ClientID%>").val();
             var DeptName = $("#<%=txtsDeptName.ClientID%>").val();
@@ -81,8 +86,8 @@
                              <%#GetHealthCondition(Eval("HealthCondition"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="食药证打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
-                            <input type="button" class="buttonCss" value="健康证打印" onclick="PrintCheckReport1('<%# Eval("RegisterNo")%>    ');" />
+                            <input type="button" class="buttonCss" value="健康卡打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="健康证打印" onclick="printHealthCertificate('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -110,8 +115,8 @@
                             <%#GetHealthCondition(Eval("HealthCondition"))%>
                         </td>
                         <td class="VLine" align="center">
-                            <input type="button" class="buttonCss" value="食药证打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
-                            <input type="button" class="buttonCss" value="健康证打印" onclick="PrintCheckReport1('<%# Eval("RegisterNo")%>    ');" />
+                            <input type="button" class="buttonCss" value="健康卡打印" onclick="PrintCheckReport('<%# Eval("RegisterNo")%>');" />
+                            <input type="button" class="buttonCss" value="健康证打印" onclick="printHealthCertificate('<%# Eval("RegisterNo")%>');" />
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

@@ -45,7 +45,8 @@ public partial class Reports_Default : BasePage {
             if (ReportKind == "5") BuildHealthCardBatch();//健康证批量
             //if（ReportKind=="6") BuildTransfer(RegisterNo);//调离通知
             //if (ReportKind =="7") BuildReviewNotice(RegisterNo);//复查通知
-            if (ReportKind == "9") BuildHealthCard1(RegisterNo);//健康证
+            if (ReportKind == "9") BuildHealthCard1(RegisterNo);//古浪健康证（食）
+            if (ReportKind == "10") BuildHealthCertificate(RegisterNo);
             if (ReportKind == "8") BuildPractitionerReport(RegisterNo);//复查通知
             if (ReportKind == "61") BuildSearch_Composed();//组合查询
             if (ReportKind == "62") BuildSearch_workload_package();//查询-科室工作量
@@ -209,6 +210,24 @@ public partial class Reports_Default : BasePage {
         ReportData.Add(m_Registration.GetPractitionerReport(RegisterNo));
         WebReport1.Report.RegisterData(ReportData, "ReportData");
         WebReport1.Report.Prepare();
+    }
+
+    /// <summary>
+    /// 打印健康证
+    /// </summary>
+    /// <param name="RegisterNo"></param>
+    private void BuildHealthCertificate(String RegisterNo) {
+        if (String.IsNullOrWhiteSpace(RegisterNo)) return;
+        //WebReport1.ReportFile = Server.MapPath("HealthCertificate.frx");
+        var Registration = m_Registration.GetRegistration(RegisterNo);
+        List<RegistrationViewEntity> Registrations = new List<RegistrationViewEntity>();
+        Registrations.Add(Registration);
+        Report report = new Report();
+        report.Load(Server.MapPath("HealthCertificate.frx"));
+        report.RegisterData(Registrations, "Registration");
+        WebReport1.Report = report;
+        report.Prepare();
+        //WebReport1.Report.GetDataSource("RegDatas");
     }
 
     public void BuildBarCodeReport(String RegisterNo) {

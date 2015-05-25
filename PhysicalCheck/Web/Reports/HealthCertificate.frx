@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/25/2015 10:55:15" ReportInfo.Modified="05/25/2015 15:30:09" ReportInfo.CreatorVersion="2013.2.5.0">
+	<Dictionary>
+		<BusinessObjectDataSource Name="Registration" ReferenceName="Registration" DataType="System.Collections.Generic.List`1[]" PropName="RegData" Enabled="true">
+			<Column Name="Name" DataType="System.String"/>
+			<Column Name="Sex" DataType="System.String"/>
+			<Column Name="Age" DataType="System.Int32"/>
+			<Column Name="Job" DataType="System.String"/>
+			<Column Name="DeptName" DataType="System.String"/>
+			<Column Name="RegisterNo" DataType="System.String"/>
+			<Column Name="OverallDoctor" DataType="System.String"/>
+			<Column Name="OverallDate" DataType="System.DateTime"/>
+		</BusinessObjectDataSource>
+	</Dictionary>
+	<ReportPage Name="Page1" Landscape="true" PaperWidth="130" PaperHeight="95" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0">
+		<DataBand Name="Data1" Width="491.4" Height="359.1" DataSource="Registration">
+			<TextObject Name="Text1" Left="313.74" Top="211.68" Width="66.15" Height="18.9" Text="[Registration.Name]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text2" Left="425.25" Top="211.68" Width="28.35" Height="18.9" Text="[Registration.Sex]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text3" Left="321.3" Top="241.92" Width="28.35" Height="18.9" Text="[Registration.Age]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text4" Left="398.01" Top="241.92" Width="66.15" Height="18.9" Text="[Registration.Job]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text5" Left="343.98" Top="272.16" Width="94.5" Height="18.9" Text="[Registration.DeptName]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text6" Left="294.84" Top="302.4" Width="75.6" Height="18.9" Text="[Registration.RegisterNo]" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text7" Left="397.68" Top="302.4" Width="66.15" Height="18.9" Text="[Registration.OverallDate]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+		</DataBand>
+	</ReportPage>
+	<ReportPage Name="Page2" Landscape="true" PaperWidth="130" PaperHeight="95" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0">
+		<DataBand Name="Data2" Width="491.4" Height="359.1" DataSource="Registration">
+			<TextObject Name="Text8" Left="66.15" Top="66.15" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text9" Left="162.54" Top="66.15" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text10" Left="66.15" Top="98.28" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text11" Left="162.54" Top="98.28" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text12" Left="66.15" Top="128.52" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text13" Left="162.54" Top="128.52" Width="66.15" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text14" Left="90.72" Top="156.87" Width="37.8" Height="18.9" Text="0.6" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text15" Left="90.72" Top="189" Width="37.8" Height="18.9" Text="0.6" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text16" Left="189" Top="156.87" Width="37.8" Height="18.9" Text="1.0" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text17" Left="189" Top="189" Width="37.8" Height="18.9" Text="1.2" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text18" Left="105.95" Top="217.35" Width="122.85" Height="18.9" Text="无" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text19" Left="85.05" Top="255.15" Width="122.85" Height="18.9" Text="合格" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text20" Left="91.05" Top="304.4" Width="141.75" Height="18.9" Text="[Registration.OverallDate]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text23" Left="302.4" Top="85.05" Width="122.85" Height="18.9" Text="合格" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+			<TextObject Name="Text24" Left="331.75" Top="154.2" Width="132.3" Height="18.9" Text="[Registration.OverallDate]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Bottom" Font="宋体, 10pt"/>
+		</DataBand>
+	</ReportPage>
+</Report>

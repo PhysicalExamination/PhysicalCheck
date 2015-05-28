@@ -71,8 +71,8 @@ public partial class Examination_CheckResultInputPage : BasePage {
         using (RegistrationBusiness Registration = new RegistrationBusiness()) {
             int RecordCount = 0;
             DateTime CheckDate = Convert.ToDateTime(txtCheckedDate.Text);
-            RegistrationRepeater.DataSource = Registration.GetCheckedList(Pager.CurrentPageIndex, 
-                Pager.PageSize,CheckDate,txtRegisterNo.Text, out RecordCount);
+            RegistrationRepeater.DataSource = Registration.GetResultInputList(Pager.CurrentPageIndex, 
+                Pager.PageSize,CheckDate,txtRegisterNo.Text, DepartNo, out RecordCount);
             Pager.RecordCount = RecordCount;
         }
         base.DataBind();

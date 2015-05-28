@@ -115,7 +115,7 @@
                                 </td>
                                 <td class="VLine" align="center">
                                     <asp:Literal runat="server" ID="lblRegisterNo" Text='<%# Eval("RegisterNo") %>' />
-                                    <asp:Literal runat="server" ID="Literal1" Text='<%# Eval("Status") %>' Visible="false" />
+                                    <asp:Literal runat="server" ID="lblCheckedStatus" Text='<%# Eval("Status") %>' Visible="false" />
                                 </td>
                                 <td class="VLine" align="center">
                                     <%# Eval("DeptName") %>

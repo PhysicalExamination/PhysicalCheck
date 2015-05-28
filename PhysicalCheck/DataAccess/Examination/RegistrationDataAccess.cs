@@ -44,7 +44,7 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if ((String.IsNullOrWhiteSpace(RegisterNo)) &&(RegisterDate != null)) {
+            if ((String.IsNullOrWhiteSpace(RegisterNo)) && (RegisterDate != null)) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
             RecordCount = Convert.ToInt32(Criteria.UniqueResult());
@@ -60,7 +60,7 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Or(Restrictions.Eq("RegisterNo", RegisterNo),
                     Restrictions.Eq("IDNumber", RegisterNo)));
             }
-            if ((String.IsNullOrWhiteSpace(RegisterNo)) &&(RegisterDate != null)) {
+            if ((String.IsNullOrWhiteSpace(RegisterNo)) && (RegisterDate != null)) {
                 Criteria.Add(Restrictions.Eq("RegisterDate", RegisterDate));
             }
             Criteria.AddOrder(new Order("RegisterNo", true));
@@ -86,6 +86,36 @@ namespace DataAccess.Examination {
             //});
             q = q.Where(p => p.Enabled == true && p.CheckDate == CheckDate && p.IsCheckOver == false);
             if (!String.IsNullOrWhiteSpace(RegisterNo)) q = q.Where(p => p.RegisterNo == RegisterNo);
+            q = q.OrderBy(p => p.RegisterNo);
+            RecordCount = q.Count();
+            return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+        }
+
+        /// <summary>
+        /// 返回需要录入体检结果的体检人员列表
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="RegisterNo"></param>
+        /// <param name="DeptID"></param>
+        /// <param name="RecordCount"></param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetResultInputList(int pageIndex, int pageSize,
+            DateTime CheckDate, String RegisterNo, int DeptID, out int RecordCount) {
+            var RegisterInfo = Session.Query<RegistrationViewEntity>();
+            var GroupResult = Session.Query<GroupResultViewEntity>();
+            var q = from a in Session.Query<RegistrationViewEntity>()
+                    join b in Session.Query<GroupResultViewEntity>() on a.RegisterNo equals b.ID.RegisterNo
+                    where (b.DeptID == DeptID) && (a.Enabled == true) && (a.CheckDate == CheckDate) && (a.IsCheckOver == false)
+                    select a;
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                q = from a in Session.Query<RegistrationViewEntity>()
+                    join b in Session.Query<GroupResultViewEntity>() on a.RegisterNo equals b.ID.RegisterNo
+                    where (b.DeptID == DeptID) && (a.Enabled == true) && (a.IsCheckOver == false) &&
+                          (a.RegisterNo.Contains(RegisterNo) || a.IDNumber.Contains(RegisterNo))
+                    select a;
+            }
             q = q.OrderBy(p => p.RegisterNo);
             RecordCount = q.Count();
             return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
@@ -140,7 +170,23 @@ namespace DataAccess.Examination {
         /// <returns></returns>
         public IList<RegistrationViewEntity> GetCheckReports(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
-            ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
+            var q = Session.Query<RegistrationViewEntity>();
+            q = q.Where(p => p.Enabled == true && p.IsCheckOver == true);// && p.CheckDate == CheckDate);
+            if (!String.IsNullOrWhiteSpace(DeptName)) {
+                q = q.Where(p => p.DeptName.Contains(DeptName));
+            }
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                q = q.Where(p => p.RegisterNo.Contains(RegisterNo) || p.IDNumber.Contains(RegisterNo));
+            }
+            if (String.IsNullOrWhiteSpace(RegisterNo) && (CheckDate != null)) {
+                q = q.Where(p => p.CheckDate == CheckDate && p.PrintDate == null);
+            }
+            q = q.OrderBy(p => p.RegisterNo);
+            var Result = q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            RecordCount = q.Count();
+            CloseSession();
+            return Result;
+            /*ICriteria Criteria = Session.CreateCriteria<RegistrationViewEntity>();
             Criteria.SetProjection(Projections.RowCount());
             Criteria.Add(Restrictions.Eq("Enabled", true));
             if (!String.IsNullOrWhiteSpace(DeptName)) {
@@ -176,9 +222,8 @@ namespace DataAccess.Examination {
                 Criteria.Add(Restrictions.Eq("IsCheckOver", true));
             }
             Criteria.AddOrder(new Order("RegisterNo", true));
-            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();
-            CloseSession();
-            return Result;
+            IList<RegistrationViewEntity> Result = Criteria.List<RegistrationViewEntity>();*/
+
         }
 
 
@@ -260,6 +305,28 @@ namespace DataAccess.Examination {
                     .SetString(0, InformResult)
                     .SetString(1, InformPerson)
                     .SetString(2, RegisterNo)
+                    .ExecuteUpdate();
+                tx.Commit();
+            }
+            catch {
+                tx.Rollback();
+            }
+            finally {
+                CloseSession();
+            }
+        }
+
+        /// <summary>
+        /// 保存健康证打印时间
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        public void SavePrintDate(String RegisterNo) {
+            String HQL = @"Update RegistrationEntity set PrintDate =? WHERE RegisterNo=?";
+            ITransaction tx = Session.BeginTransaction();
+            try {
+                Session.CreateQuery(HQL)
+                    .SetDateTime(0, DateTime.Now)                  
+                    .SetString(1, RegisterNo)
                     .ExecuteUpdate();
                 tx.Commit();
             }
@@ -454,7 +521,7 @@ namespace DataAccess.Examination {
         /// <param name="RegionCode">地区代码</param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetDataByRegions(int PageIndex, int PageSize,
-            DateTime StartDate, DateTime EndDate, String RegionCode,out int RecordCount) {
+            DateTime StartDate, DateTime EndDate, String RegionCode, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.RegionCode == RegionCode);
             q = q.OrderBy(p => p.OverallDate);
@@ -474,7 +541,7 @@ namespace DataAccess.Examination {
         /// <param name="RegionCode">套餐代码</param>
         /// <returns></returns>
         public List<RegistrationViewEntity> GetDataByPackages(int PageIndex, int PageSize,
-            DateTime StartDate, DateTime EndDate, int PackageID,out int RecordCount) {
+            DateTime StartDate, DateTime EndDate, int PackageID, out int RecordCount) {
             var q = Session.Query<RegistrationViewEntity>();
             q = q.Where(p => (p.CheckDate >= StartDate) && (p.CheckDate <= EndDate) && p.PackageID == PackageID);
             q = q.OrderBy(p => p.OverallDate);

@@ -69,6 +69,24 @@ namespace BusinessLogic.Examination {
             return List;
         }
 
+
+        /// <summary>
+        /// 返回需要录入体检结果的体检人员列表
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="RegisterNo"></param>
+        /// <param name="DeptID"></param>
+        /// <param name="RecordCount"></param>
+        /// <returns></returns>
+        public List<RegistrationViewEntity> GetResultInputList(int pageIndex, int pageSize,
+            DateTime CheckDate, String RegisterNo, int DeptID, out int RecordCount) {
+                return DataAccess.GetResultInputList(pageIndex, pageSize, CheckDate, RegisterNo, 
+                    DeptID, out RecordCount);
+        }
+
+
         public IList<RegistrationViewEntity> GetCheckReports(int pageIndex, int pageSize,
             DateTime? CheckDate, String DeptName, String RegisterNo, out int RecordCount) {
             return DataAccess.GetCheckReports(pageIndex, pageSize, CheckDate, DeptName,
@@ -166,6 +184,14 @@ namespace BusinessLogic.Examination {
         /// <param name="InformPerson">通知人</param>
         public void SaveReview(String RegisterNo, String InformResult, String InformPerson) {
             DataAccess.SaveReview(RegisterNo, InformResult, InformPerson);
+        }
+
+        /// <summary>
+        /// 保存健康证打印时间
+        /// </summary>
+        /// <param name="RegisterNo"></param>
+        public void SavePrintDate(String RegisterNo) {
+            DataAccess.SavePrintDate(RegisterNo);
         }
 
         public void SaveOverallChecked(RegistrationEntity OverallChecked) {

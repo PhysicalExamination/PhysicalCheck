@@ -9,6 +9,7 @@ using NHibernate.Transaction;
 using NHibernate.Linq;
 using NHibernate.Criterion;
 using DataEntity.SysConfig;
+using System.Collections;
 
 namespace DataAccess.Examination {
 
@@ -103,12 +104,12 @@ namespace DataAccess.Examination {
         /// <returns></returns>
         public List<RegistrationViewEntity> GetResultInputList(int pageIndex, int pageSize,
             DateTime CheckDate, String RegisterNo, int DeptID, out int RecordCount) {
-            var RegisterInfo = Session.Query<RegistrationViewEntity>();
+            /*var RegisterInfo = Session.Query<RegistrationViewEntity>();
             var GroupResult = Session.Query<GroupResultViewEntity>();
             var q = from a in Session.Query<RegistrationViewEntity>()
                     join b in Session.Query<GroupResultViewEntity>() on a.RegisterNo equals b.ID.RegisterNo
                     where (b.DeptID == DeptID) && (a.Enabled == true) && (a.CheckDate == CheckDate) && (a.IsCheckOver == false)
-                    select a;
+                    select a;     
             if (!String.IsNullOrWhiteSpace(RegisterNo)) {
                 q = from a in Session.Query<RegistrationViewEntity>()
                     join b in Session.Query<GroupResultViewEntity>() on a.RegisterNo equals b.ID.RegisterNo
@@ -117,8 +118,56 @@ namespace DataAccess.Examination {
                     select a;
             }
             q = q.OrderBy(p => p.RegisterNo);
-            RecordCount = q.Count();
-            return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            q = q.Distinct(new RegistrationComparer()); */
+            //RecordCount = q.Count();// WHERE A.RegisterNo=? and B.DeptID=?
+            /*String HQL = @"SELECT A FROM RegistrationViewEntity as A,
+                           GroupResultViewEntity as B 
+                          WHERE A.RegisterNo=B.ID.RegisterNo AND A.RegisterNo=? AND B.DeptID=?
+                          GROUP BY A.RegisterNo";
+            var f = Session.CreateQuery(HQL).SetString(0, RegisterNo)
+                                            .SetInt32(1, DeptID)
+                                            .SetFirstResult(0)
+                                            .SetFetchSize(pageSize);
+            var Result = f.List<RegistrationViewEntity>();*/
+            String SqlText = @"SELECT A.* FROM RegistrationView  A JOIN  GroupResultView  B ON A.RegisterNo=B.RegisterNo  
+                                WHERE A.Enabled=1 AND A.IsCheckOver=0 AND B.DeptID=? AND A.CheckDate=?
+                                GROUP BY A.RegisterNo";
+            String SqlCount = @"SELECT COUNT(A.RegisterNo) FROM RegistrationView  A   
+                                WHERE  EXISTS (SELECT RegisterNo FROM  GroupResultView  B 
+                                               WHERE A.RegisterNo=B.RegisterNo  AND A.Enabled=1 AND 
+                                                     A.IsCheckOver=0 AND B.DeptID=? AND A.CheckDate=?)";
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                SqlText = @"SELECT A.* FROM RegistrationView  A JOIN  GroupResultView  B ON A.RegisterNo=B.RegisterNo  
+                                WHERE A.Enabled=1 AND A.IsCheckOver=0 AND B.DeptID=? AND A.CheckDate=? AND (A.RegisterNo like '%?%' OR A.IDNumber LIKE '%?%')
+                                GROUP BY A.RegisterNo";
+                SqlCount = @"SELECT COUNT(A.RegisterNo) FROM RegistrationView  A   
+                                WHERE  EXISTS (SELECT RegisterNo FROM  GroupResultView  B 
+                                               WHERE A.RegisterNo=B.RegisterNo  AND A.Enabled=1 AND 
+                                                     A.IsCheckOver=0 AND B.DeptID=? AND A.CheckDate=?  
+                                                     AND (A.RegisterNo like '%?%' OR A.IDNumber LIKE '%?%'))";
+            }
+            IQuery q = Session.CreateSQLQuery(SqlText)
+                              .AddEntity(typeof(RegistrationViewEntity))
+                              .SetInt32(0, DeptID)
+                              .SetDateTime(1, CheckDate);
+            IQuery Countq = Session.CreateSQLQuery(SqlCount)
+                                   .SetInt32(0, DeptID)
+                                   .SetDateTime(1, CheckDate);  
+        
+            q = q.SetFirstResult((pageIndex - 1) * pageSize);
+            q = q.SetFetchSize(pageSize);
+            
+            if (!String.IsNullOrWhiteSpace(RegisterNo)) {
+                q = q.SetString(2, RegisterNo);
+                q = q.SetString(3, RegisterNo);
+
+                Countq = Countq.SetString(2, RegisterNo);
+                Countq = Countq.SetString(3, RegisterNo);
+            }
+            RecordCount = Convert.ToInt32(Countq.UniqueResult());
+            //var Count = Countq.UniqueResult();  
+            //return q.ToPagedList<RegistrationViewEntity>(pageIndex, pageSize).ToList();
+            return q.List<RegistrationViewEntity>().ToList();          
         }
 
 
@@ -325,7 +374,7 @@ namespace DataAccess.Examination {
             ITransaction tx = Session.BeginTransaction();
             try {
                 Session.CreateQuery(HQL)
-                    .SetDateTime(0, DateTime.Now)                  
+                    .SetDateTime(0, DateTime.Now)
                     .SetString(1, RegisterNo)
                     .ExecuteUpdate();
                 tx.Commit();
